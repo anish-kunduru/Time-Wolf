@@ -1,5 +1,6 @@
 package GameEngine;
 
+
 public final class Card {
 
 	//Non mechanical properties
@@ -23,6 +24,7 @@ public final class Card {
 	final private int trashForPower;
 	final private int removeFromPlayArea;
 	final private int othersDiscard;
+	final private int giveCurseCards;
 	final private boolean takeAnotherTurn;
 	final private boolean refreshPlayArea;
 	final private boolean trashAfterUse;
@@ -45,6 +47,7 @@ public final class Card {
 	 * @param trashForPower Number of cards to trash for power. Cost = Power.
 	 * @param removeFromPlayArea Number of cards to discard from play area.
 	 * @param othersDiscard Number of cards other players must discard down to.
+	 * @param giveCurseCards Number of curse cards to give other players.
 	 * @param takeAnotherTurn If true, then the player can take another turn after this one.
 	 * @param refreshPlayArea Discard all cards in the play area and replace.
 	 * @param trashAfterUse
@@ -53,7 +56,7 @@ public final class Card {
 			int vp, int power, int money, int preturnDiscard,
 			int postturnDiscard, int drawCards, int othersDrawCards,
 			int trashCardsMandatory, int trashCardsOptional, int trashForPower, int removeFromPlayArea,
-			int othersDiscard, boolean takeAnotherTurn, boolean refreshPlayArea,
+			int othersDiscard, int giveCurseCards, boolean takeAnotherTurn, boolean refreshPlayArea,
 			boolean trashAfterUse) {
 		super();
 		this.name = name;
@@ -72,6 +75,7 @@ public final class Card {
 		this.trashForPower = trashForPower;
 		this.removeFromPlayArea = removeFromPlayArea;
 		this.othersDiscard = othersDiscard;
+		this.giveCurseCards = giveCurseCards;
 		this.takeAnotherTurn = takeAnotherTurn;
 		this.refreshPlayArea = refreshPlayArea;
 		this.trashAfterUse = trashAfterUse;
@@ -242,6 +246,23 @@ public final class Card {
 	 */
 	public boolean isRefreshPlayArea() {
 		return refreshPlayArea;
+	}
+
+
+	/**
+	 * Give a number of curse cards to all other players
+	 * @return the giveCurseCards
+	 */
+	public int getGiveCurseCards() {
+		return giveCurseCards;
+	}
+
+
+	/**
+	 * @return the trashAfterUse
+	 */
+	public boolean isTrashAfterUse() {
+		return trashAfterUse;
 	}
 	
 	
