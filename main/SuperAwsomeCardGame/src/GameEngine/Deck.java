@@ -26,6 +26,14 @@ public class Deck {
 	}
 	
 	/**
+	 * Add a single card to the draw deck
+	 * @param c Card
+	 */
+	public void addCard(Card c) {
+		this.addCard(c, 1); //Have the full version do the work
+	}
+	
+	/**
 	 * Draw a card from the deck.
 	 * @return the card drawn
 	 */
