@@ -37,6 +37,8 @@ public class GameEngine {
 		//Card that is always available to buy, similiar to the heavy infantry in ascension
 		Card buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
+		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		
 		//TODO - More action cards
 		//historical figure cards costing anywhere between 1-6 attack to defeat
 		
