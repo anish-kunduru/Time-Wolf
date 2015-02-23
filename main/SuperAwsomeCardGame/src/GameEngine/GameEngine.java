@@ -25,6 +25,10 @@ public class GameEngine {
 		Card wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
 						true, false, true);
 		
+		//TODO - More action cards, Beginning cards worth 1 buy and 1 stealth each,
+		//cards that are always available worth 2 buy and 2 stealth costing 3? each,
+		//historical figure cards costing anywhere between 1-6 stealth to defeat
+		
 		
 		
 		//Rest of the game engine stuff here.
