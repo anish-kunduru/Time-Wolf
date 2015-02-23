@@ -25,10 +25,20 @@ public class GameEngine {
 		Card wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
 						true, false, true);
 		
-		//TODO - More action cards, Beginning cards worth 1 buy and 1 stealth each,
-		//cards that are always available worth 2 buy and 2 stealth costing 3? each,
-		//historical figure cards costing anywhere between 1-6 stealth to defeat
+		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
+		Card beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+				
+		//Card that is always available to buy, similiar to the mystic in ascension
+		Card buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+				
+		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
+		Card beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+				
+		//Card that is always available to buy, similiar to the heavy infantry in ascension
+		Card buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
+		//TODO - More action cards
+		//historical figure cards costing anywhere between 1-6 attack to defeat
 		
 		
 		//Rest of the game engine stuff here.
