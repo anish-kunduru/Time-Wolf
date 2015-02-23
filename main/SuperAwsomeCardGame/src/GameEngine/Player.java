@@ -8,13 +8,13 @@ package GameEngine;
 
 public class Player {
 	
-	final private int userID;
-	final private boolean isTurn;
-	final private int actions;
-	final private int currency;
-	final private Hand hand;
-	final private DiscardPile discard;
-	final private Deck deck;
+	private int userID;
+	private boolean isTurn;
+	private int actions;
+	private int currency;
+	private Hand hand;
+	private DiscardPile discard;
+	private Deck deck;
 	
 	/**
 	 * @param userID Foreign key to user objects
@@ -36,6 +36,24 @@ public class Player {
 		this.discard = discard;
 		this.deck = deck;
 		
+	}
+	
+	/**
+	 * Adds the given number of currency to the total currency a player has
+	 * @param numCurrency
+	 */
+	
+	public void addCurrency(int numCurrency){
+		currency += numCurrency;
+	}
+	
+	/**
+	 * Adds the given number of actions to the total actions a player has
+	 * @param numActions
+	 */
+	
+	public void addActions(int numActions){
+		actions += numActions;
 	}
 	
 	/**
