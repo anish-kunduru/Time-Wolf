@@ -23,7 +23,7 @@ public class junitTests {
 	@Before
 	public void setUp() throws Exception {
 		
-		Deck deckOne = new Deck();
+		deckOne = new Deck();
 		
 		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
 		paradox = new Card("Paradox", "There can only be one! All other players go back 10 years", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -40,6 +40,14 @@ public class junitTests {
 		wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
 				true, false, true);
 		
+		//Gain a card costing up to $4
+		
+		//Trash a card in your hand. If you do, gain a card costing up to $3 more
+		
+		//Stealth card of value 2, cost 3
+		
+		//Attack card of value 2, cost 3
+		
 		deckOne.addCard(paradox, 4);
 		deckOne.addCard(scavenge, 4);
 		deckOne.addCard(bury, 4);
@@ -48,8 +56,21 @@ public class junitTests {
 	}
 
 	@Test
-	public void test() {
+	public void testGetName() {
 		assertEquals("Scavenge", scavenge.getName());
 	}
+	
+	@Test
+	public void testDeckSize() {
+		assertEquals(16, deckOne.size());
+	}
+	
+	@Test
+	public void testDeckSizeAfterDraw() {
+		deckOne.draw();
+		assertEquals(15, deckOne.size());
+	}
+	
+	
 
 }
