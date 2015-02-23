@@ -7,23 +7,36 @@ import org.junit.Test;
 
 public class junitTests {
 	
-	/*public Card(String name, String description, int costBuy, int costAttack,
-			int vp, int power, int money, int preturnDiscard,
-			int postturnDiscard, int drawCards, int othersDrawCards,
-			int trashCardsMandatory, int trashCardsOptional, int trashForPower, int removeFromPlayArea,
-			int othersDiscard, int giveCurseCards, boolean takeAnotherTurn, boolean refreshPlayArea,
-			boolean trashAfterUse*/
-	
 	private Deck deckOne;
+	private Deck deckTwo;
+	private Deck deckStart;
+	private DiscardPile discard;
+	private Hand hand;
 	private Card paradox;
 	private Card scavenge;
 	private Card bury;
 	private Card wormhole;
+	private Card beginStealth;
+	private Card buyStealth;
+	private Card beginAttack;
+	private Card buyAttack;
+	
+	/*public Card(String name, String description, int costBuy, int costAttack,
+	int vp, int power, int money, int preturnDiscard,
+	int postturnDiscard, int drawCards, int othersDrawCards,
+	int trashCardsMandatory, int trashCardsOptional, int trashForPower, int removeFromPlayArea,
+	int othersDiscard, int giveCurseCards, boolean takeAnotherTurn, boolean refreshPlayArea,
+	boolean trashAfterUse*/
 
 	@Before
 	public void setUp() throws Exception {
 		
 		deckOne = new Deck();
+		deckTwo = new Deck();
+		
+		discard = new DiscardPile();
+		
+		hand = new Hand(5);
 		
 		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
 		paradox = new Card("Paradox", "There can only be one! All other players go back 10 years", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -40,25 +53,51 @@ public class junitTests {
 		wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
 				true, false, true);
 		
+		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
+		beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		
+		//Card that is always available to buy, similiar to the mystic in ascension
+		buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		
+		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
+		beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		
+		//Card that is always available to buy, similiar to the heavy infantry in ascension
+		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		
 		//Gain a card costing up to $4
 		
 		//Trash a card in your hand. If you do, gain a card costing up to $3 more
 		
-		//Stealth card of value 2, cost 3
-		
-		//Attack card of value 2, cost 3
 		
 		deckOne.addCard(paradox, 4);
 		deckOne.addCard(scavenge, 4);
 		deckOne.addCard(bury, 4);
 		deckOne.addCard(wormhole, 4);
 		
+		deckStart = new Deck();
+		deckStart.addCard(beginStealth, 6);
+		deckStart.addCard(beginAttack, 4);
 	}
+	
+	//Tests for Card Class
 
 	@Test
 	public void testGetName() {
 		assertEquals("Scavenge", scavenge.getName());
 	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("Draw two additional cards!", scavenge.getDescription());
+	}
+	
+	@Test
+	public void testCostBuy() {
+		assertEquals(4, scavenge.getCostBuy());
+	}
+	
+	//Tests for Deck Class
 	
 	@Test
 	public void testDeckSize() {
@@ -70,6 +109,49 @@ public class junitTests {
 		deckOne.draw();
 		assertEquals(15, deckOne.size());
 	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void testDrawWithNoCards() {
+		deckTwo.draw();
+	}
+	
+	@Test
+	public void testDeckSizeDrawWithOneCard() {
+		deckTwo.addCard(beginStealth);
+		deckTwo.draw();
+		assertEquals(0, deckTwo.size());
+	}
+	
+	//Tests for DiscardPile Class
+	
+	@Test
+	public void testDiscardSizeAfterDiscards() {
+		discard.discard(beginAttack);
+		discard.discard(scavenge);
+		discard.discard(buyStealth);
+		assertEquals(3, discard.size());
+	}
+	
+	@Test
+	public void testDiscardSizeAfterAddToDeck() {
+		discard.discard(beginAttack);
+		discard.discard(scavenge);
+		discard.discard(buyStealth);
+		discard.addToDeck(deckTwo);
+		assertEquals(0, discard.size());
+	}
+	
+	@Test
+	public void testDeckSizeeAfterAddToDeck() {
+		discard.discard(beginAttack);
+		discard.discard(scavenge);
+		discard.discard(buyStealth);
+		discard.addToDeck(deckTwo);
+		assertEquals(3, deckTwo.size());
+	}
+	
+	
+	
 	
 	
 
