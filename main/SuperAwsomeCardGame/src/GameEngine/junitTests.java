@@ -57,13 +57,13 @@ public class junitTests {
 		beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
 		//Card that is always available to buy, similiar to the mystic in ascension
-		buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
 		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
 		beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
 		//Card that is always available to buy, similiar to the heavy infantry in ascension
-		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
 		//Gain a card costing up to $4
 		
@@ -93,8 +93,93 @@ public class junitTests {
 	}
 	
 	@Test
-	public void testCostBuy() {
+	public void testGetCostBuy() {
+		assertEquals(3, buyStealth.getCostBuy());
+	}
+	
+	@Test
+	public void testGetVp() {
+		assertEquals(0, scavenge.getVp());
+	}
+	
+	@Test
+	public void testGetCostAttack() {
 		assertEquals(4, scavenge.getCostBuy());
+	}
+	
+	@Test
+	public void testGetPower() {
+		assertEquals(2, buyAttack.getPower());
+	}
+	
+	@Test
+	public void testGetMoney() {
+		assertEquals(2, buyStealth.getMoney());
+	}
+	
+	@Test
+	public void testGetPreturnDiscard() {
+		assertEquals(0, scavenge.getPreturnDiscard());
+	}
+	
+	@Test
+	public void testGetPostTurnDiscard() {
+		assertEquals(0, scavenge.getPostturnDiscard());
+	}
+	
+	@Test
+	public void testGetDrawCards() {
+		assertEquals(2, scavenge.getDrawCards());
+	}
+	
+	@Test
+	public void testGetOthersDrawCards() {
+		assertEquals(0, scavenge.getOthersDrawCards());
+	}
+	
+	@Test
+	public void testGetTrashCardsMandatory() {
+		assertEquals(0, scavenge.getTrashCardsMandatory());
+	}
+	
+	@Test
+	public void testGetTrashCardsOptional() {
+		assertEquals(0, scavenge.getTrashCardsOptional());
+	}
+	
+	@Test
+	public void testGetTrashForPower() {
+		assertEquals(0, scavenge.getTrashForPower());
+	}
+	
+	@Test
+	public void testGetRemoveFromPlayArea() {
+		assertEquals(0, scavenge.getRemoveFromPlayArea());
+	}
+	
+	@Test
+	public void testGetOthersDiscard() {
+		assertEquals(0, scavenge.getOthersDiscard());
+	}
+	
+	@Test
+	public void testIsTakeAnotherTurn() {
+		assertEquals(true, bury.isTakeAnotherTurn());
+	}
+	
+	@Test
+	public void testIsRefreshPlayArea() {
+		assertEquals(false, scavenge.isRefreshPlayArea());
+	}
+	
+	@Test
+	public void getGiveCurseCards() {
+		assertEquals(1, paradox.getGiveCurseCards());
+	}
+	
+	@Test
+	public void testIsTrashAfterUse() {
+		assertEquals(true, paradox.isTrashAfterUse());
 	}
 	
 	//Tests for Deck Class
