@@ -39,9 +39,19 @@ public class GameEngine {
 		
 		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
-		//TODO - More action cards
-		//historical figure cards costing anywhere between 1-6 attack to defeat
 		
+		
+		//TODO - More action cards
+		//historical figure cards costing anywhere between 1-10 attack to defeat
+		
+		
+		//Build the starter deck
+		starter.addCard(beginStealth, 6);
+		starter.addCard(beginAttack, 4);
+		
+		
+		//Build the main game deck
+		maingame.addCard(scavenge, 10);
 		
 		//Rest of the game engine stuff here.
 		
