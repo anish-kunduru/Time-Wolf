@@ -50,5 +50,11 @@ public class Hand implements Iterable<Card> {
 		this.cards.remove(i);
 	}
 
-
+	/**
+	 * Get the current size of the hand.
+	 * @return the size
+	 */
+	public int size() {
+		return this.cards.size();
+	}
 }

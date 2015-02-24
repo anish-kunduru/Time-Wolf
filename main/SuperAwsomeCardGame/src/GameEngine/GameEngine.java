@@ -1,11 +1,14 @@
 package GameEngine;
 
+import java.util.Iterator;
+
+
 public class GameEngine {
 
 	public static void main(String[] args) {
 
 
-		Deck starter = new Deck();  //The deck the player starts with
+		Deck playerDeck = new Deck();  //The deck the player starts with
 		Deck maingame = new Deck(); //The deck for the center of the game.
 
 		//Add cards to the deck here
@@ -39,8 +42,8 @@ public class GameEngine {
 		
 		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
-		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
 		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
 
 		
@@ -49,8 +52,8 @@ public class GameEngine {
 		
 		
 		//Build the starter deck
-		starter.addCard(beginStealth, 6);
-		starter.addCard(beginAttack, 4);
+		playerDeck.addCard(beginStealth, 6);
+		playerDeck.addCard(beginAttack, 4);
 		
 		
 		//Build the main game deck
@@ -60,7 +63,73 @@ public class GameEngine {
 		maingame.addCard(luckInTiming, 10);
 		maingame.addCard(williamShakespeare);
 		
-		//Rest of the game engine stuff here.
+		//Starting the game engine
+		
+		int vp = 0;
+		int stealth = 0;
+		int attack = 0;
+		int turnNum = 0;
+		Hand playArea = new Hand(4);
+		Hand playerHand = new Hand(5);
+		
+		playerHand.addCard(playerDeck.draw());
+		playerHand.addCard(playerDeck.draw());
+		playerHand.addCard(playerDeck.draw());
+		playerHand.addCard(playerDeck.draw());
+		playerHand.addCard(playerDeck.draw());
+		
+		
+		//Initialize the first four cards in main game area
+		playArea.addCard(maingame.draw());
+		playArea.addCard(maingame.draw());
+		playArea.addCard(maingame.draw());
+		playArea.addCard(maingame.draw());
+		
+		
+		
+		System.out.println("Welcome to the Super Awsome Card Game Demo v1.0!!!!!!");
+		System.out.println();
+		System.out.println("How fast can you get to 200 years?");
+		System.out.println();
+		
+		while(vp < 200) {
+			turnNum++;
+			System.out.println("Start Turn " + turnNum);
+			
+			while(true) {
+				System.out.println("Choose:");
+				System.out.println("\t(1) Play Card From Hand");
+				System.out.println("\t(2) Purchase or Attack Card from Center.");
+				System.out.println("\t(3) View Hand.");
+				System.out.println("\t(4) View Cards in Center.");
+				System.out.println("\t(5) End Turn");
+				
+				GameEngine.printHand(playerHand);
+				GameEngine.printCenter(playArea);
+				
+				break;
+			}
+			break;
+		}
+		
+	}
+	
+	private static void printHand(Hand h) {
+		System.out.println("In your hand:");
+		
+		for(int i = 0; i < h.size(); i++) {
+			System.out.println("(" + (i+1) + ") " + h.get(i).getName() + ": " + h.get(i).getDescription());
+		}
+		
+	}
+	
+	private static void printCenter(Hand h) {
+		
+		System.out.println("In the center area:");
+		
+		for(int i = 0; i < h.size(); i++) {
+			System.out.println("(" + (i+1) + ") " + h.get(i).getName() + ": " + h.get(i).getDescription());
+		}
 		
 	}
 
