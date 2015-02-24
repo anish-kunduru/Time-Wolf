@@ -20,13 +20,10 @@ public class junitTests {
 	private Card buyStealth;
 	private Card beginAttack;
 	private Card buyAttack;
-	
-	/*public Card(String name, String description, int costBuy, int costAttack,
-	int vp, int power, int money, int preturnDiscard,
-	int postturnDiscard, int drawCards, int othersDrawCards,
-	int trashCardsMandatory, int trashCardsOptional, int trashForPower, int removeFromPlayArea,
-	int othersDiscard, int giveCurseCards, boolean takeAnotherTurn, boolean refreshPlayArea,
-	boolean trashAfterUse*/
+	private Card williamShakespeare;
+	private Card influentialCourtier;
+	private Card possibleLeader;
+	private Card luckInTiming;
 
 	@Before
 	public void setUp() throws Exception {
@@ -65,16 +62,21 @@ public class junitTests {
 		//Card that is always available to buy, similiar to the heavy infantry in ascension
 		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
-		//Gain a card costing up to $4
+		williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
-		//Trash a card in your hand. If you do, gain a card costing up to $3 more
+		influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
 		
+		possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
 		
+		luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+
+	    //Deck one represents the main deck pile cards are drawn from
 		deckOne.addCard(paradox, 4);
 		deckOne.addCard(scavenge, 4);
 		deckOne.addCard(bury, 4);
 		deckOne.addCard(wormhole, 4);
 		
+		//deckStart represents a beginning deck for individual player
 		deckStart = new Deck();
 		deckStart.addCard(beginStealth, 6);
 		deckStart.addCard(beginAttack, 4);
@@ -206,6 +208,12 @@ public class junitTests {
 		deckTwo.draw();
 		assertEquals(0, deckTwo.size());
 	}
+
+	@Test
+	public void testDeckSizeAfterAddMultipleCards() {
+		deckTwo.addCard(beginStealth, 6);
+		assertEquals(6, deckTwo.size());
+	}
 	
 	//Tests for DiscardPile Class
 	
@@ -234,6 +242,70 @@ public class junitTests {
 		discard.addToDeck(deckTwo);
 		assertEquals(3, deckTwo.size());
 	}
+	
+	//Tests for Hand Class
+
+	@Test
+	public void testHandSizeAfterInitialization() {
+		assertEquals(0, hand.size());
+	}
+	
+	@Test
+	public void testHandSizeAfterAddCard() {
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginStealth);
+		hand.addCard(beginStealth);
+		assertEquals(5, hand.size());
+	}
+	
+	@Test
+	public void testHandSizeAfterAddCardRemove() {
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginStealth);
+		hand.addCard(beginStealth);
+		hand.remove(3);
+		assertEquals(4, hand.size());
+	}
+	
+	@Test
+	public void testHandSizeAfterAddCardRemove2() {
+		hand.addCard(beginAttack);
+		hand.remove(0);
+		assertEquals(0, hand.size());
+	}
+	
+	@Test
+	public void testGetCard() {
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginStealth);
+		hand.addCard(beginStealth);
+		assertEquals(beginStealth, hand.get(4));
+	}
+	
+	@Test
+	public void testSizeAfterAddingMoreThanDefault() {
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginAttack);
+		hand.addCard(beginStealth);
+		hand.addCard(beginStealth);
+		hand.addCard(beginStealth);
+		assertEquals(6, hand.size());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
