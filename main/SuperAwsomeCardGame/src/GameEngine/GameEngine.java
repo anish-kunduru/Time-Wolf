@@ -10,7 +10,7 @@ public class GameEngine {
 
 	public static void main(String[] args) {
 
-
+		Card c;
 		Deck playerDeck = new Deck();  //The deck the player starts with
 		Deck maingame = new Deck(); //The deck for the center of the game.
 		
@@ -68,6 +68,8 @@ public class GameEngine {
 		maingame.addCard(influentialCourtier, 10);
 		maingame.addCard(possibleLeader, 10);
 		maingame.addCard(luckInTiming, 10);
+		maingame.addCard(buyStealth, 10);
+		maingame.addCard(buyAttack, 10);
 		maingame.addCard(williamShakespeare);
 		
 		//Starting the game engine
@@ -105,6 +107,8 @@ public class GameEngine {
 			System.out.println("Start Turn " + turnNum);
 			
 			while(true) {
+				System.out.println("VP: " + vp + "\tStealth: " + stealth + "\tAttack: " + attack);
+				System.out.println("Hand Size: " + playerHand.size() + "\tDeck Size: " + playerDeck.size() + "\tDiscard Size: " + discard.size());
 				System.out.println("Choose:");
 				System.out.println("\t(1) Play Card From Hand");
 				System.out.println("\t(2) Purchase or Attack Card from Center.");
@@ -120,9 +124,71 @@ public class GameEngine {
 					continue;
 				}
 				
-				if(input.trim().equals("1")) {
+				if(input.trim().equals("1")) { //play acard from hand.
+					GameEngine.printHand(playerHand);
+					System.out.println("Play card #: ");
+					try {
+						input = br.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+						continue;
+					}
+					
+					c = playerHand.get(Integer.parseInt(input) -1);
+					playerHand.remove(Integer.parseInt(input) - 1);
+					
+					if(c.getDrawCards() > 0) {
+						//Draw X cards
+						for(int i = 0; i < c.getDrawCards(); i++) {
+							
+							playerHand.addCard(playerDeck.draw());
+							
+							//If necessary reshuffle the discard pile into the deck
+							if(playerDeck.size() == 0) {
+								discard.addToDeck(playerDeck);
+							}
+							
+						}
+						
+					}
+					
+					attack += c.getPower();
+					stealth += c.getMoney();
+					
+					discard.discard(c);
 					
 				} else if(input.trim().equals("2")) {
+					GameEngine.printCenter(playArea);
+					
+					System.out.println("Buy or Attack Card #: ");
+					try {
+						input = br.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+						continue;
+					}
+					
+					c = playArea.get(Integer.parseInt(input) -1);
+					
+					if(c.getCostAttack() <= attack && c.getCostBuy() <= stealth) {
+						if(c.getCostAttack() > 0) {
+							vp += c.getVp(); //otherwise we get vp
+						} else {
+							
+							//If it isn't a card we attack, then add it to discard
+							discard.discard(c);
+						}
+						
+						stealth -= c.getCostBuy();
+						attack -= c.getCostAttack();
+						
+						playArea.remove(Integer.parseInt(input) - 1);
+						playArea.addCard(maingame.draw());
+					} else {
+						System.out.println("Sorry, but you cannot afford to buy or attack this card.");
+					}
+					
+					
 					
 				} else if(input.trim().equals("3")) {
 					GameEngine.printHand(playerHand);
@@ -132,7 +198,7 @@ public class GameEngine {
 					
 					
 					//End of turn so discard hand and draw a new one.
-					for(int i = 0; i < playerHand.size(); i++) {
+					for(int i =  playerHand.size() -1; i >= 0; i--) {
 						discard.discard(playerHand.get(i));
 						playerHand.remove(i);
 					}
@@ -145,6 +211,8 @@ public class GameEngine {
 						//If necessary reshuffle the discard pile into the deck
 						if(playerDeck.size() == 0) {
 							discard.addToDeck(playerDeck);
+							
+							System.out.println("Reshuffling deck. New deck size: " + playerDeck.size());
 						}
 						
 					}
@@ -153,19 +221,16 @@ public class GameEngine {
 					stealth = 0;
 					attack = 0;									
 					
+					break;
 				}
 				
 				
 				
-				
-				
-				
-				
-				
-				break;
 			}
-			break;
+			
 		}
+		
+		System.out.println("Congratulations on winning!!!!");
 		
 	}
 	
@@ -184,6 +249,8 @@ public class GameEngine {
 		
 		for(int i = 0; i < h.size(); i++) {
 			System.out.println("(" + (i+1) + ") " + h.get(i).getName() + ": " + h.get(i).getDescription());
+			if(h.get(i).getCostAttack() > 0) System.out.println("\t\tCosts Attack: " + h.get(i).getCostAttack());
+			if(h.get(i).getCostBuy() > 0) System.out.println("\t\tCosts Stealth: " + h.get(i).getCostBuy());
 		}
 		
 	}
