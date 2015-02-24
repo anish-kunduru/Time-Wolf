@@ -299,6 +299,12 @@ public class junitTests {
 		assertEquals(6, hand.size());
 	}
 	
+	@Test
+	public void testUserStats() {
+		UserStats userStat = new UserStats(1);
+		assertEquals(1, userStat.getGamesPlayed());
+	}
+	
 	
 	
 	

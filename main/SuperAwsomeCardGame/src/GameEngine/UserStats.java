@@ -82,6 +82,16 @@ public class UserStats {
 	public void getStats(int userID) {
 		try {
 			// Developing 2/23 PM
+			
+			try {   
+		         // Load the driver (registers itself)
+		         Class.forName ("com.mysql.jdbc.Driver");
+		         } 
+		      catch (Exception E) {
+		            System.err.println ("Unable to load driver.");
+		            E.printStackTrace ();
+		      } 
+			
 			Connection conn = DriverManager.getConnection(
 					"mysql.cs.iastate.edu", "u30911", "4rv2ucue78");
 			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;

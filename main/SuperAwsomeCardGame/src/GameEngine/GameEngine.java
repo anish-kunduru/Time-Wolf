@@ -38,13 +38,13 @@ public class GameEngine {
 		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
 		Card beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 				
-		//Card that is always available to buy, similiar to the mystic in ascension
+		//Card that is always available to buy, similar to the mystic in ascension
 		Card buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 				
 		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
 		Card beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 				
-		//Card that is always available to buy, similiar to the heavy infantry in ascension
+		//Card that is always available to buy, similar to the heavy infantry in ascension
 		Card buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
 		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
