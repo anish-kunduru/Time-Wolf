@@ -39,7 +39,10 @@ public class GameEngine {
 		
 		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
 		
-		
+		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+
 		
 		//TODO - More action cards
 		//historical figure cards costing anywhere between 1-10 attack to defeat
@@ -52,6 +55,10 @@ public class GameEngine {
 		
 		//Build the main game deck
 		maingame.addCard(scavenge, 10);
+		maingame.addCard(influentialCourtier, 10);
+		maingame.addCard(possibleLeader, 10);
+		maingame.addCard(luckInTiming, 10);
+		maingame.addCard(williamShakespeare);
 		
 		//Rest of the game engine stuff here.
 		
