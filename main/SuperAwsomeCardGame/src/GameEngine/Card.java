@@ -1,6 +1,5 @@
 package GameEngine;
 
-
 public final class Card {
 
 	//Non mechanical properties
