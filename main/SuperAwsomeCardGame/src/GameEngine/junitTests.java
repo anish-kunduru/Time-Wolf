@@ -1,4 +1,4 @@
-package GameEngine;
+package src.GameEngine;
 
 import static org.junit.Assert.*;
 

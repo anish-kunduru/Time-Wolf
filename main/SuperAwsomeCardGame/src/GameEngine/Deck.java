@@ -38,11 +38,17 @@ public class Deck {
 	 * @return the card drawn
 	 */
 	public Card draw() {
+		int index;
 		
 		if(this.cards.size() == 0) throw new IllegalStateException();
 		
-		//Determine a random card to return
-		int index = this.random.nextInt(this.cards.size() - 1);
+		
+		if(this.cards.size() == 1) { //If there is only one card, then it isn't so random
+			index = 0;
+		} else { 
+			//Determine a random card to return
+			index = this.random.nextInt(this.cards.size() - 1);
+		}
 		
 		//Then return and remove it from the deck
 		Card c = this.cards.get(index);
