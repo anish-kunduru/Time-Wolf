@@ -1,5 +1,8 @@
 package GameEngine;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 
 
@@ -10,6 +13,10 @@ public class GameEngine {
 
 		Deck playerDeck = new Deck();  //The deck the player starts with
 		Deck maingame = new Deck(); //The deck for the center of the game.
+		
+		//  open up standard input
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input; //place to put input from command line.
 
 		//Add cards to the deck here
 		
@@ -71,6 +78,7 @@ public class GameEngine {
 		int turnNum = 0;
 		Hand playArea = new Hand(4);
 		Hand playerHand = new Hand(5);
+		DiscardPile discard = new DiscardPile();
 		
 		playerHand.addCard(playerDeck.draw());
 		playerHand.addCard(playerDeck.draw());
@@ -103,9 +111,56 @@ public class GameEngine {
 				System.out.println("\t(3) View Hand.");
 				System.out.println("\t(4) View Cards in Center.");
 				System.out.println("\t(5) End Turn");
+				System.out.println("Enter Choice: ");
 				
-				GameEngine.printHand(playerHand);
-				GameEngine.printCenter(playArea);
+				try {
+					input = br.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+					continue;
+				}
+				
+				if(input.trim().equals("1")) {
+					
+				} else if(input.trim().equals("2")) {
+					
+				} else if(input.trim().equals("3")) {
+					GameEngine.printHand(playerHand);
+				} else if(input.trim().equals("4")) {
+					GameEngine.printCenter(playArea);
+				} else if(input.trim().equals("5")) {
+					
+					
+					//End of turn so discard hand and draw a new one.
+					for(int i = 0; i < playerHand.size(); i++) {
+						discard.discard(playerHand.get(i));
+						playerHand.remove(i);
+					}
+					
+					//Draw 5 cards
+					for(int i = 0; i < 5; i++) {
+						
+						playerHand.addCard(playerDeck.draw());
+						
+						//If necessary reshuffle the discard pile into the deck
+						if(playerDeck.size() == 0) {
+							discard.addToDeck(playerDeck);
+						}
+						
+					}
+					
+					//Reset the avaiable currency to zero
+					stealth = 0;
+					attack = 0;									
+					
+				}
+				
+				
+				
+				
+				
+				
+				
 				
 				break;
 			}
