@@ -1,6 +1,9 @@
 /**
  * @author Anish Kunduru
+ * 
+ * This program is our handler for LoginScreen.fxml.
  */
+
 package view;
 
 import javafx.fxml.FXML;
