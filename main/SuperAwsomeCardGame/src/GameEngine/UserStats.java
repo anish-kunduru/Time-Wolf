@@ -13,7 +13,12 @@ import java.sql.Statement;
  * 
  * @author Shelbie
  *
+ *
+ *
  */
+
+
+
 public class UserStats {
 	private int gamesPlayed;
 	private int gamesWon;
@@ -21,6 +26,9 @@ public class UserStats {
 	private int karmaScore;
 	private int userID;
 	private int ID;
+	
+
+	
 
 	public UserStats(int userID) {
 		getStats(userID);
@@ -118,5 +126,7 @@ public class UserStats {
 		}
 
 	}
+
+
 	
 }

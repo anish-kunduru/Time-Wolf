@@ -305,17 +305,4 @@ public class junitTests {
 		assertEquals(1, userStat.getGamesPlayed());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
