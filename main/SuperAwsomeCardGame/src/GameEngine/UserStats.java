@@ -114,7 +114,9 @@ public class UserStats {
 				this.userID = 0;
 			}
 		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}
+	
 }
