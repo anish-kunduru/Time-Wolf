@@ -49,7 +49,7 @@ public class UserStats {
 	 * @return (# of games won) / ( # of games lost)
 	 */
 	public double getWinLossRatio() {
-		return gamesWon / (gamesPlayed - gamesWon);
+		return (double)(gamesWon / (gamesPlayed - gamesWon));
 	}
 
 	/**
