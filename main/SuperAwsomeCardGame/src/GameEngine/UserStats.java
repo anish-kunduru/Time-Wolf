@@ -93,7 +93,7 @@ public class UserStats {
 		      } 
 			
 			Connection conn = DriverManager.getConnection(
-					"mysql.cs.iastate.edu", "u30911", "4rv2ucue78");
+					"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
 			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
