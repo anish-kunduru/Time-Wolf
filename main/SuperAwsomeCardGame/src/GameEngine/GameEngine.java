@@ -51,8 +51,9 @@ public class GameEngine {
 		
 		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
 		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card neverBorn  = new Card("Great Inventor Never Born", "Attack to move forward 5 years.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
 		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-
+		Card timeLoopStrike = new Card("Time Loop Strike", "Draw 1 card and gain 2 attack when played from hand.", 3, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false); 
 		
 		//TODO - More action cards
 		//historical figure cards costing anywhere between 1-10 attack to defeat
@@ -65,11 +66,13 @@ public class GameEngine {
 		
 		//Build the main game deck
 		maingame.addCard(scavenge, 10);
-		maingame.addCard(influentialCourtier, 10);
-		maingame.addCard(possibleLeader, 10);
+		maingame.addCard(influentialCourtier, 15);
+		maingame.addCard(possibleLeader, 15);
 		maingame.addCard(luckInTiming, 10);
 		maingame.addCard(buyStealth, 10);
 		maingame.addCard(buyAttack, 10);
+		maingame.addCard(timeLoopStrike, 10);
+		maingame.addCard(neverBorn, 15);
 		maingame.addCard(williamShakespeare);
 		
 		//Starting the game engine
