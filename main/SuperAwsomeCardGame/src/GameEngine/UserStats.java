@@ -26,9 +26,6 @@ public class UserStats {
 	private int karmaScore;
 	private int userID;
 	private int ID;
-	
-
-	
 
 	public UserStats(int userID) {
 		getStats(userID);
@@ -41,6 +38,10 @@ public class UserStats {
 	 */
 	public int getGamesPlayed() {
 		return gamesPlayed;
+	}
+	
+	public int getGamesWon() {
+		return gamesWon;
 	}
 
 	/**
