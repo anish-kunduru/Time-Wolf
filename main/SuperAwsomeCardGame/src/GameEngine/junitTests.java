@@ -20,10 +20,9 @@ public class junitTests {
 	private Card buyStealth;
 	private Card beginAttack;
 	private Card buyAttack;
-	private Card williamShakespeare;
-	private Card influentialCourtier;
-	private Card possibleLeader;
-	private Card luckInTiming;
+
+	
+	private Player player;
 
 	@Before
 	public void setUp() throws Exception {
@@ -61,14 +60,6 @@ public class junitTests {
 		
 		//Card that is always available to buy, similiar to the heavy infantry in ascension
 		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
-		
-		williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
-		
-		influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		
-		possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		
-		luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
 
 	    //Deck one represents the main deck pile cards are drawn from
 		deckOne.addCard(paradox, 4);
@@ -80,6 +71,9 @@ public class junitTests {
 		deckStart = new Deck();
 		deckStart.addCard(beginStealth, 6);
 		deckStart.addCard(beginAttack, 4);
+		
+		player = new Player(1, true, 10, 10, hand, discard, deckStart);
+		
 	}
 	
 	//Tests for Card Class
@@ -299,6 +293,8 @@ public class junitTests {
 		assertEquals(6, hand.size());
 	}
 	
+	//Tests for UserStats class
+	
 	@Test
 	public void testUserStatsGamesPlayed() {
 		UserStats userStat = new UserStats(2);
@@ -316,5 +312,67 @@ public class junitTests {
 		UserStats userStat = new UserStats(2);
 		assertEquals(1.5, userStat.getWinLossRatio(), .0);
 	}
+	
+	@Test
+	public void testUserStatsTotalPoints() {
+		UserStats userStat = new UserStats(2);
+		assertEquals(10, userStat.getTotalPoints(), .0);
+	}
+	
+	@Test
+	public void testUserStatsAveragePoints() {
+		UserStats userStat = new UserStats(2);
+		assertEquals(2, userStat.getAveragePoints(), .0);
+	}
+	
+	//Tests for Player class
+	
+	@Test
+	public void testGetUserID() {
+		assertEquals(1, player.getUserID());
+	}
+	
+	@Test
+	public void testGetIsTurn() {
+		assertEquals(true, player.getIsTurn());
+	}
+	
+	@Test
+	public void testActions() {
+		assertEquals(10, player.getActions());
+	}
+	
+	@Test
+	public void testGetCurrency() {
+		assertEquals(10, player.getCurrency());
+	}
+	
+	@Test
+	public void testGetHand() {
+		assertEquals(hand, player.getHand());
+	}
+	
+	@Test
+	public void testGetDiscard() {
+		assertEquals(discard, player.getDiscardPile());
+	}
+	
+	@Test
+	public void testGetDeck() {
+		assertEquals(deckStart, player.getDeck());
+	}
+	
+	@Test
+	public void testAddActions() {
+		player.addActions(5);
+		assertEquals(15, player.getActions());
+	}
+	
+	@Test
+	public void testAddCurrency() {
+		player.addCurrency(5);
+		assertEquals(15, player.getCurrency());
+	}
+	
 	
 }
