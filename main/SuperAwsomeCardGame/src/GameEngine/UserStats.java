@@ -82,6 +82,18 @@ public class UserStats {
 	}
 
 	/**
+	 * Used after a game is played to increase statistics from that game
+	 * @param wonGame if true, gamesWon counter increments by 1
+	 * @param points increments total points value by this parameter
+	 */
+	public void incrementGamesPlayed(boolean wonGame, int points)
+	{
+		if(wonGame) gamesWon++;
+		gamesPlayed++;
+		totalPoints += points;
+	}
+	
+	/**
 	 * Retrieves stats from the database matching the given userID
 	 * 
 	 * @param userID
