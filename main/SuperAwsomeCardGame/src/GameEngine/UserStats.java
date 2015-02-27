@@ -101,11 +101,10 @@ public class UserStats {
 		            E.printStackTrace ();
 		      } 
 			
-			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
+			DBHelper dbh = new DBHelper();
 			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
-			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery(query);
+			ResultSet rs = dbh.executeQuery(query);
+			
 
 			if (rs.first()) // should only be one returned on table is incorrect
 			{
