@@ -90,17 +90,7 @@ public class UserStats {
 	 */
 	public void getStats(int userID) {
 		try {
-			// Developing 2/23 PM
-			
-			try {   
-		         // Load the driver (registers itself)
-		         Class.forName ("com.mysql.jdbc.Driver");
-		         } 
-		      catch (Exception E) {
-		            System.err.println ("Unable to load driver.");
-		            E.printStackTrace ();
-		      } 
-			
+
 			DBHelper dbh = new DBHelper();
 			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
 			ResultSet rs = dbh.executeQuery(query);
