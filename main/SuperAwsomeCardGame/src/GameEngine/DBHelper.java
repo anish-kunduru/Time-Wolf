@@ -30,7 +30,7 @@ public class DBHelper {
 			
 			return rs;
 		} catch (SQLException e) {
-			System.err.println("Connection to database failed!");
+			System.err.println("Error executing query!");
 			e.printStackTrace();
 		}
 		
