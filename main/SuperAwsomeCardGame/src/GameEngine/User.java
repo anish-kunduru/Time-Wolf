@@ -25,6 +25,42 @@ public class User {
 		this.role = 0;
 	}
 	
+	public String getEmail()
+	{
+		return email;
+	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public void LoadImage()
+	{
+		//get image from server
+	}
+	
+	public boolean isBanned()
+	{
+		return isBanned;
+	}
+	
+	public boolean isAdmin()
+	{
+		if(role == 2)
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isModerator()
+	{
+		if(role > 0)
+			return true;
+		else
+			return false;
+	}
+	
 	public boolean logIn(String username, String password) throws SQLException
 	{
 		DBHelper dbh = new DBHelper();
