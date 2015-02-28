@@ -80,7 +80,9 @@ public class User {
 		
 		if(this.ID == 0) //insert query
 		{
-			
+			query = "INSERT INTO User ";
+			query += "('Username', 'Email', 'Password', 'ImagePath', 'IsBanned', 'Role')";
+			query += "VALUES (" + username + "," + email + "," + password + ",,0,0)";
 		}
 		else     //update query
 		{
@@ -96,6 +98,8 @@ public class User {
 			query += ",Role=" + this.role;
 			query += " WHERE ID=" + this.ID;
 		}
+		
+		dbh.executeQuery(query);
 		
 	}
 	
