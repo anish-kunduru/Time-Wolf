@@ -39,6 +39,11 @@ public class User {
 	public boolean isBanned() {
 		return isBanned;
 	}
+	
+	public void Ban()
+	{
+		this.isBanned = true;
+	}
 
 	public boolean isAdmin() {
 		if (role == 2)
@@ -53,7 +58,7 @@ public class User {
 		else
 			return false;
 	}
-
+	
 	/*
 	 * Pre-existing users
 	 */
@@ -77,12 +82,28 @@ public class User {
 	
 		DBHelper dbh = new DBHelper();
 		String query = "";
-		
 		if(this.ID == 0) //insert query
 		{
 			query = "INSERT INTO User ";
 			query += "('Username', 'Email', 'Password', 'ImagePath', 'IsBanned', 'Role')";
 			query += "VALUES (" + username + "," + email + "," + password + ",,0,0)";
+			query += " SELECT * FROM User WHERE Username=" + username;
+
+			ResultSet rs = dbh.executeQuery(query);
+			if(rs.first())
+			{
+				this.ID = rs.getInt("ID");
+			
+				query = "INSERT INTO Statistics ";
+				query += "('UserID','TotalGames','TotalWins','TotalPoints')";
+				query += "(" + this.ID + ",0,0,0)";
+				dbh.executeQuery(query);
+			}
+			else
+			{
+				throw new Exception("Insert of new user failed in saveUser()!");
+			}
+			
 		}
 		else     //update query
 		{
@@ -97,9 +118,11 @@ public class User {
 			query += ",IsBanned=" + this.isBanned;
 			query += ",Role=" + this.role;
 			query += " WHERE ID=" + this.ID;
+
+			dbh.executeQuery(query);
+			//Stats are currently saved whenever games are incremented so there isn't a need to save here as well
 		}
 		
-		dbh.executeQuery(query);
 		
 	}
 	
@@ -147,5 +170,61 @@ public class User {
 		this.ID = 0;
 		return false;
 	}
+	
+
+	/*
+	 * The following are UserStats methods
+	 * for ease of access
+	 */
+	public int getGamesPlayed()
+	{
+		if(this.stats != null)
+			return this.stats.getGamesPlayed();
+		else
+			return 0;
+	}
+	
+	public int getGamesWon()
+	{
+		if(this.stats != null)
+			return this.stats.getGamesWon();
+		else
+			return 0;
+	}
+	
+	public double getWinLossRatio()
+	{
+		if(this.stats != null)
+			return this.stats.getWinLossRatio();
+		else
+			return 0;
+	}
+	
+	public double getTotalPoints()
+	{
+		if(this.stats != null)
+			return this.stats.getTotalPoints();
+		else
+			return 0;
+	}
+	
+	public double getAveragePoints()
+	{
+		if(this.stats != null)
+			return this.getAveragePoints();
+		else
+			return 0;
+	}
+	
+	public void incrementGamesPlayed(boolean wonGame, int points)
+	{
+		if(this.stats != null)
+		{
+			this.stats.incrementGamesPlayed(wonGame, points);
+			this.stats.updateStatsDatabase();
+		}
+	}
+	
+	
 
 }
