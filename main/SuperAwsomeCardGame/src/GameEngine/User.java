@@ -55,6 +55,51 @@ public class User {
 	}
 
 	/*
+	 * Pre-existing users
+	 */
+	public void saveUser() throws Exception
+	{
+		if(this.ID > 0)
+			saveUser(this.username, this.email, this.password);
+		else
+			throw new Exception("saveUser() cannot accept a call from a User with ID=0");
+	}
+	
+	/*
+	 * Creating a new user case
+	 */
+	public void saveUser(String username, String email, String password) throws Exception
+	{
+		if(username.equals("") || email.equals("") || password.equals(""))
+		{
+			throw new Exception("saveUser() cannot accept empty strings as arguments");
+		}
+	
+		DBHelper dbh = new DBHelper();
+		String query = "";
+		
+		if(this.ID == 0) //insert query
+		{
+			
+		}
+		else     //update query
+		{
+			query = "UPDATE User SET ";
+			query += "Username=" + username;
+			query += ",Email=" + email;
+			query += ",Password=" + password;
+			query += ",ImagePath=" + this.imgPath;
+			int bit = 0;
+			if(this.isBanned)
+				bit = 1;
+			query += ",IsBanned=" + this.isBanned;
+			query += ",Role=" + this.role;
+			query += " WHERE ID=" + this.ID;
+		}
+		
+	}
+	
+	/*
 	 * Resets current user's password and saves new password in database Emails
 	 * user new password - if we can get a SMTP setup
 	 */
