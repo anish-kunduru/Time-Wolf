@@ -35,7 +35,13 @@ public class User {
 	public void LoadImage() {
 		// get image from server
 	}
-
+	
+	public void deleteImage()
+	{
+		//do server stuff to delete from server
+		this.imgPath = "";
+	}
+	
 	public boolean isBanned() {
 		return isBanned;
 	}
@@ -44,6 +50,7 @@ public class User {
 	{
 		this.isBanned = true;
 	}
+	
 
 	public boolean isAdmin() {
 		if (role == 2)
