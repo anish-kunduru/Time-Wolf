@@ -12,9 +12,8 @@ public class User {
 	private UserStats stats;
 	private boolean isBanned;
 	private int role;
-	
-	public User()
-	{
+
+	public User() {
 		this.ID = 0;
 		this.username = "";
 		this.email = "";
@@ -24,50 +23,63 @@ public class User {
 		this.isBanned = false;
 		this.role = 0;
 	}
-	
-	public String getEmail()
-	{
+
+	public String getEmail() {
 		return email;
 	}
-	
-	public String getUsername()
-	{
+
+	public String getUsername() {
 		return username;
 	}
-	
-	public void LoadImage()
-	{
-		//get image from server
+
+	public void LoadImage() {
+		// get image from server
 	}
-	
-	public boolean isBanned()
-	{
+
+	public boolean isBanned() {
 		return isBanned;
 	}
-	
-	public boolean isAdmin()
-	{
-		if(role == 2)
+
+	public boolean isAdmin() {
+		if (role == 2)
 			return true;
 		else
 			return false;
 	}
-	
-	public boolean isModerator()
-	{
-		if(role > 0)
+
+	public boolean isModerator() {
+		if (role > 0)
 			return true;
 		else
 			return false;
 	}
-	
-	public boolean logIn(String username, String password) throws SQLException
-	{
+
+	/*
+	 * Resets current user's password and saves new password in database Emails
+	 * user new password - if we can get a SMTP setup
+	 */
+	public String resetPassword() {
+		if (this.ID > 0) {
+			// newPW is awful right now, can make better later
+			String newPW = username + ID;
+			DBHelper dbh = new DBHelper();
+			String query = "UPDATE User SET Password=" + newPW + " WHERE ID="
+					+ this.ID;
+			
+			dbh.executeQuery(query);
+			
+			return newPW;
+		}
+		//if ID == 0 then no user is selected
+		return "";
+	}
+
+	public boolean logIn(String username, String password) throws SQLException {
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * WHERE Username=" + username + " AND Password=" + password;
+		String query = "SELECT * WHERE Username=" + username + " AND Password="
+				+ password;
 		ResultSet rs = dbh.executeQuery(query);
-		if(rs.first())
-		{
+		if (rs.first()) {
 			this.ID = rs.getInt("ID");
 			this.username = username;
 			this.email = rs.getString("Email");
@@ -75,17 +87,16 @@ public class User {
 			this.imgPath = rs.getString("ImagePath");
 			this.isBanned = false;
 			int bannedBit = rs.getInt("IsBanned");
-			if(bannedBit > 0)
+			if (bannedBit > 0)
 				this.isBanned = true;
 			this.role = rs.getInt("Role");
 			this.stats = new UserStats(this.ID);
-			
+
 			return true;
 		}
-		
+
 		this.ID = 0;
 		return false;
 	}
-	
 
 }
