@@ -1,5 +1,7 @@
 package GameEngine;
 
+import com.mysql.jdbc.ResultSet;
+
 public final class Card {
 
 	//Non mechanical properties
@@ -263,6 +265,5 @@ public final class Card {
 	public boolean isTrashAfterUse() {
 		return trashAfterUse;
 	}
-	
 	
 }
