@@ -2,6 +2,8 @@ package GameEngine;
 
 import static org.junit.Assert.*;
 
+import java.sql.ResultSet;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +22,7 @@ public class junitTests {
 	private Card buyStealth;
 	private Card beginAttack;
 	private Card buyAttack;
+	private Card dataBase;
 
 	
 	private Player player;
@@ -73,6 +76,63 @@ public class junitTests {
 		deckStart.addCard(beginAttack, 4);
 		
 		player = new Player(1, true, 10, 10, hand, discard, deckStart);
+		
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Cards WHERE Name='Paradox'";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		if(rs.first()){
+			String name = rs.getString("Name");
+			String description = rs.getString("Description");
+			int costBuy = rs.getInt("CostBuy");
+			int costAttack = rs.getInt("CostAttack");
+			int vp = rs.getInt("VP");
+			int power = rs.getInt("Power");
+			int money = rs.getInt("Money");
+			int preturnDiscard = rs.getInt("PreturnDiscard");
+			int postturnDiscard = rs.getInt("PostturnDiscard");
+			int drawCards = rs.getInt("DrawCards");
+			int othersDrawCards = rs.getInt("OthersDrawCards");
+			int trashCardsMandatory = rs.getInt("TrashCardsMandatory");
+			int trashCardsOptional = rs.getInt("TrashCardsOptional");
+			int trashForPower = rs.getInt("TrashForPower");
+			int removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
+			int othersDiscard = rs.getInt("OthersDiscard");
+			int giveCurseCards = rs.getInt("OthersLoseVP");
+			boolean takeAnotherTurn = rs.getBoolean("TakeAnotherTurn");
+			boolean refreshPlayArea = rs.getBoolean("RefreshPlayArea");
+			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
+			
+			dataBase = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
+		}
+		else{
+			String name = null;
+			String description = null;
+			int costBuy = 0;
+			int costAttack = 0;
+			int vp = 0;
+			int power = 0; 
+			int money = 0;
+			int preturnDiscard = 0;
+			int postturnDiscard = 0;
+			int drawCards = 0;
+			int othersDrawCards = 0;
+			int trashCardsMandatory = 0;
+			int trashCardsOptional = 0;
+			int trashForPower = 0;
+			int removeFromPlayArea = 0;
+			int othersDiscard = 0;
+			int giveCurseCards = 0;
+			boolean takeAnotherTurn = false;
+			boolean refreshPlayArea = false;
+			boolean trashAfterUse = false;
+			
+			dataBase = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
+		}
 		
 	}
 	
@@ -372,6 +432,11 @@ public class junitTests {
 	public void testAddCurrency() {
 		player.addCurrency(5);
 		assertEquals(15, player.getCurrency());
+	}
+	
+	@Test
+	public void testDBCard() {
+		assertEquals(true, dataBase.isTakeAnotherTurn());
 	}
 	
 	
