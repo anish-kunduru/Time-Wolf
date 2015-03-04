@@ -2,6 +2,8 @@ package GameEngine;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,6 +76,20 @@ public class jUnitDeck {
 	public void testDeckSizeAfterAddMultipleCards() {
 		deckTwo.addCard(beginStealth, 6);
 		assertEquals(6, deckTwo.size());
+	}
+	
+	@Test
+	public void testGetMainDeck() throws SQLException {
+		Deck deck = new Deck();
+		deck = deck.getMainDeck();
+		assertEquals(47, deck.size());
+	}
+	
+	@Test
+	public void testGetStarterDeck() throws SQLException {
+		Deck deck = new Deck();
+		deck = deck.getStarterDeck();
+		assertEquals(10, deck.size());
 	}
 
 }

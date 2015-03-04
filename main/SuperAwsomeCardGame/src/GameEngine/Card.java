@@ -1,5 +1,7 @@
 package GameEngine;
 
+import java.sql.SQLException;
+
 import com.mysql.jdbc.ResultSet;
 
 public final class Card {

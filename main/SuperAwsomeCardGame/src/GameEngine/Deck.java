@@ -1,5 +1,6 @@
 package GameEngine;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -65,6 +66,88 @@ public class Deck {
 	 */
 	public int size() {
 		return(this.cards.size());
+	}
+	
+	public Deck getMainDeck() throws SQLException{
+		
+		//TODO - # of each card in deck
+		
+		Deck main = new Deck();
+		
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Cards WHERE Deck='Main'";
+		java.sql.ResultSet rs = dbh.executeQuery(query);
+		
+		while(rs.next()){
+			String name = rs.getString("Name");
+			String description = rs.getString("Description");
+			int costBuy = rs.getInt("CostBuy");
+			int costAttack = rs.getInt("CostAttack");
+			int vp = rs.getInt("VP");
+			int power = rs.getInt("Attack");
+			int money = rs.getInt("Stealth");
+			int preturnDiscard = rs.getInt("PreturnDiscard");
+			int postturnDiscard = rs.getInt("PostturnDiscard");
+			int drawCards = rs.getInt("DrawCards");
+			int othersDrawCards = rs.getInt("OthersDrawCards");
+			int trashCardsMandatory = rs.getInt("TrashCardsMandatory");
+			int trashCardsOptional = rs.getInt("TrashCardsOptional");
+			int trashForPower = rs.getInt("TrashForAttack");
+			int removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
+			int othersDiscard = rs.getInt("OthersDiscard");
+			int giveCurseCards = rs.getInt("OthersLoseVP");
+			boolean takeAnotherTurn = rs.getBoolean("TakeAnotherTurn");
+			boolean refreshPlayArea = rs.getBoolean("RefreshPlayArea");
+			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
+			
+			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
+			
+			main.addCard(toAdd);
+		}
+		return main;
+	}	
+	
+	public Deck getStarterDeck() throws SQLException{
+		
+		Deck starter = new Deck();
+		
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Cards WHERE Deck='Starter'";
+		java.sql.ResultSet rs = dbh.executeQuery(query);
+		
+		while(rs.next()){
+			String name = rs.getString("Name");
+			String description = rs.getString("Description");
+			int costBuy = rs.getInt("CostBuy");
+			int costAttack = rs.getInt("CostAttack");
+			int vp = rs.getInt("VP");
+			int power = rs.getInt("Attack");
+			int money = rs.getInt("Stealth");
+			int preturnDiscard = rs.getInt("PreturnDiscard");
+			int postturnDiscard = rs.getInt("PostturnDiscard");
+			int drawCards = rs.getInt("DrawCards");
+			int othersDrawCards = rs.getInt("OthersDrawCards");
+			int trashCardsMandatory = rs.getInt("TrashCardsMandatory");
+			int trashCardsOptional = rs.getInt("TrashCardsOptional");
+			int trashForPower = rs.getInt("TrashForAttack");
+			int removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
+			int othersDiscard = rs.getInt("OthersDiscard");
+			int giveCurseCards = rs.getInt("OthersLoseVP");
+			boolean takeAnotherTurn = rs.getBoolean("TakeAnotherTurn");
+			boolean refreshPlayArea = rs.getBoolean("RefreshPlayArea");
+			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
+			int numInDeck = rs.getInt("NumInDeck");
+			
+			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
+			
+			starter.addCard(toAdd, numInDeck);
+		}
+		
+		return starter;
 	}
 
 
