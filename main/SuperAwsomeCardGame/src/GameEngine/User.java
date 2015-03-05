@@ -155,8 +155,8 @@ public class User {
 
 	public boolean logIn(String username, String password) throws SQLException {
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * WHERE Username=" + username + " AND Password="
-				+ password;
+		String query = "SELECT * FROM User WHERE Username='" + username + "' AND Password='"
+				+ password + "'";
 		ResultSet rs = dbh.executeQuery(query);
 		if (rs.first()) {
 			this.ID = rs.getInt("ID");
