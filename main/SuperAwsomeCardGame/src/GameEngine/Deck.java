@@ -70,6 +70,8 @@ public class Deck {
 	
 	public Deck getMainDeck() throws SQLException{
 		
+
+		
 		Deck main = new Deck();
 		
 		DBHelper dbh = new DBHelper();
@@ -90,7 +92,8 @@ public class Deck {
 			int othersDrawCards = rs.getInt("OthersDrawCards");
 			int trashCardsMandatory = rs.getInt("TrashCardsMandatory");
 			int trashCardsOptional = rs.getInt("TrashCardsOptional");
-			int trashForPower = rs.getInt("TrashForAttack");
+			int trashForAttack = rs.getInt("TrashForAttack");
+			int trashForStealth = rs.getInt("TrashForStealth");
 			int removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
 			int othersDiscard = rs.getInt("OthersDiscard");
 			int giveCurseCards = rs.getInt("OthersLoseVP");
@@ -100,7 +103,7 @@ public class Deck {
 			int NumInDeck = rs.getInt("NumInDeck");
 			
 			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
-					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
 			main.addCard(toAdd, NumInDeck);
@@ -130,7 +133,8 @@ public class Deck {
 			int othersDrawCards = rs.getInt("OthersDrawCards");
 			int trashCardsMandatory = rs.getInt("TrashCardsMandatory");
 			int trashCardsOptional = rs.getInt("TrashCardsOptional");
-			int trashForPower = rs.getInt("TrashForAttack");
+			int trashForAttack = rs.getInt("TrashForAttack");
+			int trashForStealth = rs.getInt("TrashForStealth");
 			int removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
 			int othersDiscard = rs.getInt("OthersDiscard");
 			int giveCurseCards = rs.getInt("OthersLoseVP");
@@ -140,7 +144,7 @@ public class Deck {
 			int numInDeck = rs.getInt("NumInDeck");
 			
 			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
-					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
+					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
 			starter.addCard(toAdd, numInDeck);

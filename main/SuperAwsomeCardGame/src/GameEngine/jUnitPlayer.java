@@ -34,32 +34,29 @@ public class jUnitPlayer {
 		hand = new Hand(5);
 		
 		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
-		paradox = new Card("Paradox", "There can only be one! All other players go back 10 years", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				1, true, false, true);
+		paradox = new Card("Paradox");
 		
 		//Card scavenge allows the player to draw two additional cards when played from hand
-		scavenge = new Card("Scavenge", "Draw two additional cards!", 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		scavenge = new Card("Scavenge");
 		
 		//Card bury allows a player to discard two cards and pick up two new ones
-		bury = new Card("Bury", "Discard two cards and replace them with two new", 4, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 
-				true, false, true);
+		bury = new Card("Bury");
 		
 		//Card wormhole makes all other players discard 2 cards from hand
-		wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
-				true, false, true);
+		wormhole = new Card("Wormhole");
 		
 		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
-		beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		beginStealth = new Card("Prowl");
 		
 		//Card that is always available to buy, similiar to the mystic in ascension
-		buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		buyStealth = new Card("Lurk");
 		
 		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
-		beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		beginAttack = new Card("Claw");
 		
 		//Card that is always available to buy, similiar to the heavy infantry in ascension
-		buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
-
+		buyAttack = new Card("Bite");
+		
 	    //Deck one represents the main deck pile cards are drawn from
 		deckOne.addCard(paradox, 4);
 		deckOne.addCard(scavenge, 4);

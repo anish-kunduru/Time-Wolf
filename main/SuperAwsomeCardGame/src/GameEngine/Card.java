@@ -11,11 +11,11 @@ public final class Card {
 	final private String description;
 	
 	//Non-action related properties
-	final private int costBuy;
+	final private int costStealth;
 	final private int costAttack;
 	final private int vp;
-	final private int power;
-	final private int money;	
+	final private int attack;
+	final private int stealth;	
 	
 	//Action related properties
 	final private int preturnDiscard;
@@ -24,10 +24,11 @@ public final class Card {
 	final private int othersDrawCards;
 	final private int trashCardsMandatory;
 	final private int trashCardsOptional;
-	final private int trashForPower;
+	final private int trashForAttack;
+	final private int trashForStealth;
 	final private int removeFromPlayArea;
 	final private int othersDiscard;
-	final private int giveCurseCards;
+	final private int othersLoseVP;
 	final private boolean takeAnotherTurn;
 	final private boolean refreshPlayArea;
 	final private boolean trashAfterUse;
@@ -39,15 +40,16 @@ public final class Card {
 	 * @param costBuy Cost to buy
 	 * @param costAttack Cost to defeat in an attack
 	 * @param vp Victory Points
-	 * @param power The attack power of the card.
-	 * @param money The amount of currency.
+	 * @param attack The attack power of the card.
+	 * @param stealth The amount of stealth (currency).
 	 * @param preturnDiscard Number of cards to discard prior to other action effects.
 	 * @param postturnDiscard Number of cards to discard after other action effects.
 	 * @param drawCards Number of cards to draw.
 	 * @param othersDrawCards Number of cards other players draw.
 	 * @param trashCardsMandatory Number of cards that must be trashed.
 	 * @param trashCardsOptional Number of cards that may be trashed.
-	 * @param trashForPower Number of cards to trash for power. Cost = Power.
+	 * @param trashForAttack Number of cards to trash for attack. 
+	 * @param trashForStealth	Number of cards to trash for attack.
 	 * @param removeFromPlayArea Number of cards to discard from play area.
 	 * @param othersDiscard Number of cards other players must discard down to.
 	 * @param giveCurseCards Number of curse cards to give other players.
@@ -56,34 +58,67 @@ public final class Card {
 	 * @param trashAfterUse
 	 */
 	public Card(String name, String description, int costBuy, int costAttack,
-			int vp, int power, int money, int preturnDiscard,
+			int vp, int attack, int stealth, int preturnDiscard,
 			int postturnDiscard, int drawCards, int othersDrawCards,
-			int trashCardsMandatory, int trashCardsOptional, int trashForPower, int removeFromPlayArea,
+			int trashCardsMandatory, int trashCardsOptional, int trashForAttack, int trashForStealth, int removeFromPlayArea,
 			int othersDiscard, int giveCurseCards, boolean takeAnotherTurn, boolean refreshPlayArea,
 			boolean trashAfterUse) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.costBuy = costBuy;
+		this.costStealth = costBuy;
 		this.costAttack = costAttack;
 		this.vp = vp;
-		this.power = power;
-		this.money = money;
+		this.attack = attack;
+		this.stealth = stealth;
 		this.preturnDiscard = preturnDiscard;
 		this.postturnDiscard = postturnDiscard;
 		this.drawCards = drawCards;
 		this.othersDrawCards = othersDrawCards;
 		this.trashCardsMandatory = trashCardsMandatory;
 		this.trashCardsOptional = trashCardsOptional;
-		this.trashForPower = trashForPower;
+		this.trashForAttack = trashForAttack;
+		this.trashForStealth = trashForStealth;
 		this.removeFromPlayArea = removeFromPlayArea;
 		this.othersDiscard = othersDiscard;
-		this.giveCurseCards = giveCurseCards;
+		this.othersLoseVP = giveCurseCards;
 		this.takeAnotherTurn = takeAnotherTurn;
 		this.refreshPlayArea = refreshPlayArea;
 		this.trashAfterUse = trashAfterUse;
 	}
-
+	
+	public Card(String cardName) throws SQLException{
+		
+		super();
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Cards WHERE Name = '" + cardName + "'";
+		java.sql.ResultSet rs = dbh.executeQuery(query);
+		
+		rs.next();
+		
+		this.name = rs.getString("Name");
+		this.description = rs.getString("Description");
+		this.costStealth = rs.getInt("CostBuy");
+		this.costAttack = rs.getInt("CostAttack");
+		this.vp = rs.getInt("VP");
+		this.attack = rs.getInt("Attack");
+		this.stealth = rs.getInt("Stealth");
+		this.preturnDiscard = rs.getInt("PreturnDiscard");
+		this.postturnDiscard = rs.getInt("PostturnDiscard");
+		this.drawCards = rs.getInt("DrawCards");
+		this.othersDrawCards = rs.getInt("OthersDrawCards");
+		this.trashCardsMandatory = rs.getInt("TrashCardsMandatory");
+		this.trashCardsOptional = rs.getInt("TrashCardsOptional");
+		this.trashForAttack = rs.getInt("TrashForAttack");
+		this.trashForStealth = rs.getInt("TrashForStealth");
+		this.removeFromPlayArea = rs.getInt("RemoveFromPlayArea");
+		this.othersDiscard = rs.getInt("OthersDiscard");
+		this.othersLoseVP = rs.getInt("OthersLoseVP");
+		this.takeAnotherTurn = rs.getBoolean("TakeAnotherTurn");
+		this.refreshPlayArea = rs.getBoolean("RefreshPlayArea");
+		this.trashAfterUse = rs.getBoolean("TrashAfterUse");
+		
+	}
 
 	/**
 	 * Returns the name of the card, as it should be printed on the card.
@@ -107,8 +142,8 @@ public final class Card {
 	 * The cost to buy the card with currency.
 	 * @return the cost to buy the card
 	 */
-	public int getCostBuy() {
-		return costBuy;
+	public int getCostStealth() {
+		return costStealth;
 	}
 
 
@@ -129,24 +164,17 @@ public final class Card {
 		return vp;
 	}
 
-
 	/**
 	 * The power of the attack the card gives.
 	 * @return the amount of power
 	 */
-	public int getPower() {
-		return power;
+	public int getAttack() {
+		return attack;
 	}
-
-
-	/**
-	 * The amount of currency the card is worth.
-	 * @return the amount of money
-	 */
-	public int getMoney() {
-		return money;
+	
+	public int getStealth() {
+		return stealth;
 	}
-
 
 	/**
 	 * Number of cards to discard prior to other action effects listed on the card. Discarding is split since for some combinations discarding before has a significant difference from discarding after. 
@@ -206,9 +234,18 @@ public final class Card {
 	 * The number of cards to trash card for power based on the original cost of the card.
 	 * @return number of cards to trash for power
 	 */
-	public int getTrashForPower() {
-		return trashForPower;
+	public int getTrashForAttack() {
+		return trashForAttack;
 	}
+	
+	/**
+	 * The number of cards to trash for stealth based on the original cost of the card.
+	 * @return number of cards to trash for power
+	 */
+	public int getTrashForStealth() {
+		return trashForStealth;
+	}
+	
 	/**
 	 * @param removeFromPlayArea Number of cards to discard from play area.
 	 * @param othersDiscard Number of cards other players must discard down to.
@@ -256,8 +293,8 @@ public final class Card {
 	 * Give a number of curse cards to all other players
 	 * @return the giveCurseCards
 	 */
-	public int getGiveCurseCards() {
-		return giveCurseCards;
+	public int getOthersLoseVP() {
+		return othersLoseVP;
 	}
 
 
@@ -267,5 +304,8 @@ public final class Card {
 	public boolean isTrashAfterUse() {
 		return trashAfterUse;
 	}
+	
+	
+	//TODO - Helper method to get specific card
 	
 }

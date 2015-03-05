@@ -3,6 +3,7 @@ package GameEngine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 
@@ -14,9 +15,9 @@ public class GameEngine {
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
 	private Hand mainPlayAreaCards = new Hand(4);
-	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
-	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
 	
 	
 
@@ -28,7 +29,7 @@ public class GameEngine {
 		
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		Card c;
 		Deck playerDeck = new Deck();  //The deck the player starts with
@@ -41,39 +42,36 @@ public class GameEngine {
 		//Add cards to the deck here
 		
 		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
-		Card paradox = new Card("Paradox", "There can only be one! All other players go back 10 years", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				1, true, false, true);
+		Card paradox = new Card("Paradox");
 				
 		//Card scavenge allows the player to draw two additional cards when played from hand
-		Card scavenge = new Card("Scavenge", "Draw two additional cards!", 4, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card scavenge = new Card("Scavenge");
 				
 		//Card bury allows a player to discard two cards and pick up two new ones
-		Card bury = new Card("Bury", "Discard two cards and replace them with two new", 4, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 
-						true, false, true);
+		Card bury = new Card("Bury");
 				
 		//Card wormhole makes all other players discard 2 cards from hand
-		Card wormhole = new Card("Wormhole", "All other players must discard 2 cards", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 
-						true, false, true);
+		Card wormhole = new Card("Wormhole");
 		
 		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
-		Card beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card beginStealth = new Card("Prowl");
 				
 		//Card that is always available to buy, similar to the mystic in ascension
-		Card buyStealth = new Card("Stealth 2", "This card gives you 2 stealth", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card buyStealth = new Card("Lurk");
 				
 		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
-		Card beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card beginAttack = new Card("Claw");
 				
 		//Card that is always available to buy, similar to the heavy infantry in ascension
-		Card buyAttack = new Card("Attack 2", "This card gives you 2 attack", 3, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card buyAttack = new Card("Bite");
 		
-		Card williamShakespeare = new Card("William Shakespeare", "Attack to move forward 100 years!", 0, 6, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		Card williamShakespeare = new Card("Shakespeare");
 		
-		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card neverBorn  = new Card("Great Inventor Never Born", "Attack to move forward 5 years.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-		Card timeLoopStrike = new Card("Time Loop Strike", "Draw 1 card and gain 2 attack when played from hand.", 3, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, false, false, false); 
+		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card neverBorn  = new Card("Great Inventor Never Born", "Attack to move forward 5 years.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
+		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+		Card timeLoopStrike = new Card("Time Loop Strike", "Draw 1 card and gain 2 attack when played from hand.", 3, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false); 
 		
 		//TODO - More action cards
 		//historical figure cards costing anywhere between 1-10 attack to defeat
@@ -175,8 +173,8 @@ public class GameEngine {
 						
 					}
 					
-					attack += c.getPower();
-					stealth += c.getMoney();
+					attack += c.getAttack();
+					stealth += c.getStealth();
 					
 					discard.discard(c);
 					
@@ -193,7 +191,7 @@ public class GameEngine {
 					
 					c = playArea.get(Integer.parseInt(input) -1);
 					
-					if(c.getCostAttack() <= attack && c.getCostBuy() <= stealth) {
+					if(c.getCostAttack() <= attack && c.getCostStealth() <= stealth) {
 						if(c.getCostAttack() > 0) {
 							vp += c.getVp(); //otherwise we get vp
 						} else {
@@ -202,7 +200,7 @@ public class GameEngine {
 							discard.discard(c);
 						}
 						
-						stealth -= c.getCostBuy();
+						stealth -= c.getCostStealth();
 						attack -= c.getCostAttack();
 						
 						playArea.remove(Integer.parseInt(input) - 1);
@@ -240,7 +238,7 @@ public class GameEngine {
 						
 					}
 					
-					//Reset the avaiable currency to zero
+					//Reset the available currency to zero
 					stealth = 0;
 					attack = 0;									
 					
@@ -273,7 +271,7 @@ public class GameEngine {
 		for(int i = 0; i < h.size(); i++) {
 			System.out.println("(" + (i+1) + ") " + h.get(i).getName() + ": " + h.get(i).getDescription());
 			if(h.get(i).getCostAttack() > 0) System.out.println("\t\tCosts Attack: " + h.get(i).getCostAttack());
-			if(h.get(i).getCostBuy() > 0) System.out.println("\t\tCosts Stealth: " + h.get(i).getCostBuy());
+			if(h.get(i).getCostStealth() > 0) System.out.println("\t\tCosts Stealth: " + h.get(i).getCostStealth());
 		}
 		
 	}

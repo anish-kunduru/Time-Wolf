@@ -17,11 +17,10 @@ public class jUnitHand {
 		hand = new Hand(5);
 		
 		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
-		beginStealth = new Card("Stealth 1", "This card gives you 1 stealth", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
+		beginStealth = new Card("Prowl");
 		
 		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
-		beginAttack = new Card("Attack 1", "This card gives you 1 attack", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true, false, false);
-
+		beginAttack = new Card("Claw");
 	}
 
 	@Test
