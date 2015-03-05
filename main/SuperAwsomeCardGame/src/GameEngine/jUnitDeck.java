@@ -82,7 +82,7 @@ public class jUnitDeck {
 	public void testGetMainDeck() throws SQLException {
 		Deck deck = new Deck();
 		deck = deck.getMainDeck();
-		assertEquals(47, deck.size());
+		assertEquals(120, deck.size());
 	}
 	
 	@Test

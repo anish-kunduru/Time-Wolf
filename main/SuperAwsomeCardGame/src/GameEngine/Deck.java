@@ -70,8 +70,6 @@ public class Deck {
 	
 	public Deck getMainDeck() throws SQLException{
 		
-		//TODO - # of each card in deck
-		
 		Deck main = new Deck();
 		
 		DBHelper dbh = new DBHelper();
@@ -99,12 +97,13 @@ public class Deck {
 			boolean takeAnotherTurn = rs.getBoolean("TakeAnotherTurn");
 			boolean refreshPlayArea = rs.getBoolean("RefreshPlayArea");
 			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
+			int NumInDeck = rs.getInt("NumInDeck");
 			
 			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
 					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForPower, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
-			main.addCard(toAdd);
+			main.addCard(toAdd, NumInDeck);
 		}
 		return main;
 	}	
