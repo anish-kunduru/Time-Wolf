@@ -37,7 +37,7 @@ public final class Card {
 	/**
 	 * @param name Name of the card
 	 * @param description Description of the card
-	 * @param costBuy Cost to buy
+	 * @param costStealth Cost to buy with Stealth
 	 * @param costAttack Cost to defeat in an attack
 	 * @param vp Victory Points
 	 * @param attack The attack power of the card.
@@ -52,11 +52,12 @@ public final class Card {
 	 * @param trashForStealth	Number of cards to trash for attack.
 	 * @param removeFromPlayArea Number of cards to discard from play area.
 	 * @param othersDiscard Number of cards other players must discard down to.
-	 * @param giveCurseCards Number of curse cards to give other players.
+	 * @param othersLoseVP Number of VPs other players lose.
 	 * @param takeAnotherTurn If true, then the player can take another turn after this one.
 	 * @param refreshPlayArea Discard all cards in the play area and replace.
 	 * @param trashAfterUse
 	 */
+	
 	public Card(String name, String description, int costBuy, int costAttack,
 			int vp, int attack, int stealth, int preturnDiscard,
 			int postturnDiscard, int drawCards, int othersDrawCards,
@@ -86,6 +87,12 @@ public final class Card {
 		this.refreshPlayArea = refreshPlayArea;
 		this.trashAfterUse = trashAfterUse;
 	}
+	
+	/**
+	 * Constructor to pull the card information from the database from the given card name
+	 * @param cardName Name of the desired card
+	 * @throws SQLException
+	 */
 	
 	public Card(String cardName) throws SQLException{
 		
@@ -124,6 +131,7 @@ public final class Card {
 	 * Returns the name of the card, as it should be printed on the card.
 	 * @return the name of the card
 	 */
+	
 	public String getName() {
 		return name;
 	}
@@ -139,7 +147,7 @@ public final class Card {
 
 
 	/**
-	 * The cost to buy the card with currency.
+	 * The cost to buy the card with stealth.
 	 * @return the cost to buy the card
 	 */
 	public int getCostStealth() {
@@ -148,7 +156,7 @@ public final class Card {
 
 
 	/**
-	 * The cost to defeat the card with an attack.
+	 * The cost to defeat the card with attack.
 	 * @return the cost to defeat a card
 	 */
 	public int getCostAttack() {
@@ -172,6 +180,10 @@ public final class Card {
 		return attack;
 	}
 	
+	/**
+	 * The stealth value the card gives
+	 * @return amount of stealth
+	 */
 	public int getStealth() {
 		return stealth;
 	}
@@ -290,22 +302,19 @@ public final class Card {
 
 
 	/**
-	 * Give a number of curse cards to all other players
-	 * @return the giveCurseCards
+	 * Gives the number of VPs that the card takes away from other players
+	 * @return number of VPs to take from other players
 	 */
 	public int getOthersLoseVP() {
 		return othersLoseVP;
 	}
 
 
-	/**
-	 * @return the trashAfterUse
+	/**True if the card is trashed after use, false otherwise
+	 * @return trashAfterUse
 	 */
 	public boolean isTrashAfterUse() {
 		return trashAfterUse;
 	}
-	
-	
-	//TODO - Helper method to get specific card
 	
 }

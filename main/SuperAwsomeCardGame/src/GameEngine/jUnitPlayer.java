@@ -108,12 +108,6 @@ public class jUnitPlayer {
 	}
 	
 	@Test
-	public void testAddActions() {
-		player.addActions(5);
-		assertEquals(15, player.getActions());
-	}
-	
-	@Test
 	public void testAddCurrency() {
 		player.addCurrency(5);
 		assertEquals(15, player.getCurrency());

@@ -68,6 +68,12 @@ public class Deck {
 		return(this.cards.size());
 	}
 	
+	/**
+	 * Accesses the database to create the main playing deck
+	 * @return the main deck
+	 * @throws SQLException
+	 */
+	
 	public Deck getMainDeck() throws SQLException{
 		
 
@@ -110,6 +116,12 @@ public class Deck {
 		}
 		return main;
 	}	
+	
+	/**
+	 * Accesses the database to create the starter deck
+	 * @return the starter deck
+	 * @throws SQLException
+	 */
 	
 	public Deck getStarterDeck() throws SQLException{
 		

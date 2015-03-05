@@ -48,15 +48,6 @@ public class Player {
 	}
 	
 	/**
-	 * Adds the given number of actions to the total actions a player has
-	 * @param numActions
-	 */
-	
-	public void addActions(int numActions){
-		actions += numActions;
-	}
-	
-	/**
 	 * Returns the user's ID
 	 * @return The user's ID
 	 */
