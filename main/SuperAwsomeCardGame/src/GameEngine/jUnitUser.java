@@ -72,5 +72,12 @@ public class jUnitUser {
 	public void isModeratorFalse() {
 		assertEquals(false, userThree.isModerator());
 	}
+	
+	@Test
+	public void Ban() throws Exception {
+		userThree.Ban();
+		userThree.saveUser(userThree.getUsername(), userThree.getEmail(), userThree.getPassword());
+		assertEquals(true, userThree.isBanned());
+	}
 
 }

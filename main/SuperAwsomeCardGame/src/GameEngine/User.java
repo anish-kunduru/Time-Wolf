@@ -119,10 +119,10 @@ public class User {
 		else     //update query
 		{
 			query = "UPDATE User SET ";
-			query += "Username=" + username;
-			query += ",Email=" + email;
-			query += ",Password=" + password;
-			query += ",ImagePath=" + this.imgPath;
+			query += "Username='" + username + "'";
+			query += ",Email='" + email + "'";
+			query += ",Password='" + password + "'";
+			query += ",ImagePath='" + this.imgPath + "'";
 			int bit = 0;
 			if(this.isBanned)
 				bit = 1;
