@@ -104,7 +104,7 @@ public class User {
 				query = "INSERT INTO Statistics ";
 				query += "('UserID','TotalGames','TotalWins','TotalPoints')";
 				query += "(" + this.ID + ",0,0,0)";
-				dbh.executeQuery(query);
+				dbh.executeUpdate(query);
 			}
 			else
 			{
@@ -126,7 +126,7 @@ public class User {
 			query += ",Role=" + this.role;
 			query += " WHERE ID=" + this.ID;
 
-			dbh.executeQuery(query);
+			dbh.executeUpdate(query);
 			//Stats are currently saved whenever games are incremented so there isn't a need to save here as well
 		}
 		
