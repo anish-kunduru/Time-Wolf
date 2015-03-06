@@ -81,6 +81,14 @@ public class User {
 			throw new Exception("saveUser() cannot accept a call from a User with ID=0");
 	}
 	
+	public static void main(String[] args) throws Exception
+	{
+		User testUser = new User();
+		testUser.saveUser("tester", "test@test.test", "testpw");
+	
+	}
+	
+	
 	/*
 	 * Creating a new user case
 	 */
@@ -96,21 +104,32 @@ public class User {
 		if(this.ID == 0) //insert query
 		{
 			query = "INSERT INTO User ";
-			query += "('Username', 'Email', 'Password', 'ImagePath', 'IsBanned', 'Role')";
-			query += "VALUES (" + username + "," + email + "," + password + ",,0,0)";
+			query += "(Username, Email, Password, ImagePath, IsBanned, Role)";
+			query += "VALUES ('" + username + "','" + email + "','" + password + "','','0','0')";
 
-			dbh.executeUpdate(query);
+			try{
+				dbh.executeUpdate(query);
+			}
+			catch(Exception ex)
+			{
+				throw new Exception("This username already exists!");
+			}
 			
-			query = " SELECT * FROM User WHERE Username=" + username;
+			query = " SELECT * FROM User WHERE Username='" + username + "'";
 			ResultSet rs = dbh.executeQuery(query);
 			
 			if(rs.first())
 			{
 				this.ID = rs.getInt("ID");
-			
+				this.username = username;
+				this.email = email;
+				this.password = password;
+				this.imgPath = "";
+				this.isBanned = false;
+				this.role = 0;
 				query = "INSERT INTO Statistics ";
-				query += "('UserID','TotalGames','TotalWins','TotalPoints')";
-				query += "(" + this.ID + ",0,0,0)";
+				query += "(UserID,TotalGames,TotalWins,TotalPoints)";
+				query += "VALUES ('" + this.ID + "','0','0','0')";
 				dbh.executeUpdate(query);
 			}
 			else
@@ -135,6 +154,10 @@ public class User {
 
 			dbh.executeUpdate(query);
 			//Stats are currently saved whenever games are incremented so there isn't a need to save here as well
+			
+			this.username = username;
+			this.email = email;
+			this.password = password;
 		}
 		
 		
