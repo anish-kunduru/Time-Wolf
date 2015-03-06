@@ -9,7 +9,7 @@ public class User {
 	private String email;
 	private String password;
 	private String imgPath;
-	private UserStats stats;
+	public UserStats Statistics;
 	private boolean isBanned;
 	private int role;
 
@@ -19,7 +19,7 @@ public class User {
 		this.email = "";
 		this.password = "";
 		this.imgPath = "";
-		this.stats = null;
+		this.Statistics = null;
 		this.isBanned = false;
 		this.role = 0;
 	}
@@ -98,9 +98,12 @@ public class User {
 			query = "INSERT INTO User ";
 			query += "('Username', 'Email', 'Password', 'ImagePath', 'IsBanned', 'Role')";
 			query += "VALUES (" + username + "," + email + "," + password + ",,0,0)";
-			query += " SELECT * FROM User WHERE Username=" + username;
 
+			dbh.executeUpdate(query);
+			
+			query = " SELECT * FROM User WHERE Username=" + username;
 			ResultSet rs = dbh.executeQuery(query);
+			
 			if(rs.first())
 			{
 				this.ID = rs.getInt("ID");
@@ -126,7 +129,7 @@ public class User {
 			int bit = 0;
 			if(this.isBanned)
 				bit = 1;
-			query += ",IsBanned=" + this.isBanned;
+			query += ",IsBanned=" + bit;
 			query += ",Role=" + this.role;
 			query += " WHERE ID=" + this.ID;
 
@@ -173,7 +176,7 @@ public class User {
 			if (bannedBit > 0)
 				this.isBanned = true;
 			this.role = rs.getInt("Role");
-			this.stats = new UserStats(this.ID);
+			this.Statistics = new UserStats(this.ID);
 
 			return true;
 		}
