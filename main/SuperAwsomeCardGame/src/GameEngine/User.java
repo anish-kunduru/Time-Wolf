@@ -31,6 +31,10 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
 
 	public void LoadImage() {
 		// get image from server
