@@ -134,7 +134,7 @@ public class UserStats {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE Statistics SET TotalGames=" + gamesPlayed + ",TotalWins=" + gamesWon + ",TotalPoints=" + totalPoints;
 		query = query + " WHERE UserID=" + userID;
-		dbh.executeQuery(query);
+		dbh.executeUpdate(query);
 		
 	}
 
