@@ -50,9 +50,9 @@ public class User {
 		return isBanned;
 	}
 	
-	public void Ban()
+	public void setBannedStatus(boolean banned)
 	{
-		this.isBanned = true;
+		this.isBanned = banned;
 	}
 	
 
@@ -81,12 +81,6 @@ public class User {
 			throw new Exception("saveUser() cannot accept a call from a User with ID=0");
 	}
 	
-	public static void main(String[] args) throws Exception
-	{
-		User testUser = new User();
-		testUser.saveUser("tester", "test@test.test", "testpw");
-	
-	}
 	
 	
 	/*
