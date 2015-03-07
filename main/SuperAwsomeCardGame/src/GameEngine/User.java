@@ -46,7 +46,7 @@ public class User {
 		return password;
 	}
 
-	public void LoadImage() {
+	public void getImage() {
 		// get image from server
 	}
 	
@@ -83,6 +83,11 @@ public class User {
 			return true;
 		else
 			return false;
+	}
+	
+	public void setRole(int role)
+	{
+		this.role = role;
 	}
 	
 	/*
