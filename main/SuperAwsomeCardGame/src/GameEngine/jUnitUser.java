@@ -76,8 +76,22 @@ public class jUnitUser {
 	@Test
 	public void Ban() throws Exception {
 		userThree.Ban();
-		userThree.saveUser(userThree.getUsername(), userThree.getEmail(), userThree.getPassword());
+		userThree.saveUser();
 		assertEquals(true, userThree.isBanned());
 	}
+	
+	@Test
+	public void resetPassword() throws Exception {
+		userThree.resetPassword();
+		userThree.saveUser();
+		assertEquals("", userThree.getPassword());
+	}
+	
+	//Successfully creates a new user
+	/*@Test
+	public void createNewUser() throws Exception {
+		User userNew = new User();
+		userNew.saveUser("test4", "test4@test.com", "password");
+	}*/
 
 }

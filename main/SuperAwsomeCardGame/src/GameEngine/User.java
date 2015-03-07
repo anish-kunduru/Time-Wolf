@@ -172,10 +172,10 @@ public class User {
 			// newPW is awful right now, can make better later
 			String newPW = username + ID;
 			DBHelper dbh = new DBHelper();
-			String query = "UPDATE User SET Password=" + newPW + " WHERE ID="
+			String query = "UPDATE User SET Password='" + newPW + "' WHERE ID="
 					+ this.ID;
 			
-			dbh.executeQuery(query);
+			dbh.executeUpdate(query);
 			
 			return newPW;
 		}
