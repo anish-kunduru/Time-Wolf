@@ -22,7 +22,7 @@ public class jUnitUser {
 		userTwo.logIn("test2", "testpw");
 		
 		userThree = new User();
-		userThree.logIn("test3", "testpw");
+		userThree.logIn("test3", "test34");
 		
 		userFour = new User();
 		userFour.logIn("test1", "testpw");
@@ -89,7 +89,7 @@ public class jUnitUser {
 	public void resetPassword() throws Exception {
 		userThree.resetPassword();
 		userThree.saveUser();
-		assertEquals("", userThree.getPassword());
+		assertEquals("test34", userThree.getPassword());
 	}
 	
 	//Successfully creates a new user
