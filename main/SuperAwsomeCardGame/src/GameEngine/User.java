@@ -23,6 +23,22 @@ public class User {
 		this.isBanned = false;
 		this.role = 0;
 	}
+	
+	public void initStats()
+	{
+		this.Statistics = new UserStats(ID);
+	
+	}
+	
+	public int getID()
+	{
+		return ID;
+	}
+	
+	public void setID(int id)
+	{
+		ID = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -50,9 +66,10 @@ public class User {
 		// get image from server
 	}
 	
-	public void setImage()
+	public String setImagePath(String path)
 	{
 		//sets image location, probably returned from a function that puts image on server
+		return "";
 	}
 	
 	public void deleteImage()
