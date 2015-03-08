@@ -74,8 +74,13 @@ public class jUnitUser {
 	}
 	
 	@Test
+	public void getID() throws Exception {
+		assertEquals(4, userThree.getID());
+	}
+	
+	@Test
 	public void Ban() throws Exception {
-		userThree.Ban();
+		userThree.setBannedStatus(true);
 		userThree.saveUser();
 		assertEquals(true, userThree.isBanned());
 	}
