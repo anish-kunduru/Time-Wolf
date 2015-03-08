@@ -23,21 +23,53 @@ public class User {
 		this.isBanned = false;
 		this.role = 0;
 	}
+	
+	public void initStats()
+	{
+		this.Statistics = new UserStats(ID);
+	
+	}
+	
+	public int getID()
+	{
+		return ID;
+	}
+	
+	public void setID(int id)
+	{
+		ID = id;
+	}
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public void setEmail(String email)
+	{
+		this.email = email;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 	
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
 
-	public void LoadImage() {
+	public void getImage() {
 		// get image from server
+	}
+	
+	public String setImagePath(String path)
+	{
+		//sets image location, probably returned from a function that puts image on server
+		return "";
 	}
 	
 	public void deleteImage()
@@ -50,9 +82,9 @@ public class User {
 		return isBanned;
 	}
 	
-	public void Ban()
+	public void setBannedStatus(boolean banned)
 	{
-		this.isBanned = true;
+		this.isBanned = banned;
 	}
 	
 
@@ -70,6 +102,11 @@ public class User {
 			return false;
 	}
 	
+	public void setRole(int role)
+	{
+		this.role = role;
+	}
+	
 	/*
 	 * Pre-existing users
 	 */
@@ -81,12 +118,6 @@ public class User {
 			throw new Exception("saveUser() cannot accept a call from a User with ID=0");
 	}
 	
-	public static void main(String[] args) throws Exception
-	{
-		User testUser = new User();
-		testUser.saveUser("tester", "test@test.test", "testpw");
-	
-	}
 	
 	
 	/*
@@ -172,10 +203,10 @@ public class User {
 			// newPW is awful right now, can make better later
 			String newPW = username + ID;
 			DBHelper dbh = new DBHelper();
-			String query = "UPDATE User SET Password=" + newPW + " WHERE ID="
+			String query = "UPDATE User SET Password='" + newPW + "' WHERE ID="
 					+ this.ID;
 			
-			dbh.executeQuery(query);
+			dbh.executeUpdate(query);
 			
 			return newPW;
 		}
