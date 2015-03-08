@@ -74,7 +74,7 @@ public class Deck {
 	 * @throws SQLException
 	 */
 	
-	public Deck getMainDeck() throws SQLException{
+	public static Deck getMainDeck() throws SQLException{
 		
 
 		
@@ -123,7 +123,7 @@ public class Deck {
 	 * @throws SQLException
 	 */
 	
-	public Deck getStarterDeck() throws SQLException{
+	public static Deck getStarterDeck() throws SQLException{
 		
 		Deck starter = new Deck();
 		

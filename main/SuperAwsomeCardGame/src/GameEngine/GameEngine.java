@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class GameEngine {
 	
 	private Player[] players;
-	private Deck startingDeck;
+	private static Deck startingDeck;
 	
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
