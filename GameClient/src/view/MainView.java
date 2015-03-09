@@ -32,6 +32,7 @@ public class MainView extends Application
       
       mainController.loadScreen(LOGIN_SCREEN, LOGIN_SCREEN_FXML);
       mainController.loadScreen(REGISTRATION_SCREEN, REGISTRATION_SCREEN_FXML);
+      mainController.loadScreen(FORGOT_PASSWORD_SCREEN, FORGOT_PASSWORD_SCREEN_FXML);
       
       // Display the first screen.
       mainController.displayScreen(LOGIN_SCREEN);

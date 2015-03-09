@@ -59,15 +59,12 @@ public class LoginScreenController implements ControlledScreen
       
       registerButton.setOnAction(event ->
       {
-         // TO-DO
          parentController.displayScreen(MainView.REGISTRATION_SCREEN);
       });
 
       forgotUsernamePasswordHyperlink.setOnAction(event ->
       {
-         // TO-DO
-         // This is how we would call a linked screen:
-         // parentController.displayScreen(MainView.FORGOT_PASSWORD_SCREEN);
+         parentController.displayScreen(MainView.FORGOT_PASSWORD_SCREEN);
       });
    }
    
