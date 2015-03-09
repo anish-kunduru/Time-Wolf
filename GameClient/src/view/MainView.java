@@ -21,6 +21,9 @@ public class MainView extends Application
    public static final String FORGOT_PASSWORD_SCREEN = "forgotPassword";
    public static final String FORGOT_PASSWORD_SCREEN_FXML = "ForgotPasswordScreen.fxml";
    
+   public static final String REGISTRATION_SCREEN = "registration";
+   public static final String REGISTRATION_SCREEN_FXML = "RegistrationScreen.fxml";
+   
    @Override
    public void start(Stage primaryStage)
    {
@@ -28,6 +31,7 @@ public class MainView extends Application
       MainController mainController = new MainController();
       
       mainController.loadScreen(LOGIN_SCREEN, LOGIN_SCREEN_FXML);
+      mainController.loadScreen(REGISTRATION_SCREEN, REGISTRATION_SCREEN_FXML);
       
       // Display the first screen.
       mainController.displayScreen(LOGIN_SCREEN);

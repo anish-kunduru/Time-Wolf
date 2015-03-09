@@ -60,7 +60,7 @@ public class LoginScreenController implements ControlledScreen
       registerButton.setOnAction(event ->
       {
          // TO-DO
-         // parentController.displayScreen(MainView.REGISTRATION_SCREEN);
+         parentController.displayScreen(MainView.REGISTRATION_SCREEN);
       });
 
       forgotUsernamePasswordHyperlink.setOnAction(event ->
