@@ -7,12 +7,18 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 
-public class GameEngine {
+public class GameEngine implements Runnable {
 	
-	private String name;
+	
 	private Player[] players;
 	private int totalNumOfPlayers;
 	private int currentNumOfPlayers;
+	
+	private String name;
+	private boolean isRunning = false;
+	private boolean isFinished = false;
+	
+	
 	private Deck startingDeck;
 	
 	private Deck mainDeck;
@@ -89,7 +95,31 @@ public class GameEngine {
 
 	
 	
+	/**
+	 * Is the game running?
+	 * @return true if game is running
+	 */
+	public boolean isRunning() {
+		return isRunning;
+	}
 
+	/**
+	 * Is the game finished?
+	 * @return true if the game is finished
+	 */
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+	/**
+	 * Has the game started?
+	 * @return true if the game started
+	 */
+	public boolean hasStarted() {
+		return isRunning || isFinished;
+	}
+
+	
 	public static void main(String[] args) throws SQLException {
 
 		Card c;
@@ -334,6 +364,14 @@ public class GameEngine {
 			if(h.get(i).getCostAttack() > 0) System.out.println("\t\tCosts Attack: " + h.get(i).getCostAttack());
 			if(h.get(i).getCostStealth() > 0) System.out.println("\t\tCosts Stealth: " + h.get(i).getCostStealth());
 		}
+		
+	}
+
+
+	
+	@Override
+	public void run() {
+		// TODO The main loop of logic goes here for the game engine.
 		
 	}
 
