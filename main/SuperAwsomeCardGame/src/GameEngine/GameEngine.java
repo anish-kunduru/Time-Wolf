@@ -9,8 +9,11 @@ import java.util.Iterator;
 
 public class GameEngine {
 	
+	private String name;
 	private Player[] players;
-	private static Deck startingDeck;
+	private int totalNumOfPlayers;
+	private int currentNumOfPlayers;
+	private Deck startingDeck;
 	
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
@@ -21,13 +24,71 @@ public class GameEngine {
 	
 	
 
-	public GameEngine(int numOfPlayers, Deck startingDeck, Deck mainDeck) {
+	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) {
 		super();
 		
-		//Create the array of players
+		//Create the array of players and initialize info about the number of players.
+		this.totalNumOfPlayers = numOfPlayers;
+		this.currentNumOfPlayers = 0;
 		this.players = new Player[numOfPlayers];
 		
+		this.mainDeck = (Deck) mainDeck.clone();
+		this.startingDeck = startingDeck;
+		this.name = name;
+		
+		
 	}
+	
+	/**
+	 * Add player "p" to the game.
+	 * @param p the player to add.
+	 * @return True if the player has been added successfully.
+	 */
+	public boolean addPlayer(Player p) {
+		//We can only have so many players in a game.
+		if(this.currentNumOfPlayers == this.totalNumOfPlayers) return false;
+		
+		//Add the player if there is room.
+		this.players[this.currentNumOfPlayers] = p;
+		this.currentNumOfPlayers++;
+		
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Get the name of the game.
+	 * @return the name of the game
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+	/**
+	 * Get the total number of players allowed to play
+	 * @return total number of players
+	 */
+	public int getTotalNumOfPlayers() {
+		return totalNumOfPlayers;
+	}
+
+	/**
+	 * Get the current number of players in the game.
+	 * @return the current number of players
+	 */
+	public int getCurrentNumOfPlayers() {
+		return currentNumOfPlayers;
+	}
+
+	
+	
 
 	public static void main(String[] args) throws SQLException {
 
