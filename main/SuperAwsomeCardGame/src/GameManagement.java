@@ -36,6 +36,11 @@ public class GameManagement implements Runnable {
 	}
 	
 	
+	public void createGame(int numberOfPlayers, String gameName) {
+		GameEngine ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck);
+		this.games.add(ge);
+	}
+	
 	public boolean addUserToGame(int game, User u) {
 		
 		//User must be initialized
