@@ -50,9 +50,14 @@ public class GameEngine implements Runnable {
 	 * @param p the player to add.
 	 * @return True if the player has been added successfully.
 	 */
-	public boolean addPlayer(Player p) {
+	public boolean addPlayer(User u) {
+		
+		
 		//We can only have so many players in a game, and we can't add null players
-		if(this.currentNumOfPlayers == this.totalNumOfPlayers || p == null) return false;
+		if(this.currentNumOfPlayers == this.totalNumOfPlayers || u == null) return false;
+		
+		//Create the player object using the user
+		Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
 		
 		//Add the player if there is room.
 		this.players[this.currentNumOfPlayers] = p;
@@ -93,6 +98,9 @@ public class GameEngine implements Runnable {
 		return currentNumOfPlayers;
 	}
 
+	public boolean isFull() {
+		return this.currentNumOfPlayers == this.totalNumOfPlayers;
+	}
 	
 	
 	/**
@@ -119,6 +127,8 @@ public class GameEngine implements Runnable {
 		return isRunning || isFinished;
 	}
 
+	
+	
 	
 	public static void main(String[] args) throws SQLException {
 

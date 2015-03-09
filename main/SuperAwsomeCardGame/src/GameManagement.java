@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import GameEngine.Deck;
 import GameEngine.GameEngine;
+import GameEngine.User;
 
 
 public class GameManagement implements Runnable {
@@ -27,7 +28,7 @@ public class GameManagement implements Runnable {
 		try {
 			this.startingDeck = Deck.getStarterDeck();
 			this.mainDeck = Deck.getMainDeck();
-		} catch (SQLException e) {
+		} catch (SQLException e) {	
 			e.printStackTrace();
 			throw(e);
 		}
@@ -35,6 +36,31 @@ public class GameManagement implements Runnable {
 	}
 	
 	
+	public boolean addUserToGame(int game, User u) {
+		
+		//User must be initialized
+		if(u == null) {
+			return false;
+		}
+		
+		//We must have a valid game number
+		if(game < 0 && game >= this.games.size()) {
+			return false;
+		}
+		
+		GameEngine ge = this.games.get(game);
+		
+		//Check to see if the game will allow additions
+		//Can't add players to a running game or a full game
+		if(ge.isRunning() || ge.isFull()) {
+			return false;
+		}
+		
+		ge.addPlayer(u);
+		
+		return true;
+		
+	}
 
 
 
