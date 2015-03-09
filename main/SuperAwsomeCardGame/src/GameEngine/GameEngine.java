@@ -45,8 +45,8 @@ public class GameEngine {
 	 * @return True if the player has been added successfully.
 	 */
 	public boolean addPlayer(Player p) {
-		//We can only have so many players in a game.
-		if(this.currentNumOfPlayers == this.totalNumOfPlayers) return false;
+		//We can only have so many players in a game, and we can't add null players
+		if(this.currentNumOfPlayers == this.totalNumOfPlayers || p == null) return false;
 		
 		//Add the player if there is room.
 		this.players[this.currentNumOfPlayers] = p;
