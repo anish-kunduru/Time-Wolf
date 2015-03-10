@@ -87,6 +87,24 @@ public class LogIn {
 		
 	}
 	
+	public static void save(User u)
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET ";
+		query += "Username='" + u.getUsername() + "'";
+		query += ",Email='" + u.getEmail() + "'";
+		query += ",Password='" + u.getPassword() + "'";
+		query += ",ImagePath='" + u.getImagePath() + "'";
+		int bit = 0;
+		if(u.isBanned())
+			bit = 1;
+		query += ",IsBanned=" + bit;
+		query += ",Role=" + u.getRole();
+		query += " WHERE ID=" + u.getID();
+
+		dbh.executeUpdate(query);
+	}
+	
 	
 	/*
 	 * Resets current user's password and saves new password in database Emails

@@ -62,18 +62,25 @@ public class User {
 		return password;
 	}
 	
+	public int getRole()
+	{
+		return role;
+	}
+	
 	public void setPassword(String pw) {
 		password = pw;
 	}
 
-	public void getImage() {
+	public String getImagePath() {
+		return imgPath;
 		// get image from server
 	}
 	
-	public String setImagePath(String path)
+	public void setImagePath(String path)
 	{
+		imgPath = path;
 		//sets image location, probably returned from a function that puts image on server
-		return "";
+		
 	}
 	
 	public void deleteImage()
