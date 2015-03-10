@@ -7,10 +7,19 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 
-public class GameEngine {
+public class GameEngine implements Runnable {
+	
 	
 	private Player[] players;
-	private static Deck startingDeck;
+	private int totalNumOfPlayers;
+	private int currentNumOfPlayers;
+	
+	private String name;
+	private boolean isRunning = false;
+	private boolean isFinished = false;
+	
+	
+	private Deck startingDeck;
 	
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
@@ -21,14 +30,129 @@ public class GameEngine {
 	
 	
 
-	public GameEngine(int numOfPlayers, Deck startingDeck, Deck mainDeck) {
+	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) {
 		super();
 		
-		//Create the array of players
+		//Create the array of players and initialize info about the number of players.
+		this.totalNumOfPlayers = numOfPlayers;
+		this.currentNumOfPlayers = 0;
 		this.players = new Player[numOfPlayers];
 		
+		this.mainDeck = (Deck) mainDeck.clone();
+		this.startingDeck = startingDeck;
+		this.name = name;
+		
+		
+	}
+	
+	/**
+	 * Add player "p" to the game.
+	 * @param p the player to add.
+	 * @return True if the player has been added successfully.
+	 */
+	public boolean addPlayer(User u) {
+		
+		
+		//We can only have so many players in a game, and we can't add null players
+		if(this.currentNumOfPlayers == this.totalNumOfPlayers || u == null) return false;
+		
+		//Create the player object using the user
+		Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
+		
+		//Add the player if there is room.
+		this.players[this.currentNumOfPlayers] = p;
+		this.currentNumOfPlayers++;
+		
+		return true;
+	}
+	
+	
+	/**
+	 * Start the game.
+	 * @return true if the game thread started succesffully.
+	 */
+	public boolean start() {
+		//Must not have already started and the game table must be full
+		if(this.hasStarted() || !this.isFull()) return false;
+		
+		//Start the thread
+		Thread t = new Thread(this);
+		t.start();
+		
+		if(!t.isAlive()) return false;
+		
+		//This is set here and in the thread. Since with threading either can 
+		//jump to running the new thread or the original thread
+		this.isRunning = true; //Mark it as running
+		
+		return false;
+	}
+	
+	
+	
+	
+	/**
+	 * Get the name of the game.
+	 * @return the name of the game
+	 */
+	public String getName() {
+		return name;
 	}
 
+
+	/**
+	 * Get the total number of players allowed to play
+	 * @return total number of players
+	 */
+	public int getTotalNumOfPlayers() {
+		return totalNumOfPlayers;
+	}
+
+	/**
+	 * Get the current number of players in the game.
+	 * @return the current number of players
+	 */
+	public int getCurrentNumOfPlayers() {
+		return currentNumOfPlayers;
+	}
+
+	
+	/**
+	 * Is the game full?
+	 * @return true if full
+	 */
+	public boolean isFull() {
+		return this.currentNumOfPlayers == this.totalNumOfPlayers;
+	}
+	
+	
+	/**
+	 * Is the game running?
+	 * @return true if game is running
+	 */
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	/**
+	 * Is the game finished?
+	 * @return true if the game is finished
+	 */
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+	/**
+	 * Has the game started?
+	 * @return true if the game started
+	 */
+	public boolean hasStarted() {
+		return isRunning || isFinished;
+	}
+
+	
+	
+	
 	public static void main(String[] args) throws SQLException {
 
 		Card c;
@@ -273,6 +397,18 @@ public class GameEngine {
 			if(h.get(i).getCostAttack() > 0) System.out.println("\t\tCosts Attack: " + h.get(i).getCostAttack());
 			if(h.get(i).getCostStealth() > 0) System.out.println("\t\tCosts Stealth: " + h.get(i).getCostStealth());
 		}
+		
+	}
+
+
+	
+	@Override
+	public void run() {
+		// TODO The main loop of logic goes here for the game engine.
+		
+		//This is set here and in the start() function. Since with threading processing
+		//can jump to running the new thread or the original thread
+		this.isRunning = true; 
 		
 	}
 

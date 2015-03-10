@@ -165,6 +165,19 @@ public class Deck {
 		return starter;
 	}
 
+	@Override
+	protected Object clone() {
+		Deck newDeck = new Deck();
+		
+		//Copy each card from this deck into the new deck.
+		for(int i = 0; i < this.cards.size(); i++) {
+			newDeck.addCard(this.cards.get(i));
+		}
+
+		//Return the new deck
+		return newDeck;
+	}
+
 
 	
 }

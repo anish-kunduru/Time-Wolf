@@ -7,9 +7,11 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextField;
 
-public class LoginScreenController
+public class LoginScreenController implements ControlledScreen
 {
    // Functional components.
    @FXML
@@ -28,45 +30,44 @@ public class LoginScreenController
    // Store input from user.
    private String usernameString;
    private String passwordString;
+   
+   // So we can set the screen's parent later on.
+   MainController parentController;
 
    /**
-    * Constructor
-    */
-   public LoginScreenController()
-   {
-   }
-
-   /**
-    * Initializes the controller class.
-    * 
-    * Automatically called after the FXML file has been loaded.
+    * Initializes the controller class. Automatically called after the FXML file has been loaded.
     */
    @FXML
-   private void initialize()
+   public void initialize()
    {
+      
       // Event handlers for buttons.
       // The arrow means lambda expression in Java.
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
-
-      loginButton.setOnAction((event) ->
+      
+      loginButton.setOnAction(event ->
       {
          // TO-DO
          // CHECK IF USERNAME/PASSWORD IS VALID BEFORE SETTING...
          usernameString = usernameTextField.getText();
          passwordString = passwordTextField.getText();
+         
+         // DEBUG
+         System.out.println(usernameString);
+         System.out.println(passwordString);
+      });
+      
+      registerButton.setOnAction(event ->
+      {
+         parentController.displayScreen(MainView.REGISTRATION_SCREEN);
       });
 
-      registerButton.setOnAction((event) ->
+      forgotUsernamePasswordHyperlink.setOnAction(event ->
       {
-         // TO-DO
-      });
-
-      forgotUsernamePasswordHyperlink.setOnAction((event) ->
-      {
-         // TO-DO
+         parentController.displayScreen(MainView.FORGOT_PASSWORD_SCREEN);
       });
    }
-
+   
    /**
     * @return The username inputted by the player.
     */
@@ -81,5 +82,13 @@ public class LoginScreenController
    public String getPassword()
    {
       return passwordString;
+   }
+   
+   /**
+    * This method will allow for the injection of each screen's parent.
+    */
+   public void setScreenParent(MainController screenParent)
+   {
+      parentController = screenParent;
    }
 }
