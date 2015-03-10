@@ -3,8 +3,10 @@ package GameEngine;
 import java.sql.ResultSet;
 
 public class LogIn {
-		
-	public User logIn(String username, String password) throws Exception {
+	/*
+	 * Returns the user associated with the given username and password
+	 */
+	public static User logIn(String username, String password) throws Exception {
 		User u = new User();
 		
 		DBHelper dbh = new DBHelper();
@@ -29,9 +31,31 @@ public class LogIn {
 
 			return u;
 		}
-
-		u.setID(0);
-		return u;
+		else{
+			throw new Exception("Username or password was incorrect!");
+		}
+	}
+	
+	public static User register(String username, String email, String password)
+	{
+		return null;
+		
+	}
+	
+	
+	/*
+	 * Resets current user's password and saves new password in database Emails
+	 * user new password - if we can get a SMTP setup
+	 */
+	public static void resetPassword(int id, String newPassword) {
+		
+			DBHelper dbh = new DBHelper();
+			String query = "UPDATE User SET Password='" + newPassword + "' WHERE ID="
+					+ id;
+			
+			dbh.executeUpdate(query);
+			
+		//if ID == 0 then no user is selected
 	}
 
 }
