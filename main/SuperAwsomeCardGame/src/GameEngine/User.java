@@ -3,6 +3,13 @@ package GameEngine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * User class object to hold all valuable data for a given user over
+ * any period of time
+ * @author Shelbie
+ *
+ */
+
 public class User {
 	private int ID;
 	private String username;
@@ -13,6 +20,9 @@ public class User {
 	private boolean isBanned;
 	private int role;
 
+	/**
+	 * Creates a new user object with empty fields
+	 */
 	public User() {
 		this.ID = 0;
 		this.username = "";
@@ -24,70 +34,151 @@ public class User {
 		this.role = 0;
 	}
 	
+	/**
+	 * Initiates the UserStats object associated with this user
+	 * All users should always have an associated stats object
+	 */
 	public void initStats()
 	{
 		this.Statistics = new UserStats(ID);
 	
 	}
 	
+	/**
+	 * Returns the user id
+	 * @return ID
+	 */
 	public int getID()
 	{
 		return ID;
 	}
 	
+	/**
+	 * Sets the users id to the given parameter
+	 * @param id - new id
+	 */
 	public void setID(int id)
 	{
 		ID = id;
 	}
 
+	/**
+	 * Returns users email
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 	
+	/**
+	 * Sets users email to the email passed via parameter
+	 * @param email - new email to be set
+	 */
 	public void setEmail(String email)
 	{
 		this.email = email;
 	}
 
+	/**
+	 * Returns users username
+	 * @return username
+	 */
 	public String getUsername() {
 		return username;
 	}
 	
+	/**
+	 * Sets users username to the given new username
+	 * @param username - new username for user
+	 */
 	public void setUsername(String username)
 	{
 		this.username = username;
 	}
 	
+	
+	/**
+	 * Returns password for user
+	 * @return password
+	 */
 	public String getPassword() {
 		return password;
 	}
+	
+	/**
+	 * returns the users role as an int
+	 * 0 - Normal user
+	 * 1 - Moderator
+	 * 2 - Admin
+	 * @return role
+	 */
+	public int getRole()
+	{
+		return role;
+	}
+	
+	/**
+	 * Sets password to given password
+	 * Mostly used for the LoginClass
+	 * NOT A SUBSTITUTE FOR RESETPASSWORD
+	 * @param pw - new password
+	 */
+	public void setPassword(String pw) {
+		password = pw;
+	}
 
-	public void getImage() {
+	/**
+	 * Returns image path for the user on the server
+	 * @return imgPath
+	 */
+	public String getImagePath() {
+		return imgPath;
 		// get image from server
 	}
 	
-	public String setImagePath(String path)
+	/**
+	 * Sets the image path for the user from the parameter
+	 * Should link to a file path on the server
+	 * @param path - image location on server
+	 */
+	public void setImagePath(String path)
 	{
+		imgPath = path;
 		//sets image location, probably returned from a function that puts image on server
-		return "";
+		
 	}
 	
+	/**
+	 * Deletes image from server and sets imgPath to empty string
+	 */
 	public void deleteImage()
 	{
 		//do server stuff to delete from server
 		this.imgPath = "";
 	}
-	
+
+	/**
+	 * Returns true if user is banned, false if user is not banned
+	 * @return isBanned
+	 */
 	public boolean isBanned() {
 		return isBanned;
 	}
 	
+	/**
+	 * Sets isBanned to the passed boolean value
+	 * @param banned - new banned status
+	 */
 	public void setBannedStatus(boolean banned)
 	{
 		this.isBanned = banned;
 	}
 	
-
+	/**
+	 * Boolean check if a user is an admin or not
+	 * Used for privilege checking
+	 * @return true if role > 1 else false
+	 */
 	public boolean isAdmin() {
 		if (role == 2)
 			return true;
@@ -95,6 +186,11 @@ public class User {
 			return false;
 	}
 
+	/**
+	 * Boolean check if user is moderator or not
+	 * Used for privilege checking
+	 * @return true if role > 0 else false
+	 */
 	public boolean isModerator() {
 		if (role > 0)
 			return true;
@@ -102,10 +198,15 @@ public class User {
 			return false;
 	}
 	
+	/**
+	 * Sets users role to passed int role
+	 * @param role - new role for user
+	 */
 	public void setRole(int role)
 	{
 		this.role = role;
 	}
+	
 	
 	/*
 	 * Pre-existing users
