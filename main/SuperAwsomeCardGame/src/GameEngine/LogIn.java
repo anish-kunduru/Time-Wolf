@@ -1,6 +1,7 @@
 package GameEngine;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LogIn {
 	/*
@@ -36,9 +37,53 @@ public class LogIn {
 		}
 	}
 	
-	public static User register(String username, String email, String password)
+	/**
+	 * Registers the current user by username, email, and password
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @return the user object returned by this registration
+	 * @throws Exception
+	 */
+	public static User register(String username, String email, String password) throws Exception
 	{
-		return null;
+		User u = new User();
+		DBHelper dbh = new DBHelper();
+		String query = "INSERT INTO User ";
+		query += "(Username, Email, Password, ImagePath, IsBanned, Role)";
+		query += "VALUES ('" + username + "','" + email + "','" + password + "','','0','0')";
+
+		try{
+			dbh.executeUpdate(query);
+		}
+		catch(Exception ex)
+		{
+			throw new Exception("This username already exists!");
+		}
+		
+		query = " SELECT * FROM User WHERE Username='" + username + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		if(rs.first())
+		{
+			u.setID(rs.getInt("ID"));
+			u.setUsername(username);
+			u.setEmail(rs.getString("Email"));
+			u.setImagePath(rs.getString("ImagePath"));
+			u.setRole(rs.getInt("Role"));
+			u.setPassword(rs.getString("Password"));
+			query = "INSERT INTO Statistics ";
+			query += "(UserID,TotalGames,TotalWins,TotalPoints)";
+			query += "VALUES ('" + u.getID() + "','0','0','0')";
+			dbh.executeUpdate(query);
+			u.initStats();
+		}
+		else
+		{
+			throw new Exception("Insert of new user failed in saveUser()!");
+		}
+		
+		return u;
 		
 	}
 	

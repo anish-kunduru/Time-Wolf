@@ -61,6 +61,10 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	public void setPassword(String pw) {
+		password = pw;
+	}
 
 	public void getImage() {
 		// get image from server
