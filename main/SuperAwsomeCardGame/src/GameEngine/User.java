@@ -62,24 +62,45 @@ public class User {
 		ID = id;
 	}
 
+	/**
+	 * Returns users email
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 	
+	/**
+	 * Sets users email to the email passed via parameter
+	 * @param email - new email to be set
+	 */
 	public void setEmail(String email)
 	{
 		this.email = email;
 	}
 
+	/**
+	 * Returns users username
+	 * @return username
+	 */
 	public String getUsername() {
 		return username;
 	}
 	
+	/**
+	 * Sets users username to the given new username
+	 * @param username - new username for user
+	 */
 	public void setUsername(String username)
 	{
 		this.username = username;
 	}
 	
+	
+	/**
+	 * Returns password for user
+	 * @return password
+	 */
 	public String getPassword() {
 		return password;
 	}
