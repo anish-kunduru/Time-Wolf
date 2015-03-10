@@ -6,6 +6,12 @@ import java.util.LinkedList;
 import GameEngine.DBHelper;
 import GameEngine.User;
 
+/**
+ * Server side class to handle DB methods involving the User class
+ * @author Shelbie
+ *
+ */
+
 public class LogIn {
 
 	/**
