@@ -3,6 +3,13 @@ package GameEngine;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * User class object to hold all valuable data for a given user over
+ * any period of time
+ * @author Shelbie
+ *
+ */
+
 public class User {
 	private int ID;
 	private String username;
@@ -13,6 +20,9 @@ public class User {
 	private boolean isBanned;
 	private int role;
 
+	/**
+	 * Creates a new user object with empty fields
+	 */
 	public User() {
 		this.ID = 0;
 		this.username = "";
@@ -24,17 +34,29 @@ public class User {
 		this.role = 0;
 	}
 	
+	/**
+	 * Initiates the UserStats object associated with this user
+	 * All users should always have an associated stats object
+	 */
 	public void initStats()
 	{
 		this.Statistics = new UserStats(ID);
 	
 	}
 	
+	/**
+	 * Returns the user id
+	 * @return ID
+	 */
 	public int getID()
 	{
 		return ID;
 	}
 	
+	/**
+	 * Sets the users id to the given parameter
+	 * @param id - new id
+	 */
 	public void setID(int id)
 	{
 		ID = id;
