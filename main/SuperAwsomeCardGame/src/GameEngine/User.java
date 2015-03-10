@@ -105,20 +105,42 @@ public class User {
 		return password;
 	}
 	
+	/**
+	 * returns the users role as an int
+	 * 0 - Normal user
+	 * 1 - Moderator
+	 * 2 - Admin
+	 * @return role
+	 */
 	public int getRole()
 	{
 		return role;
 	}
 	
+	/**
+	 * Sets password to given password
+	 * Mostly used for the LoginClass
+	 * NOT A SUBSTITUTE FOR RESETPASSWORD
+	 * @param pw - new password
+	 */
 	public void setPassword(String pw) {
 		password = pw;
 	}
 
+	/**
+	 * Returns image path for the user on the server
+	 * @return imgPath
+	 */
 	public String getImagePath() {
 		return imgPath;
 		// get image from server
 	}
 	
+	/**
+	 * Sets the image path for the user from the parameter
+	 * Should link to a file path on the server
+	 * @param path - image location on server
+	 */
 	public void setImagePath(String path)
 	{
 		imgPath = path;
@@ -126,22 +148,37 @@ public class User {
 		
 	}
 	
+	/**
+	 * Deletes image from server and sets imgPath to empty string
+	 */
 	public void deleteImage()
 	{
 		//do server stuff to delete from server
 		this.imgPath = "";
 	}
-	
+
+	/**
+	 * Returns true if user is banned, false if user is not banned
+	 * @return isBanned
+	 */
 	public boolean isBanned() {
 		return isBanned;
 	}
 	
+	/**
+	 * Sets isBanned to the passed boolean value
+	 * @param banned - new banned status
+	 */
 	public void setBannedStatus(boolean banned)
 	{
 		this.isBanned = banned;
 	}
 	
-
+	/**
+	 * Boolean check if a user is an admin or not
+	 * Used for privilege checking
+	 * @return true if role > 1 else false
+	 */
 	public boolean isAdmin() {
 		if (role == 2)
 			return true;
@@ -149,6 +186,11 @@ public class User {
 			return false;
 	}
 
+	/**
+	 * Boolean check if user is moderator or not
+	 * Used for privilege checking
+	 * @return true if role > 0 else false
+	 */
 	public boolean isModerator() {
 		if (role > 0)
 			return true;
@@ -156,6 +198,10 @@ public class User {
 			return false;
 	}
 	
+	/**
+	 * Sets users role to passed int role
+	 * @param role - new role for user
+	 */
 	public void setRole(int role)
 	{
 		this.role = role;
