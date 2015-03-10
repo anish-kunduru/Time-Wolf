@@ -27,6 +27,6 @@
 				<Font size="18.0" />
 			</font>
 		</Text>
-      <PasswordField layoutX="566.0" layoutY="369.0" text="Password" />
+      <PasswordField fx:id="passwordTextField" layoutX="566.0" layoutY="369.0" text="Password" />
 	</children>
 </AnchorPane>
