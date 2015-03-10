@@ -64,8 +64,8 @@ public class Player {
 	 * @return The user's ID
 	 */
 	
-	public int getUserID() {
-		return user.getID();
+	public User getUser() {
+		return user;
 	}
 	
 	/**
