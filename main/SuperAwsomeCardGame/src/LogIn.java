@@ -1,5 +1,4 @@
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -9,29 +8,30 @@ import GameEngine.User;
 
 public class LogIn {
 
-/**
- * Returns the user to be logged in by the given username and password
- * @param username
- * @param password
- * @return
- * @throws Exception
- */
+	/**
+	 * Returns the user to be logged in by the given username and password
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws Exception
+	 */
 	public static User logIn(String username, String password) throws Exception {
 		User u = new User();
-		
+
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * FROM User WHERE Username='" + username + "' AND Password='"
-				+ password + "'";
+		String query = "SELECT * FROM User WHERE Username='" + username
+				+ "' AND Password='" + password + "'";
 		ResultSet rs = dbh.executeQuery(query);
 		if (rs.first()) {
 			u.setBannedStatus(false);
 			int bannedBit = rs.getInt("IsBanned");
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
-			
-			if(u.isBanned())
+
+			if (u.isBanned())
 				throw new Exception("This user is banned.");
-			
+
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
@@ -40,76 +40,87 @@ public class LogIn {
 			u.initStats();
 
 			return u;
-		}
-		else{
+		} else {
 			throw new Exception("Username or password was incorrect!");
 		}
 	}
-	
+
+	/**
+	 * Checks for username existance in database
+	 * 
+	 * @param username
+	 *            - username to check for
+	 * @return true if username exists, false if it is not taken
+	 * @throws SQLException 
+	 */
+	public static boolean doesUsernameExist(String username) throws SQLException {
+		String query = "SELECT 1 FROM User WHERE Username='" + username + "'";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs  = dbh.executeQuery(query);
+		if(rs.first())
+			return true;
+		else
+			return false;
+	}
+
 	/**
 	 * Registers the current user by username, email, and password
+	 * 
 	 * @param username
 	 * @param email
 	 * @param password
 	 * @return the user object returned by this registration
 	 * @throws Exception
 	 */
-	public static User register(String username, String email, String password) throws Exception
-	{
+	public static User register(String username, String email, String password)
+			throws Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO User ";
 		query += "(Username, Email, Password, ImagePath, IsBanned, Role)";
-		query += "VALUES ('" + username + "','" + email + "','" + password + "','','0','0')";
+		query += "VALUES ('" + username + "','" + email + "','" + password
+				+ "','','0','0')";
 
-		try{
+		try {
 			dbh.executeUpdate(query);
+			query = " SELECT * FROM User WHERE Username='" + username + "'";
+			ResultSet rs = dbh.executeQuery(query);
+			if (rs.first()) {
+				u.setID(rs.getInt("ID"));
+				u.setUsername(username);
+				u.setEmail(rs.getString("Email"));
+				u.setImagePath(rs.getString("ImagePath"));
+				u.setRole(rs.getInt("Role"));
+				u.setPassword(rs.getString("Password"));
+				query = "INSERT INTO Statistics ";
+				query += "(UserID,TotalGames,TotalWins,TotalPoints)";
+				query += "VALUES ('" + u.getID() + "','0','0','0')";
+				dbh.executeUpdate(query);
+				u.initStats();
+			} else {
+				throw new Exception("Insert of new user failed in saveUser()!");
+			}
+		} catch (Exception ex) {
+			throw new Exception("Insert of new user failed!");
 		}
-		catch(Exception ex)
-		{
-			throw new Exception("This username already exists!");
-		}
-		
-		query = " SELECT * FROM User WHERE Username='" + username + "'";
-		ResultSet rs = dbh.executeQuery(query);
-		
-		if(rs.first())
-		{
-			u.setID(rs.getInt("ID"));
-			u.setUsername(username);
-			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
-			u.setRole(rs.getInt("Role"));
-			u.setPassword(rs.getString("Password"));
-			query = "INSERT INTO Statistics ";
-			query += "(UserID,TotalGames,TotalWins,TotalPoints)";
-			query += "VALUES ('" + u.getID() + "','0','0','0')";
-			dbh.executeUpdate(query);
-			u.initStats();
-		}
-		else
-		{
-			throw new Exception("Insert of new user failed in saveUser()!");
-		}
-		
+
 		return u;
-		
+
 	}
-	
+
 	/**
 	 * Returns a list of all users in the database
+	 * 
 	 * @return List of all users
 	 * @throws SQLException
 	 */
-	public static LinkedList<User> List() throws SQLException
-	{
+	public static LinkedList<User> List() throws SQLException {
 		LinkedList<User> users = new LinkedList<User>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User";
 		ResultSet rs = dbh.executeQuery(query);
-		
-		while(rs.next())
-		{
+
+		while (rs.next()) {
 			User u = new User();
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
@@ -121,16 +132,17 @@ public class LogIn {
 			u.initStats();
 			users.add(u);
 		}
-		
+
 		return users;
 	}
-	
+
 	/**
 	 * Saves all properties of the user passed via parameter
-	 * @param u - user to be saved
+	 * 
+	 * @param u
+	 *            - user to be saved
 	 */
-	public static void save(User u)
-	{
+	public static void save(User u) {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
@@ -138,7 +150,7 @@ public class LogIn {
 		query += ",Password='" + u.getPassword() + "'";
 		query += ",ImagePath='" + u.getImagePath() + "'";
 		int bit = 0;
-		if(u.isBanned())
+		if (u.isBanned())
 			bit = 1;
 		query += ",IsBanned=" + bit;
 		query += ",Role=" + u.getRole();
@@ -146,21 +158,24 @@ public class LogIn {
 
 		dbh.executeUpdate(query);
 	}
-	
+
 	/**
 	 * Saves password parameter in database where ID=id
-	 * @param id - user id to be updated
-	 * @param newPassword - new password to be saved
+	 * 
+	 * @param id
+	 *            - user id to be updated
+	 * @param newPassword
+	 *            - new password to be saved
 	 */
 	public static void resetPassword(int id, String newPassword) {
-		
-			DBHelper dbh = new DBHelper();
-			String query = "UPDATE User SET Password='" + newPassword + "' WHERE ID="
-					+ id;
-			
-			dbh.executeUpdate(query);
-			
-		//if ID == 0 then no user is selected
+
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET Password='" + newPassword
+				+ "' WHERE ID=" + id;
+
+		dbh.executeUpdate(query);
+
+		// if ID == 0 then no user is selected
 	}
 
 }
