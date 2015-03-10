@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0"
-	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-	fx:controller="view.RegistrationScreenController">
-	<!-- TODO Add Nodes -->
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RegistrationScreenController">
+   <children>
+      <Text layoutX="17.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Super Awesome Card Game">
+         <font>
+            <Font name="System Bold" size="96.0" />
+         </font>
+      </Text>
+      <Button fx:id="registerButton" layoutX="776.0" layoutY="540.0" mnemonicParsing="false" onAction="#initialize" text="Register" />
+      <TextField fx:id="usernameTextField" layoutX="625.0" layoutY="282.0" prefHeight="31.0" prefWidth="190.0" text="Username" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="467.0" />
+      <TextField fx:id="emailTextField" layoutX="625.0" layoutY="348.0" prefHeight="31.0" prefWidth="190.0" text="Email" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="467.0" />
+      <Text layoutX="449.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" AnchorPane.leftAnchor="449.0" AnchorPane.rightAnchor="739.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="449.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" AnchorPane.leftAnchor="449.0" AnchorPane.rightAnchor="780.611328125" AnchorPane.topAnchor="349.41796875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="449.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" AnchorPane.leftAnchor="449.0" AnchorPane.rightAnchor="744.56640625" AnchorPane.topAnchor="421.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="449.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verify Password:" AnchorPane.leftAnchor="449.0" AnchorPane.rightAnchor="688.47265625" AnchorPane.topAnchor="488.41796875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="passwordField" layoutX="652.0" layoutY="420.0" text="Password" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="467.0" />
+      <PasswordField fx:id="checkPasswordField" layoutX="627.0" layoutY="486.0" text="Password" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="467.0" />
+   </children>
 </AnchorPane>
