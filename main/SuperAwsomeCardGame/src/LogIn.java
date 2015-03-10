@@ -1,8 +1,11 @@
-package GameEngine;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+
+import GameEngine.DBHelper;
+import GameEngine.User;
 
 public class LogIn {
 
@@ -93,6 +96,11 @@ public class LogIn {
 		
 	}
 	
+	/**
+	 * Returns a list of all users in the database
+	 * @return List of all users
+	 * @throws SQLException
+	 */
 	public static LinkedList<User> List() throws SQLException
 	{
 		LinkedList<User> users = new LinkedList<User>();
@@ -113,7 +121,6 @@ public class LogIn {
 			u.initStats();
 			users.add(u);
 		}
-		
 		
 		return users;
 	}
