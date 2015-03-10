@@ -9,6 +9,7 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginScreenController implements ControlledScreen
@@ -25,7 +26,7 @@ public class LoginScreenController implements ControlledScreen
    @FXML
    private TextField usernameTextField;
    @FXML
-   private TextField passwordTextField;
+   private PasswordField passwordTextField;
 
    // Store input from user.
    private String usernameString;

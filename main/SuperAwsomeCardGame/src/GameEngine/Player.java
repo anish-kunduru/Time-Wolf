@@ -1,5 +1,7 @@
 package GameEngine;
 
+import java.sql.SQLException;
+
 /**An object that will have a user's ID for each player in a game to 
  *hold on to current games statistics.Making a separate object instead 
  *of tagging these properties onto User prevents a lot of unnecessary null
@@ -8,13 +10,14 @@ package GameEngine;
 
 public class Player {
 	
-	private int userID;
+	private User user;
 	private boolean isTurn;
-	private int actions;
-	private int currency;
 	private Hand hand;
 	private DiscardPile discard;
 	private Deck deck;
+	private int stealth;
+	private int attack;
+	private int VP;
 	
 	/**
 	 * @param userID Foreign key to user objects
@@ -24,36 +27,45 @@ public class Player {
 	 * @param hand Player's hand
 	 * @param discard Player's discard pile
 	 * @param deck Player's deck
+	 * @throws SQLException 
 	 */
 	
-	public Player(int userID, boolean isTurn, int actions, int currency, Hand hand, DiscardPile discard, Deck deck){
+	public Player(User user, boolean isTurn, Hand hand) throws SQLException{
 		
-		this.userID = userID;
+		//Initliaize given values
+		this.user = user;
 		this.isTurn = isTurn;
-		this.actions = actions;
-		this.currency = currency;
 		this.hand = hand;
-		this.discard = discard;
-		this.deck = deck;
+		
+		//Initialize discard pile to an empty DiscardPile
+		DiscardPile discardPile = new DiscardPile();
+		this.discard = discardPile;
+		
+		//Initiliaze deck to the starter deck
+		Deck starterDeck = new Deck();
+		starterDeck.getStarterDeck();
+		this.deck = starterDeck;
+		
+		//Initialize int values to 0
+		this.attack = 0;
+		this.stealth = 0;
+		this.VP = 0;
 		
 	}
 	
-	/**
-	 * Adds the given number of currency to the total currency a player has
-	 * @param numCurrency
-	 */
-	
-	public void addCurrency(int numCurrency){
-		currency += numCurrency;
+	public void resetPlayer(){
+		stealth = 0;
+		attack = 0;
 	}
+	
 	
 	/**
 	 * Returns the user's ID
 	 * @return The user's ID
 	 */
 	
-	public int getUserID() {
-		return userID;
+	public User getUser() {
+		return user;
 	}
 	
 	/**
@@ -65,23 +77,6 @@ public class Player {
 		return isTurn;
 	}
 	
-	/**
-	 * Returns the number of actions the player has left
-	 * @return Player's actions
-	 */
-	
-	public int getActions() {
-		return actions;
-	}
-	
-	/**
-	 * Returns the amount of currency player has left
-	 * @return Player's currency
-	 */
-	
-	public int getCurrency() {
-		return currency;
-	}
 	
 	/**
 	 * Returns the Hand object of the player
