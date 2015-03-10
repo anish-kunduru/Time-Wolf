@@ -67,8 +67,22 @@ public class GameEngine implements Runnable {
 	}
 	
 	
-	
-	
+	/**
+	 * Start the game.
+	 * @return true if the game thread started succesffully.
+	 */
+	public boolean start() {
+		//Must not have already started and the game table must be full
+		if(this.hasStarted() || !this.isFull()) return false;
+		
+		//Start the thread
+		Thread t = new Thread(this);
+		t.start();
+		
+		if(t.isAlive()) return true;
+		
+		return false;
+	}
 	
 	
 	
@@ -98,6 +112,11 @@ public class GameEngine implements Runnable {
 		return currentNumOfPlayers;
 	}
 
+	
+	/**
+	 * Is the game full?
+	 * @return true if full
+	 */
 	public boolean isFull() {
 		return this.currentNumOfPlayers == this.totalNumOfPlayers;
 	}

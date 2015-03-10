@@ -67,6 +67,22 @@ public class GameManagement implements Runnable {
 		
 	}
 
+	public boolean startGame(int game) {
+		
+		//If the game doesn't exist, we can't start it
+		if(game >= 0 && game < this.games.size()) return false;
+		
+		GameEngine g = this.games.get(game);
+		
+		//The game can't have already have started and the game must be full
+		if(g.hasStarted() || !g.isFull()) return false;
+		
+		//Start it
+		if(g.start()) return true;
+		
+		//Otherwise return false
+		return false;
+	}
 
 
 
