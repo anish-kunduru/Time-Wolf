@@ -2,6 +2,7 @@ package GameEngine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class LogIn {
 
@@ -90,6 +91,31 @@ public class LogIn {
 		
 		return u;
 		
+	}
+	
+	public static LinkedList<User> List() throws SQLException
+	{
+		LinkedList<User> users = new LinkedList<User>();
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		while(rs.next())
+		{
+			User u = new User();
+			u.setID(rs.getInt("ID"));
+			u.setUsername("Username");
+			u.setEmail(rs.getString("Email"));
+			u.setImagePath(rs.getString("ImagePath"));
+			u.setRole(rs.getInt("Role"));
+			u.setPassword(rs.getString("Password"));
+			u.setBannedStatus(rs.getBoolean("IsBanned"));
+			u.initStats();
+			users.add(u);
+		}
+		
+		
+		return users;
 	}
 	
 	/**
