@@ -42,6 +42,9 @@ public class GameEngine implements Runnable {
 		this.startingDeck = startingDeck;
 		this.name = name;
 		
+		//Initialize the main play area cards.
+		for(int i = 0; i < 4; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+		
 		
 	}
 	
@@ -406,9 +409,37 @@ public class GameEngine implements Runnable {
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.
 		
+		Player current;
+		
+		
 		//This is set here and in the start() function. Since with threading processing
 		//can jump to running the new thread or the original thread
 		this.isRunning = true; 
+		
+		
+		int endingVP = 3000;
+		
+		// TODO Initialize the state of the GameEngine
+		
+		//Initialize the players.
+		for(int i = 0; i < this.totalNumOfPlayers; i++) {
+			current = this.players[i];
+						
+			//Draw 5 cards for each player.
+			for(int j = 0; j < 5; j++)	current.getHand().addCard(current.getDeck().draw());
+			
+		}
+		
+		// TODO Initialize the state of the game on the clients
+		
+		
+		// TODO Main Game Loop
+		while(true) {
+			
+		}
+		
+		
+		
 		
 	}
 
