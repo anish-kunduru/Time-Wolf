@@ -79,7 +79,11 @@ public class GameEngine implements Runnable {
 		Thread t = new Thread(this);
 		t.start();
 		
-		if(t.isAlive()) return true;
+		if(!t.isAlive()) return false;
+		
+		//This is set here and in the thread. Since with threading either can 
+		//jump to running the new thread or the original thread
+		this.isRunning = true; //Mark it as running
 		
 		return false;
 	}
@@ -401,6 +405,10 @@ public class GameEngine implements Runnable {
 	@Override
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.
+		
+		//This is set here and in the start() function. Since with threading processing
+		//can jump to running the new thread or the original thread
+		this.isRunning = true; 
 		
 	}
 
