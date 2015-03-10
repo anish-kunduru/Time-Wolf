@@ -207,6 +207,7 @@ public class User {
 		this.role = role;
 	}
 	
+	
 	/*
 	 * Pre-existing users
 	 */
