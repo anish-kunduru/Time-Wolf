@@ -1,5 +1,8 @@
 package GameEngine;
+import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.rmi.Naming;
 import java.rmi.Remote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +15,23 @@ import java.util.LinkedList;
  *
  */
 
-public class LogIn implements Remote {
+public class LogIn implements Remote, Serializable {
+	
+
+
+	public static void main(String[] args){
+		System.out.println("TEST");
+		LogIn login = new LogIn();
+		try {
+			Naming.rebind("//localhost/auth", login);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Returns the user to be logged in by the given username and password
@@ -22,6 +41,7 @@ public class LogIn implements Remote {
 	 * @return
 	 * @throws Exception
 	 */
+	
 	public static User logIn(String username, String password)
 			throws Exception, RemoteException {
 		User u = new User();

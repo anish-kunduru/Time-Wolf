@@ -12,10 +12,13 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
 import java.rmi.RemoteException;
 import java.rmi.Naming;
 import java.rmi.server.UnicastRemoteObject;
+
 import GameEngine.LogIn;
+import GameEngine.User;
 
 
 
@@ -81,7 +84,18 @@ public class LoginScreenController implements ControlledScreen
         	 passwordEmptyLabel.setText("Please enter a password.");
          }
          
-         LogIn login = new LogIn();
+         try {
+			LogIn login = (LogIn)Naming.lookup("//localhost/auth");
+			
+			User userOne = login.logIn(usernameString, passwordString);
+			
+			System.out.println("Login succesful. User ID: " + userOne.getID());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         
+         
       });
       
       registerButton.setOnAction(event ->

@@ -1,5 +1,6 @@
 package GameEngine;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,7 +11,7 @@ import java.sql.SQLException;
  *
  */
 
-public class User {
+public class User implements Serializable {
 	private int ID;
 	private String username;
 	private String email;
