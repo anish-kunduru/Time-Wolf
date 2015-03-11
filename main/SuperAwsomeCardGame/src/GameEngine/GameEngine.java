@@ -60,7 +60,9 @@ public class GameEngine implements Runnable {
 		if(this.currentNumOfPlayers == this.totalNumOfPlayers || u == null) return false;
 		
 		//Create the player object using the user
-		Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
+		//Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
+		Player p = new Player(u);
+		
 		
 		//Add the player if there is room.
 		this.players[this.currentNumOfPlayers] = p;
