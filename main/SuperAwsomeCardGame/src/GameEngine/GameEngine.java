@@ -244,7 +244,6 @@ public class GameEngine implements Runnable {
 		playArea.addCard(maingame.draw());
 		
 		
-		
 		System.out.println("Welcome to the Super Awsome Card Game Demo v1.0!!!!!!");
 		System.out.println();
 		System.out.println("How fast can you get to 200 years?");
