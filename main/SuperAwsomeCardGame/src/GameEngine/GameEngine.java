@@ -52,8 +52,9 @@ public class GameEngine implements Runnable {
 	 * Add player "p" to the game.
 	 * @param p the player to add.
 	 * @return True if the player has been added successfully.
+	 * @throws SQLException 
 	 */
-	public boolean addPlayer(User u) {
+	public boolean addPlayer(User u) throws SQLException {
 		
 		
 		//We can only have so many players in a game, and we can't add null players
