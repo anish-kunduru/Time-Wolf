@@ -35,7 +35,7 @@ public class Player {
 		//Initliaize given values
 		this.user = user;
 		this.isTurn = isTurn;
-		this.hand = hand;
+		this.hand = new Hand(5);
 		this.isTurn = false;
 		
 		//Initialize discard pile to an empty DiscardPile
