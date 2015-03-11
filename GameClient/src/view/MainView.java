@@ -50,8 +50,8 @@ public class MainView extends Application
    }
 
    /**
-    * This method is actually not used in a correctly deployed JavaFX application. Instead, the start method above is called. The main serves as a fallback in
-    * case of improper configuration.
+    * This method is actually not used in a correctly deployed JavaFX application. Instead, the start method above is called.
+    * This main serves as a fallback in case of improper configuration.
     */
    public static void main(String[] args)
    {
