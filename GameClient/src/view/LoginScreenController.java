@@ -13,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.rmi.RemoteException;
 import java.rmi.Naming;
-import java.rmi.server.UnicastRemoteObject;
 
 import GameEngine.LogIn;
 import GameEngine.User;
