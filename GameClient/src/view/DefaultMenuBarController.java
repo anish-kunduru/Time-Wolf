@@ -33,7 +33,7 @@ public class DefaultMenuBarController
       // Event handlers.
       fileNewGame.setOnAction(event ->
       {
-         MainView.getMainController().displayScreen(MainView.LOGIN_SCREEN);
+         MainView.getMainController().displayScreen(MainView.LOGIN_SCREEN); // TEMP SO THAT WE CAN SET IT TO SOMETHING.
          // MainView.getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
       });
 

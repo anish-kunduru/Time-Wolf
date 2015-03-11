@@ -56,7 +56,7 @@ public class MainView extends Application
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
 
       // Display the first screen.
-      mainController.displayScreen(GAME_LOBBY_SCREEN);
+      mainController.displayScreen(GAME_LOBBY_SCREEN); // DISPLAYING GAME_LOBBY_SCREEN TO TEST MENU BAR.
 
       // Initialize display components.
       Group root = new Group();
