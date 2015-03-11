@@ -43,7 +43,6 @@ public class Deck {
 		
 		if(this.cards.size() == 0) throw new IllegalStateException();
 		
-		
 		if(this.cards.size() == 1) { //If there is only one card, then it isn't so random
 			index = 0;
 		} else { 
@@ -58,6 +57,34 @@ public class Deck {
 		
 		return(c);
 		
+	}
+	
+	/**
+	 * Draw the default 5 cards from the deck to add to hand
+	 * @param hand
+	 * @return Hand with 5 cards
+	 */
+	public void draw(Hand hand){
+		
+		for(int i = 0; i < 5; i++){
+			hand.addCard(this.draw());
+		}
+
+	}
+	
+	/**
+	 * Draw the number of cards given from the deck and add to hand
+	 * @param hand
+	 * @param toAdd
+	 * @return Hand with given number of cards
+	 */
+	public Hand draw(Hand hand, int toAdd){
+		
+		for(int i = 0; i < toAdd; i++){
+			hand.addCard(this.draw());
+		}
+		
+		return hand;
 	}
 	
 	/**

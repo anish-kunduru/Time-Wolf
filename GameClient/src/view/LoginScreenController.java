@@ -9,6 +9,7 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -27,6 +28,12 @@ public class LoginScreenController implements ControlledScreen
    private TextField usernameTextField;
    @FXML
    private PasswordField passwordTextField;
+   
+   @FXML 
+   private Label usernameEmptyLabel;
+   
+   @FXML
+   private Label passwordEmptyLabel;
 
    // Store input from user.
    private String usernameString;
@@ -42,6 +49,9 @@ public class LoginScreenController implements ControlledScreen
    public void initialize()
    {
       
+	   passwordString = "";
+	   usernameString = "";
+	   
       // Event handlers for buttons.
       // The arrow means lambda expression in Java.
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
@@ -56,6 +66,14 @@ public class LoginScreenController implements ControlledScreen
          // DEBUG
          System.out.println(usernameString);
          System.out.println(passwordString);
+         
+         if(usernameString.equals("")){
+        	 usernameEmptyLabel.setText("Please enter a username.");
+         }
+         
+         if(passwordString.equals("")){
+        	 passwordEmptyLabel.setText("Please enter a password.");
+         }
       });
       
       registerButton.setOnAction(event ->

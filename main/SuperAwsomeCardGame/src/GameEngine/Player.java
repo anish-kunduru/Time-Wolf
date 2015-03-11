@@ -30,21 +30,23 @@ public class Player {
 	 * @throws SQLException 
 	 */
 	
-	public Player(User user, boolean isTurn, Hand hand) throws SQLException{
+	public Player(User user) throws SQLException{
 		
 		//Initliaize given values
 		this.user = user;
 		this.isTurn = isTurn;
 		this.hand = hand;
+		this.isTurn = false;
 		
 		//Initialize discard pile to an empty DiscardPile
 		DiscardPile discardPile = new DiscardPile();
 		this.discard = discardPile;
 		
 		//Initiliaze deck to the starter deck
-		Deck starterDeck = new Deck();
-		starterDeck.getStarterDeck();
-		this.deck = starterDeck;
+		this.deck = Deck.getStarterDeck();
+
+		//Initialize hand
+		this.deck.draw(this.hand);
 		
 		//Initialize int values to 0
 		this.attack = 0;
@@ -56,6 +58,13 @@ public class Player {
 	public void resetPlayer(){
 		stealth = 0;
 		attack = 0;
+		
+		int i = 0;
+		while(hand.size() > 0){
+			discard.discard(hand.remove(i));
+			i++;
+		}
+		
 	}
 	
 	

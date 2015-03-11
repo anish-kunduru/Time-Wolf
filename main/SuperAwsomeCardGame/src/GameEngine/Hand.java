@@ -45,9 +45,9 @@ public class Hand implements Iterable<Card> {
 	 * Remove card from hand at position i.
 	 * @param i position of the card to remove from the hand
 	 */
-	public void remove(int i) {
+	public Card remove(int i) {
 		if(i < 0 && i >= this.cards.size()) throw new IllegalArgumentException();
-		this.cards.remove(i);
+		return this.cards.remove(i);
 	}
 
 	/**
@@ -57,4 +57,5 @@ public class Hand implements Iterable<Card> {
 	public int size() {
 		return this.cards.size();
 	}
+	
 }

@@ -68,29 +68,17 @@ public class jUnitPlayer {
 		deckStart.addCard(beginStealth, 6);
 		deckStart.addCard(beginAttack, 4);
 		
-		player = new Player(1, true, 10, 10, hand, discard, deckStart);
+		User user = new User();
+		player = new Player(user);
 		
 	}
 
-	@Test
-	public void testGetUserID() {
-		assertEquals(1, player.getUserID());
-	}
-	
+
 	@Test
 	public void testGetIsTurn() {
 		assertEquals(true, player.getIsTurn());
 	}
-	
-	@Test
-	public void testActions() {
-		assertEquals(10, player.getActions());
-	}
-	
-	@Test
-	public void testGetCurrency() {
-		assertEquals(10, player.getCurrency());
-	}
+
 	
 	@Test
 	public void testGetHand() {
@@ -108,9 +96,10 @@ public class jUnitPlayer {
 	}
 	
 	@Test
-	public void testAddCurrency() {
-		player.addCurrency(5);
-		assertEquals(15, player.getCurrency());
+	public void newPlayerHandSize() {
+		assertEquals(10, player.getDeck().size());
 	}
+	
+	
 
 }
