@@ -2,6 +2,7 @@
  * @author Anish Kunduru
  *
  * The purpose of this program is to store login state data.
+ * We don't have to worry about checking input before setting, because that is the job of the controller that will call this class.
  */
 
 package view;
