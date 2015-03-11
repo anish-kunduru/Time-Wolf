@@ -1,18 +1,18 @@
-
+package GameEngine;
+import java.rmi.RemoteException;
+import java.rmi.Remote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import GameEngine.DBHelper;
-import GameEngine.User;
-
 /**
  * Server side class to handle DB methods involving the User class
+ * 
  * @author Shelbie
  *
  */
 
-public class LogIn {
+public class LogIn implements Remote {
 
 	/**
 	 * Returns the user to be logged in by the given username and password
@@ -22,7 +22,8 @@ public class LogIn {
 	 * @return
 	 * @throws Exception
 	 */
-	public static User logIn(String username, String password) throws Exception {
+	public static User logIn(String username, String password)
+			throws Exception, RemoteException {
 		User u = new User();
 
 		DBHelper dbh = new DBHelper();
@@ -57,13 +58,14 @@ public class LogIn {
 	 * @param username
 	 *            - username to check for
 	 * @return true if username exists, false if it is not taken
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	public static boolean doesUsernameExist(String username) throws SQLException {
+	public static boolean doesUsernameExist(String username)
+			throws SQLException, RemoteException {
 		String query = "SELECT 1 FROM User WHERE Username='" + username + "'";
 		DBHelper dbh = new DBHelper();
-		ResultSet rs  = dbh.executeQuery(query);
-		if(rs.first())
+		ResultSet rs = dbh.executeQuery(query);
+		if (rs.first())
 			return true;
 		else
 			return false;
@@ -79,7 +81,7 @@ public class LogIn {
 	 * @throws Exception
 	 */
 	public static User register(String username, String email, String password)
-			throws Exception {
+			throws RemoteException, Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO User ";
@@ -120,7 +122,7 @@ public class LogIn {
 	 * @return List of all users
 	 * @throws SQLException
 	 */
-	public static LinkedList<User> List() throws SQLException {
+	public static LinkedList<User> List() throws SQLException, RemoteException {
 		LinkedList<User> users = new LinkedList<User>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User";
@@ -148,7 +150,7 @@ public class LogIn {
 	 * @param u
 	 *            - user to be saved
 	 */
-	public static void save(User u) {
+	public static void save(User u) throws RemoteException {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
@@ -173,7 +175,8 @@ public class LogIn {
 	 * @param newPassword
 	 *            - new password to be saved
 	 */
-	public static void resetPassword(int id, String newPassword) {
+	public static void resetPassword(int id, String newPassword)
+			throws RemoteException {
 
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET Password='" + newPassword

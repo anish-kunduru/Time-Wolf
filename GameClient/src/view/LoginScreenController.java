@@ -12,6 +12,12 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import java.rmi.RemoteException;
+import java.rmi.Naming;
+import java.rmi.server.UnicastRemoteObject;
+import GameEngine.LogIn;
+
+
 
 public class LoginScreenController implements ControlledScreen
 {
@@ -74,6 +80,8 @@ public class LoginScreenController implements ControlledScreen
          if(passwordString.equals("")){
         	 passwordEmptyLabel.setText("Please enter a password.");
          }
+         
+         LogIn login = new LogIn();
       });
       
       registerButton.setOnAction(event ->
