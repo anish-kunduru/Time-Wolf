@@ -49,6 +49,9 @@ public class RegistrationScreenController implements ControlledScreen
          System.out.println(usernameString);
          System.out.println(emailString);
          System.out.println(passwordString);
+
+         // THIS IS TEST CODE THAT WE HAVE TO REMOVE.
+         System.out.println("The current userID is: " + MainModel.getModel().currentLoginData().getUserID());
       });
 
    }
