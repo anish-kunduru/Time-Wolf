@@ -87,6 +87,7 @@ public class LoginScreenController implements ControlledScreen
             LogIn login = (LogIn) Naming.lookup("//localhost/auth");
 
             User userOne = login.logIn(usernameString, passwordString);
+            // TEST LOGIN: username: ssimmons, password: password
 
             System.out.println("Login succesful. User ID: " + userOne.getID());
 
