@@ -1,6 +1,8 @@
-package GameEngine;
+package GameServer.GameEngine;
 
 import java.sql.SQLException;
+
+import GameServer.DBHelper;
 
 import com.mysql.jdbc.ResultSet;
 

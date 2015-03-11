@@ -1,8 +1,10 @@
-package GameEngine;
+package GameServer.Users;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import GameServer.DBHelper;
 
 /**
  * User class object to hold all valuable data for a given user over

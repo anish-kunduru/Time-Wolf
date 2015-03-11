@@ -1,9 +1,10 @@
+package GameServer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import GameEngine.Deck;
-import GameEngine.GameEngine;
-import GameEngine.User;
+import GameServer.GameEngine.Deck;
+import GameServer.GameEngine.GameEngine;
+import GameServer.Users.User;
 
 
 public class GameManagement implements Runnable {

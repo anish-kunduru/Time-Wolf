@@ -1,19 +1,17 @@
-package GameEngine;
+package GameServer.Users;
 
 import java.io.Serializable;
-
 import java.net.MalformedURLException;
-
 import java.rmi.RemoteException;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.LinkedList;
+
+import GameServer.DBHelper;
 
 /**
  * Server side class to handle DB methods involving the User class

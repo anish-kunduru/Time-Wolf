@@ -1,8 +1,10 @@
-package GameEngine;
+package GameServer.GameEngine;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import GameServer.DBHelper;
 
 public class Deck {
 	

@@ -1,9 +1,11 @@
-package GameEngine;
+package GameServer.GameEngine;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import GameServer.Users.User;
 
 public class jUnitPlayer {
 	

@@ -1,4 +1,4 @@
-package GameEngine;
+package GameServer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

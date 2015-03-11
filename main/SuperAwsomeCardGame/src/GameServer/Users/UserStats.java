@@ -1,10 +1,12 @@
-package GameEngine;
+package GameServer.Users;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import GameServer.DBHelper;
 
 /**
  * An object to interface with the database when viewing user statistics This

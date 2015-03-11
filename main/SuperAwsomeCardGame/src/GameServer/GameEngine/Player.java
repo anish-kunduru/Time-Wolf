@@ -1,6 +1,8 @@
-package GameEngine;
+package GameServer.GameEngine;
 
 import java.sql.SQLException;
+
+import GameServer.Users.User;
 
 /**An object that will have a user's ID for each player in a game to 
  *hold on to current games statistics.Making a separate object instead 

@@ -1,10 +1,12 @@
-package GameEngine;
+package GameServer.GameEngine;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Iterator;
+
+import GameServer.Users.User;
 
 
 public class GameEngine implements Runnable {
