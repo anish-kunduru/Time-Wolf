@@ -23,15 +23,32 @@ public class MainView extends Application
 
    public static final String REGISTRATION_SCREEN = "registration";
    public static final String REGISTRATION_SCREEN_FXML = "RegistrationScreen.fxml";
-   
+
    public static final String GAME_LOBBY_SCREEN = "gameLobby";
    public static final String GAME_LOBBY_SCREEN_FXML = "GameLobbyScreen.fxml";
 
+   
+   
+   // PLAYING FAST AND LOOSE WITH STATE DATA BECAUSE I CAN'T FIGURE IT OUT.
+
+   // ///////////////////////////////////////////////////////////////////////////////////
+   public static MainController mainController;
+
+   public static MainController getMainController()
+   {
+      return mainController;
+   }
+
+   // //////////////////////////////////////////////////////////////////////////////////
+
+   
+   
+   
    @Override
    public void start(Stage primaryStage)
    {
       // Instantiate MainController and load the screens.
-      MainController mainController = new MainController();
+      mainController = new MainController();
 
       mainController.loadScreen(LOGIN_SCREEN, LOGIN_SCREEN_FXML);
       mainController.loadScreen(REGISTRATION_SCREEN, REGISTRATION_SCREEN_FXML);
@@ -39,7 +56,7 @@ public class MainView extends Application
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
 
       // Display the first screen.
-      mainController.displayScreen(LOGIN_SCREEN);
+      mainController.displayScreen(GAME_LOBBY_SCREEN);
 
       // Initialize display components.
       Group root = new Group();
@@ -54,8 +71,8 @@ public class MainView extends Application
    }
 
    /**
-    * This method is actually not used in a correctly deployed JavaFX application. Instead, the start method above is called.
-    * This main serves as a fallback in case of improper configuration.
+    * This method is actually not used in a correctly deployed JavaFX application. Instead, the start method above is called. This main serves as a fallback in
+    * case of improper configuration.
     */
    public static void main(String[] args)
    {
