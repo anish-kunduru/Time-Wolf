@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.Naming;
 import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -18,11 +20,11 @@ import java.util.LinkedList;
 public class LogIn implements Remote, Serializable {
 	
 
-
 	public static void main(String[] args){
 		System.out.println("TEST");
 		LogIn login = new LogIn();
 		try {
+			Registry r = LocateRegistry.createRegistry(1099);
 			Naming.rebind("//localhost/auth", login);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
