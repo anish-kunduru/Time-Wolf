@@ -67,6 +67,7 @@ public class Player {
 			i++;
 		}
 		
+		
 	}
 	
 	
@@ -77,15 +78,6 @@ public class Player {
 	
 	public User getUser() {
 		return user;
-	}
-	
-	/**
-	 * Returns true if it's the player's turn, false otherwise
-	 * @return isTurn
-	 */
-	
-	public boolean getIsTurn() {
-		return isTurn;
 	}
 	
 	
@@ -114,6 +106,71 @@ public class Player {
 	
 	public Deck getDeck() {
 		return deck;
+	}
+	
+	/**
+	 * Gets the player's current available stealth
+	 * @return Player's stealth
+	 */
+	public int getStealth() {
+		return stealth;
+	}
+	
+	/**
+	 * Gets the player's current available attack
+	 * @return Player's attack
+	 */
+	public int getAttack(){
+		return attack;
+	}
+	
+	/**
+	 * Gets the player's current Victory Points
+	 * @return Player's Victory Points
+	 */
+	public int getVP(){
+		return VP;
+	}
+	
+	/**
+	 * Add stealth to player's total stealth
+	 * @param toAdd
+	 */
+	public void addStealth(int stealth) {
+		this.stealth += stealth;
+	}
+	
+	/**
+	 * Add attack to the player's total attack
+	 * @param toAdd
+	 */
+	public void addAttack(int attack) {
+		this.attack += attack;
+	}
+	
+	/**
+	 * Add Victory Points to the player's total VPs
+	 * @param toAdd
+	 */
+	public void addVP(int VP) {
+		this.VP += VP;
+	}
+	
+	/**
+	 * Set true is it's the player's turn, false otherwise
+	 * @param isTurn
+	 */
+	
+	public void isTurn(boolean isTurn){
+		this.isTurn = isTurn;
+	}
+	
+	/**
+	 * Returns true if it's the player's turn, false otherwise
+	 * @return isTurn
+	 */
+	public boolean getIsTurn(){
+		return isTurn;
 	}
 
 }
