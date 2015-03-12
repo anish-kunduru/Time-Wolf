@@ -15,8 +15,8 @@ import javafx.scene.control.TextField;
 
 import java.rmi.Naming;
 
-import GameEngine.LogIn;
-import GameEngine.User;
+import GameServer.Users.LogIn;
+import GameServer.Users.User;
 
 public class LoginScreenController implements ControlledScreen
 {
