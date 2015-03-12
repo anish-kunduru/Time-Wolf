@@ -23,36 +23,7 @@ import GameServer.DBHelper;
 public class LogIn implements Remote, Serializable
 {
 
-   public static void main(String[] args)
-   {
-      System.out.println("TEST");
-      LogIn login = new LogIn();
-      try
-      {
-         Registry r = LocateRegistry.createRegistry(1099);
-         Naming.rebind("//localhost/auth", login);
-      }
-      catch (RemoteException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (MalformedURLException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      while (true)
-         try
-         {
-            Thread.sleep(4000);
-         }
-         catch (InterruptedException e)
-         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-         }
-   }
+   
 
    /**
     * Returns the user to be logged in by the given username and password
