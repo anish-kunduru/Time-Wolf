@@ -32,7 +32,7 @@ public class Player {
 	 * @throws SQLException 
 	 */
 	
-	public Player(User user) throws SQLException{
+	public Player(User user, Deck starerDeck) {
 		
 		//Initliaize given values
 		this.user = user;
@@ -45,7 +45,7 @@ public class Player {
 		this.discard = discardPile;
 		
 		//Initiliaze deck to the starter deck
-		this.deck = Deck.getStarterDeck();
+		this.deck = starerDeck;
 
 		//Initialize hand
 		this.deck.draw(this.hand);

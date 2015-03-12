@@ -71,7 +71,7 @@ public class jUnitPlayer {
 		deckStart.addCard(beginAttack, 4);
 		
 		User user = new User();
-		player = new Player(user);
+		player = new Player(user,  Deck.getStarterDeck());
 		
 	}
 

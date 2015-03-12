@@ -64,7 +64,7 @@ public class GameEngine implements Runnable {
 		
 		//Create the player object using the user
 		//Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
-		Player p = new Player(u);
+		Player p = new Player(u, (Deck)this.startingDeck.clone());
 		
 		
 		//Add the player if there is room.
