@@ -56,7 +56,7 @@ public class GameEngine implements Runnable {
 	 * @return True if the player has been added successfully.
 	 * @throws SQLException 
 	 */
-	public boolean addPlayer(User u) throws SQLException {
+	public boolean addPlayer(User u) {
 		
 		
 		//We can only have so many players in a game, and we can't add null players
@@ -161,69 +161,25 @@ public class GameEngine implements Runnable {
 	
 	
 	
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 
 		Card c;
-		Deck playerDeck = new Deck();  //The deck the player starts with
-		Deck maingame = new Deck(); //The deck for the center of the game.
+		Deck playerDeck;
+		Deck maingame;
+		try {
+			playerDeck = Deck.getStarterDeck(); //The deck the player starts with
+			maingame = Deck.getMainDeck(); //The deck for the center of the game.
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}  
+		
 		
 		//  open up standard input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input; //place to put input from command line.
 
-		//Add cards to the deck here
-		
-		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
-		Card paradox = new Card("Paradox");
-				
-		//Card scavenge allows the player to draw two additional cards when played from hand
-		Card scavenge = new Card("Scavenge");
-				
-		//Card bury allows a player to discard two cards and pick up two new ones
-		Card bury = new Card("Bury");
-				
-		//Card wormhole makes all other players discard 2 cards from hand
-		Card wormhole = new Card("Wormhole");
-		
-		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
-		Card beginStealth = new Card("Prowl");
-				
-		//Card that is always available to buy, similar to the mystic in ascension
-		Card buyStealth = new Card("Lurk");
-				
-		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
-		Card beginAttack = new Card("Claw");
-				
-		//Card that is always available to buy, similar to the heavy infantry in ascension
-		Card buyAttack = new Card("Bite");
-		
-		Card williamShakespeare = new Card("Shakespeare");
-		
-		Card influentialCourtier = new Card("Influential Courtier", "Attack to move forward 10 years.", 0, 3, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card possibleLeader = new Card("Possible Leader", "Attack to move forward 4 years.", 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card neverBorn  = new Card("Great Inventor Never Born", "Attack to move forward 5 years.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false );
-		Card luckInTiming = new Card("The Lucks in the Timing", "Draw 1 card and gain 2 stealth when played from hand.", 3, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-		Card timeLoopStrike = new Card("Time Loop Strike", "Draw 1 card and gain 2 attack when played from hand.", 3, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false); 
-		
-		//TODO - More action cards
-		//historical figure cards costing anywhere between 1-10 attack to defeat
-		
-		
-		//Build the starter deck
-		playerDeck.addCard(beginStealth, 6);
-		playerDeck.addCard(beginAttack, 4);
-		
-		
-		//Build the main game deck
-		maingame.addCard(scavenge, 10);
-		maingame.addCard(influentialCourtier, 15);
-		maingame.addCard(possibleLeader, 15);
-		maingame.addCard(luckInTiming, 10);
-		maingame.addCard(buyStealth, 10);
-		maingame.addCard(buyAttack, 10);
-		maingame.addCard(timeLoopStrike, 10);
-		maingame.addCard(neverBorn, 15);
-		maingame.addCard(williamShakespeare);
 		
 		//Starting the game engine
 		
