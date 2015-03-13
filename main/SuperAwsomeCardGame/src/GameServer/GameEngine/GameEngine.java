@@ -15,6 +15,7 @@ public class GameEngine implements Runnable {
 	private Player[] players;
 	private int totalNumOfPlayers;
 	private int currentNumOfPlayers;
+	private int currentPlayerIndex = 0;
 	
 	private String name;
 	private boolean isRunning = false;
@@ -364,12 +365,16 @@ public class GameEngine implements Runnable {
 	}
 
 
+	private void promptUserForAction() {
+		
+	}
 	
 	@Override
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.
 		
 		Player current;
+		
 		
 		
 		//This is set here and in the start() function. Since with threading processing
@@ -381,20 +386,17 @@ public class GameEngine implements Runnable {
 		
 		// TODO Initialize the state of the GameEngine
 		
-		//Initialize the players.
-		for(int i = 0; i < this.totalNumOfPlayers; i++) {
-			current = this.players[i];
-						
-			//Draw 5 cards for each player.
-			for(int j = 0; j < 5; j++)	current.getHand().addCard(current.getDeck().draw());
-			
-		}
 		
 		// TODO Initialize the state of the game on the clients
 		
 		
 		// TODO Main Game Loop
 		while(true) {
+			
+			//Stay true during turn
+			while(true) {
+				
+			}			
 			
 		}
 		

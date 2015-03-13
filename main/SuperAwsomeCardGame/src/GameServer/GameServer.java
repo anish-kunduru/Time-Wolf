@@ -32,7 +32,7 @@ public class GameServer {
 	      while (true)
 	         try
 	         {
-	            Thread.sleep(4000);
+	        	Thread.sleep(60000);
 	         }
 	         catch (InterruptedException e)
 	         {

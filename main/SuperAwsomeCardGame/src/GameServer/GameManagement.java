@@ -62,12 +62,9 @@ public class GameManagement implements Runnable {
 			return false;
 		}
 		
-		try {
-			ge.addPlayer(u);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		ge.addPlayer(u);
+		
 		
 		return true;
 		
