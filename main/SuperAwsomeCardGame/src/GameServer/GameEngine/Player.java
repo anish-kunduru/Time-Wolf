@@ -32,11 +32,12 @@ public class Player {
 	 * @throws SQLException 
 	 */
 	
-	public Player(User user, Deck starerDeck) {
+	public Player(User user) throws SQLException {
 		
 		//Initliaize given values
 		this.user = user;
 		this.isTurn = isTurn;
+		deck = new Deck();
 		this.hand = new Hand(5);
 		this.isTurn = false;
 		
@@ -45,7 +46,7 @@ public class Player {
 		this.discard = discardPile;
 		
 		//Initiliaze deck to the starter deck
-		this.deck = starerDeck;
+		this.deck.getStarterDeck();
 
 		//Initialize hand
 		this.deck.draw(this.hand);
@@ -57,6 +58,11 @@ public class Player {
 		
 	}
 	
+	/**
+	 * Called after a player ends their turn. It initializes stealth and attack back to 0, discards the cards in hand 
+	 * to the discard pile, and draws five new cards.
+	 */
+	
 	public void resetPlayer(){
 		stealth = 0;
 		attack = 0;
@@ -64,9 +70,14 @@ public class Player {
 		int i = 0;
 		while(hand.size() > 0){
 			discard.discard(hand.remove(i));
-			i++;
 		}
 		
+		while(hand.size() < 5){
+			if(this.deck.size() == 0){
+				this.discard.addToDeck(this.deck);
+			}
+			this.deck.draw(this.hand);
+		}
 		
 	}
 	
@@ -172,5 +183,5 @@ public class Player {
 	public boolean getIsTurn(){
 		return isTurn;
 	}
-
+	
 }

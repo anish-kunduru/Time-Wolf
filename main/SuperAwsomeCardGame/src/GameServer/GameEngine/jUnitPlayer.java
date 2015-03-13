@@ -9,99 +9,109 @@ import GameServer.Users.User;
 
 public class jUnitPlayer {
 	
-	private Deck deckOne;
-	private Deck deckTwo;
-	private Deck deckStart;
-	private DiscardPile discard;
-	private Hand hand;
-	private Card paradox;
-	private Card scavenge;
-	private Card bury;
-	private Card wormhole;
-	private Card beginStealth;
-	private Card buyStealth;
-	private Card beginAttack;
-	private Card buyAttack;
-	private Card dataBase;
 	private Player player;
+	private User user;
 
 	@Before
 	public void setUp() throws Exception {
-		
-		deckOne = new Deck();
-		deckTwo = new Deck();
-		
-		discard = new DiscardPile();
-		
-		hand = new Hand(5);
-		
-		//Card paradox causes all other players to go back 10 years by adding a "paradox" card to their deck
-		paradox = new Card("Paradox");
-		
-		//Card scavenge allows the player to draw two additional cards when played from hand
-		scavenge = new Card("Scavenge");
-		
-		//Card bury allows a player to discard two cards and pick up two new ones
-		bury = new Card("Bury");
-		
-		//Card wormhole makes all other players discard 2 cards from hand
-		wormhole = new Card("Wormhole");
-		
-		//Six of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 stealth each
-		beginStealth = new Card("Prowl");
-		
-		//Card that is always available to buy, similiar to the mystic in ascension
-		buyStealth = new Card("Lurk");
-		
-		//Four of these will go in the player's beginning hand, otherwise unable to buy, they are worth 1 attack each
-		beginAttack = new Card("Claw");
-		
-		//Card that is always available to buy, similiar to the heavy infantry in ascension
-		buyAttack = new Card("Bite");
-		
-	    //Deck one represents the main deck pile cards are drawn from
-		deckOne.addCard(paradox, 4);
-		deckOne.addCard(scavenge, 4);
-		deckOne.addCard(bury, 4);
-		deckOne.addCard(wormhole, 4);
-		
-		//deckStart represents a beginning deck for individual player
-		deckStart = new Deck();
-		deckStart.addCard(beginStealth, 6);
-		deckStart.addCard(beginAttack, 4);
-		
-		User user = new User();
-		player = new Player(user,  Deck.getStarterDeck());
+
+		user = new User();
+		player = new Player(user);
 		
 	}
-
+	
+	@Test
+	public void initializedValueAttack() {
+		assertEquals(0, player.getAttack());
+	}
+	
+	@Test
+	public void initializedValueStealth() {
+		assertEquals(0, player.getStealth());
+	}
+	
+	@Test
+	public void initializedValueHand() {
+		assertEquals(5, player.getHand().size());
+	}
+	
+	@Test
+	public void initializedValueDeck() {
+		assertEquals(5, player.getDeck().size());
+	}
+	
 
 	@Test
-	public void testGetIsTurn() {
+	public void initializedValueIsTurn() {
+		assertEquals(false, player.getIsTurn());
+	}
+	
+	
+	@Test
+	public void getUser() {
+		assertEquals(user, player.getUser());
+	}
+	
+	@Test
+	public void initializedValueDiscardPile() {
+		assertEquals(0, player.getDiscardPile().size());
+	}
+	
+	@Test
+	public void addStealth() {
+		player.addStealth(2);
+		assertEquals(2, player.getStealth());
+	}
+	
+	@Test
+	public void addAttack() {
+		player.addAttack(2);
+		assertEquals(2, player.getAttack());
+	}
+	
+	@Test
+	public void addVP() {
+		player.addVP(100);
+		assertEquals(100, player.getVP());
+	}
+	
+	@Test
+	public void setIsTurn() {
+		player.isTurn(true);
 		assertEquals(true, player.getIsTurn());
 	}
-
 	
 	@Test
-	public void testGetHand() {
-		assertEquals(hand, player.getHand());
+	public void afterResetValueAttack() {
+		player.addAttack(5);
+		player.resetPlayer();
+		assertEquals(0, player.getAttack());
 	}
 	
 	@Test
-	public void testGetDiscard() {
-		assertEquals(discard, player.getDiscardPile());
+	public void afterResetValueStealth() {
+		player.addStealth(5);
+		player.resetPlayer();
+		assertEquals(0, player.getStealth());
 	}
 	
 	@Test
-	public void testGetDeck() {
-		assertEquals(deckStart, player.getDeck());
+	public void afterResetValueDeck() {
+		player.resetPlayer();
+		assertEquals(0, player.getDeck().size());
 	}
 	
 	@Test
-	public void newPlayerHandSize() {
-		assertEquals(10, player.getDeck().size());
+	public void afterResetValueDiscardPile() {
+		player.resetPlayer();
+		assertEquals(5, player.getDiscardPile().size());
 	}
 	
-	
+	@Test
+	public void afterResetResetValueDeck() {
+		player.resetPlayer();
+		player.resetPlayer();
+		assertEquals(5, player.getDeck().size());
+	}
 
 }
