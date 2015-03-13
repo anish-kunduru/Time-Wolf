@@ -365,8 +365,36 @@ public class GameEngine implements Runnable {
 	}
 
 
-	private void promptUserForAction() {
+	/**
+	 * Prompt the user for input on what they want to do.
+	 * @return the action to take
+	 */
+	private Action promptUserForAction() {
 		
+		//  open up standard input
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input; //place to put input from command line.
+		
+		Player p = this.players[this.currentPlayerIndex];
+		
+		System.out.println("\n\n\n");
+		System.out.println("VP: " + p.getVP() + "\tStealth: " + p.getStealth() + "\tAttack: " + p.getAttack());
+		System.out.println("Hand Size: " + p.getHand().size() + "\tDeck Size: " + p.getDeck().size() + "\tDiscard Size: " + p.getDiscardPile().size());
+		System.out.println("Choose:");
+		System.out.println("\t(1) Play Card From Hand");
+		System.out.println("\t(2) Purchase or Attack Card from Center.");
+		System.out.println("\t(3) View Hand.");
+		System.out.println("\t(4) View Cards in Center.");
+		System.out.println("\t(5) End Turn");
+		System.out.println("Enter Choice: ");
+		
+		try {
+			input = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	@Override
@@ -395,6 +423,8 @@ public class GameEngine implements Runnable {
 			
 			//Stay true during turn
 			while(true) {
+				
+				Action action = this.promptUserForAction();
 				
 			}			
 			
