@@ -36,9 +36,6 @@ public class Player {
 		
 		//Initliaize given values
 		this.user = user;
-		this.isTurn = isTurn;
-		deck = new Deck();
-		this.hand = new Hand(5);
 		this.isTurn = false;
 		
 		//Initialize discard pile to an empty DiscardPile
@@ -46,9 +43,11 @@ public class Player {
 		this.discard = discardPile;
 		
 		//Initiliaze deck to the starter deck
-		this.deck.getStarterDeck();
+		this.deck = new Deck();
+		this.deck = Deck.getStarterDeck();
 
 		//Initialize hand
+		this.hand = new Hand(5);
 		this.deck.draw(this.hand);
 		
 		//Initialize int values to 0
