@@ -444,6 +444,45 @@ public class GameEngine implements Runnable {
 		return chosen;
 	}
 	
+	
+	
+	private boolean aquireCard(Action a) {
+		
+		Card c = a.getCard();
+		Player p = this.players[this.currentPlayerIndex];
+		
+		
+		//TODO: When the tagging for historical figures vs action cards gets done, fix this code
+		if(c.getCostAttack() == 0) { //Aquire an action card
+			
+			//Can't aquire cards we can't afford
+			if(c.getCostStealth() > p.getStealth()) return false;
+			
+			p.addStealth(-1 * c.getCostStealth());
+			
+			p.getDiscardPile().discard(c);
+			
+			this.mainPlayAreaCards.remove(a.getCardIndex());
+			this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+			
+			//If this was the last card in the main deck, reshuffle the discard
+			//pile back in to the main play area deck.
+			if(this.mainDeck.size() == 0) {
+				this.mainDiscard.addToDeck(this.mainDeck);
+			}
+			
+		} else { //Aquire an historical figure
+			
+		}
+		
+		
+		return true;
+	}
+	
+	private boolean playCard(Action a) {
+		return true;
+	}
+	
 	@Override
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.

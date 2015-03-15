@@ -85,7 +85,7 @@ public class Action implements Serializable {
 	 * Get the card involved with the game.
 	 * @return the card
 	 */
-	public Card getC() {
+	public Card getCard() {
 		return c;
 	}
 	
