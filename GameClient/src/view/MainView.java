@@ -26,34 +26,19 @@ public class MainView extends Application
 
    public static final String GAME_LOBBY_SCREEN = "gameLobby";
    public static final String GAME_LOBBY_SCREEN_FXML = "GameLobbyScreen.fxml";
-
-   
-   
-   // PLAYING FAST AND LOOSE WITH STATE DATA BECAUSE I CAN'T FIGURE IT OUT.
-
-   // ///////////////////////////////////////////////////////////////////////////////////
-   public static MainController mainController;
-
-   public static MainController getMainController()
-   {
-      return mainController;
-   }
-
-   // //////////////////////////////////////////////////////////////////////////////////
-
-   
-   
    
    @Override
    public void start(Stage primaryStage)
    {
       // Instantiate MainController and load the screens.
-      mainController = new MainController();
+      MainController mainController = new MainController();
 
       mainController.loadScreen(LOGIN_SCREEN, LOGIN_SCREEN_FXML);
       mainController.loadScreen(REGISTRATION_SCREEN, REGISTRATION_SCREEN_FXML);
       mainController.loadScreen(FORGOT_PASSWORD_SCREEN, FORGOT_PASSWORD_SCREEN_FXML);
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
+      
+      MainModel.getModel().currentMainData().setMainController(mainController);
 
       // Display the first screen.
       mainController.displayScreen(GAME_LOBBY_SCREEN); // DISPLAYING GAME_LOBBY_SCREEN TO TEST MENU BAR.

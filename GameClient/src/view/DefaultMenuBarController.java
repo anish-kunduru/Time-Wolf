@@ -28,12 +28,14 @@ public class DefaultMenuBarController
    public void initialize()
    {
       // So that the menubar is the correct length.
-      menuBar.prefWidthProperty().bind(MainView.getMainController().widthProperty());
+      //MainController mainController = MainModel.getModel().currentMainData().getMainController();
+      //menuBar.prefWidth(mainController.getWidth());
+      //menuBar.prefWidthProperty().bind(MainModel.getModel().currentMainData().getMainController().widthProperty());
       
       // Event handlers.
       fileNewGame.setOnAction(event ->
       {
-         MainView.getMainController().displayScreen(MainView.LOGIN_SCREEN); // TEMP SO THAT WE CAN SET IT TO SOMETHING.
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN); // TEMP SO THAT WE CAN SET IT TO SOMETHING.
          // MainView.getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
       });
 

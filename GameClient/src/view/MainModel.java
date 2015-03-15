@@ -25,7 +25,7 @@ public class MainModel
 
    // Instantiate data classes to store information.
    private LoginData loginData = new LoginData();
-   private MainData
+   private MainData mainData = new MainData();
 
    /**
     * Get the current loginData.
@@ -35,5 +35,15 @@ public class MainModel
    public LoginData currentLoginData()
    {
       return loginData;
+   }
+
+   /**
+    * Get the current mainData.
+    * 
+    * @return The current instance of mainData.
+    */
+   public MainData currentMainData()
+   {
+      return mainData;
    }
 }

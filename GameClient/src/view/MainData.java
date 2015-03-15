@@ -9,7 +9,7 @@ package view;
 public class MainData
 {
   
-   // Login information.
+   // Store reference to our mainController for GUI logic.
    private MainController mainController;
    
    /**
