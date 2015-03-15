@@ -61,6 +61,10 @@ public class LoginScreenController implements ControlledScreen
 
       loginButton.setOnAction(event ->
       {
+         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
+         
+         // BYPASS LOGIN PROCEDURE FOR NOW:
+         /*
          // TO-DO
          // CHECK IF USERNAME/PASSWORD IS VALID BEFORE SETTING...
          usernameString = usernameTextField.getText();
@@ -107,7 +111,7 @@ public class LoginScreenController implements ControlledScreen
             }
 
             System.out.println("Login succesful. User ID: " + userOne.getID());
-
+            
 
          }
          catch (Exception e)
@@ -115,6 +119,7 @@ public class LoginScreenController implements ControlledScreen
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
+         */
 
       });
 
