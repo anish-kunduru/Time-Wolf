@@ -34,6 +34,10 @@ public class UserStats implements Serializable {
 	private int userID;
 	private int ID;
 
+	public UserStats()
+	{
+		
+	}
 	public UserStats(int userID) {
 		getStats(userID);
 	}
@@ -45,6 +49,11 @@ public class UserStats implements Serializable {
 	 */
 	public int getGamesPlayed() {
 		return gamesPlayed;
+	}
+	
+	public void setGamesPlayed(int gamesPlayed)
+	{
+		this.gamesPlayed = gamesPlayed;
 	}
 	
 	public int getGamesWon() {

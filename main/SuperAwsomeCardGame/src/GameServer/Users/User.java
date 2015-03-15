@@ -3,6 +3,7 @@ package GameServer.Users;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import GameServer.DBHelper;
 
@@ -26,6 +27,7 @@ public class User implements Serializable {
 	public UserStats Statistics;
 	private boolean isBanned;
 	private int role;
+	public ArrayList<Feedback> Feedback;
 
 	/**
 	 * Creates a new user object with empty fields
@@ -39,6 +41,7 @@ public class User implements Serializable {
 		this.Statistics = null;
 		this.isBanned = false;
 		this.role = 0;
+		this.Feedback = new ArrayList<Feedback>();
 	}
 	
 	/**
@@ -347,5 +350,26 @@ public class User implements Serializable {
 		return false;
 	}
 	
-	
+	public class Feedback implements Serializable
+	{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private int ID;
+		private int UserID;
+		private boolean isGood;
+		private String Comment;
+		public Feedback()
+		{
+			ID = 0;
+			UserID = 0;
+			isGood = false;
+			Comment = "";
+		}
+		
+		
+		
+	}
 }

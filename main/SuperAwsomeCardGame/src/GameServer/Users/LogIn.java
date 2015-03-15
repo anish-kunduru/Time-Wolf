@@ -26,6 +26,11 @@ public class LogIn implements Remote, Serializable
    
 
    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
     * Returns the user to be logged in by the given username and password
     * 
     * @param username
@@ -66,6 +71,38 @@ public class LogIn implements Remote, Serializable
       }
    }
 
+   private static UserStats initStats(int id)
+   {
+	   UserStats us = new UserStats();
+	   try {
+
+			DBHelper dbh = new DBHelper();
+			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
+			ResultSet rs = dbh.executeQuery(query);
+			
+
+			if (rs.first()) // should only be one returned on table is incorrect
+			{
+				us.gamesPlayed = rs.getInt("TotalGames");
+				us.gamesWon = rs.getInt("TotalWins");
+				us.totalPoints = rs.getDouble("TotalPoints");
+				us.ID = rs.getInt("ID");
+				us.userID = userID;
+			} else {
+				// given userID is not valid
+				us.gamesPlayed = 0;
+				us.gamesWon = 0;
+				us.totalPoints = 0;
+				us.ID = 0;
+				us.userID = 0;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	   
+	   return null;
+   }
+   
    /**
     * Checks for username existance in database
     * 
