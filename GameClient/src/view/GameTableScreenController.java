@@ -46,7 +46,7 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      playerHandOne.setImage(new Image("/Cards/bite.png"));
+      playerHandOne.setImage(new Image("cards/bite.png"));
       // cardsInDeckString.setText("Cards in Deck: NUMCARDS");
 
       playerHandOne.setOnMousePressed(event ->
