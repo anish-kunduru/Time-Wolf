@@ -27,6 +27,9 @@ public class MainView extends Application
    public static final String GAME_LOBBY_SCREEN = "gameLobby";
    public static final String GAME_LOBBY_SCREEN_FXML = "GameLobbyScreen.fxml";
    
+   public static final String GAME_TABLE_SCREEN = "gameTable";
+   public static final String GAME_TABLE_SCREEN_FXML = "GameTableScreen.fxml";
+   
    @Override
    public void start(Stage primaryStage)
    {
@@ -37,6 +40,7 @@ public class MainView extends Application
       mainController.loadScreen(REGISTRATION_SCREEN, REGISTRATION_SCREEN_FXML);
       mainController.loadScreen(FORGOT_PASSWORD_SCREEN, FORGOT_PASSWORD_SCREEN_FXML);
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
+      mainController.loadScreen(GAME_TABLE_SCREEN, GAME_TABLE_SCREEN_FXML);
       
       MainModel.getModel().currentMainData().setMainController(mainController);
 

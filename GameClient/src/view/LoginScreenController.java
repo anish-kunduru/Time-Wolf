@@ -61,7 +61,7 @@ public class LoginScreenController implements ControlledScreen
 
       loginButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
+         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
          
          // BYPASS LOGIN PROCEDURE FOR NOW:
          /*
