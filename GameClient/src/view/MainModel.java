@@ -23,8 +23,9 @@ public class MainModel
       return model;
    }
 
-   // Instantiate new LoginData to store information.
+   // Instantiate data classes to store information.
    private LoginData loginData = new LoginData();
+   private MainData
 
    /**
     * Get the current loginData.

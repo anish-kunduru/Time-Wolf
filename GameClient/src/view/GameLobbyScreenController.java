@@ -28,4 +28,10 @@ public class GameLobbyScreenController implements ControlledScreen
    {
       parentController = screenParent;
    }
+   
+   
+   public MainController getParentController()
+   {
+      return parentController;
+   }
 }
