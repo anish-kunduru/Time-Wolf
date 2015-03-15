@@ -40,7 +40,7 @@ public class GameLobbyScreenController implements ControlledScreen
       
       searchButton.setOnAction(event ->
       {
-         // parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
+         parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
       });
    }
 
