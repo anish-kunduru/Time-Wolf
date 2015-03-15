@@ -8,15 +8,15 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="view.CreateGameScreenController">
+	fx:controller="view.SearchGameScreenController">
 	<children>
 		<fx:include source="DefaultMenuBar.fxml" />
-		<Label layoutX="100.0" layoutY="80.0" text="Create Game">
+		<Label layoutX="229.0" layoutY="151.0" text="Search Games">
 			<font>
 				<Font name="System Bold" size="36.0" />
 			</font>
 		</Label>
-		<GridPane hgap="25.0" layoutX="173.0" layoutY="168.0" vgap="10.0">
+		<GridPane hgap="25.0" layoutX="400.0" layoutY="275.0" vgap="10.0">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0"
@@ -27,63 +27,44 @@
 				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
 				<Text layoutX="178.0" layoutY="243.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="No. Players:" GridPane.rowIndex="2">
-					<font>
-						<Font name="System Bold" size="14.0" />
-					</font>
-				</Text>
-				<Text layoutX="183.0" layoutY="183.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Lobby Name:">
-					<font>
-						<Font name="System Bold" size="14.0" />
-					</font>
-				</Text>
-				<Text layoutX="173.0" layoutY="318.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Password (leave empty for public match):"
-					GridPane.rowIndex="4">
+					strokeWidth="0.0" text="No. Players:" GridPane.rowIndex="1">
 					<font>
 						<Font name="System Bold" size="14.0" />
 					</font>
 				</Text>
 				<Text layoutX="181.0" layoutY="215.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Game Type:" GridPane.rowIndex="1">
+					strokeWidth="0.0" text="Game Type:">
 					<font>
 						<Font name="System Bold" size="14.0" />
 					</font>
 				</Text>
 				<Text layoutX="176.0" layoutY="365.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Chat:" GridPane.rowIndex="5">
+					strokeWidth="0.0" text="Chat:" GridPane.rowIndex="3">
 					<font>
 						<Font name="System Bold" size="14.0" />
 					</font>
 				</Text>
 				<Text layoutX="183.0" layoutY="283.0" strokeType="OUTSIDE"
-					strokeWidth="0.0" text="Min. Karma Score:" GridPane.rowIndex="3">
+					strokeWidth="0.0" text="Min. Karma Score:" GridPane.rowIndex="2">
 					<font>
 						<Font name="System Bold" size="14.0" />
 					</font>
 				</Text>
-				<TextField fx:id="lobbyNameTextField"
-					GridPane.columnIndex="1" />
 				<ComboBox fx:id="gameTypeComboBox" prefWidth="300.0"
-					GridPane.columnIndex="1" GridPane.rowIndex="1" />
+					GridPane.columnIndex="1" />
 				<ComboBox fx:id="numberPlayersComboBox" prefWidth="50.0"
-					GridPane.columnIndex="1" GridPane.rowIndex="2" />
+					GridPane.columnIndex="1" GridPane.rowIndex="1" />
 				<TextField fx:id="minKarmaScoreTextField"
-					GridPane.columnIndex="1" GridPane.rowIndex="3" />
-				<TextField fx:id="passwordTextField" GridPane.columnIndex="1"
-					GridPane.rowIndex="4" />
+					GridPane.columnIndex="1" GridPane.rowIndex="2" />
 				<CheckBox fx:id="chatCheckBox" mnemonicParsing="false"
 					onAction="#initialize" selected="true" text="On"
-					GridPane.columnIndex="1" GridPane.rowIndex="5" />
+					GridPane.columnIndex="1" GridPane.rowIndex="3" />
 			</children>
 		</GridPane>
-		<Button fx:id="createGameButton" layoutX="681.0" layoutY="406.0"
-			mnemonicParsing="false" onAction="#initialize" text="Create Game" />
+		<Button fx:id="searchButton" layoutX="819.0" layoutY="425.0"
+			mnemonicParsing="false" onAction="#initialize" text="Search" />
 	</children>
 </AnchorPane>

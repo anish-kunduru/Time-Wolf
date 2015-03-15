@@ -1,7 +1,7 @@
 /**
  * @author Anish Kunduru
  *
- * This program is our handler for CreateGameScreen.fxml.
+ * This program is our handler for SearchGameScreen.fxml.
  */
 
 package view;
@@ -12,18 +12,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class CreateGameScreenController implements ControlledScreen
+public class SearchGameScreenController implements ControlledScreen
 {
    // FXML Components.
    @FXML
-   private Button createGameButton;
+   private Button searchButton;
 
    @FXML
-   private TextField lobbyNameTextField;
-   @FXML
    private TextField minKarmaScoreTextField;
-   @FXML
-   private TextField passwordTextField;
 
    @FXML
    private ComboBox gameTypeComboBox;
@@ -51,12 +47,12 @@ public class CreateGameScreenController implements ControlledScreen
             chatCheckBox.setText("Off");
       });
 
-      createGameButton.setOnAction(event ->
+      searchButton.setOnAction(event ->
       {
          // TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
-         // TO-DO: CREATE THE GAME.
+         // TO-DO: SET SEARCH CRITERA IN GAME TABLE SINGLETON (Hasn't been created yet).
 
-         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
       });
    }
 
