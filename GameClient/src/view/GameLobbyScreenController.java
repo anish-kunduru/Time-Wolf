@@ -7,9 +7,18 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class GameLobbyScreenController implements ControlledScreen
 {
+   // FXML Components
+   @FXML
+   private Button joinButton;
+   @FXML
+   private Button searchButton;
+   @FXML
+   private Button createButton;
+   
    // So we can set the screen's parent later on.
    MainController parentController;
 
@@ -19,6 +28,20 @@ public class GameLobbyScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+      joinButton.setOnAction(event ->
+      {
+         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+      });
+      
+      searchButton.setOnAction(event ->
+      {
+         parentController.displayScreen(MainView.SEARCH_GAME_SCREEN);
+      });
+      
+      createButton.setOnAction(event ->
+      {
+         parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
+      });
    }
 
    /**
