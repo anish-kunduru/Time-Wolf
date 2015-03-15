@@ -42,6 +42,15 @@ public class UserStats implements Serializable {
 		getStats(userID);
 	}
 
+	public UserStats(int UserID, int gamesWon, int gamesPlayed, double totalPoints, int karmaScore, int ID)
+	{
+		this.userID = UserID;
+		this.gamesWon = gamesWon;
+		this.gamesPlayed = gamesPlayed;
+		this.totalPoints = totalPoints;
+		this.karmaScore = karmaScore;
+		this.ID = ID;
+	}
 	/**
 	 * Total number of games played
 	 * 
@@ -51,14 +60,12 @@ public class UserStats implements Serializable {
 		return gamesPlayed;
 	}
 	
-	public void setGamesPlayed(int gamesPlayed)
-	{
-		this.gamesPlayed = gamesPlayed;
-	}
 	
 	public int getGamesWon() {
 		return gamesWon;
 	}
+	
+	
 
 	/**
 	 * Returns the win loss ratio
