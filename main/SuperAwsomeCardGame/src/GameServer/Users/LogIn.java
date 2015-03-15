@@ -102,6 +102,26 @@ public class LogIn implements Remote, Serializable
 				ID = 0;
 				userID = 0;
 			}
+			
+			
+			if(ID > 0) //valid user
+			{
+				int total = 0;
+				int totalGood = 0;
+				query = "SELECT * FROM Feedback WHERE UserID=" + userID;
+				rs = dbh.executeQuery(query);
+				
+				
+				while(rs.next())
+				{
+					total++;
+					if(rs.getBoolean("isGood"))
+						totalGood++;
+				}
+				
+				karmaScore = totalGood/total;
+			}
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
