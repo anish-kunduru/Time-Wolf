@@ -43,7 +43,22 @@ public class CreateGameScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+      // Set appropriate text if box is unchecked.
+      chatCheckBox.setOnAction(event ->
+      {
+         if (chatCheckBox.isSelected())
+            chatCheckBox.setText("On");
+         else
+            chatCheckBox.setText("Off");
+      });
       
+      createGameButton.setOnAction(event ->
+      {
+         //TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
+         //TO-DO: CREATE THE GAME.
+         
+         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+      });
    }
 
    /**
