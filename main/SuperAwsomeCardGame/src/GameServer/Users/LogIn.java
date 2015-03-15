@@ -26,9 +26,9 @@ public class LogIn implements Remote, Serializable
    
 
    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    * 
+    */
+   private static final long serialVersionUID = 1L;
 
 /**
     * Returns the user to be logged in by the given username and password
@@ -61,7 +61,7 @@ public class LogIn implements Remote, Serializable
          u.setEmail(rs.getString("Email"));
          u.setImagePath(rs.getString("ImagePath"));
          u.setRole(rs.getInt("Role"));
-         u.Statistics = getStats(u.getID());
+         u.initStats();
 
          return u;
       }
@@ -71,62 +71,36 @@ public class LogIn implements Remote, Serializable
       }
    }
 
-   private static UserStats getStats(int id)
+   private static UserStats initStats(int id)
    {
-		   int gamesPlayed = 0;
-		   int gamesWon = 0;
-		   double totalPoints = 0;
-		   int ID = 0;
-		   int userID = 0;
-		   int karmaScore = 0;
-	   try {
+      UserStats us = new UserStats();
+      try {
 
-		   
-			DBHelper dbh = new DBHelper();
-			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
-			ResultSet rs = dbh.executeQuery(query);
-			
+         DBHelper dbh = new DBHelper();
+         String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
+         ResultSet rs = dbh.executeQuery(query);
+         
 
-			if (rs.first()) // should only be one returned on table is incorrect
-			{
-				gamesPlayed = rs.getInt("TotalGames");
-				gamesWon = rs.getInt("TotalWins");
-				totalPoints = rs.getDouble("TotalPoints");
-				ID = rs.getInt("ID");
-				userID = id;
-			} else {
-				// given userID is not valid
-				gamesPlayed = 0;
-				gamesWon = 0;
-				totalPoints = 0;
-				ID = 0;
-				userID = 0;
-			}
-			
-			
-			if(ID > 0) //valid user
-			{
-				int total = 0;
-				int totalGood = 0;
-				query = "SELECT * FROM Feedback WHERE UserID=" + userID;
-				rs = dbh.executeQuery(query);
-				
-				
-				while(rs.next())
-				{
-					total++;
-					if(rs.getBoolean("isGood"))
-						totalGood++;
-				}
-				
-				karmaScore = totalGood/total;
-			}
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	   UserStats us = new UserStats(userID, gamesWon, gamesPlayed, totalPoints, karmaScore, ID);
-	   return us;
+         if (rs.first()) // should only be one returned on table is incorrect
+         {
+            us.gamesPlayed = rs.getInt("TotalGames");
+            us.gamesWon = rs.getInt("TotalWins");
+            us.totalPoints = rs.getDouble("TotalPoints");
+            us.ID = rs.getInt("ID");
+            us.userID = userID;
+         } else {
+            // given userID is not valid
+            us.gamesPlayed = 0;
+            us.gamesWon = 0;
+            us.totalPoints = 0;
+            us.ID = 0;
+            us.userID = 0;
+         }
+      } catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      
+      return null;
    }
    
    /**
