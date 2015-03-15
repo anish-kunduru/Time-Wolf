@@ -3,6 +3,7 @@
  * 
  * This program is our handler for DefaultMenuBar.fxml.
  */
+
 package view;
 
 import javafx.fxml.FXML;
@@ -27,26 +28,25 @@ public class DefaultMenuBarController
    @FXML
    public void initialize()
    {
-      // So that the menubar is the correct length.
-      //MainController mainController = MainModel.getModel().currentMainData().getMainController();
-      //menuBar.prefWidth(mainController.getWidth());
-      //menuBar.prefWidthProperty().bind(MainModel.getModel().currentMainData().getMainController().widthProperty());
-      
+      // So that the menubar is the correct length. CURRENTLY NOT WORKING, TO FIGURE OUT LATER.
+      // MainController mainController = MainModel.getModel().currentMainData().getMainController();
+      // menuBar.prefWidth(mainController.getWidth());
+      // menuBar.prefWidthProperty().bind(MainModel.getModel().currentMainData().getMainController().widthProperty());
+
       // Event handlers.
       fileNewGame.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN); // TEMP SO THAT WE CAN SET IT TO SOMETHING.
-         // MainView.getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
+         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
       });
 
       editProfile.setOnAction(event ->
       {
-         // MainView.getMainController().displayScreen(MainView.EDIT_PROFILE_SCREEN);
+         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.EDIT_PROFILE_SCREEN);
       });
 
       helpAbout.setOnAction(event ->
       {
-         // MainView.getMainController().displayScreen(MainView.ABOUT_SCREEN);
+         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.ABOUT_SCREEN);
       });
    }
 }

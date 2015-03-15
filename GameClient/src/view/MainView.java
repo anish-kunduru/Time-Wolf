@@ -41,7 +41,7 @@ public class MainView extends Application
       MainModel.getModel().currentMainData().setMainController(mainController);
 
       // Display the first screen.
-      mainController.displayScreen(GAME_LOBBY_SCREEN); // DISPLAYING GAME_LOBBY_SCREEN TO TEST MENU BAR.
+      mainController.displayScreen(LOGIN_SCREEN);
 
       // Initialize display components.
       Group root = new Group();

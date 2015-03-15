@@ -19,11 +19,21 @@ public class MainData
    {
    }
    
+   /**
+    * Sets the main controller.
+    * 
+    * @param mainController The main controller.
+    */
    public void setMainController(MainController mainController)
    {
       this.mainController = mainController;
    }
    
+   /**
+    * Gets the main controller
+    * 
+    * @return A valid MainController object.
+    */
    public MainController getMainController()
    {
       return mainController;
