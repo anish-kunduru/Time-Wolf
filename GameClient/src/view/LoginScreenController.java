@@ -35,10 +35,8 @@ public class LoginScreenController implements ControlledScreen
    private PasswordField passwordTextField;
 
    @FXML
-   private Label usernameEmptyLabel;
+   private Label errorMessage;
 
-   @FXML
-   private Label passwordEmptyLabel;
 
    // Store input from user.
    private String usernameString;
@@ -74,22 +72,24 @@ public class LoginScreenController implements ControlledScreen
 
          if (usernameString.equals(""))
          {
-            usernameEmptyLabel.setText("Please enter a username.");
+            errorMessage.setText("Username and/or Password not filled in.");
          }
 
-         if (passwordString.equals(""))
+         else if (passwordString.equals(""))
          {
-            passwordEmptyLabel.setText("Please enter a password.");
+            errorMessage.setText("Username and/or Password not filled in.");
          }
 
          try
          {
             LogIn login = (LogIn) Naming.lookup("//localhost/auth");
+            User userOne = new User();
+            
+            try{
 
-            User userOne = login.logIn(usernameString, passwordString);
+            userOne = login.logIn(usernameString, passwordString);
             // TEST LOGIN: username: ssimmons, password: password
-
-            System.out.println("Login succesful. User ID: " + userOne.getID());
+            
 
             // TO-DO: MAKE SURE THESE ARE VALID BEFORE SETTING.
             // Set the login information in our shared model so that we can access it from other controllers.
@@ -101,6 +101,15 @@ public class LoginScreenController implements ControlledScreen
             // THE FOLLOWING IS TEMP CODE THAT WE NEED TO REMOVE LATER.
             // Temp code has us go to the registrationScreen, because I want to make sure the model logic works and that screen is already created.
             parentController.displayScreen(MainView.REGISTRATION_SCREEN);
+            
+            }
+            
+            catch (Exception Exception){
+            	errorMessage.setText("Username/password was incorrect.");
+            }
+
+            System.out.println("Login succesful. User ID: " + userOne.getID());
+
 
          }
          catch (Exception e)
