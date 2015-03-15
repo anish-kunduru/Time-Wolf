@@ -1,12 +1,14 @@
 /**
  * @author Anish Kunduru
  *
+ * This program is our handler for GameTableScreen.fxml.
  */
 
 package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.TextFlow;
 
@@ -45,8 +47,13 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      //playerHandOne.setImage(Image value);
+      playerHandOne.setImage(new Image("/Cards/bite.png"));
       //cardsInDeckString.setText("Cards in Deck: NUMCARDS");
+      
+      playerHandOne.setOnMousePressed(event ->
+      {
+         playerHandOne.setImage(new Image("cards/bury.png"));
+      });
    }
    
    
