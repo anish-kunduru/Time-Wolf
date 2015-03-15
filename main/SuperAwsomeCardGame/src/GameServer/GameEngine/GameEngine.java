@@ -371,6 +371,8 @@ public class GameEngine implements Runnable {
 	 */
 	private Action promptUserForAction() {
 		
+		Action chosen;
+		
 		//  open up standard input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input; //place to put input from command line.
@@ -392,6 +394,49 @@ public class GameEngine implements Runnable {
 			input = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return this.promptUserForAction();
+		}
+		
+		if(input.equals("1")) {
+			
+			GameEngine.printHand(p.getHand());
+			
+			System.out.println("Play card #: ");
+			try {
+				input = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+				input = "1";
+			}
+			
+			int cardIndex = Integer.parseInt(input);
+			
+			chosen = new Action(Action.PLAY_CARD, cardIndex, p.getHand().get(cardIndex));
+			
+		} else if(input.equals("2")) {
+			
+			GameEngine.printHand(this.mainPlayAreaCards);
+			
+			System.out.println("Atack/Buy card #: ");
+			try {
+				input = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+				input = "1";
+			}
+			
+			int cardIndex = Integer.parseInt(input);
+			
+			chosen = new Action(Action.AQUIRE_CARD, cardIndex, p.getHand().get(cardIndex));
+			
+		} else if(input.equals("3")) {
+			GameEngine.printHand(p.getHand());
+			chosen = this.promptUserForAction();
+		} else if(input.equals("4")) {
+			GameEngine.printHand(this.mainPlayAreaCards);
+			chosen = this.promptUserForAction();
+		} else if(input.equals("5")) {
+			chosen = new Action(Action.END_TURN);			
 		}
 		
 		return null;

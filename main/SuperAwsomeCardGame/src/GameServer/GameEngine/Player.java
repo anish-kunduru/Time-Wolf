@@ -22,13 +22,7 @@ public class Player {
 	private int VP;
 	
 	/**
-	 * @param userID Foreign key to user objects
-	 * @param isTurn Returns true if it's player's turn, false otherwise
-	 * @param actions Number of actions player has left
-	 * @param currency Number of currency player has left //TODO: multiple currencies
-	 * @param hand Player's hand
-	 * @param discard Player's discard pile
-	 * @param deck Player's deck
+	 * @param user The user who is the player.
 	 * @throws SQLException 
 	 */
 	
@@ -45,6 +39,36 @@ public class Player {
 		//Initiliaze deck to the starter deck
 		this.deck = new Deck();
 		this.deck = Deck.getStarterDeck();
+
+		//Initialize hand
+		this.hand = new Hand(5);
+		this.deck.draw(this.hand);
+		
+		//Initialize int values to 0
+		this.attack = 0;
+		this.stealth = 0;
+		this.VP = 0;
+		
+	}
+	
+	
+	/**
+	 * Create a player.
+	 * @param user The user who is the player.
+	 * @param starter The starter deck the player is using.
+	 */
+	public Player(User user, Deck starter) {
+		
+		//Initliaize given values
+		this.user = user;
+		this.isTurn = false;
+		
+		//Initialize discard pile to an empty DiscardPile
+		DiscardPile discardPile = new DiscardPile();
+		this.discard = discardPile;
+		
+		//Initiliaze deck to the starter deck
+		this.deck = (Deck)starter.clone();
 
 		//Initialize hand
 		this.hand = new Hand(5);
