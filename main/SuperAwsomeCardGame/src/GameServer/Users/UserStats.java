@@ -1,5 +1,6 @@
 package GameServer.Users;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,7 +22,11 @@ import GameServer.DBHelper;
 
 
 
-public class UserStats {
+public class UserStats implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int gamesPlayed;
 	private int gamesWon;
 	private double totalPoints;
