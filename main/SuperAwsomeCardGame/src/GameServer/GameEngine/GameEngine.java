@@ -437,16 +437,18 @@ public class GameEngine implements Runnable {
 			chosen = this.promptUserForAction();
 		} else if(input.equals("5")) {
 			chosen = new Action(Action.END_TURN);			
+		} else {
+			chosen = this.promptUserForAction();
 		}
 		
-		return null;
+		return chosen;
 	}
 	
 	@Override
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.
 		
-		Player current;
+		Player currentPlayer;
 		
 		
 		
@@ -466,12 +468,44 @@ public class GameEngine implements Runnable {
 		// TODO Main Game Loop
 		while(true) {
 			
+			//set the current player
+			currentPlayer = this.players[this.currentPlayerIndex];
+			
 			//Stay true during turn
 			while(true) {
 				
 				Action action = this.promptUserForAction();
 				
-			}			
+				if(action.getAction() == Action.END_TURN) {
+					break;
+				} else if (action.getAction() == Action.PLAY_CARD) {
+					
+				} else if (action.getAction() == Action.AQUIRE_CARD) {
+					
+				}
+				
+			}
+			
+			
+			
+			
+			/*
+			 * Take care of end of turn information. This includes updates to 
+			 * who the current player is, and resetting the player to the 
+			 * the intial correct state.
+			 */
+			
+			
+			this.currentPlayerIndex++; //Choose the next player to take a turn
+			if(this.currentNumOfPlayers == this.totalNumOfPlayers) {
+				this.currentPlayerIndex = 0;
+			}
+			
+			//Now that we're done with the turn, reset the player
+			currentPlayer.resetPlayer();
+			
+			// TODO Update the current player's display and the other player's display.
+			
 			
 		}
 		
