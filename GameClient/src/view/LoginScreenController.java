@@ -100,7 +100,7 @@ public class LoginScreenController implements ControlledScreen
             // Go to the next screen.
             // THE FOLLOWING IS TEMP CODE THAT WE NEED TO REMOVE LATER.
             // Temp code has us go to the registrationScreen, because I want to make sure the model logic works and that screen is already created.
-            parentController.displayScreen(MainView.REGISTRATION_SCREEN);
+            parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
             
             }
             
