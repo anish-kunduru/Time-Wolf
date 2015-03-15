@@ -61,7 +61,7 @@ public class LogIn implements Remote, Serializable
          u.setEmail(rs.getString("Email"));
          u.setImagePath(rs.getString("ImagePath"));
          u.setRole(rs.getInt("Role"));
-         u.initStats();
+         u.Statistics = getStats(u.getID());
 
          return u;
       }
@@ -71,7 +71,7 @@ public class LogIn implements Remote, Serializable
       }
    }
 
-   private static UserStats initStats(int id)
+   private static UserStats getStats(int id)
    {
 		   int gamesPlayed = 0;
 		   int gamesWon = 0;

@@ -165,28 +165,28 @@ public class UserStats implements Serializable {
 	}
 
 
-	public class Feedback implements Serializable
-	{
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		private int ID;
-		private int UserID;
-		private boolean isGood;
-		private String Comment;
-		public Feedback()
-		{
-			ID = 0;
-			UserID = 0;
-			isGood = false;
-			Comment = "";
-		}
-		
-		
-		
-	}
+//	public class Feedback implements Serializable
+//	{
+//
+//		/**
+//		 * 
+//		 */
+//		private static final long serialVersionUID = 1L;
+//		private int ID;
+//		private int UserID;
+//		private boolean isGood;
+//		private String Comment;
+//		public Feedback()
+//		{
+//			ID = 0;
+//			UserID = 0;
+//			isGood = false;
+//			Comment = "";
+//		}
+//		
+//		
+//		
+//	}
 
 	
 }
