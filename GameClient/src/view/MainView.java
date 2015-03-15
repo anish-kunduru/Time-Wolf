@@ -53,6 +53,10 @@ public class MainView extends Application
 
       // Add mainController.
       root.getChildren().addAll(mainController);
+      
+      // Since our menuBar is a fixed size for now.
+      primaryStage.setResizable(false);
+      primaryStage.sizeToScene();
 
       // Pin the root to scene and display it.
       primaryStage.setScene(scene);
