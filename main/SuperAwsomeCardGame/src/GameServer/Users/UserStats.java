@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import GameServer.DBHelper;
 
@@ -30,10 +31,12 @@ public class UserStats implements Serializable {
 	private int gamesPlayed;
 	private int gamesWon;
 	private double totalPoints;
-	private int karmaScore;
+	private double karmaScore;
 	private int userID;
 	private int ID;
-
+	//public ArrayList<Feedback> Feedback;
+	
+	
 	public UserStats()
 	{
 		
@@ -42,6 +45,15 @@ public class UserStats implements Serializable {
 		getStats(userID);
 	}
 
+	public UserStats(int UserID, int gamesWon, int gamesPlayed, double totalPoints, int karmaScore, int ID)
+	{
+		this.userID = UserID;
+		this.gamesWon = gamesWon;
+		this.gamesPlayed = gamesPlayed;
+		this.totalPoints = totalPoints;
+		this.karmaScore = karmaScore;
+		this.ID = ID;
+	}
 	/**
 	 * Total number of games played
 	 * 
@@ -51,14 +63,12 @@ public class UserStats implements Serializable {
 		return gamesPlayed;
 	}
 	
-	public void setGamesPlayed(int gamesPlayed)
-	{
-		this.gamesPlayed = gamesPlayed;
-	}
 	
 	public int getGamesWon() {
 		return gamesWon;
 	}
+	
+	
 
 	/**
 	 * Returns the win loss ratio
@@ -93,8 +103,8 @@ public class UserStats implements Serializable {
 	 * 
 	 * @return
 	 */
-	public int getKarma() {
-		return 0;
+	public double getKarma() {
+		return karmaScore;
 	}
 
 	/**
@@ -154,6 +164,29 @@ public class UserStats implements Serializable {
 		
 	}
 
+
+//	public class Feedback implements Serializable
+//	{
+//
+//		/**
+//		 * 
+//		 */
+//		private static final long serialVersionUID = 1L;
+//		private int ID;
+//		private int UserID;
+//		private boolean isGood;
+//		private String Comment;
+//		public Feedback()
+//		{
+//			ID = 0;
+//			UserID = 0;
+//			isGood = false;
+//			Comment = "";
+//		}
+//		
+//		
+//		
+//	}
 
 	
 }
