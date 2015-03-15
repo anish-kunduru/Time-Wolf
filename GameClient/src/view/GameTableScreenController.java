@@ -18,9 +18,9 @@ public class GameTableScreenController implements ControlledScreen
 
    // FXML Components
    @FXML
-   private Label cardsInDeckString;
+   private Label cardsInDeckLabel;
    @FXML
-   private Label playerTurnString;
+   private Label playerTurnLabel;
 
    @FXML
    private ImageView playerHandOne;

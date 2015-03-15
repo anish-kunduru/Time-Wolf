@@ -7,10 +7,33 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 
 public class CreateGameScreenController implements ControlledScreen
 {
+   // FXML Components.
+   @FXML
+   private Button createGameButton;
+   
+   @FXML
+   private TextField lobbyNameTextField;
+   @FXML
+   private TextField minKarmaScoreTextField;
+   @FXML
+   private TextField passwordTextField;
+   
+   @FXML
+   private ComboBox gameTypeComboBox;
+   @FXML
+   private ComboBox numberPlayersComboBox;
+   
+   @FXML
+   private CheckBox chatCheckBox;
+   
    // So we can set the screen's parent later on.
    MainController parentController;
 
