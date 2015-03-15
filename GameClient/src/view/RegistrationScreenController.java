@@ -6,10 +6,14 @@
 
 package view;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.ImageView;
 
 public class RegistrationScreenController implements ControlledScreen
 {
@@ -20,13 +24,50 @@ public class RegistrationScreenController implements ControlledScreen
    @FXML
    private Button registerButton;
    @FXML
+   private Button cancelButton;
+   @FXML
+   private Button browseButton; // http://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
+   
+   @FXML
    private TextField usernameTextField;
    @FXML
+   private TextField profilePictureTextField;
+   @FXML
    private TextField emailTextField;
+   @FXML
+   private TextField checkEmailTextField;
+   @FXML
+   private TextField questionOneTextField;
+   @FXML
+   private TextField questionTwoTextField;
+   
+   @FXML
+   private ComboBox questionOneComboBox;
+   @FXML
+   private ComboBox questionTwoComboBox;
+   
+   @FXML
+   private CheckBox over13CheckBox;
+   @FXML
+   private CheckBox usernameAvailableCheckBox;
+   @FXML
+   private CheckBox validEmailCheckBox;
+   @FXML
+   private CheckBox emailMatchCheckBox;
+   @FXML
+   private CheckBox passwordMatchCheckBox;
+   
+   @FXML
+   private ImageView userImage;
+   
+   
    @FXML
    private PasswordField passwordField;
    @FXML
    private PasswordField checkPasswordField;
+   
+   @FXML
+   private Label errorLabel;
 
    private String usernameString;
    private String emailString;
