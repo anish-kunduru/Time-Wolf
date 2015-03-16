@@ -20,10 +20,13 @@ public class GameTableScreenController implements ControlledScreen
 
    // FXML Components
    @FXML
-   private Label cardsInDeckLabel;
+   private Label cardsInGameDeckLabel; // Set text to reflect the number of cards left in the game deck.
    @FXML
-   private Label playerTurnLabel;
+   private Label playerTurnLabel; // Set text to reflect whose turn it is.
+   @FXML
+   private Label playerCardsInDeckLabel; // Set text to reflect the number of cards left in a player's personal deck.
 
+   // We have only planned for 15 maximum cards in a player's hand...
    @FXML
    private ImageView playerHandOne;
    @FXML
@@ -34,12 +37,38 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandFour;
    @FXML
    private ImageView playerHandFive;
+   @FXML
+   private ImageView playerHandSix;
+   @FXML
+   private ImageView playerHandSeven;
+   @FXML
+   private ImageView playerHandEight;
+   @FXML
+   private ImageView playerHandNine;
+   @FXML
+   private ImageView playerHandTen;
+   @FXML
+   private ImageView playerHandEleven;
+   @FXML
+   private ImageView playerHandTwelve;
+   @FXML
+   private ImageView playerHandThirteen;
+   @FXML
+   private ImageView playerHandFourteen;
+   @FXML
+   private ImageView playerHandFifteen;
 
    @FXML
-   private ImageView lastDiscardImage;
+   private ImageView lastDiscardImage; // Player's last discarded card.
+   @FXML
+   private ImageView clawDeckImage; // An image to represent the card at the front of the claw deck.
+   @FXML
+   private ImageView lurkDeckImage; // An image to represent the card at the front of the lurk deck.
+   @FXML
+   private ImageView notSoImportantHistoricalFigureImage; // An image to represent the card at the front of the not so important figure image deck.
 
    @FXML
-   private TextFlow playLog;
+   private TextFlow playLog; // Log for game actions.
 
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -52,34 +81,39 @@ public class GameTableScreenController implements ControlledScreen
    {
       // Initial cards in deck state.
       // cardsInDeckString.setText("Cards in Deck: NUMCARDS");
-      
+
+      // Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
+      clawDeckImage.setImage(new Image("cards/claw.png"));
+      lurkDeckImage.setImage(new Image("cards/lurk.png"));
+      notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantFigureImage.png"));
+
       // Initial card states.
       playerHandOne.setImage(new Image("cards/bite.png"));
       playerHandTwo.setImage(new Image("cards/claw.png"));
       playerHandThree.setImage(new Image("cards/edison.png"));
       playerHandFour.setImage(new Image("cards/sacrifice.png"));
       playerHandFive.setImage(new Image("cards/genghisKhan.png"));
-      
+
       // Add effects to cards.
       highlightOnMouseEntered(playerHandOne);
       highlightOnMouseEntered(playerHandTwo);
       highlightOnMouseEntered(playerHandThree);
       highlightOnMouseEntered(playerHandFour);
       highlightOnMouseEntered(playerHandFive);
-      
+
       unhighlightOnMouseExited(playerHandOne);
       unhighlightOnMouseExited(playerHandTwo);
       unhighlightOnMouseExited(playerHandThree);
       unhighlightOnMouseExited(playerHandFour);
       unhighlightOnMouseExited(playerHandFive);
-      
+
       // Act as if card was played.
       playerHandOne.setOnMousePressed(event ->
       {
          playerHandOne.setImage(new Image("cards/bury.png"));
       });
    }
-   
+
    /**
     * Helper method associates a listener to each passed image that adds a highlight effect to an image on mouse hover.
     * 
@@ -102,10 +136,10 @@ public class GameTableScreenController implements ControlledScreen
          imageToHighlight.setEffect(lighting);
       });
    }
-   
+
    /**
-    * Helper method that removes any effect added to an image when the mouse is no longer hovering over it.
-    * Intended to be used with the highlightOnMouseEntered() method.
+    * Helper method that removes any effect added to an image when the mouse is no longer hovering over it. Intended to be used with the
+    * highlightOnMouseEntered() method.
     * 
     * @param imageToUnhighlight The image that you wish to remove effects from.
     */
