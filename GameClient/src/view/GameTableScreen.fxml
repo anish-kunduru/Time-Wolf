@@ -8,12 +8,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GameTableScreenController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="view.GameTableScreenController">
 	<children>
 		<fx:include source="DefaultMenuBar.fxml" />
-		<AnchorPane layoutX="338.0" layoutY="25.0" prefHeight="695.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+		<AnchorPane layoutX="338.0" layoutY="25.0" prefHeight="695.0"
+			prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="25.0">
 			<children>
-				<ScrollPane layoutX="1080.0" prefHeight="695.0" prefWidth="200.0">
+				<ScrollPane layoutX="1080.0" prefHeight="695.0"
+					prefWidth="200.0">
 					<content>
 						<Label alignment="CENTER" contentDisplay="CENTER" text="CHAT WINDOW TO-DO">
 							<font>
@@ -24,23 +30,32 @@
 				</ScrollPane>
 				<AnchorPane layoutX="200.0" prefHeight="330.0" prefWidth="880.0">
 					<children>
-						<Label fx:id="playerTurnLabel" layoutX="519.0" layoutY="276.0" text="Player Turn: ">
+						<Label fx:id="playerTurnLabel" layoutX="519.0" layoutY="276.0"
+							text="Player Turn: ">
 							<font>
 								<Font size="18.0" />
 							</font>
 						</Label>
-						<Label fx:id="cardsInGameDeckLabel" layoutX="14.0" layoutY="276.0" text="Cards In Deck:">
+						<Label fx:id="cardsInGameDeckLabel" layoutX="14.0" layoutY="276.0"
+							text="Cards In Deck:">
 							<font>
 								<Font size="18.0" />
 							</font>
 						</Label>
-						<HBox layoutX="680.0" layoutY="4.0" prefHeight="170.0" prefWidth="480.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<HBox layoutX="680.0" layoutY="4.0" prefHeight="170.0"
+							prefWidth="480.0" AnchorPane.rightAnchor="0.0"
+							AnchorPane.topAnchor="0.0">
 							<children>
-								<ImageView fx:id="gameTableCardOne" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="gameTableCardTwo" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="gameTableCardThree" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="gameTableCardFour" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="gameTableCardFive" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="gameTableCardOne" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="gameTableCardTwo" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="gameTableCardThree" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="gameTableCardFour" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="gameTableCardFive" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
 							</children>
 						</HBox>
 						<GridPane layoutX="14.0" layoutY="22.0">
@@ -54,7 +69,8 @@
 								<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
 							</rowConstraints>
 							<children>
-								<Label layoutX="138.0" layoutY="22.0" text="Lurk:" GridPane.columnIndex="1">
+								<Label layoutX="138.0" layoutY="22.0" text="Lurk:"
+									GridPane.columnIndex="1">
 									<font>
 										<Font size="18.0" />
 									</font>
@@ -64,31 +80,46 @@
 										<Font size="18.0" />
 									</font>
 								</Label>
-								<ImageView fx:id="biteDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="14.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-								<Label layoutX="299.0" layoutY="22.0" text="NSIHF:" GridPane.columnIndex="2">
+								<ImageView fx:id="biteDeckImage" fitHeight="170.0"
+									fitWidth="96.0" layoutX="14.0" layoutY="67.0" pickOnBounds="true"
+									preserveRatio="true" GridPane.rowIndex="1" />
+								<Label layoutX="299.0" layoutY="22.0" text="NSIHF:"
+									GridPane.columnIndex="2">
 									<font>
 										<Font size="18.0" />
 									</font>
 								</Label>
-								<ImageView fx:id="notSoImportantHistoricalFigureImage" fitHeight="170.0" fitWidth="96.0" layoutX="238.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-								<ImageView fx:id="lurkDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<ImageView fx:id="notSoImportantHistoricalFigureImage"
+									fitHeight="170.0" fitWidth="96.0" layoutX="238.0" layoutY="53.0"
+									pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+									GridPane.rowIndex="1" />
+								<ImageView fx:id="lurkDeckImage" fitHeight="170.0"
+									fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true"
+									preserveRatio="true" GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
 							</children>
 						</GridPane>
 					</children>
 				</AnchorPane>
 				<AnchorPane layoutY="500.0" prefHeight="195.0" prefWidth="100.0">
 					<children>
-						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0" text="Your Deck:">
+						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0"
+							text="Your Deck:">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="2.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+						<ImageView fx:id="playerDeckImage" fitHeight="170.0"
+							fitWidth="96.0" layoutX="2.0" layoutY="21.0" pickOnBounds="true"
+							preserveRatio="true" />
 					</children>
 				</AnchorPane>
-				<AnchorPane layoutX="100.0" layoutY="500.0" prefHeight="195.0" prefWidth="100.0">
+				<AnchorPane layoutX="100.0" layoutY="500.0" prefHeight="195.0"
+					prefWidth="100.0">
 					<children>
-						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="2.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+						<ImageView fx:id="lastDiscardImage" fitHeight="170.0"
+							fitWidth="96.0" layoutX="2.0" layoutY="23.0" pickOnBounds="true"
+							preserveRatio="true" />
 						<Label layoutX="1.0" text="Last Discard:">
 							<font>
 								<Font size="16.0" />
@@ -96,42 +127,66 @@
 						</Label>
 					</children>
 				</AnchorPane>
-				<AnchorPane layoutX="212.0" layoutY="330.0" prefHeight="195.0" prefWidth="864.0">
+				<AnchorPane layoutX="212.0" layoutY="330.0" prefHeight="195.0"
+					prefWidth="864.0">
 					<children>
 						<Label text="Current Hand:">
 							<font>
 								<Font name="System Bold" size="18.0" />
 							</font>
 						</Label>
-						<HBox prefHeight="175.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+						<HBox prefHeight="175.0" prefWidth="480.0"
+							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
 							<children>
-								<ImageView fx:id="playerHandOne" fitHeight="170.0" fitWidth="96.0" onMousePressed="#initialize" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandThree" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandFour" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandFive" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandSix" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandSeven" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandEight" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-								<ImageView fx:id="playerHandNine" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandOne" fitHeight="170.0"
+									fitWidth="96.0" onMousePressed="#initialize" pickOnBounds="true"
+									preserveRatio="true" />
+								<ImageView fx:id="playerHandTwo" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandThree" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandFour" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandFive" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandSix" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandSeven" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandEight" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+								<ImageView fx:id="playerHandNine" fitHeight="170.0"
+									fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
 							</children>
 						</HBox>
 					</children>
 				</AnchorPane>
-				<TextArea fx:id="playLog" prefHeight="500.0" prefWidth="200.0" wrapText="true" />
+				<TextArea fx:id="playLog" prefHeight="500.0" prefWidth="200.0"
+					wrapText="true" />
 			</children>
 		</AnchorPane>
-		<HBox layoutX="212.0" layoutY="550.0" prefHeight="170.0" prefWidth="480.0">
+		<HBox layoutX="212.0" layoutY="550.0" prefHeight="170.0"
+			prefWidth="480.0">
 			<children>
-				<ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandThirteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandFourteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandFifteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandSixteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandSeventeen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
-				<ImageView fx:id="playerHandEighteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandTen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandEleven" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandTwelve" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandThirteen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandFourteen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandFifteen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandSixteen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandSeventeen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
+				<ImageView fx:id="playerHandEighteen" fitHeight="170.0"
+					fitWidth="96.0" pickOnBounds="true" preserveRatio="true" />
 			</children>
 		</HBox>
 	</children>
