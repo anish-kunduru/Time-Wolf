@@ -101,6 +101,11 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+      /*
+       * It is important that you understand this is called IMMEDIATELY after the file is loaded in MainController. Since we will want to implement certain
+       * logic only after the user starts the game (gets to this page), you will need to implement some sort of event listener on the main AnchorPane. Refer to
+       * the lamba expression example below on how to do that.
+       */
 
       // Get from server.
       // cardsInGameDeckLabel.setText("Cards in Deck: NUMCARDS");
@@ -132,7 +137,7 @@ public class GameTableScreenController implements ControlledScreen
       highlightOnMouseEntered(biteDeckImage);
       highlightOnMouseEntered(lurkDeckImage);
       highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
-      
+
       highlightOnMouseEntered(gameTableCardOne);
       highlightOnMouseEntered(gameTableCardTwo);
       highlightOnMouseEntered(gameTableCardThree);
@@ -146,21 +151,21 @@ public class GameTableScreenController implements ControlledScreen
       highlightOnMouseEntered(playerHandThree);
       highlightOnMouseEntered(playerHandFour);
       highlightOnMouseEntered(playerHandFive);
-      
-      /////////////////////////////////////////////////////////////////
-      
+
+      // ///////////////////////////////////////////////////////////////
+
       unhighlightOnMouseExited(biteDeckImage);
       unhighlightOnMouseExited(lurkDeckImage);
       unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
-      
+
       unhighlightOnMouseExited(gameTableCardOne);
       unhighlightOnMouseExited(gameTableCardTwo);
       unhighlightOnMouseExited(gameTableCardThree);
       unhighlightOnMouseExited(gameTableCardFour);
       unhighlightOnMouseExited(gameTableCardFive);
-      
+
       unhighlightOnMouseExited(playerDeckImage);
-      
+
       unhighlightOnMouseExited(playerHandOne);
       unhighlightOnMouseExited(playerHandTwo);
       unhighlightOnMouseExited(playerHandThree);
@@ -176,13 +181,13 @@ public class GameTableScreenController implements ControlledScreen
       {
          playerHandOne.setImage(new Image("cards/bite.png"));
       });
-      
+
       // An example of how Text Area works.
       // NOTE: I turned on text wrapping for our playLog component. You can change those properties and more in gameTableScreen.fxml.
       // You can also set them directly in code, but it is better to do it in the FXML to be consistent, since our code generally only has change states.
       playLog.appendText("asdfasdfasdfasdfa\nsdfasdfasdfasdfsdfasdfa\nsdfasdfasdfasdfasdfasdfasdfasdfasdfasdf\nasdfasdfasdfasdfasdfasdfasdf");
       playLog.appendText("\nMore blah...");
-      
+
    }
 
    /**
