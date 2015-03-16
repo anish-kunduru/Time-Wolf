@@ -53,18 +53,7 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandEleven;
    @FXML
    private ImageView playerHandTwelve;
-   @FXML
-   private ImageView playerHandThirteen;
-   @FXML
-   private ImageView playerHandFourteen;
-   @FXML
-   private ImageView playerHandFifteen;
-   @FXML
-   private ImageView playerHandSixteen;
-   @FXML
-   private ImageView playerHandSeventeen;
-   @FXML
-   private ImageView playerHandEighteen;
+
 
    // Images that represent the 5 current cards on the table that a player can choose from.
    @FXML
