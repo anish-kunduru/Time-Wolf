@@ -141,6 +141,8 @@ public class GameTableScreenController implements ControlledScreen
       //highlightOnMouseEntered(playerHandFour);
       //highlightOnMouseEntered(playerHandFive);
       
+      //In an attempt to make hand fit into a smaller place, I overlapped cards and when
+      //the mouse enters the cards space it brings that card to the front.
       showOnMouseEntered(playerHandOne);
       showOnMouseEntered(playerHandTwo);
       showOnMouseEntered(playerHandThree);
