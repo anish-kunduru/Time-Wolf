@@ -16,8 +16,8 @@ import javafx.scene.text.TextFlow;
 
 public class GameTableScreenController implements ControlledScreen
 {
-   // IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT, YOU WILL NEED TO RE-LINK THE GAME TABLE SCREEN.
-   //                 OTHERWISE, IT SIMPLY WON'T WORK AND THE MAIN CONTROLLER IS DESIGNED TO THROW AN EXCEPTION TO THE CONSOLE...
+   // IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT, YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
+   //                 OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN EXCEPTION TO THE CONSOLE...
 
    // FXML Components
    @FXML
@@ -27,7 +27,8 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    private Label playerCardsInDeckLabel; // Set text to reflect the number of cards left in a player's personal deck.
 
-   // We have only planned for 15 maximum cards in a player's hand...
+   // We have only planned for 18 maximum cards in a player's hand...
+   // If a player has more than that, they should automatically win. :)
    @FXML
    private ImageView playerHandOne;
    @FXML
@@ -58,6 +59,12 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandFourteen;
    @FXML
    private ImageView playerHandFifteen;
+   @FXML
+   private ImageView playerHandSixteen;
+   @FXML
+   private ImageView playerHandSeventeen;
+   @FXML
+   private ImageView playerHandEighteen;
    
    // Images that represent the 5 current cards on the table that a player can choose from.
    @FXML
@@ -153,6 +160,8 @@ public class GameTableScreenController implements ControlledScreen
       // Act as if card was played and a new one was drawn.
       // This is just an example of how the mouseListeners would work.
       // You will likely want to create a helper method like one of the ones that I created below.
+      // Use lambda expressions, they make your life easier and the code more readable.
+      // There is also no need to explicitly call the ActionEvent like you would in an nested inner class listener, they are automagically implied. :)
       playerHandOne.setOnMousePressed(event ->
       {
          playerHandOne.setImage(new Image("cards/bite.png"));
