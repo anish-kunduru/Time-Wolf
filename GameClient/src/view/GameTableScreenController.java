@@ -8,16 +8,16 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.TextFlow;
 
 public class GameTableScreenController implements ControlledScreen
 {
    // IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT, YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
-   //                 OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN EXCEPTION TO THE CONSOLE...
+   // OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN EXCEPTION TO THE CONSOLE...
 
    // FXML Components
    @FXML
@@ -65,7 +65,7 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandSeventeen;
    @FXML
    private ImageView playerHandEighteen;
-   
+
    // Images that represent the 5 current cards on the table that a player can choose from.
    @FXML
    private ImageView gameTableCardOne;
@@ -77,7 +77,7 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView gameTableCardFour;
    @FXML
    private ImageView gameTableCardFive;
-   
+
    @FXML
    private ImageView playerDeckImage; // An image to represent the player's deck.
    @FXML
@@ -90,7 +90,7 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView notSoImportantHistoricalFigureImage; // An image to represent the card at the front of the not so important figure image deck.
 
    @FXML
-   private TextFlow playLog; // Log for game actions.
+   private TextArea playLog; // Log for game actions.
 
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -101,6 +101,7 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+
       // Get from server.
       // cardsInGameDeckLabel.setText("Cards in Deck: NUMCARDS");
       // playerCardsInDeckLabel.setText("PLAYER_CARDS");
@@ -109,9 +110,9 @@ public class GameTableScreenController implements ControlledScreen
       // Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
       biteDeckImage.setImage(new Image("cards/bite.png"));
       lurkDeckImage.setImage(new Image("cards/lurk.png"));
-      notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantHistoricalFigureImage.png"));
-      
-      //Set the face down card image.
+      notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantHistoricalFigure.png"));
+
+      // Set the face down card image.
       playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
       // Initial card states.
@@ -120,7 +121,7 @@ public class GameTableScreenController implements ControlledScreen
       gameTableCardThree.setImage(new Image("cards/joanOfArc.png"));
       gameTableCardFour.setImage(new Image("cards/laserSword.png"));
       gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
-      
+
       playerHandOne.setImage(new Image("cards/prowl.png"));
       playerHandTwo.setImage(new Image("cards/claw.png"));
       playerHandThree.setImage(new Image("cards/edison.png"));
@@ -128,24 +129,38 @@ public class GameTableScreenController implements ControlledScreen
       playerHandFive.setImage(new Image("cards/genghisKhan.png"));
 
       // Add effects to cards.
+      highlightOnMouseEntered(biteDeckImage);
+      highlightOnMouseEntered(lurkDeckImage);
+      highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
+      
       highlightOnMouseEntered(gameTableCardOne);
       highlightOnMouseEntered(gameTableCardTwo);
       highlightOnMouseEntered(gameTableCardThree);
       highlightOnMouseEntered(gameTableCardFour);
       highlightOnMouseEntered(gameTableCardFive);
+
       highlightOnMouseEntered(playerDeckImage);
+
       highlightOnMouseEntered(playerHandOne);
       highlightOnMouseEntered(playerHandTwo);
       highlightOnMouseEntered(playerHandThree);
       highlightOnMouseEntered(playerHandFour);
       highlightOnMouseEntered(playerHandFive);
       
+      /////////////////////////////////////////////////////////////////
+      
+      unhighlightOnMouseExited(biteDeckImage);
+      unhighlightOnMouseExited(lurkDeckImage);
+      unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
+      
       unhighlightOnMouseExited(gameTableCardOne);
       unhighlightOnMouseExited(gameTableCardTwo);
       unhighlightOnMouseExited(gameTableCardThree);
       unhighlightOnMouseExited(gameTableCardFour);
       unhighlightOnMouseExited(gameTableCardFive);
+      
       unhighlightOnMouseExited(playerDeckImage);
+      
       unhighlightOnMouseExited(playerHandOne);
       unhighlightOnMouseExited(playerHandTwo);
       unhighlightOnMouseExited(playerHandThree);
@@ -161,6 +176,13 @@ public class GameTableScreenController implements ControlledScreen
       {
          playerHandOne.setImage(new Image("cards/bite.png"));
       });
+      
+      // An example of how Text Area works.
+      // NOTE: I turned on text wrapping for our playLog component. You can change those properties and more in gameTableScreen.fxml.
+      // You can also set them directly in code, but it is better to do it in the FXML to be consistent, since our code generally only has change states.
+      playLog.appendText("asdfasdfasdfasdfa\nsdfasdfasdfasdfsdfasdfa\nsdfasdfasdfasdfasdfasdfasdfasdfasdfasdf\nasdfasdfasdfasdfasdfasdfasdf");
+      playLog.appendText("\nMore blah...");
+      
    }
 
    /**
