@@ -87,7 +87,7 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    private ImageView lurkDeckImage; // An image to represent the card at the front of the lurk deck.
    @FXML
-   private ImageView notSoImportantHistoricalFigureImage; // An image to represent the card at the front of the not so important figure image deck.
+   private ImageView notSoImportantHistoricalFigureImage; // An image to represent the card at the front of the not so important figure deck.
 
    @FXML
    private TextArea playLog; // Log for game actions.
