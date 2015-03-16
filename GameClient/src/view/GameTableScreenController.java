@@ -116,11 +116,11 @@ public class GameTableScreenController implements ControlledScreen
       gameTableCardFour.setImage(new Image("cards/laserSword.png"));
       gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
 
-      playerHandOne.setImage(new Image("cards/prowl.png"));
-      playerHandTwo.setImage(new Image("cards/claw.png"));
-      playerHandThree.setImage(new Image("cards/edison.png"));
-      playerHandFour.setImage(new Image("cards/sacrifice.png"));
-      playerHandFive.setImage(new Image("cards/genghisKhan.png"));
+      playerHandOne.setImage(new Image("cards/bite.png"));
+      playerHandTwo.setImage(new Image("cards/bite.png"));
+      playerHandThree.setImage(new Image("cards/lurk.png"));
+      playerHandFour.setImage(new Image("cards/lurk.png"));
+      playerHandFive.setImage(new Image("cards/lurk.png"));
 
       // Add effects to cards.
       highlightOnMouseEntered(biteDeckImage);
@@ -135,12 +135,36 @@ public class GameTableScreenController implements ControlledScreen
 
       highlightOnMouseEntered(playerDeckImage);
 
-      highlightOnMouseEntered(playerHandOne);
-      highlightOnMouseEntered(playerHandTwo);
-      highlightOnMouseEntered(playerHandThree);
-      highlightOnMouseEntered(playerHandFour);
-      highlightOnMouseEntered(playerHandFive);
-
+      //highlightOnMouseEntered(playerHandOne);
+      //highlightOnMouseEntered(playerHandTwo);
+      //highlightOnMouseEntered(playerHandThree);
+      //highlightOnMouseEntered(playerHandFour);
+      //highlightOnMouseEntered(playerHandFive);
+      
+      showOnMouseEntered(playerHandOne);
+      showOnMouseEntered(playerHandTwo);
+      showOnMouseEntered(playerHandThree);
+      showOnMouseEntered(playerHandFour);
+      showOnMouseEntered(playerHandFive);
+      showOnMouseEntered(playerHandSix);
+      showOnMouseEntered(playerHandSeven);
+      showOnMouseEntered(playerHandEight);
+      showOnMouseEntered(playerHandNine);
+      showOnMouseEntered(playerHandTen);
+      showOnMouseEntered(playerHandEleven);
+      showOnMouseEntered(playerHandTwelve);
+      
+      hideOnMouseExit(playerHandTwo);
+      hideOnMouseExit(playerHandThree);
+      hideOnMouseExit(playerHandFour);
+      hideOnMouseExit(playerHandFive);
+      hideOnMouseExit(playerHandSix);
+      hideOnMouseExit(playerHandSeven);
+      hideOnMouseExit(playerHandEight);
+      hideOnMouseExit(playerHandNine);
+      hideOnMouseExit(playerHandTen);
+      hideOnMouseExit(playerHandEleven);
+      hideOnMouseExit(playerHandTwelve);
       // ///////////////////////////////////////////////////////////////
 
       unhighlightOnMouseExited(biteDeckImage);
@@ -155,21 +179,21 @@ public class GameTableScreenController implements ControlledScreen
 
       unhighlightOnMouseExited(playerDeckImage);
 
-      unhighlightOnMouseExited(playerHandOne);
-      unhighlightOnMouseExited(playerHandTwo);
-      unhighlightOnMouseExited(playerHandThree);
-      unhighlightOnMouseExited(playerHandFour);
-      unhighlightOnMouseExited(playerHandFive);
+      //unhighlightOnMouseExited(playerHandOne);
+      //unhighlightOnMouseExited(playerHandTwo);
+      //unhighlightOnMouseExited(playerHandThree);
+      //unhighlightOnMouseExited(playerHandFour);
+      //unhighlightOnMouseExited(playerHandFive);
 
       // Act as if card was played and a new one was drawn.
       // This is just an example of how the mouseListeners would work.
       // You will likely want to create a helper method like one of the ones that I created below.
       // Use lambda expressions, they make your life easier and the code more readable.
       // There is also no need to explicitly call the ActionEvent like you would in an nested inner class listener, they are automagically implied. :)
-      playerHandOne.setOnMousePressed(event ->
-      {
-         playerHandOne.setImage(new Image("cards/bite.png"));
-      });
+      //playerHandOne.setOnMousePressed(event ->
+      //{
+        // playerHandOne.setImage(new Image("cards/bite.png"));
+     // });
 
       // An example of how Text Area works.
       // NOTE: I turned on text wrapping for our playLog component. You can change those properties and more in gameTableScreen.fxml.
@@ -200,6 +224,20 @@ public class GameTableScreenController implements ControlledScreen
          // Apply lighting.
          imageToHighlight.setEffect(lighting);
       });
+   }
+   
+   private void showOnMouseEntered(ImageView imageToShow){
+	   imageToShow.setOnMouseEntered(event -> 
+	   {
+		   imageToShow.toFront();
+	   });
+   }
+   
+   private void hideOnMouseExit(ImageView imageToShow){
+	   imageToShow.setOnMouseExited(event ->
+	   {
+		   imageToShow.toBack();
+	   });
    }
 
    /**
