@@ -81,8 +81,6 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    private ImageView playerDeckImage; // An image to represent the player's deck.
    @FXML
-   private ImageView gameDeckImage; // An image to represent the game deck.
-   @FXML
    private ImageView lastDiscardImage; // An image to represent the player's last discarded card.
    @FXML
    private ImageView biteDeckImage; // An image to represent the card at the front of the bite deck.
@@ -111,11 +109,10 @@ public class GameTableScreenController implements ControlledScreen
       // Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
       biteDeckImage.setImage(new Image("cards/bite.png"));
       lurkDeckImage.setImage(new Image("cards/lurk.png"));
-      notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantFigureImage.png"));
+      notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantHistoricalFigureImage.png"));
       
-      //Set the face down card images.
+      //Set the face down card image.
       playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
-      gameDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
       // Initial card states.
       gameTableCardOne.setImage(new Image("cards/charlesDarwin.png"));
@@ -131,7 +128,6 @@ public class GameTableScreenController implements ControlledScreen
       playerHandFive.setImage(new Image("cards/genghisKhan.png"));
 
       // Add effects to cards.
-      highlightOnMouseEntered(gameDeckImage);
       highlightOnMouseEntered(gameTableCardOne);
       highlightOnMouseEntered(gameTableCardTwo);
       highlightOnMouseEntered(gameTableCardThree);
@@ -143,8 +139,7 @@ public class GameTableScreenController implements ControlledScreen
       highlightOnMouseEntered(playerHandThree);
       highlightOnMouseEntered(playerHandFour);
       highlightOnMouseEntered(playerHandFive);
-
-      unhighlightOnMouseExited(gameDeckImage);
+      
       unhighlightOnMouseExited(gameTableCardOne);
       unhighlightOnMouseExited(gameTableCardTwo);
       unhighlightOnMouseExited(gameTableCardThree);
