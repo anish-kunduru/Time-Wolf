@@ -16,7 +16,8 @@ import javafx.scene.text.TextFlow;
 
 public class GameTableScreenController implements ControlledScreen
 {
-   // Game State Data
+   // IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT, YOU WILL NEED TO RE-LINK THE GAME TABLE SCREEN.
+   //                 OTHERWISE, IT SIMPLY WON'T WORK AND THE MAIN CONTROLLER IS DESIGNED TO THROW AN EXCEPTION TO THE CONSOLE...
 
    // FXML Components
    @FXML
@@ -57,11 +58,27 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandFourteen;
    @FXML
    private ImageView playerHandFifteen;
-
+   
+   // Images that represent the 5 current cards on the table that a player can choose from.
    @FXML
-   private ImageView lastDiscardImage; // Player's last discarded card.
+   private ImageView gameTableCardOne;
    @FXML
-   private ImageView clawDeckImage; // An image to represent the card at the front of the claw deck.
+   private ImageView gameTableCardTwo;
+   @FXML
+   private ImageView gameTableCardThree;
+   @FXML
+   private ImageView gameTableCardFour;
+   @FXML
+   private ImageView gameTableCardFive;
+   
+   @FXML
+   private ImageView playerDeckImage; // An image to represent the player's deck.
+   @FXML
+   private ImageView gameDeckImage; // An image to represent the game deck.
+   @FXML
+   private ImageView lastDiscardImage; // An image to represent the player's last discarded card.
+   @FXML
+   private ImageView biteDeckImage; // An image to represent the card at the front of the bite deck.
    @FXML
    private ImageView lurkDeckImage; // An image to represent the card at the front of the lurk deck.
    @FXML
@@ -79,38 +96,66 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      // Initial cards in deck state.
-      // cardsInDeckString.setText("Cards in Deck: NUMCARDS");
+      // Get from server.
+      // cardsInGameDeckLabel.setText("Cards in Deck: NUMCARDS");
+      // playerCardsInDeckLabel.setText("PLAYER_CARDS");
+      // playerTurnLabel.setText("PLAYER_TURN");
 
       // Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
-      clawDeckImage.setImage(new Image("cards/claw.png"));
+      biteDeckImage.setImage(new Image("cards/bite.png"));
       lurkDeckImage.setImage(new Image("cards/lurk.png"));
       notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantFigureImage.png"));
+      
+      //Set the face down card images.
+      playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
+      gameDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
       // Initial card states.
-      playerHandOne.setImage(new Image("cards/bite.png"));
+      gameTableCardOne.setImage(new Image("cards/charlesDarwin.png"));
+      gameTableCardTwo.setImage(new Image("cards/butterflyEffect.png"));
+      gameTableCardThree.setImage(new Image("cards/joanOfArc.png"));
+      gameTableCardFour.setImage(new Image("cards/laserSword.png"));
+      gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
+      
+      playerHandOne.setImage(new Image("cards/prowl.png"));
       playerHandTwo.setImage(new Image("cards/claw.png"));
       playerHandThree.setImage(new Image("cards/edison.png"));
       playerHandFour.setImage(new Image("cards/sacrifice.png"));
       playerHandFive.setImage(new Image("cards/genghisKhan.png"));
 
       // Add effects to cards.
+      highlightOnMouseEntered(gameDeckImage);
+      highlightOnMouseEntered(gameTableCardOne);
+      highlightOnMouseEntered(gameTableCardTwo);
+      highlightOnMouseEntered(gameTableCardThree);
+      highlightOnMouseEntered(gameTableCardFour);
+      highlightOnMouseEntered(gameTableCardFive);
+      highlightOnMouseEntered(playerDeckImage);
       highlightOnMouseEntered(playerHandOne);
       highlightOnMouseEntered(playerHandTwo);
       highlightOnMouseEntered(playerHandThree);
       highlightOnMouseEntered(playerHandFour);
       highlightOnMouseEntered(playerHandFive);
 
+      unhighlightOnMouseExited(gameDeckImage);
+      unhighlightOnMouseExited(gameTableCardOne);
+      unhighlightOnMouseExited(gameTableCardTwo);
+      unhighlightOnMouseExited(gameTableCardThree);
+      unhighlightOnMouseExited(gameTableCardFour);
+      unhighlightOnMouseExited(gameTableCardFive);
+      unhighlightOnMouseExited(playerDeckImage);
       unhighlightOnMouseExited(playerHandOne);
       unhighlightOnMouseExited(playerHandTwo);
       unhighlightOnMouseExited(playerHandThree);
       unhighlightOnMouseExited(playerHandFour);
       unhighlightOnMouseExited(playerHandFive);
 
-      // Act as if card was played.
+      // Act as if card was played and a new one was drawn.
+      // This is just an example of how the mouseListeners would work.
+      // You will likely want to create a helper method like one of the ones that I created below.
       playerHandOne.setOnMousePressed(event ->
       {
-         playerHandOne.setImage(new Image("cards/bury.png"));
+         playerHandOne.setImage(new Image("cards/bite.png"));
       });
    }
 
