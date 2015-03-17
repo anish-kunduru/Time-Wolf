@@ -1,10 +1,15 @@
 package GameServer.GameEngine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Hand implements Iterable<Card> {
+public class Hand implements Iterable<Card>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	private int drawSize;
 
