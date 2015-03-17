@@ -37,7 +37,7 @@ public class MainView extends Application
    public static final String SEARCH_GAME_SCREEN_FXML = "SearchGameScreen.fxml";
    
    public static final String GAME_RULES_SCREEN = "gameRules";
-   public static final String GAME_RULES_SCREEN_FXML = "GameRules.fxml";
+   public static final String GAME_RULES_SCREEN_FXML = "GameRulesScreen.fxml";
    
    @Override
    public void start(Stage primaryStage)
