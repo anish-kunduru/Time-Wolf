@@ -17,7 +17,7 @@ public class jUnitPlayer {
 
 		user = new User();
 		player = new Player(user);
-		
+
 	}
 	
 	@Test
