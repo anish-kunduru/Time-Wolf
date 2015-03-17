@@ -445,7 +445,11 @@ public class GameEngine implements Runnable {
 	}
 	
 	
-	
+	/**
+	 * Aquire a card
+	 * @param a the action the user's running
+	 * @return true if successful
+	 */
 	private boolean aquireCard(Action a) {
 		
 		Card c = a.getCard();
@@ -473,12 +477,32 @@ public class GameEngine implements Runnable {
 			
 		} else { //Aquire an historical figure
 			
+			//Can't aquire cards we can't afford
+			if(c.getCostAttack() > p.getAttack()) return false;
+			
+			
+			p.addAttack(-1 * c.getCostAttack());
+			
+			p.getDiscardPile().discard(c);
+			
+			this.mainPlayAreaCards.remove(a.getCardIndex());
+			this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+			
+			//If this was the last card in the main deck, reshuffle the discard
+			//pile back in to the main play area deck.
+			if(this.mainDeck.size() == 0) {
+				this.mainDiscard.addToDeck(this.mainDeck);
+			}
+			
+			
 		}
 		
 		
 		return true;
 	}
+
 	
+		
 	private boolean playCard(Action a) {
 		return true;
 	}
@@ -518,9 +542,9 @@ public class GameEngine implements Runnable {
 				if(action.getAction() == Action.END_TURN) {
 					break;
 				} else if (action.getAction() == Action.PLAY_CARD) {
-					
+					this.playCard(action);
 				} else if (action.getAction() == Action.AQUIRE_CARD) {
-					
+					this.aquireCard(action);
 				}
 				
 			}
