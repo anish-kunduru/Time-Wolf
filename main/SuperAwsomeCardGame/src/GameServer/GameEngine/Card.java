@@ -1,13 +1,18 @@
 package GameServer.GameEngine;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import GameServer.DBHelper;
 
 import com.mysql.jdbc.ResultSet;
 
-public final class Card {
+public final class Card implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//Non mechanical properties
 	final private String name;
 	final private String description;
