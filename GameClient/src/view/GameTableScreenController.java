@@ -134,14 +134,21 @@ public class GameTableScreenController implements ControlledScreen
 
       highlightOnMouseEntered(playerDeckImage);
 
-      // highlightOnMouseEntered(playerHandOne);
-      // highlightOnMouseEntered(playerHandTwo);
-      // highlightOnMouseEntered(playerHandThree);
-      // highlightOnMouseEntered(playerHandFour);
-      // highlightOnMouseEntered(playerHandFive);
+      // ///////////////////////////////////////////////////////////////
 
-      // In an attempt to make hand fit into a smaller place, I overlapped cards and when
-      // the mouse enters the cards space it brings that card to the front.
+      unhighlightOnMouseExited(biteDeckImage);
+      unhighlightOnMouseExited(lurkDeckImage);
+      unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
+
+      unhighlightOnMouseExited(gameTableCardOne);
+      unhighlightOnMouseExited(gameTableCardTwo);
+      unhighlightOnMouseExited(gameTableCardThree);
+      unhighlightOnMouseExited(gameTableCardFour);
+      unhighlightOnMouseExited(gameTableCardFive);
+
+      unhighlightOnMouseExited(playerDeckImage);
+
+      // In an attempt to make hand fit into a smaller place, I overlapped cards and when the mouse enters the cards space it brings that card to the front.
       showOnMouseEntered(playerHandOne);
       showOnMouseEntered(playerHandTwo);
       showOnMouseEntered(playerHandThree);
@@ -166,25 +173,6 @@ public class GameTableScreenController implements ControlledScreen
       hideOnMouseExit(playerHandTen);
       hideOnMouseExit(playerHandEleven);
       hideOnMouseExit(playerHandTwelve);
-      // ///////////////////////////////////////////////////////////////
-
-      unhighlightOnMouseExited(biteDeckImage);
-      unhighlightOnMouseExited(lurkDeckImage);
-      unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
-
-      unhighlightOnMouseExited(gameTableCardOne);
-      unhighlightOnMouseExited(gameTableCardTwo);
-      unhighlightOnMouseExited(gameTableCardThree);
-      unhighlightOnMouseExited(gameTableCardFour);
-      unhighlightOnMouseExited(gameTableCardFive);
-
-      unhighlightOnMouseExited(playerDeckImage);
-
-      // unhighlightOnMouseExited(playerHandOne);
-      // unhighlightOnMouseExited(playerHandTwo);
-      // unhighlightOnMouseExited(playerHandThree);
-      // unhighlightOnMouseExited(playerHandFour);
-      // unhighlightOnMouseExited(playerHandFive);
 
       // Act as if card was played and a new one was drawn.
       // This is just an example of how the mouseListeners would work.
