@@ -24,14 +24,14 @@
       						</Label>
       					</content>
       				</ScrollPane>
-      				<AnchorPane layoutX="200.0" prefHeight="330.0" prefWidth="880.0">
+      				<AnchorPane layoutX="200.0" layoutY="7.0" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
       					<children>
-            						<Label fx:id="playerTurnLabel" layoutX="519.0" layoutY="276.0" text="Player Turn: " AnchorPane.topAnchor="255.0">
+            						<Label fx:id="playerTurnLabel" layoutX="519.0" layoutY="276.0" text="Player Turn: " AnchorPane.topAnchor="235.0">
             							<font>
             								<Font size="18.0" />
             							</font>
             						</Label>
-            						<Label fx:id="cardsInGameDeckLabel" layoutX="274.0" layoutY="275.0" text="Cards In Deck:" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="255.0">
+            						<Label fx:id="cardsInGameDeckLabel" layoutX="274.0" layoutY="275.0" text="Cards In Deck:" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="235.0">
             							<font>
             								<Font size="18.0" />
             							</font>
@@ -69,6 +69,7 @@
             							<columnConstraints>
             								<ColumnConstraints hgrow="SOMETIMES" maxWidth="137.33334350585938" minWidth="10.0" prefWidth="108.0" />
             								<ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
             							</columnConstraints>
             							<rowConstraints>
             								<RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
@@ -103,6 +104,36 @@
                                     <Insets top="10.0" />
                                  </GridPane.margin></ImageView>
             								<ImageView fx:id="lurkDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
+                        		<HBox prefHeight="204.0" prefWidth="261.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        			<children>
+                        				<AnchorPane prefHeight="195.0" prefWidth="100.0">
+                        					<children>
+                        						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0" text="Your Deck:" AnchorPane.bottomAnchor="200.0" AnchorPane.topAnchor="1.0">
+                        							<font>
+                        								<Font size="16.0" />
+                        							</font>
+                        						</Label>
+                        						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="26.0" />
+                        					</children>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="23.0" right="5.0" />
+                                       </HBox.margin>
+                        				</AnchorPane>
+                        				<AnchorPane prefHeight="195.0" prefWidth="100.0">
+                        					<children>
+                        						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="25.0" />
+                        						<Label layoutX="1.0" text="Last Discard:" AnchorPane.topAnchor="1.0">
+                        							<font>
+                        								<Font size="16.0" />
+                        							</font>
+                        						</Label>
+                        					</children>
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="15.0" />
+                                       </HBox.margin>
+                        				</AnchorPane>
+                        			</children>
+                        		</HBox>
             							</children>
             						</GridPane>
             						<Label layoutX="350.0" layoutY="22.0" text="Select From Deck:" AnchorPane.topAnchor="18.0">
@@ -110,7 +141,7 @@
             								<Font name="System Bold" size="18.0" />
             							</font>
             						</Label>
-            				<AnchorPane layoutX="223.0" layoutY="289.0" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="289.0">
+            				<AnchorPane layoutX="223.0" layoutY="289.0" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="270.0">
             					<children>
                   				<ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" layoutX="550.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
                   				<ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" layoutX="502.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
@@ -146,36 +177,6 @@
       					</children>
       				</AnchorPane>
       				<TextArea fx:id="playLog" editable="false" layoutX="3.0" layoutY="6.0" prefHeight="687.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0" />
-            		<HBox layoutX="465.0" layoutY="487.0" prefHeight="204.0" prefWidth="261.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="425.0">
-            			<children>
-            				<AnchorPane prefHeight="195.0" prefWidth="100.0">
-            					<children>
-            						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0" text="Your Deck:" AnchorPane.bottomAnchor="170.0" AnchorPane.topAnchor="1.0">
-            							<font>
-            								<Font size="16.0" />
-            							</font>
-            						</Label>
-            						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="26.0" />
-            					</children>
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="23.0" right="5.0" />
-                           </HBox.margin>
-            				</AnchorPane>
-            				<AnchorPane prefHeight="195.0" prefWidth="100.0">
-            					<children>
-            						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="25.0" />
-            						<Label layoutX="1.0" text="Last Discard:" AnchorPane.topAnchor="1.0">
-            							<font>
-            								<Font size="16.0" />
-            							</font>
-            						</Label>
-            					</children>
-                           <HBox.margin>
-                              <Insets left="5.0" right="15.0" />
-                           </HBox.margin>
-            				</AnchorPane>
-            			</children>
-            		</HBox>
       			</children>
       		</AnchorPane>
       	</children>
