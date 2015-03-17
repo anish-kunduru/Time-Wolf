@@ -203,10 +203,9 @@ public class GameTableScreenController implements ControlledScreen
       playLog.appendText("\nMore blah...");
 
    }
-   
+
    /**
-    * Helper method pulls a card to the front of the display.
-    * Intended to be used with the hand card objects.
+    * Helper method pulls a card to the front of the display. Intended to be used with the hand card objects.
     * 
     * @param imageToShow The image that you wish to pull to the front of the display.
     */
@@ -217,10 +216,9 @@ public class GameTableScreenController implements ControlledScreen
          imageToShow.toFront();
       });
    }
-   
+
    /**
-    * Helper method sends a card back to the display so that they are tiled.
-    * Intended to be used with the hand card objects.
+    * Helper method sends a card back to the display so that they are tiled. Intended to be used with the hand card objects.
     * 
     * @param imageToShow The image that you you wish to send to the back of the display.
     */
@@ -254,7 +252,7 @@ public class GameTableScreenController implements ControlledScreen
          imageToHighlight.setEffect(lighting);
       });
    }
-   
+
    /**
     * Helper method that removes any effect added to an image when the mouse is no longer hovering over it. Intended to be used with the
     * highlightOnMouseEntered() method.
