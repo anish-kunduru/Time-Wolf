@@ -191,10 +191,11 @@ public class GameTableScreenController implements ControlledScreen
       // You will likely want to create a helper method like one of the ones that I created below.
       // Use lambda expressions, they make your life easier and the code more readable.
       // There is also no need to explicitly call the ActionEvent like you would in an nested inner class listener, they are automagically implied. :)
-      // playerHandOne.setOnMousePressed(event ->
-      // {
-      // playerHandOne.setImage(new Image("cards/bite.png"));
-      // });
+      playerHandOne.setOnMousePressed(event ->
+      {
+         lastDiscardImage.setImage(playerHandOne.getImage());
+         playerHandOne.setImage(new Image("cards/bonaparte.png"));
+      });
 
       // An example of how Text Area works.
       // NOTE: I turned on text wrapping for our playLog component. You can change those properties and more in gameTableScreen.fxml.
