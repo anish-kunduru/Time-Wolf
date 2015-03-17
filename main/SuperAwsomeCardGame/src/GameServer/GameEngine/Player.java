@@ -90,10 +90,7 @@ public class Player {
 		stealth = 0;
 		attack = 0;
 		
-		int i = 0;
-		while(hand.size() > 0){
-			discard.discard(hand.remove(i));
-		}
+		discard.discard(this.hand);
 		
 		while(hand.size() < 5){
 			if(this.deck.size() == 0){

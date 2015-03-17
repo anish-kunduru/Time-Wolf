@@ -14,6 +14,13 @@ public class DiscardPile {
 	public void discard(Card c) {
 		cards.add(c);
 	}
+	
+	public void discard(Hand hand){
+		int i = 0;
+		while(hand.size() > 0){
+			this.discard(hand.remove(i));
+		}
+	}
 
 	/**
 	 * Add the contents of the discard pile to deck d
