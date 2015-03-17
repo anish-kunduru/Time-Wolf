@@ -27,7 +27,7 @@ public class GameTableScreenController implements ControlledScreen
    @FXML
    private Label playerCardsInDeckLabel; // Set text to reflect the number of cards left in a player's personal deck.
 
-   // We have only planned for 18 maximum cards in a player's hand...
+   // We have only planned for 12 maximum cards in a player's hand...
    // If a player has more than that, they should automatically win. :)
    @FXML
    private ImageView playerHandOne;
@@ -53,7 +53,6 @@ public class GameTableScreenController implements ControlledScreen
    private ImageView playerHandEleven;
    @FXML
    private ImageView playerHandTwelve;
-
 
    // Images that represent the 5 current cards on the table that a player can choose from.
    @FXML
@@ -135,14 +134,14 @@ public class GameTableScreenController implements ControlledScreen
 
       highlightOnMouseEntered(playerDeckImage);
 
-      //highlightOnMouseEntered(playerHandOne);
-      //highlightOnMouseEntered(playerHandTwo);
-      //highlightOnMouseEntered(playerHandThree);
-      //highlightOnMouseEntered(playerHandFour);
-      //highlightOnMouseEntered(playerHandFive);
-      
-      //In an attempt to make hand fit into a smaller place, I overlapped cards and when
-      //the mouse enters the cards space it brings that card to the front.
+      // highlightOnMouseEntered(playerHandOne);
+      // highlightOnMouseEntered(playerHandTwo);
+      // highlightOnMouseEntered(playerHandThree);
+      // highlightOnMouseEntered(playerHandFour);
+      // highlightOnMouseEntered(playerHandFive);
+
+      // In an attempt to make hand fit into a smaller place, I overlapped cards and when
+      // the mouse enters the cards space it brings that card to the front.
       showOnMouseEntered(playerHandOne);
       showOnMouseEntered(playerHandTwo);
       showOnMouseEntered(playerHandThree);
@@ -155,7 +154,7 @@ public class GameTableScreenController implements ControlledScreen
       showOnMouseEntered(playerHandTen);
       showOnMouseEntered(playerHandEleven);
       showOnMouseEntered(playerHandTwelve);
-      
+
       hideOnMouseExit(playerHandTwo);
       hideOnMouseExit(playerHandThree);
       hideOnMouseExit(playerHandFour);
@@ -181,21 +180,21 @@ public class GameTableScreenController implements ControlledScreen
 
       unhighlightOnMouseExited(playerDeckImage);
 
-      //unhighlightOnMouseExited(playerHandOne);
-      //unhighlightOnMouseExited(playerHandTwo);
-      //unhighlightOnMouseExited(playerHandThree);
-      //unhighlightOnMouseExited(playerHandFour);
-      //unhighlightOnMouseExited(playerHandFive);
+      // unhighlightOnMouseExited(playerHandOne);
+      // unhighlightOnMouseExited(playerHandTwo);
+      // unhighlightOnMouseExited(playerHandThree);
+      // unhighlightOnMouseExited(playerHandFour);
+      // unhighlightOnMouseExited(playerHandFive);
 
       // Act as if card was played and a new one was drawn.
       // This is just an example of how the mouseListeners would work.
       // You will likely want to create a helper method like one of the ones that I created below.
       // Use lambda expressions, they make your life easier and the code more readable.
       // There is also no need to explicitly call the ActionEvent like you would in an nested inner class listener, they are automagically implied. :)
-      //playerHandOne.setOnMousePressed(event ->
-      //{
-        // playerHandOne.setImage(new Image("cards/bite.png"));
-     // });
+      // playerHandOne.setOnMousePressed(event ->
+      // {
+      // playerHandOne.setImage(new Image("cards/bite.png"));
+      // });
 
       // An example of how Text Area works.
       // NOTE: I turned on text wrapping for our playLog component. You can change those properties and more in gameTableScreen.fxml.
@@ -227,19 +226,21 @@ public class GameTableScreenController implements ControlledScreen
          imageToHighlight.setEffect(lighting);
       });
    }
-   
-   private void showOnMouseEntered(ImageView imageToShow){
-	   imageToShow.setOnMouseEntered(event -> 
-	   {
-		   imageToShow.toFront();
-	   });
+
+   private void showOnMouseEntered(ImageView imageToShow)
+   {
+      imageToShow.setOnMouseEntered(event ->
+      {
+         imageToShow.toFront();
+      });
    }
-   
-   private void hideOnMouseExit(ImageView imageToShow){
-	   imageToShow.setOnMouseExited(event ->
-	   {
-		   imageToShow.toBack();
-	   });
+
+   private void hideOnMouseExit(ImageView imageToShow)
+   {
+      imageToShow.setOnMouseExited(event ->
+      {
+         imageToShow.toBack();
+      });
    }
 
    /**
