@@ -20,6 +20,9 @@ public class DefaultMenuBarController
    @FXML
    private MenuItem helpAbout;
    @FXML
+   private MenuItem helpGameRules;
+   
+   @FXML
    private MenuBar menuBar;
 
    /**
@@ -36,7 +39,7 @@ public class DefaultMenuBarController
       // Event handlers.
       fileNewGame.setOnAction(event ->
       {
-         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
       });
 
       editProfile.setOnAction(event ->
@@ -48,5 +51,11 @@ public class DefaultMenuBarController
       {
          // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.ABOUT_SCREEN);
       });
+      
+      helpGameRules.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_RULES_SCREEN);
+      });
+      
    }
 }

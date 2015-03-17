@@ -36,6 +36,9 @@ public class MainView extends Application
    public static final String SEARCH_GAME_SCREEN = "searchGame";
    public static final String SEARCH_GAME_SCREEN_FXML = "SearchGameScreen.fxml";
    
+   public static final String GAME_RULES_SCREEN = "gameRules";
+   public static final String GAME_RULES_SCREEN_FXML = "GameRules.fxml";
+   
    @Override
    public void start(Stage primaryStage)
    {
@@ -49,6 +52,7 @@ public class MainView extends Application
       mainController.loadScreen(CREATE_GAME_SCREEN, CREATE_GAME_SCREEN_FXML);
       mainController.loadScreen(SEARCH_GAME_SCREEN, SEARCH_GAME_SCREEN_FXML);
       mainController.loadScreen(GAME_TABLE_SCREEN, GAME_TABLE_SCREEN_FXML);
+      mainController.loadScreen(GAME_RULES_SCREEN, GAME_RULES_SCREEN_FXML);
       
       MainModel.getModel().currentMainData().setMainController(mainController);
 
