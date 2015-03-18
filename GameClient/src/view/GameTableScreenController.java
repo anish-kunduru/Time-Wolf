@@ -7,8 +7,6 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Light;
