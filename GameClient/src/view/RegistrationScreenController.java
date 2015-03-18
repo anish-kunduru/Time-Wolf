@@ -27,7 +27,7 @@ public class RegistrationScreenController implements ControlledScreen
    private Button cancelButton;
    @FXML
    private Button browseButton; // http://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
-   
+
    @FXML
    private TextField usernameTextField;
    @FXML
@@ -40,12 +40,12 @@ public class RegistrationScreenController implements ControlledScreen
    private TextField questionOneTextField;
    @FXML
    private TextField questionTwoTextField;
-   
+
    @FXML
    private ComboBox questionOneComboBox;
    @FXML
    private ComboBox questionTwoComboBox;
-   
+
    @FXML
    private CheckBox over13CheckBox;
    @FXML
@@ -56,42 +56,70 @@ public class RegistrationScreenController implements ControlledScreen
    private CheckBox emailMatchCheckBox;
    @FXML
    private CheckBox passwordMatchCheckBox;
-   
+
    @FXML
    private ImageView userImage;
-   
-   
+
    @FXML
    private PasswordField passwordField;
    @FXML
    private PasswordField checkPasswordField;
-   
+
    @FXML
    private Label errorLabel;
-
-   private String usernameString;
-   private String emailString;
-   private String passwordString;
 
    @FXML
    public void initialize()
    {
-
-      registerButton.setOnAction(event ->
+      // Check if username is already taken.
+      usernameTextField.setOnKeyReleased(event ->
       {
-         // TO DO - Verify PWs match
-         // TO DO - Check to see if username already exists
-
-         usernameString = usernameTextField.getText();
-         emailString = emailTextField.getText();
-         passwordString = passwordField.getText();
-
-         // DEBUG
-         System.out.println(usernameString);
-         System.out.println(emailString);
-         System.out.println(passwordString);
+         // TO-DO: CHECK IF USERNAME HAS BEEN TAKEN.
+         /*
+          * if (!usernameTaken) usernameAvailableCheckBox.setSelected(true);
+          */
       });
 
+      emailTextField.setOnKeyReleased(event ->
+      {
+         if (isValidEmail(emailTextField.getText()))
+            validEmailCheckBox.setSelected(true);
+      });
+
+      // Check if both e-mail fields match.
+      checkEmailTextField.setOnKeyReleased(event ->
+      {
+         if (emailTextField.getText().equals(checkEmailTextField.getText()))
+            emailMatchCheckBox.setSelected(true);
+      });
+
+      // Send the user back to the login screen.
+      cancelButton.setOnAction(event ->
+      {
+         parentController.displayScreen(MainView.LOGIN_SCREEN);
+      });
+
+      // Check if all fields valid and register if okay.
+      registerButton.setOnAction(event ->
+      {
+      });
+
+   }
+
+   /**
+    * This private helper method validates e-mail in a VERY weak way. If we wanted to strongly authenticate e-mails we would have many more checks, force the
+    * user to verify through a confirmation e-mail, and likely use regex for sanity.
+    * 
+    * @param email The e-mail address you wish to validate.
+    * @return true If valid e-mail format, false otherwise.
+    */
+   private boolean isValidEmail(String email)
+   {
+      if (email.contains("@") && email.contains("."))
+         return true;
+      
+      // Implied else.
+      return false;
    }
 
    /**

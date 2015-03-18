@@ -120,6 +120,13 @@ public class GameTableScreenController implements ControlledScreen
       playerHandThree.setImage(new Image("cards/lurk.png"));
       playerHandFour.setImage(new Image("cards/lurk.png"));
       playerHandFive.setImage(new Image("cards/lurk.png"));
+      playerHandSix.setImage(new Image("cards/testCard.png"));
+      playerHandSeven.setImage(new Image("cards/testCard.png"));
+      playerHandEight.setImage(new Image("cards/testCard.png"));
+      playerHandNine.setImage(new Image("cards/testCard.png"));
+      playerHandTen.setImage(new Image("cards/testCard.png"));
+      playerHandEleven.setImage(new Image("cards/testCard.png"));
+      playerHandTwelve.setImage(new Image("cards/testCard.png"));
 
       // Add effects to cards.
       highlightOnMouseEntered(biteDeckImage);
