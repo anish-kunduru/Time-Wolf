@@ -116,10 +116,10 @@ public class GameTableScreenController implements ControlledScreen
       gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
 
       playerHandOne.setImage(new Image("cards/bite.png"));
-      playerHandTwo.setImage(new Image("cards/bite.png"));
+      playerHandTwo.setImage(new Image("cards/claw.png"));
       playerHandThree.setImage(new Image("cards/lurk.png"));
-      playerHandFour.setImage(new Image("cards/lurk.png"));
-      playerHandFive.setImage(new Image("cards/lurk.png"));
+      playerHandFour.setImage(new Image("cards/gandhi.png"));
+      playerHandFive.setImage(new Image("cards/joanOfArc.png"));
       playerHandSix.setImage(new Image("cards/testCard.png"));
       playerHandSeven.setImage(new Image("cards/testCard.png"));
       playerHandEight.setImage(new Image("cards/testCard.png"));
