@@ -79,7 +79,7 @@ public class GameTableScreenController implements ControlledScreen
 
    @FXML
    private TextArea playLog; // Log for game actions.
-   
+
    // So we can set the screen's parent later on.
    MainController parentController;
 
@@ -169,6 +169,7 @@ public class GameTableScreenController implements ControlledScreen
       showOnMouseEntered(playerHandEleven);
       showOnMouseEntered(playerHandTwelve);
 
+      hideOnMouseExit(playerHandOne);
       hideOnMouseExit(playerHandTwo);
       hideOnMouseExit(playerHandThree);
       hideOnMouseExit(playerHandFour);
