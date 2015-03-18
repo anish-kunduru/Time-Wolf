@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -157,11 +158,6 @@
                                     <Insets />
                                  </HBox.margin>
                               </ImageView>
-            						<Label text="Current Hand:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="-15.0">
-            							<font>
-            								<Font name="System Bold" size="18.0" />
-            							</font>
-            						</Label>
       								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" layoutX="70.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0">
                                  <HBox.margin>
                                     <Insets />
@@ -172,6 +168,11 @@
                                     <Insets left="13.0" />
                                  </HBox.margin>
                               </ImageView>
+            						<Label text="Current Hand:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="-15.0">
+            							<font>
+            								<Font name="System Bold" size="18.0" />
+            							</font>
+            						</Label>
             					</children>
             				</AnchorPane>
       					</children>

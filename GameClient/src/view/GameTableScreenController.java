@@ -7,6 +7,8 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.Light;
@@ -79,7 +81,7 @@ public class GameTableScreenController implements ControlledScreen
 
    @FXML
    private TextArea playLog; // Log for game actions.
-
+   
    // So we can set the screen's parent later on.
    MainController parentController;
 
