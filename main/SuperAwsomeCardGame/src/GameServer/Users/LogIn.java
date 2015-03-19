@@ -86,6 +86,7 @@ public class LogIn implements Remote, Serializable {
 				totalPoints = rs.getDouble("TotalPoints");
 				id = rs.getInt("ID");
 				uID = userID;
+				karma = GetKarma(uID);
 			} else {
 				// given userID is not valid
 				gamesPlayed = 0;
@@ -93,6 +94,7 @@ public class LogIn implements Remote, Serializable {
 				totalPoints = 0;
 				id = 0;
 				uID = 0;
+				karma = 0;
 			}
 			UserStats us = new UserStats(id, uID, karma, totalPoints, gamesWon,
 					gamesPlayed);
@@ -126,6 +128,17 @@ public class LogIn implements Remote, Serializable {
 		
 		return karma;
 
+	}
+	
+	/**
+	 * Updates stats in database
+	 */
+	public void UpdateStats(User u)
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE Statistics SET TotalGames=" + u.Statistics.getGamesPlayed() + ",TotalWins=" + u.Statistics.getGamesWon() + ",TotalPoints=" + u.Statistics.getTotalPoints();
+		query = query + " WHERE UserID=" + u.getID();
+		dbh.executeUpdate(query);
 	}
 
 	/**
