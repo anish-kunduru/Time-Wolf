@@ -168,7 +168,8 @@ public class GameTableScreenController implements ControlledScreen
       showOnMouseEntered(playerHandTen);
       showOnMouseEntered(playerHandEleven);
       showOnMouseEntered(playerHandTwelve);
-
+      
+      /*
       hideOnMouseExit(playerHandOne);
       hideOnMouseExit(playerHandTwo);
       hideOnMouseExit(playerHandThree);
@@ -181,6 +182,7 @@ public class GameTableScreenController implements ControlledScreen
       hideOnMouseExit(playerHandTen);
       hideOnMouseExit(playerHandEleven);
       hideOnMouseExit(playerHandTwelve);
+      */
 
       // Act as if card was played and a new one was drawn.
       // This is just an example of how the mouseListeners would work.
