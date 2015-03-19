@@ -275,5 +275,17 @@ public class LogIn implements Remote, Serializable {
 
 		// if ID == 0 then no user is selected
 	}
+	
+	/**
+	 * Inserts new feedback record into database
+	 */
+	public static void insertFeedback(int userID, boolean isPositive, String comment)
+	{
+		String query = "INSERT INTO Feedback ";
+		query += "(UserID, isGood, Comment)";
+		query += "VALUES ('" + userID + "','" + isPositive + "','" + comment + "')";
+		DBHelper dbh = new DBHelper();
+		dbh.executeUpdate(query);
+	}
 
 }
