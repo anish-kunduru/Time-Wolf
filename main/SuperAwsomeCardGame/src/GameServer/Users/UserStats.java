@@ -30,19 +30,26 @@ public class UserStats implements Serializable {
 	private int gamesPlayed;
 	private int gamesWon;
 	private double totalPoints;
-	private int karmaScore;
+	private double karmaScore;
 	private int userID;
 	private int ID;
 
 	public UserStats()
 	{
-		
-	}
-	public UserStats(int userID) {
-		getStats(userID);
+		ID = 0;
 	}
 	
-	public UserStats(int id, int uID, karmaScore,)
+	
+	public UserStats(int id, int uID, double karma, double points, int won, int played)
+	{
+		this.ID = id;
+		this.userID = uID;
+		this.karmaScore = karma;
+		this.totalPoints = points;
+		this.gamesWon = won;
+		this.gamesPlayed = played;
+	
+	}
 
 	/**
 	 * Total number of games played
