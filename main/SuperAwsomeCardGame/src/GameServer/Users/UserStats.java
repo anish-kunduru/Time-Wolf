@@ -41,6 +41,8 @@ public class UserStats implements Serializable {
 	public UserStats(int userID) {
 		getStats(userID);
 	}
+	
+	public UserStats(int id, int uID, karmaScore,)
 
 	/**
 	 * Total number of games played
@@ -94,7 +96,7 @@ public class UserStats implements Serializable {
 	 * @return
 	 */
 	public int getKarma() {
-		return 0;
+		return karmaScore;
 	}
 
 	/**

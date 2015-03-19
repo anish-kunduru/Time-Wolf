@@ -71,7 +71,7 @@ public class LogIn implements Remote, Serializable
       }
    }
 
-   private static UserStats initStats(int id)
+   private static UserStats initStats(int userID)
    {
       UserStats us = new UserStats();
       try {
@@ -79,22 +79,26 @@ public class LogIn implements Remote, Serializable
          DBHelper dbh = new DBHelper();
          String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
          ResultSet rs = dbh.executeQuery(query);
-         
+         int gamesPlayed = 0;
+         int gamesWon = 0;
+         double totalPoints = 0;
+         int id = 0;
+         int uID = 0;
 
          if (rs.first()) // should only be one returned on table is incorrect
          {
-            us.gamesPlayed = rs.getInt("TotalGames");
-            us.gamesWon = rs.getInt("TotalWins");
-            us.totalPoints = rs.getDouble("TotalPoints");
-            us.ID = rs.getInt("ID");
-            us.userID = userID;
+            gamesPlayed = rs.getInt("TotalGames");
+            gamesWon = rs.getInt("TotalWins");
+            totalPoints = rs.getDouble("TotalPoints");
+            id = rs.getInt("ID");
+            uID = userID;
          } else {
             // given userID is not valid
-            us.gamesPlayed = 0;
-            us.gamesWon = 0;
-            us.totalPoints = 0;
-            us.ID = 0;
-            us.userID = 0;
+            gamesPlayed = 0;
+            gamesWon = 0;
+            totalPoints = 0;
+            id = 0;
+            uID = 0;
          }
       } catch (Exception ex) {
          ex.printStackTrace();
