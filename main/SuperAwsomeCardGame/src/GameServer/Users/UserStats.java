@@ -102,7 +102,7 @@ public class UserStats implements Serializable {
 	 * 
 	 * @return
 	 */
-	public int getKarma() {
+	public double getKarma() {
 		return karmaScore;
 	}
 
