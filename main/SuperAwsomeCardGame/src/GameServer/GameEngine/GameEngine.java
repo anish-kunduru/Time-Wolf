@@ -160,7 +160,61 @@ public class GameEngine implements Runnable {
 	}
 
 	
+	private boolean playCard(Action a) {
+		Card c = a.getCard();
+		Player p = this.players[this.currentPlayerIndex];
+		
+		this.ruleDiscard(p, c, true);
+		this.ruleAttack(p, c);
+		this.ruleStealth(p, c);
+		this.ruleDrawCards(p, c);
+		this.ruleTakeAnotherTurn(p, c);
+		this.ruleDiscard(p, c, false);
+		
+		//Discard card
+		p.getDiscardPile().discard(c);
+		p.getHand().remove(a.getCardIndex());
+		
+		
+		return true;
+	}
 	
+	/**
+	 * Parse the card for its stealth value.
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void  ruleStealth(Player current, Card c) {
+		current.addStealth(c.getStealth());
+	}
+	
+	/**
+	 * Parse the card for its attack value.
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void ruleAttack(Player current, Card c) {
+		current.addAttack(c.getAttack());
+	}
+	
+	
+	private void ruleDiscard(Player current, Card c, boolean isBefore) {
+		
+	}
+	
+	/**
+	 * Parse the card for its draw card value
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void ruleDrawCards(Player current, Card c) {
+		current.getDeck().draw(current.getHand(), c.getDrawCards());
+	}
+	
+	
+	private void ruleTakeAnotherTurn(Player current, Card c) {
+		
+	}
 	
 	public static void main(String[] args) {
 
@@ -503,9 +557,7 @@ public class GameEngine implements Runnable {
 
 	
 		
-	private boolean playCard(Action a) {
-		return true;
-	}
+	
 	
 	@Override
 	public void run() {
