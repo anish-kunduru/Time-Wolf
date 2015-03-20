@@ -39,6 +39,13 @@ public class UserStats implements Serializable {
 		ID = 0;
 	}
 	
+	public UserStats(int userID)
+	{
+		//this method is discontinued
+		//should not be used
+		
+		
+	}
 	
 	public UserStats(int id, int uID, double karma, double points, int won, int played)
 	{
