@@ -9,6 +9,7 @@ package view;
 import java.sql.SQLException;
 
 import GameServer.GameEngine.Deck;
+import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,40 +20,39 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameTableScreenController implements ControlledScreen {
+
 	// IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
 	// YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
 	// OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN
 	// EXCEPTION TO THE CONSOLE...
 
 	// FXML Components
-	
-	@FXML 
-	private Button endTurnButton;
-	
+
 	@FXML
-	private Label cardsInGameDeckLabel; // Set text to reflect the number of
-										// cards left in the game deck.
+	private Button endTurnButton;
+
+	@FXML
+	private Label cardsInGameDeckLabel; // Set text to show num of cards in main
+										// deck
 	@FXML
 	private Label playerTurnLabel; // Set text to reflect whose turn it is.
 	@FXML
-	private Label playerCardsInDeckLabel; // Set text to reflect the number of
-											// cards left in a player's personal
-											// deck.
-	
+	private Label playerCardsInDeckLabel; // Set text to show num of cards in
+											// player's deck
+
+	// Labels to show the number of VP points each player has
+
 	@FXML
 	private Label playerOneVP;
-	
 	@FXML
 	private Label playerTwoVP;
-	
 	@FXML
 	private Label playerThreeVP;
-	
 	@FXML
 	private Label yourVP;
 
-	// We have only planned for 12 maximum cards in a player's hand...
-	// If a player has more than that, they should automatically win. :)
+	// Images for the cards currently in player's hand
+
 	@FXML
 	private ImageView playerHandOne;
 	@FXML
@@ -77,12 +77,10 @@ public class GameTableScreenController implements ControlledScreen {
 	private ImageView playerHandEleven;
 	@FXML
 	private ImageView playerHandTwelve;
-	
 	@FXML
 	private ImageView playerHandThirteen;
 
-	// Images that represent the 5 current cards on the table that a player can
-	// choose from.
+	// Images that represent the 5 current cards on the table.
 	@FXML
 	private ImageView gameTableCardOne;
 	@FXML
@@ -95,24 +93,18 @@ public class GameTableScreenController implements ControlledScreen {
 	private ImageView gameTableCardFive;
 
 	@FXML
-	private ImageView playerDeckImage; // An image to represent the player's
-										// deck.
+	private ImageView playerDeckImage; // Image representing player's deck
 	@FXML
-	private ImageView lastDiscardImage; // An image to represent the player's
-										// last discarded card.
+	private ImageView lastDiscardImage; // Image representing player's discard
+										// deck
 	@FXML
-	private ImageView biteDeckImage; // An image to represent the card at the
-										// front of the bite deck.
+	private ImageView biteDeckImage; // Image representing the bite card deck
 	@FXML
-	private ImageView lurkDeckImage; // An image to represent the card at the
-										// front of the lurk deck.
+	private ImageView lurkDeckImage; // Image representing the lurk card deck
 	@FXML
-	private ImageView notSoImportantHistoricalFigureImage; // An image to
-															// represent the
-															// card at the front
-															// of the not so
-															// important figure
-															// deck.
+	private ImageView notSoImportantHistoricalFigureImage; // Image representing
+															// the NSIHF card
+															// deck
 
 	@FXML
 	private TextArea playLog; // Log for game actions.
@@ -128,55 +120,12 @@ public class GameTableScreenController implements ControlledScreen {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-		/*
-		 * It is important that you understand this is called IMMEDIATELY after
-		 * the file is loaded in MainController. Since we will want to implement
-		 * certain logic only after the user starts the game (gets to this
-		 * page), you will need to implement some sort of event listener on the
-		 * main AnchorPane. Refer to the lamba expression example below on how
-		 * to do that.
-		 */
-
-		// Get from server.
-		// cardsInGameDeckLabel.setText("Cards in Deck: NUMCARDS");
-		// playerCardsInDeckLabel.setText("PLAYER_CARDS");
-		// playerTurnLabel.setText("PLAYER_TURN");
-
-		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
 
 		Deck starterDeck = new Deck();
 		starterDeck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
 		mainDeck.getMainDeck();
-
-		biteDeckImage.setImage(new Image("cards/bite.png"));
-		lurkDeckImage.setImage(new Image("cards/lurk.png"));
-		notSoImportantHistoricalFigureImage.setImage(new Image(
-				"cards/notSoImportantHistoricalFigure.png"));
-		
-		// Set the face down card image.
-		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
-
-		// Initial card states.
-		gameTableCardOne.setImage(new Image("cards/charlesDarwin.png"));
-		gameTableCardTwo.setImage(new Image("cards/butterflyEffect.png"));
-		gameTableCardThree.setImage(new Image("cards/joanOfArc.png"));
-		gameTableCardFour.setImage(new Image("cards/laserSword.png"));
-		gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
-		
-		playerHandOne.setImage(new Image("cards/bite.png"));
-		playerHandTwo.setImage(new Image("cards/claw.png"));
-		playerHandThree.setImage(new Image("cards/lurk.png"));
-		playerHandFour.setImage(new Image("cards/gandhi.png"));
-		playerHandFive.setImage(new Image("cards/joanOfArc.png"));
-		playerHandSix.setImage(new Image("cards/testCard.png"));
-		playerHandSeven.setImage(new Image("cards/testCard.png"));
-		playerHandEight.setImage(new Image("cards/testCard.png"));
-		playerHandNine.setImage(new Image("cards/testCard.png"));
-		playerHandTen.setImage(new Image("cards/testCard.png"));
-		playerHandEleven.setImage(new Image("cards/testCard.png"));
-		playerHandTwelve.setImage(new Image("cards/testCard.png"));
 
 		// Add effects to cards.
 		highlightOnMouseEntered(biteDeckImage);
@@ -326,8 +275,37 @@ public class GameTableScreenController implements ControlledScreen {
 		parentController = screenParent;
 	}
 
-	public void initiliaze() {
+	public void initiliaze(Hand playerHand, Hand gameTableHand, String[] playerNames) {
+		
+		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
 
+		biteDeckImage.setImage(new Image("cards/bite.png"));
+		lurkDeckImage.setImage(new Image("cards/lurk.png"));
+		notSoImportantHistoricalFigureImage.setImage(new Image(
+				"cards/notSoImportantHistoricalFigure.png"));
+
+		// Set the face down card image.
+		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
+
+		// Initial card states.
+		gameTableCardOne.setImage(new Image("cards/charlesDarwin.png"));
+		gameTableCardTwo.setImage(new Image("cards/butterflyEffect.png"));
+		gameTableCardThree.setImage(new Image("cards/joanOfArc.png"));
+		gameTableCardFour.setImage(new Image("cards/laserSword.png"));
+		gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
+
+		playerHandOne.setImage(new Image("cards/bite.png"));
+		playerHandTwo.setImage(new Image("cards/claw.png"));
+		playerHandThree.setImage(new Image("cards/lurk.png"));
+		playerHandFour.setImage(new Image("cards/gandhi.png"));
+		playerHandFive.setImage(new Image("cards/joanOfArc.png"));
+		playerHandSix.setImage(new Image("cards/testCard.png"));
+		playerHandSeven.setImage(new Image("cards/testCard.png"));
+		playerHandEight.setImage(new Image("cards/testCard.png"));
+		playerHandNine.setImage(new Image("cards/testCard.png"));
+		playerHandTen.setImage(new Image("cards/testCard.png"));
+		playerHandEleven.setImage(new Image("cards/testCard.png"));
+		playerHandTwelve.setImage(new Image("cards/testCard.png"));
 	}
 
 }

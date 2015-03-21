@@ -116,6 +116,7 @@ public class Deck {
 		while(rs.next()){
 			String name = rs.getString("Name");
 			String description = rs.getString("Description");
+			String imagePath = rs.getString("ImagePath");
 			int costBuy = rs.getInt("CostBuy");
 			int costAttack = rs.getInt("CostAttack");
 			int vp = rs.getInt("VP");
@@ -137,7 +138,7 @@ public class Deck {
 			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
 			int NumInDeck = rs.getInt("NumInDeck");
 			
-			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+			Card toAdd = new Card(name, description, imagePath, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
 					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
@@ -163,6 +164,7 @@ public class Deck {
 		while(rs.next()){
 			String name = rs.getString("Name");
 			String description = rs.getString("Description");
+			String imagePath = rs.getString("ImagePath");
 			int costBuy = rs.getInt("CostBuy");
 			int costAttack = rs.getInt("CostAttack");
 			int vp = rs.getInt("VP");
@@ -184,7 +186,7 @@ public class Deck {
 			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
 			int numInDeck = rs.getInt("NumInDeck");
 			
-			Card toAdd = new Card(name, description, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+			Card toAdd = new Card(name, description, imagePath, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
 					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
