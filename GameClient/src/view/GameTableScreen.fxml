@@ -26,26 +26,14 @@
       				</ScrollPane>
       				<AnchorPane layoutX="200.0" layoutY="7.0" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
       					<children>
-                        <ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="400.0">
-                           <image>
-                              <Image url="@../../../../../Downloads/Testcard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="playerHandThirteen" fitHeight="170.0" fitWidth="96.0" layoutX="560.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="625.0">
-                           <image>
-                              <Image url="@../../../../../Downloads/Testcard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" layoutX="485.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="550.0">
-                           <image>
-                              <Image url="@../../../../../Downloads/Testcard.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" layoutX="451.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="475.0">
-                           <image>
-                              <Image url="@../../../../../Downloads/Testcard.png" />
-                           </image>
-                        </ImageView>
+                        <AnchorPane layoutX="46.0" layoutY="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                           <children>
+                              <ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" layoutX="389.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="389.0" />
+                              <ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" layoutX="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="475.0" />
+                              <ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="550.0" />
+                              <ImageView fx:id="playerHandThirteen" fitHeight="170.0" fitWidth="96.0" layoutX="225.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="625.0" />
+                           </children>
+                        </AnchorPane>
             						<Label fx:id="cardsInGameDeckLabel" layoutX="363.0" layoutY="226.0" text="Cards In Deck:" AnchorPane.leftAnchor="363.0" AnchorPane.topAnchor="240.0">
             							<font>
             								<Font size="18.0" />
@@ -57,41 +45,26 @@
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             								<ImageView fx:id="gameTableCardTwo" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets left="5.0" top="10.0" />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             								<ImageView fx:id="gameTableCardThree" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets left="5.0" top="10.0" />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             								<ImageView fx:id="gameTableCardFour" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets left="5.0" top="10.0" />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             								<ImageView fx:id="gameTableCardFive" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
                                     <Insets left="5.0" top="10.0" />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             							</children>
             						</HBox>
@@ -121,11 +94,7 @@
                                     <Insets top="5.0" />
                                  </GridPane.margin>
             								</Label>
-            								<ImageView fx:id="biteDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="14.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
+            								<ImageView fx:id="biteDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="14.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
             								<Label layoutX="299.0" layoutY="22.0" text="NSIHF:" GridPane.rowIndex="4">
             									<font>
             										<Font size="18.0" />
@@ -135,15 +104,8 @@
                                  <GridPane.margin>
                                     <Insets top="10.0" />
                                  </GridPane.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
-            								<ImageView fx:id="lurkDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
+            								<ImageView fx:id="lurkDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
             							</children>
             						</GridPane>
             						<Label layoutX="383.0" layoutY="10.0" text="Select From Deck:" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="10.0">
@@ -158,46 +120,14 @@
             						</Label>
             				<AnchorPane layoutX="143.0" layoutY="265.0" prefHeight="198.0" prefWidth="757.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="255.0">
             					<children>
-                  				<ImageView fx:id="playerHandNine" fitHeight="170.0" fitWidth="96.0" layoutX="613.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-                  				<ImageView fx:id="playerHandEight" fitHeight="170.0" fitWidth="96.0" layoutX="583.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-                  				<ImageView fx:id="playerHandSeven" fitHeight="170.0" fitWidth="96.0" layoutX="537.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="475.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-      								<ImageView fx:id="playerHandSix" fitHeight="170.0" fitWidth="96.0" layoutX="447.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-      								<ImageView fx:id="playerHandFive" fitHeight="170.0" fitWidth="96.0" layoutX="380.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-      								<ImageView fx:id="playerHandFour" fitHeight="170.0" fitWidth="96.0" layoutX="287.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-      								<ImageView fx:id="playerHandThree" fitHeight="170.0" fitWidth="96.0" layoutX="149.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
-      								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" layoutX="81.0" layoutY="15.0" onMousePressed="#initialize" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0">
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
-                              </ImageView>
+                  				<ImageView fx:id="playerHandNine" fitHeight="170.0" fitWidth="96.0" layoutX="613.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="25.0" />
+                  				<ImageView fx:id="playerHandEight" fitHeight="170.0" fitWidth="96.0" layoutX="583.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="25.0" />
+                  				<ImageView fx:id="playerHandSeven" fitHeight="170.0" fitWidth="96.0" layoutX="537.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="475.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandSix" fitHeight="170.0" fitWidth="96.0" layoutX="447.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandFive" fitHeight="170.0" fitWidth="96.0" layoutX="380.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandFour" fitHeight="170.0" fitWidth="96.0" layoutX="287.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandThree" fitHeight="170.0" fitWidth="96.0" layoutX="149.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" layoutX="81.0" layoutY="15.0" onMousePressed="#initialize" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0" />
             						<Label text="Current Hand:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="-15.0">
             							<font>
             								<Font name="System Bold" size="18.0" />
@@ -207,13 +137,9 @@
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../Downloads/Testcard.png" />
-                                 </image>
                               </ImageView>
             					</children>
             				</AnchorPane>
-                        <Button fx:id="endTurnButton" layoutX="770.0" layoutY="534.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="550.0" />
                   		<HBox layoutX="197.0" layoutY="488.0" prefHeight="204.0" prefWidth="261.0" AnchorPane.leftAnchor="145.0" AnchorPane.topAnchor="470.0">
                   			<children>
                   				<AnchorPane prefHeight="195.0" prefWidth="100.0">
@@ -223,11 +149,7 @@
                   								<Font size="18.0" />
                   							</font>
                   						</Label>
-                  						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="40.0">
-                                       <image>
-                                          <Image url="@../../../../../Downloads/Testcard.png" />
-                                       </image>
-                                    </ImageView>
+                  						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="40.0" />
                   					</children>
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="23.0" right="5.0" />
@@ -235,11 +157,7 @@
                   				</AnchorPane>
                   				<AnchorPane prefHeight="195.0" prefWidth="100.0">
                   					<children>
-                  						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="40.0">
-                                       <image>
-                                          <Image url="@../../../../../Downloads/Testcard.png" />
-                                       </image>
-                                    </ImageView>
+                  						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="40.0" />
                   						<Label layoutX="1.0" text="Last Discard:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
                   							<font>
                   								<Font size="18.0" />
@@ -272,6 +190,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
+                        <Button fx:id="endTurnButton" layoutX="770.0" layoutY="534.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="550.0" />
       					</children>
       				</AnchorPane>
       				<TextArea fx:id="playLog" editable="false" layoutX="3.0" layoutY="6.0" prefHeight="687.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0" />
