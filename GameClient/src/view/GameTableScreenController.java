@@ -1,4 +1,5 @@
 /**
+ /**
  * @author Anish Kunduru
  *
  * This program is our handler for GameTableScreen.fxml.
@@ -108,6 +109,13 @@ public class GameTableScreenController implements ControlledScreen {
 
 	@FXML
 	private TextArea playLog; // Log for game actions.
+	
+	final private ImageView[] playerHandImages = new ImageView[] {playerHandOne, playerHandTwo,
+			playerHandThree, playerHandFour, playerHandFive, playerHandSix, 
+			playerHandSeven, playerHandEight, playerHandNine, playerHandTen,
+			playerHandEleven, playerHandTwelve, playerHandThirteen};
+	
+	private ImageView[] gameTableImages;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -135,6 +143,9 @@ public class GameTableScreenController implements ControlledScreen {
 		mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "Player One", "Player Two",
 				"Player Three" };
+		
+		gameTableImages = new ImageView[] {gameTableCardOne,
+				gameTableCardTwo, gameTableCardThree, gameTableCardFour, gameTableCardFive};
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.
@@ -223,11 +234,9 @@ public class GameTableScreenController implements ControlledScreen {
 		highlightOnMouseEntered(lurkDeckImage);
 		highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
 
-		highlightOnMouseEntered(gameTableCardOne);
-		highlightOnMouseEntered(gameTableCardTwo);
-		highlightOnMouseEntered(gameTableCardThree);
-		highlightOnMouseEntered(gameTableCardFour);
-		highlightOnMouseEntered(gameTableCardFive);
+		for(int i = 0; i < gameTableImages.length; i++){
+			highlightOnMouseEntered(gameTableImages[i]);
+		}
 
 		highlightOnMouseEntered(playerDeckImage);
 
