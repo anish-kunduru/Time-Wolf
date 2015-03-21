@@ -24,7 +24,7 @@
       						</Label>
       					</content>
       				</ScrollPane>
-      				<AnchorPane layoutX="200.0" layoutY="7.0" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
+      				<AnchorPane layoutX="200.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
       					<children>
                         <AnchorPane layoutX="46.0" layoutY="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>

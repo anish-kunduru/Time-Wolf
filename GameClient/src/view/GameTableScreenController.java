@@ -294,12 +294,42 @@ public class GameTableScreenController implements ControlledScreen {
 		// Set the face down card image.
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
+		// Set button text
+		endTurnButton.setText("End Turn");
+
+		// Set cards in deck label
+		cardsInGameDeckLabel.setText("Cards In Deck: 10");
+
+		// Set player VP labels
+		if (playerNames.length == 1) {
+			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			yourVP.setText("You are in year 1,000 BCE");
+		}
+
+		if (playerNames.length == 2) {
+			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
+			yourVP.setText("You are in year 1,000 BCE");
+		}
+
+		if (playerNames.length == 3) {
+			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
+			yourVP.setText("You are in year 1,000 BCE");
+		}
+
 		// Initial card states.
-		gameTableCardOne.setImage(new Image(gameTableHand.get(0).getImagePath()));
-		gameTableCardTwo.setImage(new Image(gameTableHand.get(1).getImagePath()));
-		gameTableCardThree.setImage(new Image(gameTableHand.get(2).getImagePath()));
-		gameTableCardFour.setImage(new Image(gameTableHand.get(3).getImagePath()));
-		gameTableCardFive.setImage(new Image(gameTableHand.get(4).getImagePath()));
+		gameTableCardOne
+				.setImage(new Image(gameTableHand.get(0).getImagePath()));
+		gameTableCardTwo
+				.setImage(new Image(gameTableHand.get(1).getImagePath()));
+		gameTableCardThree.setImage(new Image(gameTableHand.get(2)
+				.getImagePath()));
+		gameTableCardFour.setImage(new Image(gameTableHand.get(3)
+				.getImagePath()));
+		gameTableCardFive.setImage(new Image(gameTableHand.get(4)
+				.getImagePath()));
 
 		playerHandOne.setImage(new Image(playerHand.get(0).getImagePath()));
 		playerHandTwo.setImage(new Image(playerHand.get(1).getImagePath()));
