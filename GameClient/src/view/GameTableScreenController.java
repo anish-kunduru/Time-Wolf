@@ -120,83 +120,26 @@ public class GameTableScreenController implements ControlledScreen {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-		
+
+		// Objects used for testing, will be provided by server in the future.
 		Deck starterDeck = new Deck();
 		starterDeck = Deck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
 		mainDeck = Deck.getMainDeck();
-		
+
 		Hand playerHand = new Hand(5);
 		Hand tableHand = new Hand(5);
-		
+
 		starterDeck.draw(playerHand);
 		mainDeck.draw(tableHand);
-		String[] playerNames = new String[]{"Player One", "Player Two", "Player Three"};
+		String[] playerNames = new String[] { "Player One", "Player Two",
+				"Player Three" };
+
+		// Initializes the game table when page is opened. This includes
+		// adding effects as well as populating fields.
 		initializeTable(playerHand, tableHand, playerNames);
-		
 
-		// Add effects to cards.
-		highlightOnMouseEntered(biteDeckImage);
-		highlightOnMouseEntered(lurkDeckImage);
-		highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
-
-		highlightOnMouseEntered(gameTableCardOne);
-		highlightOnMouseEntered(gameTableCardTwo);
-		highlightOnMouseEntered(gameTableCardThree);
-		highlightOnMouseEntered(gameTableCardFour);
-		highlightOnMouseEntered(gameTableCardFive);
-
-		highlightOnMouseEntered(playerDeckImage);
-
-		// ///////////////////////////////////////////////////////////////
-
-		unhighlightOnMouseExited(biteDeckImage);
-		unhighlightOnMouseExited(lurkDeckImage);
-		unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
-
-		unhighlightOnMouseExited(gameTableCardOne);
-		unhighlightOnMouseExited(gameTableCardTwo);
-		unhighlightOnMouseExited(gameTableCardThree);
-		unhighlightOnMouseExited(gameTableCardFour);
-		unhighlightOnMouseExited(gameTableCardFive);
-
-		unhighlightOnMouseExited(playerDeckImage);
-
-		// In an attempt to make hand fit into a smaller place, I overlapped
-		// cards and when the mouse enters the cards space it brings that card
-		// to the front.
-		showOnMouseEntered(playerHandOne);
-		showOnMouseEntered(playerHandTwo);
-		showOnMouseEntered(playerHandThree);
-		showOnMouseEntered(playerHandFour);
-		showOnMouseEntered(playerHandFive);
-		showOnMouseEntered(playerHandSix);
-		showOnMouseEntered(playerHandSeven);
-		showOnMouseEntered(playerHandEight);
-		showOnMouseEntered(playerHandNine);
-		showOnMouseEntered(playerHandTen);
-		showOnMouseEntered(playerHandEleven);
-		showOnMouseEntered(playerHandTwelve);
-
-		/*
-		 * hideOnMouseExit(playerHandOne); hideOnMouseExit(playerHandTwo);
-		 * hideOnMouseExit(playerHandThree); hideOnMouseExit(playerHandFour);
-		 * hideOnMouseExit(playerHandFive); hideOnMouseExit(playerHandSix);
-		 * hideOnMouseExit(playerHandSeven); hideOnMouseExit(playerHandEight);
-		 * hideOnMouseExit(playerHandNine); hideOnMouseExit(playerHandTen);
-		 * hideOnMouseExit(playerHandEleven); hideOnMouseExit(playerHandTwelve);
-		 */
-
-		// Act as if card was played and a new one was drawn.
-		// This is just an example of how the mouseListeners would work.
-		// You will likely want to create a helper method like one of the ones
-		// that I created below.
-		// Use lambda expressions, they make your life easier and the code more
-		// readable.
-		// There is also no need to explicitly call the ActionEvent like you
-		// would in an nested inner class listener, they are automagically
-		// implied. :)
 		playerHandOne.setOnMousePressed(event -> {
 			lastDiscardImage.setImage(playerHandOne.getImage());
 			playerHandOne.setImage(new Image("cards/bonaparte.png"));
@@ -223,20 +166,6 @@ public class GameTableScreenController implements ControlledScreen {
 	private void showOnMouseEntered(ImageView imageToShow) {
 		imageToShow.setOnMouseEntered(event -> {
 			imageToShow.toFront();
-		});
-	}
-
-	/**
-	 * Helper method sends a card back to the display so that they are tiled.
-	 * Intended to be used with the hand card objects.
-	 * 
-	 * @param imageToShow
-	 *            The image that you you wish to send to the back of the
-	 *            display.
-	 */
-	private void hideOnMouseExit(ImageView imageToHide) {
-		imageToHide.setOnMouseExited(event -> {
-			imageToHide.toBack();
 		});
 	}
 
@@ -284,10 +213,79 @@ public class GameTableScreenController implements ControlledScreen {
 		parentController = screenParent;
 	}
 
-	public void initializeTable(Hand playerHand, Hand gameTableHand, String[] playerNames) {
-		
-		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
+	/**
+	 * Helper method that takes care of adding the highlight effect to the
+	 * appropriate cards.
+	 */
+	public void highlightEffect() {
 
+		highlightOnMouseEntered(biteDeckImage);
+		highlightOnMouseEntered(lurkDeckImage);
+		highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
+
+		highlightOnMouseEntered(gameTableCardOne);
+		highlightOnMouseEntered(gameTableCardTwo);
+		highlightOnMouseEntered(gameTableCardThree);
+		highlightOnMouseEntered(gameTableCardFour);
+		highlightOnMouseEntered(gameTableCardFive);
+
+		highlightOnMouseEntered(playerDeckImage);
+
+		// ///////////////////////////////////////////////////////////////
+
+		unhighlightOnMouseExited(biteDeckImage);
+		unhighlightOnMouseExited(lurkDeckImage);
+		unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
+
+		unhighlightOnMouseExited(gameTableCardOne);
+		unhighlightOnMouseExited(gameTableCardTwo);
+		unhighlightOnMouseExited(gameTableCardThree);
+		unhighlightOnMouseExited(gameTableCardFour);
+		unhighlightOnMouseExited(gameTableCardFive);
+
+		unhighlightOnMouseExited(playerDeckImage);
+	}
+
+	/**
+	 * Helper method that takes care of the "bring to front" effect on the
+	 * appropriate cards.
+	 */
+
+	public void showCard() {
+
+		showOnMouseEntered(playerHandOne);
+		showOnMouseEntered(playerHandTwo);
+		showOnMouseEntered(playerHandThree);
+		showOnMouseEntered(playerHandFour);
+		showOnMouseEntered(playerHandFive);
+		showOnMouseEntered(playerHandSix);
+		showOnMouseEntered(playerHandSeven);
+		showOnMouseEntered(playerHandEight);
+		showOnMouseEntered(playerHandNine);
+		showOnMouseEntered(playerHandTen);
+		showOnMouseEntered(playerHandEleven);
+		showOnMouseEntered(playerHandTwelve);
+
+	}
+
+	/**
+	 * Method called to initialize the game play area when the screen is first
+	 * loaded. Takes care of both effects and populating fields.
+	 * 
+	 * @param playerHand
+	 * @param gameTableHand
+	 * @param playerNames
+	 */
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames) {
+
+		// Add highlight effects
+		highlightEffect();
+
+		// Add bring to front effects
+		showCard();
+
+		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images
 		biteDeckImage.setImage(new Image("cards/bite.png"));
 		lurkDeckImage.setImage(new Image("cards/lurk.png"));
 		notSoImportantHistoricalFigureImage.setImage(new Image(
@@ -297,25 +295,18 @@ public class GameTableScreenController implements ControlledScreen {
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
 		// Initial card states.
-		
 		gameTableCardOne.setImage(new Image(gameTableHand.get(0).getImagePath()));
 		gameTableCardTwo.setImage(new Image(gameTableHand.get(1).getImagePath()));
 		gameTableCardThree.setImage(new Image(gameTableHand.get(2).getImagePath()));
 		gameTableCardFour.setImage(new Image(gameTableHand.get(3).getImagePath()));
 		gameTableCardFive.setImage(new Image(gameTableHand.get(4).getImagePath()));
 
-		playerHandOne.setImage(new Image("cards/bite.png"));
-		playerHandTwo.setImage(new Image("cards/claw.png"));
-		playerHandThree.setImage(new Image("cards/lurk.png"));
-		playerHandFour.setImage(new Image("cards/gandhi.png"));
-		playerHandFive.setImage(new Image("cards/joanOfArc.png"));
-		playerHandSix.setImage(new Image("cards/testCard.png"));
-		playerHandSeven.setImage(new Image("cards/testCard.png"));
-		playerHandEight.setImage(new Image("cards/testCard.png"));
-		playerHandNine.setImage(new Image("cards/testCard.png"));
-		playerHandTen.setImage(new Image("cards/testCard.png"));
-		playerHandEleven.setImage(new Image("cards/testCard.png"));
-		playerHandTwelve.setImage(new Image("cards/testCard.png"));
+		playerHandOne.setImage(new Image(playerHand.get(0).getImagePath()));
+		playerHandTwo.setImage(new Image(playerHand.get(1).getImagePath()));
+		playerHandThree.setImage(new Image(playerHand.get(2).getImagePath()));
+		playerHandFour.setImage(new Image(playerHand.get(3).getImagePath()));
+		playerHandFive.setImage(new Image(playerHand.get(4).getImagePath()));
+
 	}
 
 }
