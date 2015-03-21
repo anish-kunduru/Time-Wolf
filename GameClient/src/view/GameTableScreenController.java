@@ -120,12 +120,21 @@ public class GameTableScreenController implements ControlledScreen {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-
+		
 		Deck starterDeck = new Deck();
-		starterDeck.getStarterDeck();
+		starterDeck = Deck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
-		mainDeck.getMainDeck();
+		mainDeck = Deck.getMainDeck();
+		
+		Hand playerHand = new Hand(5);
+		Hand tableHand = new Hand(5);
+		
+		starterDeck.draw(playerHand);
+		mainDeck.draw(tableHand);
+		String[] playerNames = new String[]{"Player One", "Player Two", "Player Three"};
+		initializeTable(playerHand, tableHand, playerNames);
+		
 
 		// Add effects to cards.
 		highlightOnMouseEntered(biteDeckImage);
@@ -275,7 +284,7 @@ public class GameTableScreenController implements ControlledScreen {
 		parentController = screenParent;
 	}
 
-	public void initiliaze(Hand playerHand, Hand gameTableHand, String[] playerNames) {
+	public void initializeTable(Hand playerHand, Hand gameTableHand, String[] playerNames) {
 		
 		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images.
 
@@ -288,11 +297,12 @@ public class GameTableScreenController implements ControlledScreen {
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
 
 		// Initial card states.
-		gameTableCardOne.setImage(new Image("cards/charlesDarwin.png"));
-		gameTableCardTwo.setImage(new Image("cards/butterflyEffect.png"));
-		gameTableCardThree.setImage(new Image("cards/joanOfArc.png"));
-		gameTableCardFour.setImage(new Image("cards/laserSword.png"));
-		gameTableCardFive.setImage(new Image("cards/cheatingTime.png"));
+		
+		gameTableCardOne.setImage(new Image(gameTableHand.get(0).getImagePath()));
+		gameTableCardTwo.setImage(new Image(gameTableHand.get(1).getImagePath()));
+		gameTableCardThree.setImage(new Image(gameTableHand.get(2).getImagePath()));
+		gameTableCardFour.setImage(new Image(gameTableHand.get(3).getImagePath()));
+		gameTableCardFive.setImage(new Image(gameTableHand.get(4).getImagePath()));
 
 		playerHandOne.setImage(new Image("cards/bite.png"));
 		playerHandTwo.setImage(new Image("cards/claw.png"));
