@@ -51,6 +51,13 @@ public class GameTableScreenController implements ControlledScreen {
 	private Label playerThreeVP;
 	@FXML
 	private Label yourVP;
+	
+	
+	//Labels to show current values of stealth and attack
+	@FXML
+	private Label Attack;
+	@FXML
+	private Label Stealth;
 
 	// Images for the cards currently in player's hand
 
