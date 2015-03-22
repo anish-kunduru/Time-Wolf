@@ -61,6 +61,8 @@ public class Action implements Serializable {
 		this.action = action;
 		this.cardIndex = cardIndex;
 		this.c = c;
+		
+		
 	}
 
 

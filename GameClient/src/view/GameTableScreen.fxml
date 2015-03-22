@@ -15,7 +15,7 @@
       		<fx:include source="DefaultMenuBar.fxml" />
       		<AnchorPane layoutY="25.0" prefHeight="695.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
       			<children>
-      				<ScrollPane layoutX="1080.0" prefHeight="695.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="7.0">
+      				<ScrollPane layoutX="1080.0" prefHeight="695.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1080.0" AnchorPane.topAnchor="7.0">
       					<content>
       						<Label alignment="CENTER" contentDisplay="CENTER" text="CHAT WINDOW TO-DO">
       							<font>
@@ -24,19 +24,22 @@
       						</Label>
       					</content>
       				</ScrollPane>
-      				<AnchorPane layoutX="200.0" layoutY="7.0" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
+      				<AnchorPane layoutX="200.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
       					<children>
-            						<Label fx:id="playerTurnLabel" layoutX="519.0" layoutY="276.0" text="Player Turn: " AnchorPane.topAnchor="235.0">
+                        <AnchorPane layoutX="46.0" layoutY="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                           <children>
+                              <ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" layoutX="389.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="389.0" />
+                              <ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" layoutX="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="475.0" />
+                              <ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="550.0" />
+                              <ImageView fx:id="playerHandThirteen" fitHeight="170.0" fitWidth="96.0" layoutX="225.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="625.0" />
+                           </children>
+                        </AnchorPane>
+            						<Label fx:id="cardsInGameDeckLabel" layoutX="363.0" layoutY="226.0" text="Cards In Deck:" AnchorPane.leftAnchor="363.0" AnchorPane.topAnchor="240.0">
             							<font>
             								<Font size="18.0" />
             							</font>
             						</Label>
-            						<Label fx:id="cardsInGameDeckLabel" layoutX="274.0" layoutY="275.0" text="Cards In Deck:" AnchorPane.leftAnchor="255.0" AnchorPane.topAnchor="235.0">
-            							<font>
-            								<Font size="18.0" />
-            							</font>
-            						</Label>
-            						<HBox layoutX="302.0" layoutY="33.0" prefHeight="170.0" prefWidth="517.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="33.0">
+            						<HBox layoutX="347.0" layoutY="32.0" prefHeight="170.0" prefWidth="517.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="32.0">
             							<children>
             								<ImageView fx:id="gameTableCardOne" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                                  <HBox.margin>
@@ -65,11 +68,9 @@
                               </ImageView>
             							</children>
             						</HBox>
-            						<GridPane layoutX="40.0" layoutY="27.0" prefHeight="677.0" prefWidth="288.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="5.0">
+            						<GridPane layoutX="40.0" layoutY="27.0" prefHeight="677.0" prefWidth="105.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="5.0">
             							<columnConstraints>
             								<ColumnConstraints hgrow="SOMETIMES" maxWidth="137.33334350585938" minWidth="10.0" prefWidth="108.0" />
-            								<ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
             							</columnConstraints>
             							<rowConstraints>
             								<RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
@@ -102,78 +103,94 @@
             								<ImageView fx:id="notSoImportantHistoricalFigureImage" fitHeight="170.0" fitWidth="96.0" layoutX="238.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets top="10.0" />
-                                 </GridPane.margin></ImageView>
+                                 </GridPane.margin>
+                              </ImageView>
             								<ImageView fx:id="lurkDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="117.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
-                        		<HBox prefHeight="204.0" prefWidth="261.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                        			<children>
-                        				<AnchorPane prefHeight="195.0" prefWidth="100.0">
-                        					<children>
-                        						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0" text="Your Deck:" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
-                        							<font>
-                        								<Font size="18.0" />
-                        							</font>
-                        						</Label>
-                        						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="40.0" />
-                        					</children>
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" left="23.0" right="5.0" />
-                                       </HBox.margin>
-                        				</AnchorPane>
-                        				<AnchorPane prefHeight="195.0" prefWidth="100.0">
-                        					<children>
-                        						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="40.0" />
-                        						<Label layoutX="1.0" text="Last Discard:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
-                        							<font>
-                        								<Font size="18.0" />
-                        							</font>
-                        						</Label>
-                        					</children>
-                                       <HBox.margin>
-                                          <Insets left="5.0" right="15.0" />
-                                       </HBox.margin>
-                        				</AnchorPane>
-                        			</children>
-                        		</HBox>
             							</children>
             						</GridPane>
-            						<Label layoutX="350.0" layoutY="22.0" text="Select From Deck:" AnchorPane.topAnchor="10.0">
+            						<Label layoutX="383.0" layoutY="10.0" text="Select From Deck:" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="10.0">
             							<font>
             								<Font name="System Bold" size="18.0" />
             							</font>
             						</Label>
-            				<AnchorPane layoutX="223.0" layoutY="289.0" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="270.0">
+            						<Label fx:id="playerTurnLabel" layoutX="139.0" layoutY="11.0" text="Player Turn: " AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="11.0">
+            							<font>
+            								<Font size="18.0" />
+            							</font>
+            						</Label>
+            				<AnchorPane layoutX="143.0" layoutY="265.0" prefHeight="198.0" prefWidth="757.0" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="255.0">
             					<children>
-                  				<ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" layoutX="550.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-                  				<ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" layoutX="502.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-                  				<ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" layoutX="454.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-                  				<ImageView fx:id="playerHandNine" fitHeight="170.0" fitWidth="96.0" layoutX="406.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-                  				<ImageView fx:id="playerHandEight" fitHeight="170.0" fitWidth="96.0" layoutX="346.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-                  				<ImageView fx:id="playerHandSeven" fitHeight="170.0" fitWidth="96.0" layoutX="310.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-      								<ImageView fx:id="playerHandSix" fitHeight="170.0" fitWidth="96.0" layoutX="262.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-      								<ImageView fx:id="playerHandFive" fitHeight="170.0" fitWidth="96.0" layoutX="214.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-      								<ImageView fx:id="playerHandFour" fitHeight="170.0" fitWidth="96.0" layoutX="166.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
-      								<ImageView fx:id="playerHandThree" fitHeight="170.0" fitWidth="96.0" layoutX="118.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </ImageView>
+                  				<ImageView fx:id="playerHandNine" fitHeight="170.0" fitWidth="96.0" layoutX="613.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="25.0" />
+                  				<ImageView fx:id="playerHandEight" fitHeight="170.0" fitWidth="96.0" layoutX="583.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="25.0" />
+                  				<ImageView fx:id="playerHandSeven" fitHeight="170.0" fitWidth="96.0" layoutX="537.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="475.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandSix" fitHeight="170.0" fitWidth="96.0" layoutX="447.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandFive" fitHeight="170.0" fitWidth="96.0" layoutX="380.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandFour" fitHeight="170.0" fitWidth="96.0" layoutX="287.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandThree" fitHeight="170.0" fitWidth="96.0" layoutX="149.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="25.0" />
+      								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" layoutX="81.0" layoutY="15.0" onMousePressed="#initialize" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0" />
             						<Label text="Current Hand:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="-15.0">
             							<font>
             								<Font name="System Bold" size="18.0" />
             							</font>
             						</Label>
-      								<ImageView fx:id="playerHandTwo" fitHeight="170.0" fitWidth="96.0" layoutX="70.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0">
+      								<ImageView fx:id="playerHandOne" fitHeight="170.0" fitWidth="96.0" layoutX="70.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="25.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </ImageView>
-      								<ImageView fx:id="playerHandOne" fitHeight="170.0" fitWidth="96.0" layoutX="23.0" layoutY="27.0" onMousePressed="#initialize" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0">
-                                 <HBox.margin>
-                                    <Insets left="13.0" />
-                                 </HBox.margin>
-                              </ImageView>
             					</children>
             				</AnchorPane>
+                  		<HBox layoutX="197.0" layoutY="488.0" prefHeight="204.0" prefWidth="261.0" AnchorPane.leftAnchor="145.0" AnchorPane.topAnchor="470.0">
+                  			<children>
+                  				<AnchorPane prefHeight="195.0" prefWidth="100.0">
+                  					<children>
+                  						<Label fx:id="playerCardsInDeckLabel" layoutX="7.0" layoutY="1.0" text="Your Deck:" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  							<font>
+                  								<Font size="18.0" />
+                  							</font>
+                  						</Label>
+                  						<ImageView fx:id="playerDeckImage" fitHeight="170.0" fitWidth="96.0" layoutX="-3.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="40.0" />
+                  					</children>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="23.0" right="5.0" />
+                                 </HBox.margin>
+                  				</AnchorPane>
+                  				<AnchorPane prefHeight="195.0" prefWidth="100.0">
+                  					<children>
+                  						<ImageView fx:id="lastDiscardImage" fitHeight="170.0" fitWidth="96.0" layoutX="-2.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="40.0" />
+                  						<Label layoutX="1.0" text="Last Discard:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
+                  							<font>
+                  								<Font size="18.0" />
+                  							</font>
+                  						</Label>
+                  					</children>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="15.0" />
+                                 </HBox.margin>
+                  				</AnchorPane>
+                  			</children>
+                  		</HBox>
+                        <Label fx:id="playerOneVP" layoutX="150.0" layoutY="56.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="yourVP" layoutX="576.0" layoutY="242.0" text="You Are In Year 1985" AnchorPane.topAnchor="240.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerTwoVP" layoutX="136.0" layoutY="88.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playerThreeVP" layoutX="141.0" layoutY="121.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="endTurnButton" layoutX="770.0" layoutY="534.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="550.0" />
       					</children>
       				</AnchorPane>
       				<TextArea fx:id="playLog" editable="false" layoutX="3.0" layoutY="6.0" prefHeight="687.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0" />

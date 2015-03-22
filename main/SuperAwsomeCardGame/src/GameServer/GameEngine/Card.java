@@ -16,6 +16,7 @@ public final class Card implements Serializable {
 	//Non mechanical properties
 	final private String name;
 	final private String description;
+	final private String imagePath;
 	
 	//Non-action related properties
 	final private int costStealth;
@@ -65,7 +66,7 @@ public final class Card implements Serializable {
 	 * @param trashAfterUse
 	 */
 	
-	public Card(String name, String description, int costBuy, int costAttack,
+	public Card(String name, String description, String imagePath, int costBuy, int costAttack,
 			int vp, int attack, int stealth, int preturnDiscard,
 			int postturnDiscard, int drawCards, int othersDrawCards,
 			int trashCardsMandatory, int trashCardsOptional, int trashForAttack, int trashForStealth, int removeFromPlayArea,
@@ -74,6 +75,7 @@ public final class Card implements Serializable {
 		super();
 		this.name = name;
 		this.description = description;
+		this.imagePath = imagePath;
 		this.costStealth = costBuy;
 		this.costAttack = costAttack;
 		this.vp = vp;
@@ -112,6 +114,7 @@ public final class Card implements Serializable {
 		
 		this.name = rs.getString("Name");
 		this.description = rs.getString("Description");
+		this.imagePath = rs.getString("ImagePath");
 		this.costStealth = rs.getInt("CostBuy");
 		this.costAttack = rs.getInt("CostAttack");
 		this.vp = rs.getInt("VP");
@@ -150,6 +153,14 @@ public final class Card implements Serializable {
 	 */
 	public String getDescription() {
 		return description;
+	}
+	
+	/**
+	 * Returns the image path of the card.
+	 * @return image path
+	 */
+	public String getImagePath() {
+		return imagePath;
 	}
 
 

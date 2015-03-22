@@ -27,9 +27,9 @@ public class GameEngine implements Runnable {
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
 	private Hand mainPlayAreaCards = new Hand(4);
-	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
-	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", "cards/notSoImportantHistoricalFigure.png", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", "cards/prowl.png", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", "cards/bite.png", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
 	
 	
 
