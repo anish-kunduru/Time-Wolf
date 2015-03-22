@@ -113,7 +113,7 @@ public class GameTableScreenController implements ControlledScreen {
 	private ImageView[] playerHandImages;
 
 	private ImageView[] gameTableImages;
-	
+
 	private Card cardForAction;
 	private Action action;
 	private boolean isTurn;
@@ -162,15 +162,6 @@ public class GameTableScreenController implements ControlledScreen {
 
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck);
-
-		// An example of how Text Area works.
-		// NOTE: I turned on text wrapping for our playLog component. You can
-		// change those properties and more in gameTableScreen.fxml.
-		// You can also set them directly in code, but it is better to do it in
-		// the FXML to be consistent, since our code generally only has change
-		// states.
-		playLog.appendText("asdfasdfasdfasdfa\nsdfasdfasdfasdfsdfasdfa\nsdfasdfasdfasdfasdfasdfasdfasdfasdfasdf\nasdfasdfasdfasdfasdfasdfasdf");
-		playLog.appendText("\nMore blah...");
 
 	}
 
@@ -322,25 +313,38 @@ public class GameTableScreenController implements ControlledScreen {
 			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
 			yourVP.setText("You are in year 1,000 BCE");
 		}
-		
-		//Populate hand image fields for player and main table
-		for (int i = 0; i < 5; i++){
-			gameTableImages[i]
-			.setImage(new Image(gameTableHand.get(i).getImagePath()));
+
+		// Populate hand image fields for player and main table
+		for (int i = 0; i < 5; i++) {
+			gameTableImages[i].setImage(new Image(gameTableHand.get(i)
+					.getImagePath()));
 			gameTableImages[i].setId(gameTableHand.get(i).getName());
 		}
-		
-		for (int i = 0; i < 5; i++){
-			playerHandImages[i]
-			.setImage(new Image(playerHand.get(i).getImagePath()));
+
+		for (int i = 0; i < 5; i++) {
+			playerHandImages[i].setImage(new Image(playerHand.get(i)
+					.getImagePath()));
 			playerHandImages[i].setId(playerHand.get(i).getName());
 		}
 
 	}
-	
+
 	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
 		image.setOnMouseClicked(event -> {
-			lastDiscardImage.setImage(image.getImage());
+			try {
+				Card oldCard = new Card(image.getId());
+				//System.out.println(oldCard.getCardType());
+				if (oldCard.getCardType().equals("Action")) {
+					playLog.appendText("Player one stole card "
+							+ oldCard.getName() + "\n");
+				} else {
+					playLog.appendText("Player one defeated "
+							+ oldCard.getName() + "\n");
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			Card card = deck.draw();
 			image.setImage(new Image(card.getImagePath()));
 			image.setId(card.getName());
@@ -350,16 +354,16 @@ public class GameTableScreenController implements ControlledScreen {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(cardForAction.getName());
-			
+			//System.out.println(cardForAction.getName());
+
 			action = new Action(1, cardForAction);
-			System.out.println(action.getCard().getName());
-		});		
-		return action;	
+			//System.out.println(action.getCard().getName());
+		});
+		return action;
 	}
 
-	private void onTableCardClicked(Deck deck) throws SQLException{
-		for(int i = 0; i < 5; i++){
+	private void onTableCardClicked(Deck deck) throws SQLException {
+		for (int i = 0; i < 5; i++) {
 			onTableCardClickedEvent(gameTableImages[i], deck);
 		}
 	}
