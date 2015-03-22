@@ -9,6 +9,8 @@ package view;
 
 import java.sql.SQLException;
 
+import GameServer.GameEngine.Action;
+import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
@@ -113,6 +115,9 @@ public class GameTableScreenController implements ControlledScreen {
 	private ImageView[] playerHandImages;
 
 	private ImageView[] gameTableImages;
+	
+	private Card cardForAction;
+	private Action action;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -156,10 +161,8 @@ public class GameTableScreenController implements ControlledScreen {
 		// adding effects as well as populating fields.
 		initializeTable(playerHand, tableHand, playerNames);
 
-		playerHandOne.setOnMousePressed(event -> {
-			lastDiscardImage.setImage(playerHandOne.getImage());
-			playerHandOne.setImage(new Image("cards/bonaparte.png"));
-		});
+		// Handles action when a main table card is clicked
+		onTableCardClicked();
 
 		// An example of how Text Area works.
 		// NOTE: I turned on text wrapping for our playLog component. You can
@@ -334,6 +337,29 @@ public class GameTableScreenController implements ControlledScreen {
 			playerHandImages[i].setId(playerHand.get(i).getName());
 		}
 
+	}
+	
+	private Action onTableCardClickedEvent(ImageView image) {
+		image.setOnMouseClicked(event -> {
+			lastDiscardImage.setImage(image.getImage());
+			try {
+				cardForAction = new Card(image.getId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(cardForAction.getName());
+			
+			action = new Action(1, cardForAction);
+			System.out.println(action.getCard().getName());
+		});		
+		return action;	
+	}
+
+	private void onTableCardClicked() throws SQLException{
+		for(int i = 0; i < 5; i++){
+			onTableCardClickedEvent(gameTableImages[i]);
+		}
 	}
 
 }
