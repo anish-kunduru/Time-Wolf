@@ -37,6 +37,14 @@ public class GameManagement implements Runnable, Remote {
 		
 	}
 	
+	public ArrayList<GameEngine> ListJoinableGames()
+	{
+		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
+		
+		
+		return available;
+	}
+	
 	
 	public void createGame(int numberOfPlayers, String gameName) {
 		GameEngine ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck);
