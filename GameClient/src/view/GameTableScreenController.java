@@ -51,9 +51,8 @@ public class GameTableScreenController implements ControlledScreen {
 	private Label playerThreeVP;
 	@FXML
 	private Label yourVP;
-	
-	
-	//Labels to show current values of stealth and attack
+
+	// Labels to show current values of stealth and attack
 	@FXML
 	private Label Attack;
 	@FXML
@@ -156,6 +155,7 @@ public class GameTableScreenController implements ControlledScreen {
 
 		attack = 5;
 		stealth = 5;
+		isTurn = true;
 
 		// KEEP. Puts imageviews into arrays.
 
@@ -172,8 +172,13 @@ public class GameTableScreenController implements ControlledScreen {
 		// adding effects as well as populating fields.
 		initializeTable(playerHand, tableHand, playerNames);
 
+		// Handles ending the turn on button clicked
+		endTurn();
+
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
+		
+		onPlayerCardClicked();
 
 	}
 
@@ -345,7 +350,7 @@ public class GameTableScreenController implements ControlledScreen {
 			int stealth, int attack) {
 		image.setOnMouseClicked(event -> {
 
-			//Check to see if player can afford card first.
+			// Check to see if player can afford card first.
 			Card oldCard;
 			try {
 				oldCard = new Card(image.getId());
@@ -356,17 +361,17 @@ public class GameTableScreenController implements ControlledScreen {
 				}
 
 				else {
-					
+
 					// Append action to the play log.
 					// TODO get player's name
-					
+
 					// System.out.println(oldCard.getCardType());
 					if (oldCard.getCardType().equals("Action")) {
 						playLog.appendText("Player one stole card "
-								+ oldCard.getName() + "\n");
+								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
 					} else {
 						playLog.appendText("Player one defeated "
-								+ oldCard.getName() + "\n");
+								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
 					}
 
 					// Create action with old card
@@ -398,6 +403,36 @@ public class GameTableScreenController implements ControlledScreen {
 			throws SQLException {
 		for (int i = 0; i < 5; i++) {
 			onTableCardClickedEvent(gameTableImages[i], deck, stealth, attack);
+		}
+	}
+
+	private void endTurn() {
+		// TODO Broken
+		endTurnButton.setOnMouseClicked(event -> {
+			isTurn = false;
+		});
+	}
+
+	private Action onPlayerCardClickedEvent(ImageView image) {
+
+		image.setOnMouseClicked(event -> {
+			try {
+				Card oldCard = new Card(image.getId());
+				playLog.appendText("Player one played card "
+						+ oldCard.getName() + ". " + oldCard.getDescription()
+						+ "\n");
+				lastDiscardImage.setImage(image.getImage());
+				image.setImage(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return action;
+	}
+	
+	private void onPlayerCardClicked(){
+		for(int i = 0; i < playerHandImages.length; i++){
+			onPlayerCardClickedEvent(playerHandImages[i]);
 		}
 	}
 
