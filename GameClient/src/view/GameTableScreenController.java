@@ -63,7 +63,7 @@ public class GameTableScreenController implements ControlledScreen {
 	@FXML
 	private ImageView playerHandOne;
 	@FXML
-	private ImageView playerHandTwo;
+	private ImageView playerHandTwoo;
 	@FXML
 	private ImageView playerHandThree;
 	@FXML
@@ -162,7 +162,7 @@ public class GameTableScreenController implements ControlledScreen {
 		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
 				gameTableCardThree, gameTableCardFour, gameTableCardFive };
 
-		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo,
+		playerHandImages = new ImageView[] { playerHandOne, playerHandTwoo,
 				playerHandThree, playerHandFour, playerHandFive, playerHandSix,
 				playerHandSeven, playerHandEight, playerHandNine,
 				playerHandTen, playerHandEleven, playerHandTwelve,
@@ -177,8 +177,10 @@ public class GameTableScreenController implements ControlledScreen {
 
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
-		
+
 		onPlayerCardClicked();
+
+		onDeckClickedEvent(playerHand, starterDeck);
 
 	}
 
@@ -368,10 +370,12 @@ public class GameTableScreenController implements ControlledScreen {
 					// System.out.println(oldCard.getCardType());
 					if (oldCard.getCardType().equals("Action")) {
 						playLog.appendText("Player one stole card "
-								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+								+ oldCard.getName() + ". "
+								+ oldCard.getDescription() + "\n");
 					} else {
 						playLog.appendText("Player one defeated "
-								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+								+ oldCard.getName() + ". "
+								+ oldCard.getDescription() + "\n");
 					}
 
 					// Create action with old card
@@ -429,11 +433,21 @@ public class GameTableScreenController implements ControlledScreen {
 		});
 		return action;
 	}
-	
-	private void onPlayerCardClicked(){
-		for(int i = 0; i < playerHandImages.length; i++){
+
+	private void onPlayerCardClicked() {
+		for (int i = 0; i < playerHandImages.length; i++) {
 			onPlayerCardClickedEvent(playerHandImages[i]);
 		}
+	}
+
+	private Action onDeckClickedEvent(Hand hand, Deck deck) {
+		playerDeckImage.setOnMouseClicked(event -> {
+			Card card = deck.draw();
+			playerHandImages[hand.size()].setImage(new Image(card
+					.getImagePath()));
+			hand.addCard(card);
+		});
+		return action;
 	}
 
 }
