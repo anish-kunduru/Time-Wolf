@@ -18,6 +18,10 @@
 			</font>
 		</Label>
 		<TextArea editable="false" layoutX="65.0" layoutY="80.0"
-			prefHeight="600.0" prefWidth="1150.0" />
+			prefHeight="600.0" prefWidth="1150.0" Text="You are a time travelling wolf trying to get home!
+			You have found the only way you can travel through time is by disrupting history, and 
+			defeating important historical figures.  The more you mess up time, the closer you are to
+			returning to your own era!  However, there are other wolves trying to get home as well.
+			Defeat historical figures and do whatever it takes to be the first wolf to get home!" />
 	</children>
 </AnchorPane>
