@@ -3,13 +3,18 @@ package GameServer.GameEngine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.Iterator;
 
 import GameServer.Users.User;
 
 
-public class GameEngine implements Runnable {
+public class GameEngine extends UnicastRemoteObject implements Runnable, Remote {
 	
 	
 	private Player[] players;
@@ -17,6 +22,7 @@ public class GameEngine implements Runnable {
 	private int currentNumOfPlayers;
 	private int currentPlayerIndex = 0;
 	
+	private String rmiRegistryName;
 	private String name;
 	private boolean isRunning = false;
 	private boolean isFinished = false;
@@ -27,13 +33,13 @@ public class GameEngine implements Runnable {
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
 	private Hand mainPlayAreaCards = new Hand(4);
-	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", "cards/notSoImportantHistoricalFigure.png", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
-	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", "cards/prowl.png", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
-	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", "cards/bite.png", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", "cards/notSoImportantHistoricalFigure.png", "Action", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", "cards/prowl.png", "Action", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", "cards/bite.png", "Action", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
 	
 	
 
-	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) {
+	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) throws RemoteException {
 		super();
 		
 		//Create the array of players and initialize info about the number of players.
@@ -57,7 +63,7 @@ public class GameEngine implements Runnable {
 	 * @return True if the player has been added successfully.
 	 * @throws SQLException 
 	 */
-	public boolean addPlayer(User u) {
+	public boolean addPlayer(User u, String clientRegistryName) {
 		
 		
 		//We can only have so many players in a game, and we can't add null players
@@ -65,7 +71,19 @@ public class GameEngine implements Runnable {
 		
 		//Create the player object using the user
 		//Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
-		Player p = new Player(u, (Deck)this.startingDeck.clone());
+		Player p;
+		try {
+			p = new Player(u, (Deck)this.startingDeck.clone(), clientRegistryName);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//Add the player if there is room.
@@ -160,7 +178,61 @@ public class GameEngine implements Runnable {
 	}
 
 	
+	private boolean playCard(Action a) {
+		Card c = a.getCard();
+		Player p = this.players[this.currentPlayerIndex];
+		
+		this.ruleDiscard(p, c, true);
+		this.ruleAttack(p, c);
+		this.ruleStealth(p, c);
+		this.ruleDrawCards(p, c);
+		this.ruleTakeAnotherTurn(p, c);
+		this.ruleDiscard(p, c, false);
+		
+		//Discard card
+		p.getDiscardPile().discard(c);
+		p.getHand().remove(a.getCardIndex());
+		
+		
+		return true;
+	}
 	
+	/**
+	 * Parse the card for its stealth value.
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void  ruleStealth(Player current, Card c) {
+		current.addStealth(c.getStealth());
+	}
+	
+	/**
+	 * Parse the card for its attack value.
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void ruleAttack(Player current, Card c) {
+		current.addAttack(c.getAttack());
+	}
+	
+	
+	private void ruleDiscard(Player current, Card c, boolean isBefore) {
+		
+	}
+	
+	/**
+	 * Parse the card for its draw card value
+	 * @param current the current player
+	 * @param c the card
+	 */
+	private void ruleDrawCards(Player current, Card c) {
+		current.getDeck().draw(current.getHand(), c.getDrawCards());
+	}
+	
+	
+	private void ruleTakeAnotherTurn(Player current, Card c) {
+		
+	}
 	
 	public static void main(String[] args) {
 
@@ -503,9 +575,7 @@ public class GameEngine implements Runnable {
 
 	
 		
-	private boolean playCard(Action a) {
-		return true;
-	}
+	
 	
 	@Override
 	public void run() {

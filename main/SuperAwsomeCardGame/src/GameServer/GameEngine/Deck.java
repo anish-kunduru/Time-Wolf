@@ -117,6 +117,7 @@ public class Deck {
 			String name = rs.getString("Name");
 			String description = rs.getString("Description");
 			String imagePath = rs.getString("ImagePath");
+			String cardType = rs.getString("CardType");
 			int costBuy = rs.getInt("CostBuy");
 			int costAttack = rs.getInt("CostAttack");
 			int vp = rs.getInt("VP");
@@ -138,7 +139,7 @@ public class Deck {
 			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
 			int NumInDeck = rs.getInt("NumInDeck");
 			
-			Card toAdd = new Card(name, description, imagePath, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+			Card toAdd = new Card(name, description, imagePath, cardType, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
 					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			
@@ -165,6 +166,7 @@ public class Deck {
 			String name = rs.getString("Name");
 			String description = rs.getString("Description");
 			String imagePath = rs.getString("ImagePath");
+			String cardType = rs.getString("CardType");
 			int costBuy = rs.getInt("CostBuy");
 			int costAttack = rs.getInt("CostAttack");
 			int vp = rs.getInt("VP");
@@ -186,7 +188,7 @@ public class Deck {
 			boolean trashAfterUse = rs.getBoolean("TrashAfterUse");
 			int numInDeck = rs.getInt("NumInDeck");
 			
-			Card toAdd = new Card(name, description, imagePath, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
+			Card toAdd = new Card(name, description, imagePath, cardType, costBuy, costAttack, vp, power, money, preturnDiscard, postturnDiscard,
 					drawCards, othersDrawCards, trashCardsMandatory, trashCardsOptional, trashForAttack, trashForStealth, removeFromPlayArea,
 					othersDiscard, giveCurseCards, takeAnotherTurn, refreshPlayArea, trashAfterUse);
 			

@@ -1,5 +1,6 @@
 package GameServer;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -47,11 +48,18 @@ public class GameManagement implements Runnable, Remote {
 	
 	
 	public void createGame(int numberOfPlayers, String gameName) {
-		GameEngine ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck);
-		this.games.add(ge);
+		GameEngine ge;
+		try {
+			ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck);
+			this.games.add(ge);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
-	public boolean addUserToGame(int game, User u) {
+	public boolean addUserToGame(int game, User u, String clientRegistryName) {
 		
 		//User must be initialized
 		if(u == null) {
@@ -72,7 +80,7 @@ public class GameManagement implements Runnable, Remote {
 		}
 		
 		
-		ge.addPlayer(u);
+		ge.addPlayer(u, clientRegistryName);
 		
 		
 		return true;

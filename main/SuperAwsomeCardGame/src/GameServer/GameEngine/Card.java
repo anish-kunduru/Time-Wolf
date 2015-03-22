@@ -17,6 +17,7 @@ public final class Card implements Serializable {
 	final private String name;
 	final private String description;
 	final private String imagePath;
+	final private String cardType;
 	
 	//Non-action related properties
 	final private int costStealth;
@@ -66,7 +67,7 @@ public final class Card implements Serializable {
 	 * @param trashAfterUse
 	 */
 	
-	public Card(String name, String description, String imagePath, int costBuy, int costAttack,
+	public Card(String name, String description, String imagePath, String cardType, int costBuy, int costAttack,
 			int vp, int attack, int stealth, int preturnDiscard,
 			int postturnDiscard, int drawCards, int othersDrawCards,
 			int trashCardsMandatory, int trashCardsOptional, int trashForAttack, int trashForStealth, int removeFromPlayArea,
@@ -76,6 +77,7 @@ public final class Card implements Serializable {
 		this.name = name;
 		this.description = description;
 		this.imagePath = imagePath;
+		this.cardType = cardType;
 		this.costStealth = costBuy;
 		this.costAttack = costAttack;
 		this.vp = vp;
@@ -115,6 +117,7 @@ public final class Card implements Serializable {
 		this.name = rs.getString("Name");
 		this.description = rs.getString("Description");
 		this.imagePath = rs.getString("ImagePath");
+		this.cardType = rs.getString("CardType");
 		this.costStealth = rs.getInt("CostBuy");
 		this.costAttack = rs.getInt("CostAttack");
 		this.vp = rs.getInt("VP");
@@ -163,6 +166,13 @@ public final class Card implements Serializable {
 		return imagePath;
 	}
 
+	/**
+	 * Gets the type of card
+	 * @return card type
+	 */
+	public String getCardType() {
+		return cardType;
+	}
 
 	/**
 	 * The cost to buy the card with stealth.

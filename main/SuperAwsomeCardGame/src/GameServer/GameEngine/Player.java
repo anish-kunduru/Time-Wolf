@@ -1,7 +1,12 @@
 package GameServer.GameEngine;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+import view.GameTableScreenController;
 import GameServer.Users.User;
 
 /**An object that will have a user's ID for each player in a game to 
@@ -12,6 +17,7 @@ import GameServer.Users.User;
 
 public class Player {
 	
+	private GameTableScreenController client;
 	private User user;
 	private boolean isTurn;
 	private Hand hand;
@@ -78,6 +84,42 @@ public class Player {
 		this.attack = 0;
 		this.stealth = 0;
 		this.VP = 0;
+		
+	}
+	
+	
+	/**
+	 * Create a player.
+	 * @param user The user who is the player.
+	 * @param starter The starter deck the player is using.
+	 * @param clientRegistryName the Java RMI registry entry for the game
+	 * @throws NotBoundException 
+	 * @throws RemoteException 
+	 * @throws MalformedURLException 
+	 */
+	public Player(User user, Deck starter, String clientRegistryName) throws MalformedURLException, RemoteException, NotBoundException {
+		
+		//Initliaize given values
+		this.user = user;
+		this.isTurn = false;
+		
+		//Initialize discard pile to an empty DiscardPile
+		DiscardPile discardPile = new DiscardPile();
+		this.discard = discardPile;
+		
+		//Initiliaze deck to the starter deck
+		this.deck = (Deck)starter.clone();
+
+		//Initialize hand
+		this.hand = new Hand(5);
+		this.deck.draw(this.hand);
+		
+		//Initialize int values to 0
+		this.attack = 0;
+		this.stealth = 0;
+		this.VP = 0;
+		
+		this.client = (GameTableScreenController) Naming.lookup(clientRegistryName);
 		
 	}
 	
