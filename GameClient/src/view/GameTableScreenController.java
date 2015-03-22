@@ -1,7 +1,5 @@
 /**
  /**
- * @author Anish Kunduru
- *
  * This program is our handler for GameTableScreen.fxml.
  */
 
@@ -118,6 +116,7 @@ public class GameTableScreenController implements ControlledScreen {
 	
 	private Card cardForAction;
 	private Action action;
+	private boolean isTurn;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -162,7 +161,7 @@ public class GameTableScreenController implements ControlledScreen {
 		initializeTable(playerHand, tableHand, playerNames);
 
 		// Handles action when a main table card is clicked
-		onTableCardClicked();
+		onTableCardClicked(mainDeck);
 
 		// An example of how Text Area works.
 		// NOTE: I turned on text wrapping for our playLog component. You can
@@ -339,9 +338,12 @@ public class GameTableScreenController implements ControlledScreen {
 
 	}
 	
-	private Action onTableCardClickedEvent(ImageView image) {
+	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
 		image.setOnMouseClicked(event -> {
 			lastDiscardImage.setImage(image.getImage());
+			Card card = deck.draw();
+			image.setImage(new Image(card.getImagePath()));
+			image.setId(card.getName());
 			try {
 				cardForAction = new Card(image.getId());
 			} catch (Exception e) {
@@ -356,9 +358,9 @@ public class GameTableScreenController implements ControlledScreen {
 		return action;	
 	}
 
-	private void onTableCardClicked() throws SQLException{
+	private void onTableCardClicked(Deck deck) throws SQLException{
 		for(int i = 0; i < 5; i++){
-			onTableCardClickedEvent(gameTableImages[i]);
+			onTableCardClickedEvent(gameTableImages[i], deck);
 		}
 	}
 
