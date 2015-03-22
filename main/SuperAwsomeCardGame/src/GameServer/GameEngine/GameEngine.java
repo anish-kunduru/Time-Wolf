@@ -22,6 +22,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	private int currentNumOfPlayers;
 	private int currentPlayerIndex = 0;
 	
+	private String rmiRegistryName;
 	private String name;
 	private boolean isRunning = false;
 	private boolean isFinished = false;
@@ -38,7 +39,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	
 
-	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) {
+	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) throws RemoteException {
 		super();
 		
 		//Create the array of players and initialize info about the number of players.
