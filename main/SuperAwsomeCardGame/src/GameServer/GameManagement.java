@@ -38,10 +38,20 @@ public class GameManagement implements Runnable, Remote {
 		
 	}
 	
+	/**
+	 * Returns a list of games to join for the game lobby screen
+	 * @return list of available games to join
+	 */
 	public ArrayList<GameEngine> ListJoinableGames()
 	{
 		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
-		
+		for(int i = 0; i < games.size(); i++)
+		{
+			if(!games.get(i).isRunning() && !games.get(i).isFinished())
+			{
+				available.add(games.get(i));
+			}
+		}
 		
 		return available;
 	}
