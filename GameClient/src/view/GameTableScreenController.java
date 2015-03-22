@@ -331,6 +331,9 @@ public class GameTableScreenController implements ControlledScreen {
 
 	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
 		image.setOnMouseClicked(event -> {
+			
+			//Append action to the play log. 
+			//TODO get player's name
 			try {
 				Card oldCard = new Card(image.getId());
 				//System.out.println(oldCard.getCardType());
@@ -342,22 +345,22 @@ public class GameTableScreenController implements ControlledScreen {
 							+ oldCard.getName() + "\n");
 				}
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			Card card = deck.draw();
-			image.setImage(new Image(card.getImagePath()));
-			image.setId(card.getName());
+			
+			//Create action with old card
 			try {
 				cardForAction = new Card(image.getId());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//System.out.println(cardForAction.getName());
-
 			action = new Action(1, cardForAction);
 			//System.out.println(action.getCard().getName());
+			
+			//Change image to a new card's image, reset id to new card's name,
+			Card card = deck.draw();
+			image.setImage(new Image(card.getImagePath()));
+			image.setId(card.getName());
 		});
 		return action;
 	}
