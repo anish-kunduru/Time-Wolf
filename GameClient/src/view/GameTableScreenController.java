@@ -109,12 +109,9 @@ public class GameTableScreenController implements ControlledScreen {
 
 	@FXML
 	private TextArea playLog; // Log for game actions.
-	
-	final private ImageView[] playerHandImages = new ImageView[] {playerHandOne, playerHandTwo,
-			playerHandThree, playerHandFour, playerHandFive, playerHandSix, 
-			playerHandSeven, playerHandEight, playerHandNine, playerHandTen,
-			playerHandEleven, playerHandTwelve, playerHandThirteen};
-	
+
+	private ImageView[] playerHandImages;
+
 	private ImageView[] gameTableImages;
 
 	// So we can set the screen's parent later on.
@@ -143,9 +140,17 @@ public class GameTableScreenController implements ControlledScreen {
 		mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "Player One", "Player Two",
 				"Player Three" };
-		
-		gameTableImages = new ImageView[] {gameTableCardOne,
-				gameTableCardTwo, gameTableCardThree, gameTableCardFour, gameTableCardFive};
+
+		// KEEP. Puts imageviews into arrays.
+
+		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
+				gameTableCardThree, gameTableCardFour, gameTableCardFive };
+
+		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo,
+				playerHandThree, playerHandFour, playerHandFive, playerHandSix,
+				playerHandSeven, playerHandEight, playerHandNine,
+				playerHandTen, playerHandEleven, playerHandTwelve,
+				playerHandThirteen };
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.
@@ -233,26 +238,23 @@ public class GameTableScreenController implements ControlledScreen {
 		highlightOnMouseEntered(biteDeckImage);
 		highlightOnMouseEntered(lurkDeckImage);
 		highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
+		highlightOnMouseEntered(playerDeckImage);
 
-		for(int i = 0; i < gameTableImages.length; i++){
+		for (int i = 0; i < gameTableImages.length; i++) {
 			highlightOnMouseEntered(gameTableImages[i]);
 		}
-
-		highlightOnMouseEntered(playerDeckImage);
 
 		// ///////////////////////////////////////////////////////////////
 
 		unhighlightOnMouseExited(biteDeckImage);
 		unhighlightOnMouseExited(lurkDeckImage);
 		unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
-
-		unhighlightOnMouseExited(gameTableCardOne);
-		unhighlightOnMouseExited(gameTableCardTwo);
-		unhighlightOnMouseExited(gameTableCardThree);
-		unhighlightOnMouseExited(gameTableCardFour);
-		unhighlightOnMouseExited(gameTableCardFive);
-
 		unhighlightOnMouseExited(playerDeckImage);
+
+		for (int i = 0; i < gameTableImages.length; i++) {
+			unhighlightOnMouseExited(gameTableImages[i]);
+		}
+
 	}
 
 	/**
@@ -262,18 +264,9 @@ public class GameTableScreenController implements ControlledScreen {
 
 	public void showCard() {
 
-		showOnMouseEntered(playerHandOne);
-		showOnMouseEntered(playerHandTwo);
-		showOnMouseEntered(playerHandThree);
-		showOnMouseEntered(playerHandFour);
-		showOnMouseEntered(playerHandFive);
-		showOnMouseEntered(playerHandSix);
-		showOnMouseEntered(playerHandSeven);
-		showOnMouseEntered(playerHandEight);
-		showOnMouseEntered(playerHandNine);
-		showOnMouseEntered(playerHandTen);
-		showOnMouseEntered(playerHandEleven);
-		showOnMouseEntered(playerHandTwelve);
+		for (int i = 0; i < playerHandImages.length; i++) {
+			showOnMouseEntered(playerHandImages[i]);
+		}
 
 	}
 
@@ -327,24 +320,19 @@ public class GameTableScreenController implements ControlledScreen {
 			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
 			yourVP.setText("You are in year 1,000 BCE");
 		}
-
-		// Initial card states.
-		gameTableCardOne
-				.setImage(new Image(gameTableHand.get(0).getImagePath()));
-		gameTableCardTwo
-				.setImage(new Image(gameTableHand.get(1).getImagePath()));
-		gameTableCardThree.setImage(new Image(gameTableHand.get(2)
-				.getImagePath()));
-		gameTableCardFour.setImage(new Image(gameTableHand.get(3)
-				.getImagePath()));
-		gameTableCardFive.setImage(new Image(gameTableHand.get(4)
-				.getImagePath()));
-
-		playerHandOne.setImage(new Image(playerHand.get(0).getImagePath()));
-		playerHandTwo.setImage(new Image(playerHand.get(1).getImagePath()));
-		playerHandThree.setImage(new Image(playerHand.get(2).getImagePath()));
-		playerHandFour.setImage(new Image(playerHand.get(3).getImagePath()));
-		playerHandFive.setImage(new Image(playerHand.get(4).getImagePath()));
+		
+		//Populate hand image fields for player and main table
+		for (int i = 0; i < 5; i++){
+			gameTableImages[i]
+			.setImage(new Image(gameTableHand.get(i).getImagePath()));
+			gameTableImages[i].setId(gameTableHand.get(i).getName());
+		}
+		
+		for (int i = 0; i < 5; i++){
+			playerHandImages[i]
+			.setImage(new Image(playerHand.get(i).getImagePath()));
+			playerHandImages[i].setId(playerHand.get(i).getName());
+		}
 
 	}
 
