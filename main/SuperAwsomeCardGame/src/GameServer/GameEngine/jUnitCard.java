@@ -55,6 +55,11 @@ public class jUnitCard {
 	}
 	
 	@Test
+	public void testGetType() {
+		assertEquals("Action", scavenge.getCardType());
+	}
+	
+	@Test
 	public void testGetDescription() {
 		assertEquals("Draw 2 additional cards.", scavenge.getDescription());
 	}

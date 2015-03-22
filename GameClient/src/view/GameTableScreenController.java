@@ -1,7 +1,5 @@
 /**
  /**
- * @author Anish Kunduru
- *
  * This program is our handler for GameTableScreen.fxml.
  */
 
@@ -9,6 +7,8 @@ package view;
 
 import java.sql.SQLException;
 
+import GameServer.GameEngine.Action;
+import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
@@ -51,6 +51,12 @@ public class GameTableScreenController implements ControlledScreen {
 	private Label playerThreeVP;
 	@FXML
 	private Label yourVP;
+
+	// Labels to show current values of stealth and attack
+	@FXML
+	private Label Attack;
+	@FXML
+	private Label Stealth;
 
 	// Images for the cards currently in player's hand
 
@@ -109,13 +115,16 @@ public class GameTableScreenController implements ControlledScreen {
 
 	@FXML
 	private TextArea playLog; // Log for game actions.
-	
-	final private ImageView[] playerHandImages = new ImageView[] {playerHandOne, playerHandTwo,
-			playerHandThree, playerHandFour, playerHandFive, playerHandSix, 
-			playerHandSeven, playerHandEight, playerHandNine, playerHandTen,
-			playerHandEleven, playerHandTwelve, playerHandThirteen};
-	
+
+	private ImageView[] playerHandImages;
+
 	private ImageView[] gameTableImages;
+
+	private Card cardForAction;
+	private Action action;
+	private boolean isTurn;
+	private int stealth;
+	private int attack;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -143,27 +152,33 @@ public class GameTableScreenController implements ControlledScreen {
 		mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "Player One", "Player Two",
 				"Player Three" };
-		
-		gameTableImages = new ImageView[] {gameTableCardOne,
-				gameTableCardTwo, gameTableCardThree, gameTableCardFour, gameTableCardFive};
+
+		attack = 5;
+		stealth = 5;
+		isTurn = true;
+
+		// KEEP. Puts imageviews into arrays.
+
+		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
+				gameTableCardThree, gameTableCardFour, gameTableCardFive };
+
+		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo,
+				playerHandThree, playerHandFour, playerHandFive, playerHandSix,
+				playerHandSeven, playerHandEight, playerHandNine,
+				playerHandTen, playerHandEleven, playerHandTwelve,
+				playerHandThirteen };
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.
 		initializeTable(playerHand, tableHand, playerNames);
 
-		playerHandOne.setOnMousePressed(event -> {
-			lastDiscardImage.setImage(playerHandOne.getImage());
-			playerHandOne.setImage(new Image("cards/bonaparte.png"));
-		});
+		// Handles ending the turn on button clicked
+		endTurn();
 
-		// An example of how Text Area works.
-		// NOTE: I turned on text wrapping for our playLog component. You can
-		// change those properties and more in gameTableScreen.fxml.
-		// You can also set them directly in code, but it is better to do it in
-		// the FXML to be consistent, since our code generally only has change
-		// states.
-		playLog.appendText("asdfasdfasdfasdfa\nsdfasdfasdfasdfsdfasdfa\nsdfasdfasdfasdfasdfasdfasdfasdfasdfasdf\nasdfasdfasdfasdfasdfasdfasdf");
-		playLog.appendText("\nMore blah...");
+		// Handles action when a main table card is clicked
+		onTableCardClicked(mainDeck, stealth, attack);
+		
+		onPlayerCardClicked();
 
 	}
 
@@ -233,26 +248,23 @@ public class GameTableScreenController implements ControlledScreen {
 		highlightOnMouseEntered(biteDeckImage);
 		highlightOnMouseEntered(lurkDeckImage);
 		highlightOnMouseEntered(notSoImportantHistoricalFigureImage);
+		highlightOnMouseEntered(playerDeckImage);
 
-		for(int i = 0; i < gameTableImages.length; i++){
+		for (int i = 0; i < gameTableImages.length; i++) {
 			highlightOnMouseEntered(gameTableImages[i]);
 		}
-
-		highlightOnMouseEntered(playerDeckImage);
 
 		// ///////////////////////////////////////////////////////////////
 
 		unhighlightOnMouseExited(biteDeckImage);
 		unhighlightOnMouseExited(lurkDeckImage);
 		unhighlightOnMouseExited(notSoImportantHistoricalFigureImage);
-
-		unhighlightOnMouseExited(gameTableCardOne);
-		unhighlightOnMouseExited(gameTableCardTwo);
-		unhighlightOnMouseExited(gameTableCardThree);
-		unhighlightOnMouseExited(gameTableCardFour);
-		unhighlightOnMouseExited(gameTableCardFive);
-
 		unhighlightOnMouseExited(playerDeckImage);
+
+		for (int i = 0; i < gameTableImages.length; i++) {
+			unhighlightOnMouseExited(gameTableImages[i]);
+		}
+
 	}
 
 	/**
@@ -262,18 +274,9 @@ public class GameTableScreenController implements ControlledScreen {
 
 	public void showCard() {
 
-		showOnMouseEntered(playerHandOne);
-		showOnMouseEntered(playerHandTwo);
-		showOnMouseEntered(playerHandThree);
-		showOnMouseEntered(playerHandFour);
-		showOnMouseEntered(playerHandFive);
-		showOnMouseEntered(playerHandSix);
-		showOnMouseEntered(playerHandSeven);
-		showOnMouseEntered(playerHandEight);
-		showOnMouseEntered(playerHandNine);
-		showOnMouseEntered(playerHandTen);
-		showOnMouseEntered(playerHandEleven);
-		showOnMouseEntered(playerHandTwelve);
+		for (int i = 0; i < playerHandImages.length; i++) {
+			showOnMouseEntered(playerHandImages[i]);
+		}
 
 	}
 
@@ -328,24 +331,109 @@ public class GameTableScreenController implements ControlledScreen {
 			yourVP.setText("You are in year 1,000 BCE");
 		}
 
-		// Initial card states.
-		gameTableCardOne
-				.setImage(new Image(gameTableHand.get(0).getImagePath()));
-		gameTableCardTwo
-				.setImage(new Image(gameTableHand.get(1).getImagePath()));
-		gameTableCardThree.setImage(new Image(gameTableHand.get(2)
-				.getImagePath()));
-		gameTableCardFour.setImage(new Image(gameTableHand.get(3)
-				.getImagePath()));
-		gameTableCardFive.setImage(new Image(gameTableHand.get(4)
-				.getImagePath()));
+		// Populate hand image fields for player and main table
+		for (int i = 0; i < 5; i++) {
+			gameTableImages[i].setImage(new Image(gameTableHand.get(i)
+					.getImagePath()));
+			gameTableImages[i].setId(gameTableHand.get(i).getName());
+		}
 
-		playerHandOne.setImage(new Image(playerHand.get(0).getImagePath()));
-		playerHandTwo.setImage(new Image(playerHand.get(1).getImagePath()));
-		playerHandThree.setImage(new Image(playerHand.get(2).getImagePath()));
-		playerHandFour.setImage(new Image(playerHand.get(3).getImagePath()));
-		playerHandFive.setImage(new Image(playerHand.get(4).getImagePath()));
+		for (int i = 0; i < 5; i++) {
+			playerHandImages[i].setImage(new Image(playerHand.get(i)
+					.getImagePath()));
+			playerHandImages[i].setId(playerHand.get(i).getName());
+		}
 
+	}
+
+	private Action onTableCardClickedEvent(ImageView image, Deck deck,
+			int stealth, int attack) {
+		image.setOnMouseClicked(event -> {
+
+			// Check to see if player can afford card first.
+			Card oldCard;
+			try {
+				oldCard = new Card(image.getId());
+				if (oldCard.getCostAttack() > attack
+						|| oldCard.getCostStealth() > stealth) {
+					playLog.appendText("Can't afford that card. \n");
+					action = null;
+				}
+
+				else {
+
+					// Append action to the play log.
+					// TODO get player's name
+
+					// System.out.println(oldCard.getCardType());
+					if (oldCard.getCardType().equals("Action")) {
+						playLog.appendText("Player one stole card "
+								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+					} else {
+						playLog.appendText("Player one defeated "
+								+ oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+					}
+
+					// Create action with old card
+					try {
+						cardForAction = new Card(image.getId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					action = new Action(1, cardForAction);
+					// System.out.println(action.getCard().getName());
+
+					// Change image to a new card's image, reset id to new
+					// card's
+					// name,
+					Card card = deck.draw();
+					image.setImage(new Image(card.getImagePath()));
+					image.setId(card.getName());
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		});
+		return action;
+	}
+
+	private void onTableCardClicked(Deck deck, int stealth, int attack)
+			throws SQLException {
+		for (int i = 0; i < 5; i++) {
+			onTableCardClickedEvent(gameTableImages[i], deck, stealth, attack);
+		}
+	}
+
+	private void endTurn() {
+		// TODO Broken
+		endTurnButton.setOnMouseClicked(event -> {
+			isTurn = false;
+		});
+	}
+
+	private Action onPlayerCardClickedEvent(ImageView image) {
+
+		image.setOnMouseClicked(event -> {
+			try {
+				Card oldCard = new Card(image.getId());
+				playLog.appendText("Player one played card "
+						+ oldCard.getName() + ". " + oldCard.getDescription()
+						+ "\n");
+				lastDiscardImage.setImage(image.getImage());
+				image.setImage(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return action;
+	}
+	
+	private void onPlayerCardClicked(){
+		for(int i = 0; i < playerHandImages.length; i++){
+			onPlayerCardClickedEvent(playerHandImages[i]);
+		}
 	}
 
 }
