@@ -1,4 +1,5 @@
 package GameServer;
+import java.rmi.Remote;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import GameServer.GameEngine.GameEngine;
 import GameServer.Users.User;
 
 
-public class GameManagement implements Runnable {
+public class GameManagement implements Runnable, Remote {
 	
 	private ArrayList<GameEngine> games;
 	private Deck startingDeck;
