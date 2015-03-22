@@ -3,13 +3,18 @@ package GameServer.GameEngine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.Iterator;
 
 import GameServer.Users.User;
 
 
-public class GameEngine implements Runnable {
+public class GameEngine extends UnicastRemoteObject implements Runnable, Remote {
 	
 	
 	private Player[] players;
@@ -57,7 +62,7 @@ public class GameEngine implements Runnable {
 	 * @return True if the player has been added successfully.
 	 * @throws SQLException 
 	 */
-	public boolean addPlayer(User u) {
+	public boolean addPlayer(User u, String clientRegistryName) {
 		
 		
 		//We can only have so many players in a game, and we can't add null players
@@ -65,7 +70,19 @@ public class GameEngine implements Runnable {
 		
 		//Create the player object using the user
 		//Player p = new Player(u.getID(), false, 0, 0, new Hand(5), new DiscardPile(), (Deck)this.startingDeck.clone());
-		Player p = new Player(u, (Deck)this.startingDeck.clone());
+		Player p;
+		try {
+			p = new Player(u, (Deck)this.startingDeck.clone(), clientRegistryName);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//Add the player if there is room.

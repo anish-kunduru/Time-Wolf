@@ -43,7 +43,7 @@ public class GameManagement implements Runnable, Remote {
 		this.games.add(ge);
 	}
 	
-	public boolean addUserToGame(int game, User u) {
+	public boolean addUserToGame(int game, User u, String clientRegistryName) {
 		
 		//User must be initialized
 		if(u == null) {
@@ -64,7 +64,7 @@ public class GameManagement implements Runnable, Remote {
 		}
 		
 		
-		ge.addPlayer(u);
+		ge.addPlayer(u, clientRegistryName);
 		
 		
 		return true;
