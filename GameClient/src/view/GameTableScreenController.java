@@ -117,6 +117,8 @@ public class GameTableScreenController implements ControlledScreen {
 	private Card cardForAction;
 	private Action action;
 	private boolean isTurn;
+	private int stealth;
+	private int attack;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -145,6 +147,9 @@ public class GameTableScreenController implements ControlledScreen {
 		String[] playerNames = new String[] { "Player One", "Player Two",
 				"Player Three" };
 
+		attack = 5;
+		stealth = 5;
+
 		// KEEP. Puts imageviews into arrays.
 
 		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
@@ -161,7 +166,7 @@ public class GameTableScreenController implements ControlledScreen {
 		initializeTable(playerHand, tableHand, playerNames);
 
 		// Handles action when a main table card is clicked
-		onTableCardClicked(mainDeck);
+		onTableCardClicked(mainDeck, stealth, attack);
 
 	}
 
@@ -329,45 +334,63 @@ public class GameTableScreenController implements ControlledScreen {
 
 	}
 
-	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
+	private Action onTableCardClickedEvent(ImageView image, Deck deck,
+			int stealth, int attack) {
 		image.setOnMouseClicked(event -> {
-			
-			//Append action to the play log. 
-			//TODO get player's name
+
+			//Check to see if player can afford card first.
+			Card oldCard;
 			try {
-				Card oldCard = new Card(image.getId());
-				//System.out.println(oldCard.getCardType());
-				if (oldCard.getCardType().equals("Action")) {
-					playLog.appendText("Player one stole card "
-							+ oldCard.getName() + "\n");
-				} else {
-					playLog.appendText("Player one defeated "
-							+ oldCard.getName() + "\n");
+				oldCard = new Card(image.getId());
+				if (oldCard.getCostAttack() > attack
+						|| oldCard.getCostStealth() > stealth) {
+					playLog.appendText("Can't afford that card. \n");
+					action = null;
+				}
+
+				else {
+					
+					// Append action to the play log.
+					// TODO get player's name
+					
+					// System.out.println(oldCard.getCardType());
+					if (oldCard.getCardType().equals("Action")) {
+						playLog.appendText("Player one stole card "
+								+ oldCard.getName() + "\n");
+					} else {
+						playLog.appendText("Player one defeated "
+								+ oldCard.getName() + "\n");
+					}
+
+					// Create action with old card
+					try {
+						cardForAction = new Card(image.getId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					action = new Action(1, cardForAction);
+					// System.out.println(action.getCard().getName());
+
+					// Change image to a new card's image, reset id to new
+					// card's
+					// name,
+					Card card = deck.draw();
+					image.setImage(new Image(card.getImagePath()));
+					image.setId(card.getName());
 				}
 			} catch (Exception e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			//Create action with old card
-			try {
-				cardForAction = new Card(image.getId());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			action = new Action(1, cardForAction);
-			//System.out.println(action.getCard().getName());
-			
-			//Change image to a new card's image, reset id to new card's name,
-			Card card = deck.draw();
-			image.setImage(new Image(card.getImagePath()));
-			image.setId(card.getName());
+
 		});
 		return action;
 	}
 
-	private void onTableCardClicked(Deck deck) throws SQLException {
+	private void onTableCardClicked(Deck deck, int stealth, int attack)
+			throws SQLException {
 		for (int i = 0; i < 5; i++) {
-			onTableCardClickedEvent(gameTableImages[i], deck);
+			onTableCardClickedEvent(gameTableImages[i], deck, stealth, attack);
 		}
 	}
 
