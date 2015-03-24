@@ -14,6 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+
+import java.rmi.Naming;
+
+import GameServer.Users.LogIn;
+import GameServer.Users.User;
 
 public class RegistrationScreenController implements ControlledScreen
 {
@@ -69,8 +75,30 @@ public class RegistrationScreenController implements ControlledScreen
    private Label errorLabel;
 
    @FXML
+   private AnchorPane mainAnchorPane;
+
+   // So that we can call it from different event listeners.
+   private LogIn login;
+
+   @FXML
    public void initialize()
    {
+      // Initialize login if the user gets to this screen.
+      mainAnchorPane.setOnMouseEntered(event ->
+      {
+         try
+         {
+            login = (LogIn) Naming.lookup("//localhost/auth");
+
+            // DEBUG
+            System.out.println("Connected to the registration server.");
+         }
+         catch (Exception e)
+         {
+            errorLabel.setText("The registration server is offline. Please try again later.");
+         }
+      });
+
       // Check if username is already taken.
       usernameTextField.setOnKeyReleased(event ->
       {
@@ -80,6 +108,7 @@ public class RegistrationScreenController implements ControlledScreen
           */
       });
 
+      // Check if e-mail address is valid.
       emailTextField.setOnKeyReleased(event ->
       {
          if (isValidEmail(emailTextField.getText()))
@@ -117,7 +146,7 @@ public class RegistrationScreenController implements ControlledScreen
    {
       if (email.contains("@") && email.contains("."))
          return true;
-      
+
       // Implied else.
       return false;
    }

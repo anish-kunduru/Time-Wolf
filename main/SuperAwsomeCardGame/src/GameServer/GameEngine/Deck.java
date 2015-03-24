@@ -1,13 +1,16 @@
 package GameServer.GameEngine;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import GameServer.DBHelper;
 
-public class Deck {
+public class Deck implements Serializable {
 	
+   private static final long serialVersionUID = 1L;
+   
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	private Random random = new Random();
 	
