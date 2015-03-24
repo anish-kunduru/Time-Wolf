@@ -74,11 +74,23 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 	}
 	public ArrayList<GameEngine> SearchGames(String name, int players)
 	{
-		ArrayList<GameEngine> games = new ArrayList<GameEngine>();
+		boolean nameSearch = (name != "");
+		boolean playerSearch = (players > 0);
+		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
+		for(int i = 0; i < games.size(); i++)
+		{
+			if(!games.get(i).isRunning() && !games.get(i).isFinished())
+			{
+				if((games.get(i).getName().equals(name) || !nameSearch) && 
+						(games.get(i).getTotalNumOfPlayers() == players || !playerSearch))
+				{
+					available.add(games.get(i));
+				}
+			}
+		}
 		
 		
-		
-		return games;
+		return available;
 		
 	}
 	
