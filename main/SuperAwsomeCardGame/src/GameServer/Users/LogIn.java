@@ -253,6 +253,8 @@ public class LogIn implements Remote, Serializable {
 			bit = 1;
 		query += ",IsBanned=" + bit;
 		query += ",Role=" + u.getRole();
+		query += ",SecurityQuestion='" + u.getSecurityQuestion() + "'";
+		query += ",SecurityAnswer='" + u.getSecurityAnswer() + "'";
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
