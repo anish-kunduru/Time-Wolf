@@ -51,15 +51,6 @@ public class LoginScreenController implements ControlledScreen
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
       loginButton.setOnAction(event ->
       {
-         if (usernameTextField.getText().equals(""))
-         {
-            errorMessage.setText("Username is not filled in.");
-         }
-         else if (passwordTextField.getText().equals(""))
-         {
-            errorMessage.setText("Password is not filled in.");
-         }
-
          try
          {
             LogIn login = (LogIn) Naming.lookup("//localhost/auth");
