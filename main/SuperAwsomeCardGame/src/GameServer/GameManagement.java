@@ -1,4 +1,5 @@
 package GameServer;
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -9,7 +10,9 @@ import GameServer.GameEngine.GameEngine;
 import GameServer.Users.User;
 
 
-public class GameManagement implements Runnable, Remote {
+public class GameManagement implements Runnable, Remote, Serializable {
+   
+   private static final long serialVersionUID = 1L;
 	
 	private ArrayList<GameEngine> games;
 	private Deck startingDeck;
