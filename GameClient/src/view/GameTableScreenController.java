@@ -179,8 +179,6 @@ public class GameTableScreenController implements ControlledScreen {
 
 		onPlayerCardClicked();
 
-		onDeckClickedEvent(playerHand, starterDeck);
-
 	}
 
 	/**
@@ -453,18 +451,51 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 	}
 
-	private Action onDeckClickedEvent(Hand hand, Deck deck) {
-		playerDeckImage.setOnMouseClicked(event -> {
-			if(isTurn){
-			Card card = deck.draw();
-			playerHandImages[hand.size()].setImage(new Image(card
-					.getImagePath()));
-			hand.addCard(card);
-			}
-			else{
-				action = null;
-			}
-		});
-		return action;
+	private void determineAction(Action a)
+	{
+		if(a.getAction() == 0)
+		{
+			playCard(a);
+		}
+		else if(a.getAction() == 1)
+		{
+			acquireCard(a);
+		}
+		else if(a.getAction() == 5)
+		{
+			discardCard(a);
+		}
+		else if(a.getAction() == 6)
+		{
+			
+		}
 	}
+	
+	private void playCard(Action a)
+	{
+		Card c = a.getCard();
+		if (c.getCardType().equals("Action")) {
+			playLog.appendText("Player stole card "
+					+ c.getName() + ". "
+					+ c.getDescription() + "\n");
+		} else {
+			playLog.appendText("Player defeated "
+					+ c.getName() + ". "
+					+ c.getDescription() + "\n");
+		}
+
+	}
+	
+	private void acquireCard(Action a)
+	{
+		playLog.appendText("Player played card "
+				+ a.getCard().getName() + ". "
+				+ a.getCard().getDescription() + "\n");
+	}
+	
+	private void discardCard(Action a)
+	{
+		
+	}
+	
 }
