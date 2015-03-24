@@ -307,7 +307,7 @@ public class LogIn implements Remote, Serializable {
 	 * 
 	 * @param username
 	 * @param answer
-	 * @return
+	 * @return true if answer is correct, false if answer is incorrect
 	 * @throws SQLException
 	 */
 	public static boolean checkSecurityQuestionAnswer(String username,
@@ -326,7 +326,7 @@ public class LogIn implements Remote, Serializable {
 	/**
 	 * Return username corresponding to given email
 	 * @param email
-	 * @return
+	 * @return Username of the account the email parameter belongs to
 	 * @throws SQLException
 	 */
 	public static String findUsername(String email) throws SQLException {
@@ -346,7 +346,7 @@ public class LogIn implements Remote, Serializable {
 	/**
 	 * Get security question given email
 	 * @param email
-	 * @return
+	 * @return Security question that corresponds to the account the email belongs to
 	 * @throws SQLException
 	 */
 	public static String getSecurityQuestion(String email) throws SQLException{
