@@ -475,7 +475,7 @@ public class GameTableScreenController implements ControlledScreen {
 	{
 		Card c = a.getCard();
 		if (c.getCardType().equals("Action")) {
-			playLog.appendText("Player stole card "
+			playLog.appendText(a.getPlayerName() + " stole card "
 					+ c.getName() + ". "
 					+ c.getDescription() + "\n");
 		} else {
@@ -488,7 +488,7 @@ public class GameTableScreenController implements ControlledScreen {
 	
 	private void acquireCard(Action a)
 	{
-		playLog.appendText("Player played card "
+		playLog.appendText(a.getPlayerName() + " played card "
 				+ a.getCard().getName() + ". "
 				+ a.getCard().getDescription() + "\n");
 	}

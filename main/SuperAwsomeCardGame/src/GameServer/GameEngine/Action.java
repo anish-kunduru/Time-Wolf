@@ -86,6 +86,11 @@ public class Action implements Serializable {
 		this.c = c;
 		this.h = h;
 	}
+	
+	public String getPlayerName()
+	{
+		return username;
+	}
 
 
 	/**
