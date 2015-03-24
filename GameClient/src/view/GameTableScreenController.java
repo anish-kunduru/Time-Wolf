@@ -178,6 +178,13 @@ public class GameTableScreenController implements ControlledScreen {
 		onTableCardClicked(mainDeck, stealth, attack);
 
 		onPlayerCardClicked();
+		Card c = new Card("Bury");
+		Hand h = new Hand(3);
+		h.addCard(starterDeck.draw());
+		h.addCard(starterDeck.draw());
+		h.addCard(starterDeck.draw());
+		Action a = new Action(5, 1, c, h);
+		determineAction(a);
 
 	}
 
@@ -430,9 +437,8 @@ public class GameTableScreenController implements ControlledScreen {
 
 				try {
 					Card oldCard = new Card(image.getId());
-					playLog.appendText("You played card "
-							+ oldCard.getName() + ". "
-							+ oldCard.getDescription() + "\n");
+					playLog.appendText("You played card " + oldCard.getName()
+							+ ". " + oldCard.getDescription() + "\n");
 					lastDiscardImage.setImage(image.getImage());
 					image.setImage(null);
 				} catch (Exception e) {
@@ -451,59 +457,82 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 	}
 
-	private void determineAction(Action a)
-	{
-		if(a.getAction() == 0)
-		{
+	private void determineAction(Action a) {
+		if (a.getAction() == 0) {
 			playCard(a);
-		}
-		else if(a.getAction() == 1)
-		{
+		} else if (a.getAction() == 1) {
 			acquireCard(a);
-		}
-		else if(a.getAction() == 5)
-		{
+		} else if (a.getAction() == 5) {
 			discardCard(a);
-		}
-		else if(a.getAction() == 6)
-		{
-			
+		} else if (a.getAction() == 6) {
+
 		}
 	}
-	
-	private void playCard(Action a)
-	{
+
+	private void playCard(Action a) {
 		Card c = a.getCard();
 		if (c.getCardType().equals("Action")) {
-			playLog.appendText(a.getPlayerName() + " stole card "
-					+ c.getName() + ". "
-					+ c.getDescription() + "\n");
+			playLog.appendText(a.getPlayerName() + " stole card " + c.getName()
+					+ ". " + c.getDescription() + "\n");
 		} else {
-			playLog.appendText("Player defeated "
-					+ c.getName() + ". "
+			playLog.appendText("Player defeated " + c.getName() + ". "
 					+ c.getDescription() + "\n");
 		}
 
 	}
-	
-	private void acquireCard(Action a)
-	{
+
+	private void acquireCard(Action a) {
 		playLog.appendText(a.getPlayerName() + " played card "
-				+ a.getCard().getName() + ". "
-				+ a.getCard().getDescription() + "\n");
+				+ a.getCard().getName() + ". " + a.getCard().getDescription()
+				+ "\n");
 	}
-	
-	private void discardCard(Action a)
-	{
+
+	private void discardCard(Action a) {
 		Card c = a.getCard();
 		int discard = 0;
-		
-		if(c.getPreturnDiscard() != 0)
+
+		if (c.getPreturnDiscard() != 0)
 			discard = c.getPreturnDiscard();
 		else
 			discard = c.getPostturnDiscard();
+
+		for (int i = 0; i < discard; i++) {
+			discardCardClicked();
+		}
 		
-		
+		int j = 0;
+		for(int i = 0; i < a.getHand().size(); i++)
+		{
+			while(playerHandImages[j] != null)
+			{
+				j++;
+			}
+			playerHandImages[j].setImage(new Image(a.getHand().get(i).getImagePath()));
+		}
+
 	}
-	
+
+	private void discardCardEvent(ImageView img) {
+		img.setOnMouseClicked(event -> {
+			try {
+				Card c = new Card(img.getId());
+				playLog.appendText("You discarded card " + c.getName() + ". "
+						+ c.getDescription() + "\n");
+
+				lastDiscardImage.setImage(img.getImage());
+				img.setImage(null);
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+
+	private void discardCardClicked() {
+		for (int i = 0; i < playerHandImages.length; i++) {
+			discardCardEvent(playerHandImages[i]);
+		}
+	}
+
 }

@@ -120,7 +120,7 @@ public class Action implements Serializable {
 	
 	public Hand getHand()
 	{
-		return new Hand(5);
+		return h;
 	}
 	
 	
