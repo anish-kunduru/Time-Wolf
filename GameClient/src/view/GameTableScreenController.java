@@ -179,17 +179,6 @@ public class GameTableScreenController implements ControlledScreen {
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
 
-		System.out.println(playerHandNine);
-
-		onPlayerCardClicked();
-		Card c = new Card("Bury");
-		Hand h = new Hand(3);
-		h.addCard(starterDeck.draw());
-		h.addCard(starterDeck.draw());
-		h.addCard(starterDeck.draw());
-		Action a = new Action(5, 1, c, h);
-		determineAction(a);
-
 	}
 
 	/**
@@ -373,7 +362,6 @@ public class GameTableScreenController implements ControlledScreen {
 					else {
 
 						// Append action to the play log.
-						// TODO get player's name
 
 						// System.out.println(oldCard.getCardType());
 						if (oldCard.getCardType().equals("Action")) {
@@ -403,7 +391,6 @@ public class GameTableScreenController implements ControlledScreen {
 						image.setId(card.getName());
 					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else {
@@ -521,11 +508,7 @@ public class GameTableScreenController implements ControlledScreen {
 			discard = c.getPostturnDiscard();
 		isDiscard = true;
 		counter = 3;
-		//
-		// for (int i = 0; i < discard; i++) {
-		// isDiscard = true;
-		// }
-		// isDiscard = false;
+
 		int j = 0;
 		for (int i = 0; i < a.getHand().size(); i++) {
 			while (playerHandImages[j].getImage() != null) {
@@ -536,34 +519,5 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 
 	}
-	
-	
-
-	// private void discardCardEvent(ImageView img) {
-	// img.setOnMouseClicked(event -> {
-	// if (isDiscard && counter > 0) {
-	// try {
-	// Card c = new Card(img.getId());
-	// playLog.appendText("You discarded card " + c.getName()
-	// + ". " + c.getDescription() + "\n");
-	//
-	// lastDiscardImage.setImage(img.getImage());
-	// img.setImage(null);
-	//
-	//
-	//
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-	//
-	// private void discardCardClicked() {
-	// for (int i = 0; i < playerHandImages.length; i++) {
-	// discardCardEvent(playerHandImages[i]);
-	// }
-	// }
 
 }
