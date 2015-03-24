@@ -398,7 +398,7 @@ public class GameTableScreenController implements ControlledScreen {
 					e1.printStackTrace();
 				}
 			} else {
-
+				action = null;
 			}
 
 		});
@@ -422,23 +422,26 @@ public class GameTableScreenController implements ControlledScreen {
 	private Action onPlayerCardClickedEvent(ImageView image) {
 
 		image.setOnMouseClicked(event -> {
-
-			for (int i = 0; i < playerHandImages.length; i++) {
-				if (playerHandImages[i].getId() == null) {
-					System.out.println(playerHandImages[i].getId());
-					playerHandImages[i].setVisible(false);
+			if (isTurn) {
+				for (int i = 0; i < playerHandImages.length; i++) {
+					if (playerHandImages[i].getId() == null) {
+						System.out.println(playerHandImages[i].getId());
+						playerHandImages[i].setVisible(false);
+					}
 				}
-			}
 
-			try {
-				Card oldCard = new Card(image.getId());
-				playLog.appendText("Player one played card "
-						+ oldCard.getName() + ". " + oldCard.getDescription()
-						+ "\n");
-				lastDiscardImage.setImage(image.getImage());
-				image.setImage(null);
-			} catch (Exception e) {
-				e.printStackTrace();
+				try {
+					Card oldCard = new Card(image.getId());
+					playLog.appendText("Player one played card "
+							+ oldCard.getName() + ". "
+							+ oldCard.getDescription() + "\n");
+					lastDiscardImage.setImage(image.getImage());
+					image.setImage(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				action = null;
 			}
 		});
 		return action;
@@ -452,10 +455,15 @@ public class GameTableScreenController implements ControlledScreen {
 
 	private Action onDeckClickedEvent(Hand hand, Deck deck) {
 		playerDeckImage.setOnMouseClicked(event -> {
+			if(isTurn){
 			Card card = deck.draw();
 			playerHandImages[hand.size()].setImage(new Image(card
 					.getImagePath()));
 			hand.addCard(card);
+			}
+			else{
+				action = null;
+			}
 		});
 		return action;
 	}
