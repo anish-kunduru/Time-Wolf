@@ -15,8 +15,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.ImageView;import javafx.util.Duration;
-
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class RegistrationScreenController implements ControlledScreen
 {
@@ -70,12 +70,12 @@ public class RegistrationScreenController implements ControlledScreen
 
    @FXML
    private Label errorLabel;
-   
+
    // Validity checks.
    private boolean validUsername = false;
    private boolean validEmail = false;
    private boolean validPassword = false;
-   
+
    @FXML
    public void initialize()
    {
@@ -124,7 +124,7 @@ public class RegistrationScreenController implements ControlledScreen
             validEmail = false;
          }
       });
-      
+
       // Check if passwords match.
       checkPasswordField.setOnKeyReleased(event ->
       {
@@ -162,10 +162,10 @@ public class RegistrationScreenController implements ControlledScreen
             try
             {
                MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText());
-               
+
                // Timeline action event.
                errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");
-               
+
                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
                {
                   parentController.displayScreen(MainView.LOGIN_SCREEN);
