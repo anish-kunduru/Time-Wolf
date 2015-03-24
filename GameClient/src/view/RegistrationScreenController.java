@@ -40,14 +40,9 @@ public class RegistrationScreenController implements ControlledScreen
    @FXML
    private TextField checkEmailTextField;
    @FXML
-   private TextField questionOneTextField;
+   private TextField securityAnswerTextField;
    @FXML
-   private TextField questionTwoTextField;
-
-   @FXML
-   private ComboBox questionOneComboBox;
-   @FXML
-   private ComboBox questionTwoComboBox;
+   private TextField securityQuestionTextField;
 
    @FXML
    private CheckBox over13CheckBox;
@@ -161,7 +156,7 @@ public class RegistrationScreenController implements ControlledScreen
          {
             try
             {
-               //MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText());
+               MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(), securityQuestionTextField.getText(), securityAnswerTextField.getText());
 
                // Timeline action event.
                errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");
