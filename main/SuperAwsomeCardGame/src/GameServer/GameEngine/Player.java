@@ -6,7 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import view.GameTableScreenController;
+//import view.GameTableScreenController;
 import GameServer.Users.User;
 
 /**An object that will have a user's ID for each player in a game to 
@@ -17,7 +17,7 @@ import GameServer.Users.User;
 
 public class Player {
 	
-	private GameTableScreenController client;
+	//private GameTableScreenController client;
 	private User user;
 	private boolean isTurn;
 	private Hand hand;
@@ -119,7 +119,7 @@ public class Player {
 		this.stealth = 0;
 		this.VP = 0;
 		
-		this.client = (GameTableScreenController) Naming.lookup(clientRegistryName);
+		//this.client = (GameTableScreenController) Naming.lookup(clientRegistryName);
 		
 	}
 	
