@@ -68,6 +68,11 @@ public class LogIn implements Remote, Serializable {
 		}
 	}
 
+	/**
+	 * Initializes and returns a UserStats object given a userID
+	 * @param userID - UserID to initialize the statistics of
+	 * @return the UserStats object corresponding to the given UserID
+	 */
 	private static UserStats initStats(int userID) {
 		try {
 
