@@ -122,8 +122,10 @@ public class GameTableScreenController implements ControlledScreen {
 	private Card cardForAction;
 	private Action action;
 	private boolean isTurn;
+	private boolean isDiscard;
 	private int stealth;
 	private int attack;
+	private int counter;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -176,6 +178,8 @@ public class GameTableScreenController implements ControlledScreen {
 
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
+
+		System.out.println(playerHandNine);
 
 		onPlayerCardClicked();
 		Card c = new Card("Bury");
@@ -427,7 +431,25 @@ public class GameTableScreenController implements ControlledScreen {
 	private Action onPlayerCardClickedEvent(ImageView image) {
 
 		image.setOnMouseClicked(event -> {
-			if (isTurn) {
+
+			if (isTurn && isDiscard && counter > 0) {
+				try {
+					Card c = new Card(image.getId());
+					playLog.appendText("You discarded card " + c.getName()
+							+ ". " + c.getDescription() + "\n");
+
+					lastDiscardImage.setImage(image.getImage());
+					image.setImage(null);
+
+					counter--;
+					if (counter == 0)
+						isDiscard = false;
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (isTurn) {
 				for (int i = 0; i < playerHandImages.length; i++) {
 					if (playerHandImages[i].getId() == null) {
 						System.out.println(playerHandImages[i].getId());
@@ -444,7 +466,9 @@ public class GameTableScreenController implements ControlledScreen {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else {
+			}
+
+			else {
 				action = null;
 			}
 		});
@@ -495,44 +519,51 @@ public class GameTableScreenController implements ControlledScreen {
 			discard = c.getPreturnDiscard();
 		else
 			discard = c.getPostturnDiscard();
-
-		for (int i = 0; i < discard; i++) {
-			discardCardClicked();
-		}
-		
+		isDiscard = true;
+		counter = 3;
+		//
+		// for (int i = 0; i < discard; i++) {
+		// isDiscard = true;
+		// }
+		// isDiscard = false;
 		int j = 0;
-		for(int i = 0; i < a.getHand().size(); i++)
-		{
-			while(playerHandImages[j] != null)
-			{
+		for (int i = 0; i < a.getHand().size(); i++) {
+			while (playerHandImages[j].getImage() != null) {
 				j++;
 			}
-			playerHandImages[j].setImage(new Image(a.getHand().get(i).getImagePath()));
+			playerHandImages[j].setImage(new Image(a.getHand().get(i)
+					.getImagePath()));
 		}
 
 	}
+	
+	
 
-	private void discardCardEvent(ImageView img) {
-		img.setOnMouseClicked(event -> {
-			try {
-				Card c = new Card(img.getId());
-				playLog.appendText("You discarded card " + c.getName() + ". "
-						+ c.getDescription() + "\n");
-
-				lastDiscardImage.setImage(img.getImage());
-				img.setImage(null);
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-	}
-
-	private void discardCardClicked() {
-		for (int i = 0; i < playerHandImages.length; i++) {
-			discardCardEvent(playerHandImages[i]);
-		}
-	}
+	// private void discardCardEvent(ImageView img) {
+	// img.setOnMouseClicked(event -> {
+	// if (isDiscard && counter > 0) {
+	// try {
+	// Card c = new Card(img.getId());
+	// playLog.appendText("You discarded card " + c.getName()
+	// + ". " + c.getDescription() + "\n");
+	//
+	// lastDiscardImage.setImage(img.getImage());
+	// img.setImage(null);
+	//
+	//
+	//
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void discardCardClicked() {
+	// for (int i = 0; i < playerHandImages.length; i++) {
+	// discardCardEvent(playerHandImages[i]);
+	// }
+	// }
 
 }
