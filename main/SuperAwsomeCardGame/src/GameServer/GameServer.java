@@ -9,43 +9,47 @@ import java.sql.SQLException;
 
 import GameServer.Users.LogIn;
 
+public class GameServer
+{
 
-public class GameServer {
-	
-	public static void main(String[] args)
-	   {
-	      System.out.println("TEST");
-	      LogIn login = new LogIn();
-	      try
-	      {
-	    	 GameManagement gm = new GameManagement();
-	         Registry r = LocateRegistry.createRegistry(1099);
-	         Naming.rebind("//localhost/auth", login);
-	         Naming.rebind("//localhost/game", gm);
-	      }
-	      catch (RemoteException e)
-	      {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }
-	      catch (MalformedURLException e)
-	      {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      } catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-	      }
-	      while (true)
-	         try
-	         {
-	        	Thread.sleep(60000);
-	         }
-	         catch (InterruptedException e)
-	         {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	         }
-	   }
+   public static void main(String[] args)
+   {
+      // DEBUG
+      System.out.println("Game server launched.");
+
+      LogIn login = new LogIn();
+      try
+      {
+         GameManagement gm = new GameManagement();
+         Registry r = LocateRegistry.createRegistry(1099);
+         Naming.rebind("//localhost/auth", login);
+         Naming.rebind("//localhost/game", gm);
+      }
+      catch (RemoteException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      catch (MalformedURLException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      catch (SQLException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      while (true)
+         try
+         {
+            Thread.sleep(60000);
+         }
+         catch (InterruptedException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+   }
 
 }

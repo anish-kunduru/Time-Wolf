@@ -25,7 +25,7 @@ public class RegistrationServer
       
       try
       {
-         Registry r = LocateRegistry.createRegistry(1098);
+         LocateRegistry.createRegistry(1098);
          Naming.rebind("//localhost/auth", login);
       }
       catch (RemoteException e)
