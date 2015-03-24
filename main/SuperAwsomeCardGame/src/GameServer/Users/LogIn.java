@@ -58,6 +58,8 @@ public class LogIn implements Remote, Serializable {
 			u.setEmail(rs.getString("Email"));
 			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
+			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
+			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
 			u.Statistics = initStats(u.getID());
 
 			return u;
