@@ -452,6 +452,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		Player p = this.players[this.currentPlayerIndex];
 		
 		System.out.println("\n\n\n");
+		System.out.println("Player: " + p.getUser().getUsername());
 		System.out.println("VP: " + p.getVP() + "\tStealth: " + p.getStealth() + "\tAttack: " + p.getAttack());
 		System.out.println("Hand Size: " + p.getHand().size() + "\tDeck Size: " + p.getDeck().size() + "\tDiscard Size: " + p.getDiscardPile().size());
 		System.out.println("Choose:");
@@ -481,7 +482,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 				input = "1";
 			}
 			
-			int cardIndex = Integer.parseInt(input);
+			int cardIndex = Integer.parseInt(input) -1;
 			
 			chosen = new Action(Action.PLAY_CARD, cardIndex, p.getHand().get(cardIndex));
 			
@@ -497,9 +498,9 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 				input = "1";
 			}
 			
-			int cardIndex = Integer.parseInt(input);
+			int cardIndex = Integer.parseInt(input) - 1;
 			
-			chosen = new Action(Action.AQUIRE_CARD, cardIndex, p.getHand().get(cardIndex));
+			chosen = new Action(Action.AQUIRE_CARD, cardIndex, this.mainPlayAreaCards.get(cardIndex));
 			
 		} else if(input.equals("3")) {
 			GameEngine.printHand(p.getHand());
@@ -628,11 +629,13 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 			 * the intial correct state.
 			 */
 			
-			
+
 			this.currentPlayerIndex++; //Choose the next player to take a turn
-			if(this.currentNumOfPlayers == this.totalNumOfPlayers) {
+			if(this.currentPlayerIndex == this.totalNumOfPlayers) {
 				this.currentPlayerIndex = 0;
 			}
+
+			
 			
 			//Now that we're done with the turn, reset the player
 			currentPlayer.resetPlayer();

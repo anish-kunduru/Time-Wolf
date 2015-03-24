@@ -46,7 +46,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 	 * Returns a list of games to join for the game lobby screen
 	 * @return list of available games to join
 	 */
-	public ArrayList<String> ListJoinableGames()
+	public ArrayList<String> listJoinableGames()
 	{
 		//TODO : We can't return game engines here... String is probably not enough though
 		ArrayList<String> available = new ArrayList<String>();
