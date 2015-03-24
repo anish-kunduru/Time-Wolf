@@ -27,6 +27,8 @@ public class Action implements Serializable {
 	private int action;
 	private int cardIndex;
 	private Card c;
+	private String username;
+	private Hand h;
 	
 	/**
 	 * Build a simple action object.
@@ -66,6 +68,24 @@ public class Action implements Serializable {
 		
 		
 	}
+	
+	public Action(int action, int cardIndex, Card c, String user)
+	{
+		this.action = action;
+		this.cardIndex = cardIndex;
+		this.c = c;
+		this.username = user;
+		
+	}
+	
+	public Action(int action, int cardIndex, Card c, Hand h)
+	{
+
+		this.action = action;
+		this.cardIndex = cardIndex;
+		this.c = c;
+		this.h = h;
+	}
 
 
 	/**
@@ -92,6 +112,12 @@ public class Action implements Serializable {
 	public Card getCard() {
 		return c;
 	}
+	
+	public Hand getHand()
+	{
+		return new Hand(5);
+	}
+	
 	
 	
 }

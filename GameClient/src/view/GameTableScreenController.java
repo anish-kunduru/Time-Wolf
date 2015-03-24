@@ -495,6 +495,14 @@ public class GameTableScreenController implements ControlledScreen {
 	
 	private void discardCard(Action a)
 	{
+		Card c = a.getCard();
+		int discard = 0;
+		
+		if(c.getPreturnDiscard() != 0)
+			discard = c.getPreturnDiscard();
+		else
+			discard = c.getPostturnDiscard();
+		
 		
 	}
 	
