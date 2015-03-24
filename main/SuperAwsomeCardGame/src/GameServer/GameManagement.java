@@ -60,6 +60,15 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 		return available;
 	}
 	
+	public ArrayList<GameEngine> SearchGames()
+	{
+		ArrayList<GameEngine> games = new ArrayList<GameEngine>();
+		
+		
+		return games;
+		
+	}
+	
 	
 	public void createGame(int numberOfPlayers, String gameName) {
 		GameEngine ge;
