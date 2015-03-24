@@ -227,6 +227,8 @@ public class LogIn implements Remote, Serializable {
 			u.setPassword(rs.getString("Password"));
 			u.setBannedStatus(rs.getBoolean("IsBanned"));
 			u.initStats();
+			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
+			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
 			users.add(u);
 		}
 
