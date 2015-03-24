@@ -366,11 +366,11 @@ public class GameTableScreenController implements ControlledScreen {
 
 						// System.out.println(oldCard.getCardType());
 						if (oldCard.getCardType().equals("Action")) {
-							playLog.appendText("Player one stole card "
+							playLog.appendText("You stole card "
 									+ oldCard.getName() + ". "
 									+ oldCard.getDescription() + "\n");
 						} else {
-							playLog.appendText("Player one defeated "
+							playLog.appendText("You defeated "
 									+ oldCard.getName() + ". "
 									+ oldCard.getDescription() + "\n");
 						}
@@ -430,7 +430,7 @@ public class GameTableScreenController implements ControlledScreen {
 
 				try {
 					Card oldCard = new Card(image.getId());
-					playLog.appendText("Player one played card "
+					playLog.appendText("You played card "
 							+ oldCard.getName() + ". "
 							+ oldCard.getDescription() + "\n");
 					lastDiscardImage.setImage(image.getImage());

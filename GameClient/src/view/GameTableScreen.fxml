@@ -26,10 +26,10 @@
       				</ScrollPane>
       				<AnchorPane layoutX="200.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="880.0" style="-fx-background-color: d3d3d3;">
       					<children>
-                        <AnchorPane layoutX="46.0" layoutY="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                        <AnchorPane layoutX="46.0" layoutY="506.0" prefHeight="192.0" prefWidth="721.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
-                              <ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="389.0" />
-                              <ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="475.0" />
+                              <ImageView fx:id="playerHandTen" fitHeight="170.0" fitWidth="96.0" layoutX="403.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="403.0" AnchorPane.topAnchor="40.0" />
+                              <ImageView fx:id="playerHandEleven" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="475.0" AnchorPane.topAnchor="40.0" />
                               <ImageView fx:id="playerHandTwelve" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="550.0" />
                               <ImageView fx:id="playerHandThirteen" fitHeight="170.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="625.0" />
                            </children>
