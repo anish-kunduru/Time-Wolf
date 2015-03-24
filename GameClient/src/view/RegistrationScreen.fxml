@@ -134,8 +134,9 @@
 			mnemonicParsing="false" text="Cancel" />
 		<ImageView fx:id="userImage" fitHeight="250.0" fitWidth="250.0"
 			layoutX="937.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
-		<Label fx:id="errorLabel" prefHeight="20.0" prefWidth="0.0"
-			textFill="RED" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="400.0">
+		<Label fx:id="errorLabel" contentDisplay="CENTER" prefHeight="20.0"
+			prefWidth="500.0" textFill="RED" AnchorPane.bottomAnchor="150.0"
+			AnchorPane.leftAnchor="390.0">
 			<font>
 				<Font size="14.0" />
 			</font>

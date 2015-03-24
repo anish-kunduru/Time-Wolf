@@ -6,6 +6,8 @@
 
 package view;
 
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -13,10 +15,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import GameServer.Users.LogIn;
-import GameServer.Users.User;
+import javafx.scene.image.ImageView;import javafx.util.Duration;
+
 
 public class RegistrationScreenController implements ControlledScreen
 {
@@ -162,6 +162,15 @@ public class RegistrationScreenController implements ControlledScreen
             try
             {
                MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText());
+               
+               // Timeline action event.
+               errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");
+               
+               Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
+               {
+                  parentController.displayScreen(MainView.LOGIN_SCREEN);
+               }));
+               timeline.play();
             }
             catch (Exception e)
             {
