@@ -323,6 +323,12 @@ public class LogIn implements Remote, Serializable {
 			return false;
 	}
 
+	/**
+	 * Return username corresponding to given email
+	 * @param email
+	 * @return
+	 * @throws SQLException
+	 */
 	public static String getUsername(String email) throws SQLException {
 		String un = "";
 		DBHelper dbh = new DBHelper();
