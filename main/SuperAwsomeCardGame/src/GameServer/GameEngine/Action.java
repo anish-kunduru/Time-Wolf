@@ -20,6 +20,8 @@ public class Action implements Serializable {
 	public static final int END_TURN = 2;
 	public static final int VIEW_CENTER = 3;	//Used for text based thing
 	public static final int VIEW_HAND = 4;		//Used for text based thing
+	public static final int DISCARD = 5;
+	public static final int TRASH = 6;
 	
 	
 	private int action;
