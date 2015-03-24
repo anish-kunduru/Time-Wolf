@@ -282,6 +282,18 @@ public class LogIn implements Remote, Serializable {
 		// if ID == 0 then no user is selected
 	}
 	
+	
+	public static void resetPassword(String username, String newPassword) throws RemoteException
+	{
+
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET Password='" + newPassword
+				+ "' WHERE Username='" + username + "'";
+
+		dbh.executeUpdate(query);
+		
+	}
+	
 	/**
 	 * Inserts new feedback record into database
 	 */
