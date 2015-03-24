@@ -67,8 +67,8 @@ public class LoginScreenController implements ControlledScreen
                MainModel.getModel().currentLoginData().setUserID(userOne.getID());
 
                // DEBUG
-               System.out.println("usernameTextField.getText()");
-               System.out.println("passwordTextField.getText()");
+               System.out.println(usernameTextField.getText());
+               System.out.println(passwordTextField.getText());
                System.out.println(MainModel.getModel().currentLoginData().getUsername());
                System.out.println("Login succesful. User ID: " + userOne.getID());
 
