@@ -7,7 +7,7 @@ import java.util.Random;
 
 import GameServer.DBHelper;
 
-public class Deck implements Serializable {
+public class Deck {
 	
    private static final long serialVersionUID = 1L;
    

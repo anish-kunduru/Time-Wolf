@@ -2,6 +2,7 @@ package GameServer;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,9 +11,9 @@ import GameServer.GameEngine.GameEngine;
 import GameServer.Users.User;
 
 
-public class GameManagement implements Runnable, Remote, Serializable {
+public class GameManagement extends UnicastRemoteObject implements Runnable, Remote {
    
-   private static final long serialVersionUID = 1L;
+   //private static final long serialVersionUID = 1L;
 	
 	private ArrayList<GameEngine> games;
 	private Deck startingDeck;
@@ -26,7 +27,7 @@ public class GameManagement implements Runnable, Remote, Serializable {
 	 * the entirety of the system.
 	 * @throws SQLException
 	 */
-	public GameManagement() throws SQLException {
+	public GameManagement() throws SQLException, RemoteException {
 		
 		this.games = new ArrayList<GameEngine>();
 		
@@ -45,14 +46,15 @@ public class GameManagement implements Runnable, Remote, Serializable {
 	 * Returns a list of games to join for the game lobby screen
 	 * @return list of available games to join
 	 */
-	public ArrayList<GameEngine> ListJoinableGames()
+	public ArrayList<String> ListJoinableGames()
 	{
-		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
+		//TODO : We can't return game engines here... String is probably not enough though
+		ArrayList<String> available = new ArrayList<String>();
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
 			{
-				available.add(games.get(i));
+				available.add(games.get(i).getName());
 			}
 		}
 		
@@ -125,7 +127,13 @@ public class GameManagement implements Runnable, Remote, Serializable {
 	public static void main(String[] args) {
 		
 		try {
-			GameManagement m = new GameManagement();
+			GameManagement m = null;
+			try {
+				m = new GameManagement();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			User u1 = new User();
 			User u2 = new User();
 			
