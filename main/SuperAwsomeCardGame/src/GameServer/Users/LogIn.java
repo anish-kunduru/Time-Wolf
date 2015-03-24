@@ -118,27 +118,29 @@ public class LogIn implements Remote, Serializable {
 			int pos = 0;
 			int total = 0;
 			while (rs.next()) {
-				if(rs.getBoolean("isGood"))
+				if (rs.getBoolean("isGood"))
 					pos++;
 				total++;
 			}
-			karma = pos/total;
+			karma = pos / total;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return karma;
 
 	}
-	
+
 	/**
 	 * Updates stats in database
 	 */
-	public void UpdateStats(User u)
-	{
+	public void UpdateStats(User u) {
 		DBHelper dbh = new DBHelper();
-		String query = "UPDATE Statistics SET TotalGames=" + u.Statistics.getGamesPlayed() + ",TotalWins=" + u.Statistics.getGamesWon() + ",TotalPoints=" + u.Statistics.getTotalPoints();
+		String query = "UPDATE Statistics SET TotalGames="
+				+ u.Statistics.getGamesPlayed() + ",TotalWins="
+				+ u.Statistics.getGamesWon() + ",TotalPoints="
+				+ u.Statistics.getTotalPoints();
 		query = query + " WHERE UserID=" + u.getID();
 		dbh.executeUpdate(query);
 	}
@@ -171,8 +173,8 @@ public class LogIn implements Remote, Serializable {
 	 * @return the user object returned by this registration
 	 * @throws Exception
 	 */
-	public static User register(String username, String email, String password, String question, String answer)
-			throws RemoteException, Exception {
+	public static User register(String username, String email, String password,
+			String question, String answer) throws RemoteException, Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO User ";
@@ -281,51 +283,69 @@ public class LogIn implements Remote, Serializable {
 
 		// if ID == 0 then no user is selected
 	}
-	
+
 	/**
 	 * Overload method for forgot password functionality
+	 * 
 	 * @param username
 	 * @param newPassword
 	 * @throws RemoteException
 	 */
-	public static void resetPassword(String username, String newPassword) throws RemoteException
-	{
+	public static void resetPassword(String username, String newPassword)
+			throws RemoteException {
 
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET Password='" + newPassword
 				+ "' WHERE Username='" + username + "'";
 
 		dbh.executeUpdate(query);
-		
+
 	}
-	
+
 	/**
 	 * Check security question for given username
+	 * 
 	 * @param username
 	 * @param answer
 	 * @return
 	 * @throws SQLException
 	 */
-	public static boolean checkSecurityQuestionAnswer(String username, String answer) throws SQLException
-	{
+	public static boolean checkSecurityQuestionAnswer(String username,
+			String answer) throws SQLException {
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * FROM User WHERE Username='" + username + "' AND SecurityAnswer='" + answer + "'";
+		String query = "SELECT * FROM User WHERE Username='" + username
+				+ "' AND SecurityAnswer='" + answer + "'";
 		ResultSet rs = dbh.executeQuery(query);
-		
-		if(rs.first())
+
+		if (rs.first())
 			return true;
 		else
 			return false;
 	}
-	
+
+	public static String getUsername(String email) throws SQLException {
+		String un = "";
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User WHERE Email='" + email + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		if(rs.first())
+		{
+			un = rs.getString("Username");
+		}
+
+		return un;
+
+	}
+
 	/**
 	 * Inserts new feedback record into database
 	 */
-	public static void insertFeedback(int userID, boolean isPositive, String comment)
-	{
+	public static void insertFeedback(int userID, boolean isPositive,
+			String comment) {
 		String query = "INSERT INTO Feedback ";
 		query += "(UserID, isGood, Comment)";
-		query += "VALUES ('" + userID + "','" + isPositive + "','" + comment + "')";
+		query += "VALUES ('" + userID + "','" + isPositive + "','" + comment
+				+ "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
