@@ -101,20 +101,17 @@ public class GameManagement implements Runnable, Remote, Serializable {
 	}
 
 	public boolean startGame(int game) {
-		
+
 		//If the game doesn't exist, we can't start it
-		if(game >= 0 && game < this.games.size()) return false;
+		if(game < 0 || game >= this.games.size()) return false;
 		
 		GameEngine g = this.games.get(game);
 		
 		//The game can't have already have started and the game must be full
 		if(g.hasStarted() || !g.isFull()) return false;
 		
-		//Start it
-		if(g.start()) return true;
-		
-		//Otherwise return false
-		return false;
+		//Return the status of the game engine startup
+		return g.start();
 	}
 
 
@@ -123,6 +120,43 @@ public class GameManagement implements Runnable, Remote, Serializable {
 	public void run() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		
+		try {
+			GameManagement m = new GameManagement();
+			User u1 = new User();
+			User u2 = new User();
+			
+			u1.setUsername("Player 1");
+			u2.setUsername("Player 2");
+			
+			m.createGame(2, "The Game");
+			
+			m.addUserToGame(0, u1, "//Path/ToClient");
+			m.addUserToGame(0, u2, "//Path/ToClient");
+			
+			
+			
+			if(m.startGame(0)) {
+				System.out.println("Good."); 
+			} else {
+				System.out.println("Bad.");
+			}
+			
+			while(true)
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

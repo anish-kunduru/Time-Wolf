@@ -580,7 +580,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	@Override
 	public void run() {
 		// TODO The main loop of logic goes here for the game engine.
-		
+		System.out.println("Game engine main.");
 		Player currentPlayer;
 		
 		
