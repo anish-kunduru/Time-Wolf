@@ -91,7 +91,7 @@ public class RegistrationScreenController implements ControlledScreen
             login = (LogIn) Naming.lookup("//localhost/auth");
 
             // DEBUG
-            System.out.println("Connected to the registration server.");
+            System.out.println("Connected to the server.");
          }
          catch (Exception e)
          {
