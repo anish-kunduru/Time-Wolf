@@ -34,7 +34,7 @@ public class GameServer {
 	      } catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+	      }
 	      while (true)
 	         try
 	         {
