@@ -24,6 +24,8 @@ public class User implements Serializable {
    private String email;
    private String password;
    private String imgPath;
+   private String securityQuestion;
+   private String securityAnswer;
    public UserStats Statistics;
    private boolean isBanned;
    private int role;
@@ -38,6 +40,8 @@ public class User implements Serializable {
       this.email = "";
       this.password = "";
       this.imgPath = "";
+      securityQuestion = "";
+      securityAnswer = "";
       this.Statistics = null;
       this.isBanned = false;
       this.role = 0;
@@ -87,6 +91,41 @@ public class User implements Serializable {
    public void setEmail(String email)
    {
       this.email = email;
+   }
+   
+   /**
+    * Returns the security question of the user.
+    * @return securityQuestion
+    */
+   
+   public String getSecurityQuestion(){
+	   return securityQuestion;
+   }
+   
+   /**
+    * Sets the security question of the user.
+    * @param securityQuestion
+    */
+   
+   public void setSecurityQuestion(String securityQuestion){
+	   this.securityQuestion = securityQuestion;
+   }
+   
+   /**
+    * Gets the answer to the security question of the user.
+    * @return securityAnswer
+    */
+   public String getSecurityAnswer(){
+	   return securityAnswer;
+   }
+   
+   /**
+    * Sets the answer to the security question of the user.
+    * @param securityAnswer
+    */
+   
+   public void setSecurityAnswer(String securityAnswer){
+	   this.securityAnswer = securityAnswer;
    }
 
    /**
