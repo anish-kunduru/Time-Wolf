@@ -1,5 +1,4 @@
 package GameServer;
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -59,6 +58,40 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 		}
 		
 		return available;
+	}
+	
+
+	public ArrayList<GameEngine> SearchGames(String name)
+	{
+		ArrayList<GameEngine> games = SearchGames(name, 0);
+		return games;
+		
+	}
+	public ArrayList<GameEngine> SearchGames(int players)
+	{
+		ArrayList<GameEngine> games =  SearchGames("", players);
+		return games;
+	}
+	public ArrayList<GameEngine> SearchGames(String name, int players)
+	{
+		boolean nameSearch = (name != "");
+		boolean playerSearch = (players > 0);
+		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
+		for(int i = 0; i < games.size(); i++)
+		{
+			if(!games.get(i).isRunning() && !games.get(i).isFinished())
+			{
+				if((games.get(i).getName().equals(name) || !nameSearch) && 
+						(games.get(i).getTotalNumOfPlayers() == players || !playerSearch))
+				{
+					available.add(games.get(i));
+				}
+			}
+		}
+		
+		
+		return available;
+		
 	}
 	
 	

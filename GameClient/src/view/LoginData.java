@@ -7,12 +7,16 @@
 
 package view;
 
+import GameServer.Users.LogIn;
+
 public class LoginData
 {
    // Login information.
    private String usernameString;
-
    private int userID;
+   
+   // Login connection.
+   private LogIn logInConnection;
 
    /**
     * Default constructor to use in singleton.
@@ -40,6 +44,16 @@ public class LoginData
    {
       this.userID = userID;
    }
+   
+   /**
+    * Sets the loginConnection.
+    * 
+    * @param loginConnection An valid LogInConnection that can be accessed and used by other screens.
+    */
+   public void setLogInConnection(LogIn loginConnection)
+   {
+      this.logInConnection = loginConnection;
+   }
 
    /**
     * @return The valid username of the current player.
@@ -55,5 +69,13 @@ public class LoginData
    public int getUserID()
    {
       return userID;
+   }
+   
+   /**
+    * @return The LogIn object created when the application was launched.
+    */
+   public LogIn getLogInConnection()
+   {
+      return logInConnection;
    }
 }

@@ -40,49 +40,56 @@ public class LoginScreenController implements ControlledScreen
    // So we can set the screen's parent later on.
    MainController parentController;
 
+   // So that we can call it from different event listeners.
+   private LogIn login;
+
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded.
     */
    @FXML
    public void initialize()
    {
+      // Initialize login and store in singleton.
+      try
+      {
+         login = (LogIn) Naming.lookup("//localhost/auth");
+
+         MainModel.getModel().currentLoginData().setLogInConnection(login);
+      }
+      catch (Exception e)
+      {
+         errorMessage.setText("The server is offline. Please try again later.");
+      }
+
       // Event handlers for buttons.
       // The arrow means lambda expression in Java.
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
       loginButton.setOnAction(event ->
       {
+         User userOne = new User();
+
          try
          {
-            LogIn login = (LogIn) Naming.lookup("//localhost/auth");
-            User userOne = new User();
+            userOne = login.logIn(usernameTextField.getText(), passwordTextField.getText());
+            // TEST LOGIN: username: ssimmons, password: password
 
-            try
-            {
-               userOne = login.logIn(usernameTextField.getText(), passwordTextField.getText());
-               // TEST LOGIN: username: ssimmons, password: password
+            // This will only be called if an exception isn't thrown by the previous statement, so no need to worry about error handling.
+            // Set the login information in our shared model so that we can access it from other controllers.
+            MainModel.getModel().currentLoginData().setUsername(usernameTextField.getText());
+            MainModel.getModel().currentLoginData().setUserID(userOne.getID());
 
-               // This will only be called if an exception isn't thrown by the previous statement, so no need to worry about error handling.
-               // Set the login information in our shared model so that we can access it from other controllers.
-               MainModel.getModel().currentLoginData().setUsername(usernameTextField.getText());
-               MainModel.getModel().currentLoginData().setUserID(userOne.getID());
+            // DEBUG
+            System.out.println(usernameTextField.getText());
+            System.out.println(passwordTextField.getText());
+            System.out.println(MainModel.getModel().currentLoginData().getUsername());
+            System.out.println("Login succesful. User ID: " + userOne.getID());
 
-               // DEBUG
-               System.out.println(usernameTextField.getText());
-               System.out.println(passwordTextField.getText());
-               System.out.println(MainModel.getModel().currentLoginData().getUsername());
-               System.out.println("Login succesful. User ID: " + userOne.getID());
-
-               // Go to the next screen.
-               parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
-            }
-            catch (Exception e)
-            {
-               errorMessage.setText(e.getMessage());
-            }
+            // Go to the next screen.
+            parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
          }
          catch (Exception e)
          {
-            errorMessage.setText("The server is offline. Please try again later.");
+            errorMessage.setText(e.getMessage());
          }
       });
 

@@ -59,7 +59,6 @@ public class GameTableScreenController implements ControlledScreen {
 	private Label Stealth;
 
 	// Images for the cards currently in player's hand
-
 	@FXML
 	private ImageView playerHandOne;
 	@FXML
@@ -351,52 +350,55 @@ public class GameTableScreenController implements ControlledScreen {
 	private Action onTableCardClickedEvent(ImageView image, Deck deck,
 			int stealth, int attack) {
 		image.setOnMouseClicked(event -> {
-
-			// Check to see if player can afford card first.
-			Card oldCard;
-			try {
-				oldCard = new Card(image.getId());
-				if (oldCard.getCostAttack() > attack
-						|| oldCard.getCostStealth() > stealth) {
-					playLog.appendText("Can't afford that card. \n");
-					action = null;
-				}
-
-				else {
-
-					// Append action to the play log.
-					// TODO get player's name
-
-					// System.out.println(oldCard.getCardType());
-					if (oldCard.getCardType().equals("Action")) {
-						playLog.appendText("Player one stole card "
-								+ oldCard.getName() + ". "
-								+ oldCard.getDescription() + "\n");
-					} else {
-						playLog.appendText("Player one defeated "
-								+ oldCard.getName() + ". "
-								+ oldCard.getDescription() + "\n");
+			if (isTurn) {
+				// Check to see if player can afford card first.
+				Card oldCard;
+				try {
+					oldCard = new Card(image.getId());
+					if (oldCard.getCostAttack() > attack
+							|| oldCard.getCostStealth() > stealth) {
+						playLog.appendText("Can't afford that card. \n");
+						action = null;
 					}
 
-					// Create action with old card
-					try {
-						cardForAction = new Card(image.getId());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					action = new Action(1, cardForAction);
-					// System.out.println(action.getCard().getName());
+					else {
 
-					// Change image to a new card's image, reset id to new
-					// card's
-					// name,
-					Card card = deck.draw();
-					image.setImage(new Image(card.getImagePath()));
-					image.setId(card.getName());
+						// Append action to the play log.
+						// TODO get player's name
+
+						// System.out.println(oldCard.getCardType());
+						if (oldCard.getCardType().equals("Action")) {
+							playLog.appendText("Player one stole card "
+									+ oldCard.getName() + ". "
+									+ oldCard.getDescription() + "\n");
+						} else {
+							playLog.appendText("Player one defeated "
+									+ oldCard.getName() + ". "
+									+ oldCard.getDescription() + "\n");
+						}
+
+						// Create action with old card
+						try {
+							cardForAction = new Card(image.getId());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						action = new Action(1, cardForAction);
+						// System.out.println(action.getCard().getName());
+
+						// Change image to a new card's image, reset id to new
+						// card's
+						// name,
+						Card card = deck.draw();
+						image.setImage(new Image(card.getImagePath()));
+						image.setId(card.getName());
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} else {
+				action = null;
 			}
 
 		});
@@ -420,15 +422,26 @@ public class GameTableScreenController implements ControlledScreen {
 	private Action onPlayerCardClickedEvent(ImageView image) {
 
 		image.setOnMouseClicked(event -> {
-			try {
-				Card oldCard = new Card(image.getId());
-				playLog.appendText("Player one played card "
-						+ oldCard.getName() + ". " + oldCard.getDescription()
-						+ "\n");
-				lastDiscardImage.setImage(image.getImage());
-				image.setImage(null);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (isTurn) {
+				for (int i = 0; i < playerHandImages.length; i++) {
+					if (playerHandImages[i].getId() == null) {
+						System.out.println(playerHandImages[i].getId());
+						playerHandImages[i].setVisible(false);
+					}
+				}
+
+				try {
+					Card oldCard = new Card(image.getId());
+					playLog.appendText("Player one played card "
+							+ oldCard.getName() + ". "
+							+ oldCard.getDescription() + "\n");
+					lastDiscardImage.setImage(image.getImage());
+					image.setImage(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				action = null;
 			}
 		});
 		return action;
@@ -442,12 +455,16 @@ public class GameTableScreenController implements ControlledScreen {
 
 	private Action onDeckClickedEvent(Hand hand, Deck deck) {
 		playerDeckImage.setOnMouseClicked(event -> {
+			if(isTurn){
 			Card card = deck.draw();
 			playerHandImages[hand.size()].setImage(new Image(card
 					.getImagePath()));
 			hand.addCard(card);
+			}
+			else{
+				action = null;
+			}
 		});
 		return action;
 	}
-
 }
