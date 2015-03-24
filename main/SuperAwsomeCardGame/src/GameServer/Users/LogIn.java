@@ -169,14 +169,14 @@ public class LogIn implements Remote, Serializable {
 	 * @return the user object returned by this registration
 	 * @throws Exception
 	 */
-	public static User register(String username, String email, String password)
+	public static User register(String username, String email, String password, String question, String answer)
 			throws RemoteException, Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO User ";
-		query += "(Username, Email, Password, ImagePath, IsBanned, Role)";
+		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer)";
 		query += "VALUES ('" + username + "','" + email + "','" + password
-				+ "','','0','0')";
+				+ "','','0','0','" + question + "','" + answer + "')";
 
 		try {
 			dbh.executeUpdate(query);
