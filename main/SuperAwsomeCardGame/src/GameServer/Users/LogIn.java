@@ -329,7 +329,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getUsername(String email) throws SQLException {
+	public static String findUsername(String email) throws SQLException {
 		String un = "";
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Email='" + email + "'";
@@ -341,6 +341,26 @@ public class LogIn implements Remote, Serializable {
 
 		return un;
 
+	}
+	
+	/**
+	 * Get security question given email
+	 * @param email
+	 * @return
+	 * @throws SQLException
+	 */
+	public static String getSecurityQuestion(String email) throws SQLException{
+		String sq = "";
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User WHERE Email='" + email + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		if(rs.first())
+		{
+			sq = rs.getString("SecurityQuestion");
+		}
+
+		return sq;
+		
 	}
 
 	/**
