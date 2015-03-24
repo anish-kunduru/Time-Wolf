@@ -79,6 +79,9 @@ public class LoginScreenController implements ControlledScreen
                System.out.println("usernameTextField.getText()");
                System.out.println("passwordTextField.getText()");
                System.out.println(MainModel.getModel().currentLoginData().getUsername());
+               
+               // Go to the next screen.
+               parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
             }
             catch (Exception e)
             {
@@ -90,11 +93,8 @@ public class LoginScreenController implements ControlledScreen
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            errorMessage.setText("The server is offline. Please try again later.");
          }
-
-         // Go to the next screen.
-         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
       });
 
       registerButton.setOnAction(event ->
