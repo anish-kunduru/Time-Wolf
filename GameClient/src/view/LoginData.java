@@ -11,7 +11,6 @@ public class LoginData
 {
    // Login information.
    private String usernameString;
-   private String passwordString; // I'm not sure if this state data is necessary or even safe.
 
    private int userID;
 
@@ -33,16 +32,6 @@ public class LoginData
    }
 
    /**
-    * Sets the passwordString.
-    * 
-    * @param passwordString A string representing the password of the current player.
-    */
-   public void setPassword(String passwordString)
-   {
-      this.passwordString = passwordString;
-   }
-
-   /**
     * Sets the userID.
     * 
     * @param userID An int representing the userID of the current player.
@@ -58,14 +47,6 @@ public class LoginData
    public String getUsername()
    {
       return usernameString;
-   }
-
-   /**
-    * @return The password of the current player.
-    */
-   public String getPasswordString()
-   {
-      return passwordString;
    }
 
    /**

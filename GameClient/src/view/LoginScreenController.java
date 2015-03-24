@@ -37,11 +37,6 @@ public class LoginScreenController implements ControlledScreen
    @FXML
    private Label errorMessage;
 
-
-   // Store input from user.
-   private String usernameString;
-   private String passwordString;
-
    // So we can set the screen's parent later on.
    MainController parentController;
 
@@ -51,76 +46,55 @@ public class LoginScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-
-      passwordString = "";
-      usernameString = "";
-
       // Event handlers for buttons.
       // The arrow means lambda expression in Java.
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
-
       loginButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
-         
-         // BYPASS LOGIN PROCEDURE FOR NOW:
-         /*
-         // TO-DO
-         // CHECK IF USERNAME/PASSWORD IS VALID BEFORE SETTING...
-         usernameString = usernameTextField.getText();
-         passwordString = passwordTextField.getText();
-
-         // DEBUG
-         System.out.println(usernameString);
-         System.out.println(passwordString);
-
-         if (usernameString.equals(""))
+         if (usernameTextField.getText().equals(""))
          {
-            errorMessage.setText("Username and/or Password not filled in.");
+            errorMessage.setText("Username is not filled in.");
          }
-
-         else if (passwordString.equals(""))
+         else if (passwordTextField.getText().equals(""))
          {
-            errorMessage.setText("Username and/or Password not filled in.");
+            errorMessage.setText("Password is not filled in.");
          }
 
          try
          {
             LogIn login = (LogIn) Naming.lookup("//localhost/auth");
             User userOne = new User();
-            
-            try{
 
-            userOne = login.logIn(usernameString, passwordString);
-            // TEST LOGIN: username: ssimmons, password: password
-            
+            try
+            {
+               userOne = login.logIn(usernameTextField.getText(), passwordTextField.getText());
+               // TEST LOGIN: username: ssimmons, password: password
 
-            // TO-DO: MAKE SURE THESE ARE VALID BEFORE SETTING.
-            // Set the login information in our shared model so that we can access it from other controllers.
-            MainModel.getModel().currentLoginData().setUsername(usernameString);
-            MainModel.getModel().currentLoginData().setPassword(passwordString);
-            MainModel.getModel().currentLoginData().setUserID(userOne.getID());
+               // This will only be called if an exception isn't thrown by the previous statement, so no need to worry about error handling.
+               // Set the login information in our shared model so that we can access it from other controllers.
+               MainModel.getModel().currentLoginData().setUsername(usernameTextField.getText());
+               MainModel.getModel().currentLoginData().setUserID(userOne.getID());
 
-            // Go to the next screen.
-            parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
-            
+               // DEBUG
+               System.out.println("usernameTextField.getText()");
+               System.out.println("passwordTextField.getText()");
+               System.out.println(MainModel.getModel().currentLoginData().getUsername());
             }
-            
-            catch (Exception Exception){
-            	errorMessage.setText("Username/password was incorrect.");
+            catch (Exception e)
+            {
+               errorMessage.setText(e.getMessage());
             }
 
+            // DEBUG
             System.out.println("Login succesful. User ID: " + userOne.getID());
-            
-
          }
          catch (Exception e)
          {
-            // TODO Auto-generated catch block
             e.printStackTrace();
          }
-         */
 
+         // Go to the next screen.
+         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
       });
 
       registerButton.setOnAction(event ->
