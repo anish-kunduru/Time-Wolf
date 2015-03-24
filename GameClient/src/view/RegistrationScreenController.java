@@ -15,9 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-
-import java.rmi.Naming;
-
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
 
@@ -77,35 +74,24 @@ public class RegistrationScreenController implements ControlledScreen
    @FXML
    private AnchorPane mainAnchorPane;
 
-   // So that we can call it from different event listeners.
-   private LogIn login;
-
    @FXML
    public void initialize()
    {
-      // Initialize login if the user gets to this screen.
-      mainAnchorPane.setOnMouseEntered(event ->
-      {
-         try
-         {
-            login = (LogIn) Naming.lookup("//localhost/auth");
-
-            // DEBUG
-            System.out.println("Connected to the server.");
-         }
-         catch (Exception e)
-         {
-            errorLabel.setText("The registration server is offline. Please try again later.");
-         }
-      });
-
       // Check if username is already taken.
       usernameTextField.setOnKeyReleased(event ->
       {
-         // TO-DO: CHECK IF USERNAME HAS BEEN TAKEN.
-         /*
-          * if (!usernameTaken) usernameAvailableCheckBox.setSelected(true);
-          */
+         try
+         {
+            if (MainModel.getModel().currentLoginData().getLogInConnection().doesUsernameExist(usernameTextField.getText()))
+               usernameAvailableCheckBox.setSelected(false);
+            else
+               usernameAvailableCheckBox.setSelected(true);
+         }
+         catch (Exception e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
       });
 
       // Check if e-mail address is valid.
@@ -113,6 +99,8 @@ public class RegistrationScreenController implements ControlledScreen
       {
          if (isValidEmail(emailTextField.getText()))
             validEmailCheckBox.setSelected(true);
+         else
+            validEmailCheckBox.setSelected(false);
       });
 
       // Check if both e-mail fields match.
@@ -120,6 +108,8 @@ public class RegistrationScreenController implements ControlledScreen
       {
          if (emailTextField.getText().equals(checkEmailTextField.getText()))
             emailMatchCheckBox.setSelected(true);
+         else
+            emailMatchCheckBox.setSelected(false);
       });
 
       // Send the user back to the login screen.
