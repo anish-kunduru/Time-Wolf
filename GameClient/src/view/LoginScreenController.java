@@ -80,7 +80,7 @@ public class LoginScreenController implements ControlledScreen
                System.out.println("passwordTextField.getText()");
                System.out.println(MainModel.getModel().currentLoginData().getUsername());
                System.out.println("Login succesful. User ID: " + userOne.getID());
-               
+
                // Go to the next screen.
                parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
             }
