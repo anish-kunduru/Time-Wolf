@@ -70,10 +70,12 @@ public class RegistrationScreenController implements ControlledScreen
 
    @FXML
    private Label errorLabel;
-
-   @FXML
-   private AnchorPane mainAnchorPane;
-
+   
+   // Validity checks.
+   private boolean validUsername = false;
+   private boolean validEmail = false;
+   private boolean validPassword = false;
+   
    @FXML
    public void initialize()
    {
@@ -83,13 +85,18 @@ public class RegistrationScreenController implements ControlledScreen
          try
          {
             if (MainModel.getModel().currentLoginData().getLogInConnection().doesUsernameExist(usernameTextField.getText()))
+            {
                usernameAvailableCheckBox.setSelected(false);
+               validUsername = false;
+            }
             else
+            {
                usernameAvailableCheckBox.setSelected(true);
+               validUsername = true;
+            }
          }
          catch (Exception e)
          {
-            // TODO Auto-generated catch block
             e.printStackTrace();
          }
       });
@@ -107,9 +114,30 @@ public class RegistrationScreenController implements ControlledScreen
       checkEmailTextField.setOnKeyReleased(event ->
       {
          if (emailTextField.getText().equals(checkEmailTextField.getText()))
+         {
             emailMatchCheckBox.setSelected(true);
+            validEmail = true;
+         }
          else
+         {
             emailMatchCheckBox.setSelected(false);
+            validEmail = false;
+         }
+      });
+      
+      // Check if passwords match.
+      checkPasswordField.setOnKeyReleased(event ->
+      {
+         if (passwordField.getText().equals(checkPasswordField.getText()))
+         {
+            passwordMatchCheckBox.setSelected(true);
+            validPassword = true;
+         }
+         else
+         {
+            passwordMatchCheckBox.setSelected(false);
+            validPassword = false;
+         }
       });
 
       // Send the user back to the login screen.
@@ -121,6 +149,25 @@ public class RegistrationScreenController implements ControlledScreen
       // Check if all fields valid and register if okay.
       registerButton.setOnAction(event ->
       {
+         if (!validUsername)
+            errorLabel.setText("That username is not valid.");
+         else if (!over13CheckBox.isSelected())
+            errorLabel.setText("You are not over 13.");
+         else if (!validEmail)
+            errorLabel.setText("That e-mail address is not valid.");
+         else if (!validPassword)
+            errorLabel.setText("Passwords do not match.");
+         else
+         {
+            try
+            {
+               MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText());
+            }
+            catch (Exception e)
+            {
+               errorLabel.setText("There was an error registering your account. Please contact support.");
+            }
+         }
       });
 
    }
