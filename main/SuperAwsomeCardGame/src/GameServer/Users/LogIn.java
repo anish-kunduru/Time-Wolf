@@ -282,7 +282,12 @@ public class LogIn implements Remote, Serializable {
 		// if ID == 0 then no user is selected
 	}
 	
-	
+	/**
+	 * Overload method for forgot password functionality
+	 * @param username
+	 * @param newPassword
+	 * @throws RemoteException
+	 */
 	public static void resetPassword(String username, String newPassword) throws RemoteException
 	{
 
@@ -292,6 +297,25 @@ public class LogIn implements Remote, Serializable {
 
 		dbh.executeUpdate(query);
 		
+	}
+	
+	/**
+	 * Check security question for given username
+	 * @param username
+	 * @param answer
+	 * @return
+	 * @throws SQLException
+	 */
+	public static boolean checkSecurityQuestionAnswer(String username, String answer) throws SQLException
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User WHERE Username='" + username + "' AND SecurityAnswer='" + answer + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		if(rs.first())
+			return true;
+		else
+			return false;
 	}
 	
 	/**
