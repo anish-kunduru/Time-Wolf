@@ -21,6 +21,8 @@ public class DefaultMenuBarController
    private MenuItem helpAbout;
    @FXML
    private MenuItem helpGameRules;
+   @FXML
+   private MenuItem fileLogOut;
    
    @FXML
    private MenuBar menuBar;
@@ -55,6 +57,11 @@ public class DefaultMenuBarController
       helpGameRules.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_RULES_SCREEN);
+      });
+      
+      fileLogOut.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
       });
       
    }
