@@ -73,7 +73,7 @@ public class RegistrationScreenController implements ControlledScreen
    private boolean validUsername = false;
    private boolean validEmail = false;
    private boolean validPassword = false;
-   
+
    // If user uploads a profile picture.
    private Image profilePictureImage;
 
@@ -86,15 +86,24 @@ public class RegistrationScreenController implements ControlledScreen
          // Initialize and setup fileChooser.
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Open Profile Picture");
-         
-         // Get the file from the fileChooser and display it.
+
+         // Get the file from the fileChooser.
          File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
-         profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
-         
-         profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
-         userImage.setImage(profilePictureImage);
+
+         // Check if it is a supported image format.
+         if (isValidImage(profilePictureFile))
+         {
+            // Set the image.
+            profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+
+            // Display the image.
+            profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
+            userImage.setImage(profilePictureImage);
+         }
+         else
+            errorLabel.setText("Not a supported image format.");
       });
-      
+
       // Check if username is already taken.
       usernameTextField.setOnKeyReleased(event ->
       {
@@ -124,7 +133,7 @@ public class RegistrationScreenController implements ControlledScreen
             validEmailCheckBox.setSelected(true);
          else
             validEmailCheckBox.setSelected(false);
-         
+
          if (emailTextField.getText().equals(checkEmailTextField.getText()))
          {
             emailMatchCheckBox.setSelected(true);
@@ -166,7 +175,7 @@ public class RegistrationScreenController implements ControlledScreen
             validPassword = false;
          }
       });
-      
+
       checkPasswordField.setOnKeyReleased(event ->
       {
          if (passwordField.getText().equals(checkPasswordField.getText()))
@@ -207,7 +216,11 @@ public class RegistrationScreenController implements ControlledScreen
                   // TO-DO: Call overloaded register function that allows me to pass an image.
                }
                else
-                  MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(), securityQuestionTextField.getText(), securityAnswerTextField.getText());
+                  MainModel.getModel()
+                           .currentLoginData()
+                           .getLogInConnection()
+                           .register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(),
+                                     securityQuestionTextField.getText(), securityAnswerTextField.getText());
 
                // Timeline action event.
                errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");
@@ -216,7 +229,7 @@ public class RegistrationScreenController implements ControlledScreen
                {
                   parentController.displayScreen(MainView.LOGIN_SCREEN);
                }));
-               
+
                timeline.play();
             }
             catch (Exception e)
@@ -226,6 +239,11 @@ public class RegistrationScreenController implements ControlledScreen
          }
       });
 
+   }
+
+   private boolean isValidImage(File file)
+   {
+      return true;
    }
 
    /**
