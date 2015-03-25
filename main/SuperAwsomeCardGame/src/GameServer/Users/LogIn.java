@@ -305,7 +305,6 @@ public class LogIn implements Remote, Serializable {
 				+ "' WHERE Username='" + username + "'";
 
 		dbh.executeUpdate(query);
-
 	}
 
 	/**

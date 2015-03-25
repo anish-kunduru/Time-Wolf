@@ -133,10 +133,10 @@ public class ForgotPasswordScreenController implements ControlledScreen
             try
             {
                // DEBUG
-               System.out.println(emailTextField.getText());
+               System.out.println(usernameTextField.getText());
                System.out.println(verifyPasswordField.getText());
                
-               MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(emailTextField.getText(), verifyPasswordField.getText());
+               MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(usernameTextField.getText(), verifyPasswordField.getText());
 
                // Timeline action event.
                errorLabel.setText("Reset sucessful! Redirecting to the login screen in 5 seconds.");
