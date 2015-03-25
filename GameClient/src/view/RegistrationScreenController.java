@@ -6,16 +6,19 @@
 
 package view;
 
+import java.io.File;
+
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 public class RegistrationScreenController implements ControlledScreen
@@ -29,7 +32,7 @@ public class RegistrationScreenController implements ControlledScreen
    @FXML
    private Button cancelButton;
    @FXML
-   private Button browseButton; // http://docs.oracle.com/javafx/2/ui_controls/file-chooser.htm
+   private Button browseButton;
 
    @FXML
    private TextField usernameTextField;
@@ -70,10 +73,28 @@ public class RegistrationScreenController implements ControlledScreen
    private boolean validUsername = false;
    private boolean validEmail = false;
    private boolean validPassword = false;
+   
+   // If user uploads a profile picture.
+   private Image profilePictureImage;
 
    @FXML
    public void initialize()
    {
+      // Open file chooser so that user can select a photo to upload.
+      browseButton.setOnAction(event ->
+      {
+         // Initialize and setup fileChooser.
+         FileChooser fileChooser = new FileChooser();
+         fileChooser.setTitle("Open Profile Picture");
+         
+         // Get the file from the fileChooser and display it.
+         File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+         profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+         
+         profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
+         userImage.setImage(profilePictureImage);
+      });
+      
       // Check if username is already taken.
       usernameTextField.setOnKeyReleased(event ->
       {
@@ -179,9 +200,14 @@ public class RegistrationScreenController implements ControlledScreen
             errorLabel.setText("Passwords do not match.");
          else
          {
-            try
+            try 
             {
-               MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(), securityQuestionTextField.getText(), securityAnswerTextField.getText());
+               if (profilePictureImage != null)
+               {
+                  // TO-DO: Call overloaded register function that allows me to pass an image.
+               }
+               else
+                  MainModel.getModel().currentLoginData().getLogInConnection().register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(), securityQuestionTextField.getText(), securityAnswerTextField.getText());
 
                // Timeline action event.
                errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");
