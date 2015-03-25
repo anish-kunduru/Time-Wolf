@@ -128,7 +128,7 @@ public class ForgotPasswordScreenController implements ControlledScreen
             errorLabel.setText("Not a valid e-mail address.");
          else if (!validPassword)
             errorLabel.setText("Passwords do not match.");
-         else if (checkIfSecurityAnswerMatch(usernameTextField.getText(), securityAnswerTextField.getText()))
+         else if (!checkIfSecurityAnswerMatch(usernameTextField.getText(), securityAnswerTextField.getText()))          
             errorLabel.setText("Your answer does not match the answer on file.");
          else
          {
@@ -163,16 +163,18 @@ public class ForgotPasswordScreenController implements ControlledScreen
     */
    private boolean checkIfSecurityAnswerMatch(String username, String securityAnswer)
    {
+      boolean check = false;
+      
       try
       {
-         return MainModel.getModel().currentLoginData().getLogInConnection().checkSecurityQuestionAnswer(username, securityAnswer);
+         check = MainModel.getModel().currentLoginData().getLogInConnection().checkSecurityQuestionAnswer(username, securityAnswer);
       }
       catch (SQLException e)
       {
          errorLabel.setText("That username does not exist!");
       }
 
-      return false;
+      return check;
    }
 
    /**
