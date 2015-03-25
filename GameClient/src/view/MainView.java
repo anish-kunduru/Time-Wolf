@@ -54,6 +54,7 @@ public class MainView extends Application
       mainController.loadScreen(GAME_TABLE_SCREEN, GAME_TABLE_SCREEN_FXML);
       mainController.loadScreen(GAME_RULES_SCREEN, GAME_RULES_SCREEN_FXML);
       
+      // Add the controller to the singleton.
       MainModel.getModel().currentMainData().setMainController(mainController);
 
       // Display the first screen.
@@ -73,6 +74,9 @@ public class MainView extends Application
       // Pin the root to scene and display it.
       primaryStage.setScene(scene);
       primaryStage.show();
+      
+      // Add the stage to the singleton.
+      MainModel.getModel().currentMainData().setMainStage(primaryStage);
    }
 
    /**
