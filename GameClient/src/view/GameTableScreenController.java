@@ -123,6 +123,7 @@ public class GameTableScreenController implements ControlledScreen {
 	private Action action;
 	private boolean isTurn;
 	private boolean isDiscard;
+	private boolean Update;
 	private int stealth;
 	private int attack;
 	private int counter;
@@ -179,6 +180,8 @@ public class GameTableScreenController implements ControlledScreen {
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
 
+		//Handles actions when a player's hand card is clicked
+		onPlayerCardClicked();
 	}
 
 	/**
@@ -344,7 +347,28 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 
 	}
+	/**
+	 * Helper method to recall actions. Called after an action has taken place to
+	 * update the actions.
+	 */
+	private void update() {
+		// Handles ending the turn on button clicked
+		endTurn();
 
+		onPlayerCardClicked();
+	}
+
+	/**
+	 * Action that covers what happens when a main table card is clicked. This method
+	 * verifies first whether there is enough attack or stealth to get the card and if 
+	 * true it creates an action to send to the server with the card clicked as well as
+	 * sends the appropriate message to the play log.
+	 * @param image
+	 * @param deck
+	 * @param stealth
+	 * @param attack
+	 * @return
+	 */
 	private Action onTableCardClickedEvent(ImageView image, Deck deck,
 			int stealth, int attack) {
 		image.setOnMouseClicked(event -> {
@@ -400,6 +424,14 @@ public class GameTableScreenController implements ControlledScreen {
 		});
 		return action;
 	}
+	
+	/**
+	 * This method applies the tableCardClickedEvent to all the table cards.
+	 * @param deck
+	 * @param stealth
+	 * @param attack
+	 * @throws SQLException
+	 */
 
 	private void onTableCardClicked(Deck deck, int stealth, int attack)
 			throws SQLException {
@@ -408,6 +440,9 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 	}
 
+	/**
+	 * This method sets boolean isTurn to false after the end button is clicked.
+	 */
 	private void endTurn() {
 		// TODO Broken
 		endTurnButton.setOnMouseClicked(event -> {
@@ -415,6 +450,13 @@ public class GameTableScreenController implements ControlledScreen {
 		});
 	}
 
+	/**
+	 * This method handles the required actions when a player clicks on a card in 
+	 * their hand. It takes the appropriate actions given the game state and prints 
+	 * the appropriate message to the play log.
+	 * @param image
+	 * @return
+	 */
 	private Action onPlayerCardClickedEvent(ImageView image) {
 
 		image.setOnMouseClicked(event -> {
@@ -432,8 +474,9 @@ public class GameTableScreenController implements ControlledScreen {
 					if (counter == 0)
 						isDiscard = false;
 
+					action = null;
+
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else if (isTurn) {
@@ -462,12 +505,20 @@ public class GameTableScreenController implements ControlledScreen {
 		return action;
 	}
 
+	/**
+	 * This sets onPlayerCardClickedEvent to each of the player's cards.
+	 */
 	private void onPlayerCardClicked() {
 		for (int i = 0; i < playerHandImages.length; i++) {
 			onPlayerCardClickedEvent(playerHandImages[i]);
 		}
 	}
 
+	/**
+	 * This method determines the action associated with the given Action object
+	 * and passes it into the appropriate method.
+	 * @param a
+	 */
 	private void determineAction(Action a) {
 		if (a.getAction() == 0) {
 			playCard(a);
@@ -480,6 +531,11 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 	}
 
+	/**
+	 * This method handles action playCard by getting the card from the Action
+	 * object and building the appropriate play log message from it.
+	 * @param a
+	 */
 	private void playCard(Action a) {
 		Card c = a.getCard();
 		if (c.getCardType().equals("Action")) {
@@ -492,12 +548,21 @@ public class GameTableScreenController implements ControlledScreen {
 
 	}
 
+	/**
+	 * This method handles the action aquireCard by getting the card from the Action
+	 * object and building the appropriate play log message from it.
+	 * @param a
+	 */
 	private void acquireCard(Action a) {
 		playLog.appendText(a.getPlayerName() + " played card "
 				+ a.getCard().getName() + ". " + a.getCard().getDescription()
 				+ "\n");
 	}
 
+	/**
+	 * This method handles the discardCard action.
+	 * @param a
+	 */
 	private void discardCard(Action a) {
 		Card c = a.getCard();
 		int discard = 0;
@@ -508,16 +573,6 @@ public class GameTableScreenController implements ControlledScreen {
 			discard = c.getPostturnDiscard();
 		isDiscard = true;
 		counter = 3;
-
-		int j = 0;
-		for (int i = 0; i < a.getHand().size(); i++) {
-			while (playerHandImages[j].getImage() != null) {
-				j++;
-			}
-			playerHandImages[j].setImage(new Image(a.getHand().get(i)
-					.getImagePath()));
-		}
-
 	}
 
 }
