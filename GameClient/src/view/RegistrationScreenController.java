@@ -200,7 +200,7 @@ public class RegistrationScreenController implements ControlledScreen
             errorLabel.setText("Passwords do not match.");
          else
          {
-            try 
+            try
             {
                if (profilePictureImage != null)
                {
@@ -216,6 +216,7 @@ public class RegistrationScreenController implements ControlledScreen
                {
                   parentController.displayScreen(MainView.LOGIN_SCREEN);
                }));
+               
                timeline.play();
             }
             catch (Exception e)

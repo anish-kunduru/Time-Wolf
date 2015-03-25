@@ -145,6 +145,7 @@ public class ForgotPasswordScreenController implements ControlledScreen
                {
                   parentController.displayScreen(MainView.LOGIN_SCREEN);
                }));
+               
                timeline.play();
             }
             catch (Exception e)
