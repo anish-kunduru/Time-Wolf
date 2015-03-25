@@ -103,6 +103,17 @@ public class RegistrationScreenController implements ControlledScreen
             validEmailCheckBox.setSelected(true);
          else
             validEmailCheckBox.setSelected(false);
+         
+         if (emailTextField.getText().equals(checkEmailTextField.getText()))
+         {
+            emailMatchCheckBox.setSelected(true);
+            validEmail = true;
+         }
+         else
+         {
+            emailMatchCheckBox.setSelected(false);
+            validEmail = false;
+         }
       });
 
       // Check if both e-mail fields match.
@@ -121,6 +132,20 @@ public class RegistrationScreenController implements ControlledScreen
       });
 
       // Check if passwords match.
+      passwordField.setOnKeyReleased(event ->
+      {
+         if (passwordField.getText().equals(checkPasswordField.getText()))
+         {
+            passwordMatchCheckBox.setSelected(true);
+            validPassword = true;
+         }
+         else
+         {
+            passwordMatchCheckBox.setSelected(false);
+            validPassword = false;
+         }
+      });
+      
       checkPasswordField.setOnKeyReleased(event ->
       {
          if (passwordField.getText().equals(checkPasswordField.getText()))

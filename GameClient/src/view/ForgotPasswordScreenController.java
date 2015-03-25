@@ -31,10 +31,9 @@ public class ForgotPasswordScreenController implements ControlledScreen
    @FXML
    private TextField emailTextField;
    @FXML
-   private TextField passwordResetQuestionTextField;
-
+   private TextField securityQuestionTextField;
    @FXML
-   private ComboBox passwordResetQuestionComboBox;
+   private TextField securityAnswerTextField;
 
    @FXML
    private PasswordField passwordField;
@@ -50,19 +49,17 @@ public class ForgotPasswordScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      // Display username and password reset Qs.
-      emailTextField.setOnKeyReleased(event ->
+      // Display username when return register is hit.
+      emailTextField.setOnAction(event ->
       {
          try
          {
-            // usernameTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().findUsername(usernameTextField.getText()));
-            // usernameTextField.setVisible(true);
-
-            // TO-DO: PASSWORD RESET Qs.
+            usernameTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().findUsername(emailTextField.getText()));
+            usernameTextField.setVisible(true);
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            errorLabel.setText("Not a valid e-mail address.");
          }
       });
 
@@ -71,43 +68,40 @@ public class ForgotPasswordScreenController implements ControlledScreen
       {
          parentController.displayScreen(MainView.LOGIN_SCREEN);
       });
+      
+      // Display password reset question if passwordFields match (indicating that the user wishes to reset his password).
+      verifyPasswordField.setOnKeyReleased(event ->
+      {
+         if (passwordField.getText().equals(verifyPasswordField.getText()))
+            errorLabel.setText("Passwords do not match.");
+      });
 
       // Check if all fields valid and reset if okay.
       resetButton.setOnAction(event ->
       {
-         // Timeline action event.
-         errorLabel.setText("Reset sucessful! Redirecting to the login screen in 5 seconds.");
-
-         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
+         if (!passwordField.getText().equals(verifyPasswordField.getText()))
+            errorLabel.setText("Passwords do not match.");
+         else
          {
-            parentController.displayScreen(MainView.LOGIN_SCREEN);
-         }));
-         timeline.play();
-         
-         
-//         if (!passwordField.getText().equals(verifyPasswordField.getText()))
-//            errorLabel.setText("Passwords do not match.");
-//         else
-//         {
-//            try
-//            {
-//               // MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(id, newPassword);
-//
-//               // Timeline action event.
-//               errorLabel.setText("Reset sucessful! Redirecting to the login screen in 5 seconds.");
-//
-//               Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
-//               {
-//                  parentController.displayScreen(MainView.LOGIN_SCREEN);
-//               }));
-//               timeline.play();
-//            }
-//            catch (Exception e)
-//            {
-//               errorLabel.setText("There was an error resetting your account. Please contact support.");
-//            }
-//         }
-         
+            try
+            {
+               // MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(id, newPassword);
+
+               // Timeline action event.
+               errorLabel.setText("Reset sucessful! Redirecting to the login screen in 5 seconds.");
+
+               Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
+               {
+                  parentController.displayScreen(MainView.LOGIN_SCREEN);
+               }));
+               timeline.play();
+            }
+            catch (Exception e)
+            {
+               errorLabel.setText("There was an error resetting your account. Please contact support.");
+            }
+         }
+
       });
    }
 
