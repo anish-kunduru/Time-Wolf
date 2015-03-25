@@ -86,8 +86,6 @@ public class ForgotPasswordScreenController implements ControlledScreen
             try
             {
                securityQuestionTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().getSecurityQuestion(emailTextField.getText()));
-               securityQuestionTextField.setVisible(true);
-               securityAnswerTextField.setVisible(true);
 
                validPassword = true;
             }
@@ -134,6 +132,10 @@ public class ForgotPasswordScreenController implements ControlledScreen
          {
             try
             {
+               // DEBUG
+               System.out.println(emailTextField.getText());
+               System.out.println(verifyPasswordField.getText());
+               
                MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(emailTextField.getText(), verifyPasswordField.getText());
 
                // Timeline action event.
