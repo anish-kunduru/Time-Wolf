@@ -6,6 +6,8 @@
 
 package view;
 
+import java.sql.SQLException;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -44,6 +46,7 @@ public class ForgotPasswordScreenController implements ControlledScreen
    private Label errorLabel;
 
    // Validity check.
+   private boolean validEmail = false;
    private boolean validPassword = false;
 
    @FXML
@@ -54,8 +57,14 @@ public class ForgotPasswordScreenController implements ControlledScreen
       {
          try
          {
-            usernameTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().findUsername(emailTextField.getText()));
+            String username = MainModel.getModel().currentLoginData().getLogInConnection().findUsername(emailTextField.getText());
+
+            usernameTextField.setText(username);
             usernameTextField.setVisible(true);
+            passwordField.setVisible(true);
+            verifyPasswordField.setVisible(true);
+
+            validEmail = true;
          }
          catch (Exception e)
          {
@@ -68,24 +77,64 @@ public class ForgotPasswordScreenController implements ControlledScreen
       {
          parentController.displayScreen(MainView.LOGIN_SCREEN);
       });
-      
+
       // Display password reset question if passwordFields match (indicating that the user wishes to reset his password).
+      passwordField.setOnKeyReleased(event ->
+      {
+         if (passwordField.getText().equals(verifyPasswordField.getText()) && validEmail)
+         {
+            try
+            {
+               securityQuestionTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().getSecurityQuestion(emailTextField.getText()));
+               securityQuestionTextField.setVisible(true);
+               securityAnswerTextField.setVisible(true);
+
+               validPassword = true;
+            }
+            catch (Exception e)
+            {
+               errorLabel.setText("Not a valid e-mail address.");
+            }
+         }
+         else
+            validPassword = false;
+      });
+
       verifyPasswordField.setOnKeyReleased(event ->
       {
-         if (passwordField.getText().equals(verifyPasswordField.getText()))
-            errorLabel.setText("Passwords do not match.");
+         if (passwordField.getText().equals(verifyPasswordField.getText()) && validEmail)
+         {
+            try
+            {
+               securityQuestionTextField.setText(MainModel.getModel().currentLoginData().getLogInConnection().getSecurityQuestion(emailTextField.getText()));
+               securityQuestionTextField.setVisible(true);
+               securityAnswerTextField.setVisible(true);
+
+               validPassword = true;
+            }
+            catch (Exception e)
+            {
+               errorLabel.setText("Not a valid e-mail address.");
+            }
+         }
+         else
+            validPassword = false;
       });
 
       // Check if all fields valid and reset if okay.
       resetButton.setOnAction(event ->
       {
-         if (!passwordField.getText().equals(verifyPasswordField.getText()))
+         if (!validEmail)
+            errorLabel.setText("Not a valid e-mail address.");
+         else if (!validPassword)
             errorLabel.setText("Passwords do not match.");
+         else if (checkIfSecurityAnswerMatch(usernameTextField.getText(), securityAnswerTextField.getText()))
+            errorLabel.setText("Your answer does not match the answer on file.");
          else
          {
             try
             {
-               // MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(id, newPassword);
+               MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(emailTextField.getText(), verifyPasswordField.getText());
 
                // Timeline action event.
                errorLabel.setText("Reset sucessful! Redirecting to the login screen in 5 seconds.");
@@ -103,6 +152,27 @@ public class ForgotPasswordScreenController implements ControlledScreen
          }
 
       });
+   }
+
+   /**
+    * Private helper method to check if security answer is a match.
+    * 
+    * @param username The username for which you want to check the securityAnswer.
+    * @param securityAnswer The securityAnswer provided by the user.
+    * @return true if is a match; false otherwise.
+    */
+   private boolean checkIfSecurityAnswerMatch(String username, String securityAnswer)
+   {
+      try
+      {
+         return MainModel.getModel().currentLoginData().getLogInConnection().checkSecurityQuestionAnswer(username, securityAnswer);
+      }
+      catch (SQLException e)
+      {
+         errorLabel.setText("That username does not exist!");
+      }
+
+      return false;
    }
 
    /**

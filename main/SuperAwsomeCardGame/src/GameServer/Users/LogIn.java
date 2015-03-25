@@ -1,12 +1,8 @@
 package GameServer.Users;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.rmi.Naming;
 import java.rmi.Remote;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -340,17 +336,17 @@ public class LogIn implements Remote, Serializable {
 	 * @throws SQLException
 	 */
 	public static String findUsername(String email) throws SQLException {
-		String un = "";
+		String username;
+		
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Email='" + email + "'";
 		ResultSet rs = dbh.executeQuery(query);
 		if(rs.first())
-		{
-			un = rs.getString("Username");
-		}
-
-		return un;
-
+			username = rs.getString("Username");
+		else
+		   throw new SQLException(); // Throw an exception if we are passed an e-mail not in the table.
+		
+		return username;
 	}
 	
 	/**
