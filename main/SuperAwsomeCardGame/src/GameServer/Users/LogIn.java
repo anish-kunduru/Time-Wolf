@@ -120,14 +120,19 @@ public class LogIn implements Remote, Serializable {
 			String query = "SELECT * FROM Feedback WHERE UserID='" + uID + "'";
 			DBHelper dbh = new DBHelper();
 			ResultSet rs = dbh.executeQuery(query);
-			int pos = 0;
-			int total = 0;
+			double pos = 0;
+			double total = 0;
 			while (rs.next()) {
 				if (rs.getBoolean("isGood"))
 					pos++;
 				total++;
 			}
-			karma = pos / total;
+			if(total > 0)
+			{
+				karma = pos / total;
+			}
+			else
+				karma = 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
