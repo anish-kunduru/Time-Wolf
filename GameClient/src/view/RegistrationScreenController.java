@@ -104,7 +104,7 @@ public class RegistrationScreenController implements ControlledScreen
                userImage.setImage(profilePictureImage);
             }
             else
-               errorLabel.setText("Not a supported image format.");
+               errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
          }
       });
 
@@ -219,7 +219,6 @@ public class RegistrationScreenController implements ControlledScreen
                if (profilePictureImage != null)
                {
                   // TO-DO: Call overloaded register function that allows me to pass an image.
-
                   // Call normal registration until that is ready.
                   MainModel.getModel()
                            .currentLoginData()
@@ -252,9 +251,45 @@ public class RegistrationScreenController implements ControlledScreen
       }); // End cancelButton lambda.
    } // End #initialize.
 
+   /**
+    * This private helper method checks if the passed image is a valid one. It can be broken by intentionally passing a corrupted file.
+    * 
+    * @param file The file you think is an image.
+    * @return true if it is an image file; false otherwise.
+    */
    private boolean isValidImage(File file)
    {
-      return true;
+      String fileName = file.getName();
+      String fileExtension = "";
+
+      // DEBUG
+      System.out.println(fileName);
+
+      // Loop over fileName in reverse order.
+      for (int index = (fileName.length() - 1); index > 0; index--)
+      {
+         // Tack on index to beginning.
+         fileExtension = fileName.charAt(index) + fileExtension;
+
+         // DEBUG
+         System.out.println(fileExtension);
+
+         // Found it!
+         if (fileExtension.charAt(0) == '.')
+            break; // ////////////////////////////////////////////////////////////////////////////////
+      }
+
+      // Check if BMP, JPEG, PNG, or GIF.
+      if (fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".bmp") || fileExtension.equalsIgnoreCase(".dib")
+          || fileExtension.equalsIgnoreCase(".gif") || fileExtension.equalsIgnoreCase(".jpeg") || fileExtension.equalsIgnoreCase(".jpg")
+          || fileExtension.equalsIgnoreCase(".jpe") || fileExtension.equalsIgnoreCase(".jif") || fileExtension.equalsIgnoreCase(".jfif")
+          || fileExtension.equalsIgnoreCase(".jfi"))
+      {
+         return true;
+      }
+
+      // Implied else
+      return false;
    }
 
    /**
