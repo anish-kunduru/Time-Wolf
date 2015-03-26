@@ -87,25 +87,21 @@ public class RegistrationScreenController implements ControlledScreen
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Open Profile Picture");
 
-         // Check if user opened a file or hit cancel.
-         if (fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage()) != null)
+         // Get the file from the fileChooser.
+         File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+
+         // Check if it is a supported image format.
+         if (isValidImage(profilePictureFile))
          {
-            // Get the file from the fileChooser.
-            File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+            // Set the image.
+            profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
 
-            // Check if it is a supported image format.
-            if (isValidImage(profilePictureFile))
-            {
-               // Set the image.
-               profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
-
-               // Display the image.
-               profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
-               userImage.setImage(profilePictureImage);
-            }
-            else
-               errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
+            // Display the image.
+            profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
+            userImage.setImage(profilePictureImage);
          }
+         else
+            errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
       });
 
       // Check if username is already taken.
@@ -262,17 +258,11 @@ public class RegistrationScreenController implements ControlledScreen
       String fileName = file.getName();
       String fileExtension = "";
 
-      // DEBUG
-      System.out.println(fileName);
-
       // Loop over fileName in reverse order.
       for (int index = (fileName.length() - 1); index > 0; index--)
       {
          // Tack on index to beginning.
          fileExtension = fileName.charAt(index) + fileExtension;
-
-         // DEBUG
-         System.out.println(fileExtension);
 
          // Found it!
          if (fileExtension.charAt(0) == '.')
@@ -280,10 +270,8 @@ public class RegistrationScreenController implements ControlledScreen
       }
 
       // Check if BMP, JPEG, PNG, or GIF.
-      if (fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".bmp") || fileExtension.equalsIgnoreCase(".dib")
-          || fileExtension.equalsIgnoreCase(".gif") || fileExtension.equalsIgnoreCase(".jpeg") || fileExtension.equalsIgnoreCase(".jpg")
-          || fileExtension.equalsIgnoreCase(".jpe") || fileExtension.equalsIgnoreCase(".jif") || fileExtension.equalsIgnoreCase(".jfif")
-          || fileExtension.equalsIgnoreCase(".jfi"))
+      if (fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".bmp") || fileExtension.equalsIgnoreCase(".gif")
+          || fileExtension.equalsIgnoreCase(".jpeg") || fileExtension.equalsIgnoreCase(".jpg"))
       {
          return true;
       }
