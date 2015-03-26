@@ -16,13 +16,17 @@ public class DefaultMenuBarController
    @FXML
    private MenuItem fileNewGame;
    @FXML
+   private MenuItem fileGameLobby;
+   @FXML
+   private MenuItem fileSearchGames;
+   @FXML
+   private MenuItem fileLogOut;
+   @FXML
    private MenuItem editProfile;
    @FXML
    private MenuItem helpAbout;
    @FXML
    private MenuItem helpGameRules;
-   @FXML
-   private MenuItem fileLogOut;
    
    @FXML
    private MenuBar menuBar;
@@ -43,6 +47,21 @@ public class DefaultMenuBarController
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
       });
+      
+      fileGameLobby.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_LOBBY_SCREEN);
+      });
+      
+      fileSearchGames.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.SEARCH_GAME_SCREEN);
+      }); 
+      
+      fileLogOut.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
+      }); 
 
       editProfile.setOnAction(event ->
       {
@@ -58,10 +77,5 @@ public class DefaultMenuBarController
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_RULES_SCREEN);
       });
-      
-      fileLogOut.setOnAction(event ->
-      {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
-      }); 
    }
 }
