@@ -73,6 +73,8 @@ public class RegistrationScreenController implements ControlledScreen
    private boolean validUsername = false;
    private boolean validEmail = false;
    private boolean validPassword = false;
+   private boolean setSecurityQuestion = false;
+   private boolean setSecurityAnswer = false;
 
    // If user uploads a profile picture.
    private Image profilePictureImage;
@@ -193,6 +195,10 @@ public class RegistrationScreenController implements ControlledScreen
             validPassword = false;
          }
       });
+      
+      // Check to make sure user sets something to the security question fields (changes something) in these fields.
+      securityQuestionTextField.setOnKeyReleased(event -> setSecurityQuestion = true);
+      securityAnswerTextField.setOnKeyReleased(event -> setSecurityAnswer = true);
 
       // Send the user back to the login screen.
       cancelButton.setOnAction(event ->
@@ -205,12 +211,16 @@ public class RegistrationScreenController implements ControlledScreen
       {
          if (!validUsername)
             errorLabel.setText("That username is not valid.");
-         else if (!over13CheckBox.isSelected())
-            errorLabel.setText("You are not over 13.");
          else if (!validEmail)
             errorLabel.setText("That e-mail address is not valid.");
          else if (!validPassword)
             errorLabel.setText("Passwords do not match.");
+         else if (!setSecurityQuestion)
+            errorLabel.setText("You must type a password reset question.");
+         else if (!setSecurityAnswer)
+            errorLabel.setText("You must answer your password reset question.");
+         else if (!over13CheckBox.isSelected())
+            errorLabel.setText("You are not over 13.");
          else
          {
             try
