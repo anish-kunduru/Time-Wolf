@@ -87,21 +87,25 @@ public class RegistrationScreenController implements ControlledScreen
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Open Profile Picture");
 
-         // Get the file from the fileChooser.
-         File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
-
-         // Check if it is a supported image format.
-         if (isValidImage(profilePictureFile))
+         // Check if user opened a file or hit cancel.
+         if (fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage()) != null)
          {
-            // Set the image.
-            profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+            // Get the file from the fileChooser.
+            File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
 
-            // Display the image.
-            profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
-            userImage.setImage(profilePictureImage);
+            // Check if it is a supported image format.
+            if (isValidImage(profilePictureFile))
+            {
+               // Set the image.
+               profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+
+               // Display the image.
+               profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
+               userImage.setImage(profilePictureImage);
+            }
+            else
+               errorLabel.setText("Not a supported image format.");
          }
-         else
-            errorLabel.setText("Not a supported image format.");
       });
 
       // Check if username is already taken.
@@ -214,6 +218,13 @@ public class RegistrationScreenController implements ControlledScreen
                if (profilePictureImage != null)
                {
                   // TO-DO: Call overloaded register function that allows me to pass an image.
+
+                  // Call normal registration until that is ready.
+                  MainModel.getModel()
+                           .currentLoginData()
+                           .getLogInConnection()
+                           .register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(),
+                                     securityQuestionTextField.getText(), securityAnswerTextField.getText());
                }
                else
                   MainModel.getModel()
