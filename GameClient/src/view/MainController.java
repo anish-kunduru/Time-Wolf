@@ -15,7 +15,7 @@ import javafx.scene.layout.StackPane;
 
 public class MainController extends StackPane
 {
-   // A hash table that contains all the screens.
+   // A hash map that contains all the screens.
    private HashMap<String, Node> screens = new HashMap<>();
 
    /**
@@ -79,6 +79,25 @@ public class MainController extends StackPane
          
          return false;
       }
+   }
+   
+   /**
+    * Removes the appropriate screen and its associated FXML from the hash map.
+    * Can be used in conjunction with loadScreen to reload and seamlessly reinitialize a screen.
+    * 
+    * @param screenName The name of the screen thtat will be used as a screen ID.
+    * @return true if it was unloaded, false if there was an error.
+    */
+   public boolean unloadScreen(String screenName)
+   {
+      // Check if screen is loaded.
+      if (screens.remove(screenName) == null)
+      {
+         System.out.println("Screen didn't exist");
+         return false;
+      }
+      else
+         return true;
    }
 
    /**
