@@ -218,6 +218,44 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	private void ruleDiscard(Player current, Card c, boolean isBefore) {
 		
+		int numOfCards;
+		//  open up standard input
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input; //place to put input from command line.
+		
+		
+		//We can either discard before or after
+		if(isBefore) {
+			numOfCards = c.getPreturnDiscard();
+		} else {
+			numOfCards = c.getPostturnDiscard();
+		}
+		
+		
+		for(int i = 0; i < numOfCards; i++) {
+			
+			GameEngine.printHand(current.getHand());
+			try {
+				input = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+				i--;
+				continue;
+			}
+			System.out.println("Choose card to discard: ");
+			
+			int cardIndex = Integer.parseInt(input) - 1;
+			
+			if(i < 0 || i >= current.getHand().size()) {
+				current.getDiscardPile().discard(current.getHand().get(cardIndex));
+				current.getHand().remove(cardIndex);
+			} else {
+				System.out.println("Invalid selection.");
+				i--;
+				continue;
+			}
+		}
+		
 	}
 	
 	/**
