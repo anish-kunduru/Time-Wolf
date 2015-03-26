@@ -75,6 +75,9 @@ public class MainView extends Application
       primaryStage.setScene(scene);
       primaryStage.show();
       
+      // Set the title of the application.
+      primaryStage.setTitle("Time Wolf");
+      
       // Add the stage to the singleton.
       MainModel.getModel().currentMainData().setMainStage(primaryStage);
    }
