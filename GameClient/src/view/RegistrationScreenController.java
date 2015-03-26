@@ -90,18 +90,22 @@ public class RegistrationScreenController implements ControlledScreen
          // Get the file from the fileChooser.
          File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
 
-         // Check if it is a supported image format.
-         if (isValidImage(profilePictureFile))
+         // So we don't throw an exception.
+         if (profilePictureFile != null)
          {
-            // Set the image.
-            profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+            // Check if it is a supported image format.
+            if (isValidImage(profilePictureFile))
+            {
+               // Set the image.
+               profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
 
-            // Display the image.
-            profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
-            userImage.setImage(profilePictureImage);
+               // Display the image.
+               profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
+               userImage.setImage(profilePictureImage);
+            }
+            else
+               errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
          }
-         else
-            errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
       });
 
       // Check if username is already taken.
