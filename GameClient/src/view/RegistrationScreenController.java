@@ -303,7 +303,7 @@ public class RegistrationScreenController implements ControlledScreen
     */
    private boolean isValidEmail(String email)
    {
-      if (email.contains("@") && email.contains("."))
+      if (email.contains("@") & email.contains("."))
          return true;
 
       // Implied else.
