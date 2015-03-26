@@ -8,14 +8,20 @@
 package view;
 
 import java.util.HashMap;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class MainController extends StackPane
 {
-   // A hash table that contains all the screens.
+   // A hash map that contains all the screens.
    private HashMap<String, Node> screens = new HashMap<>();
 
    /**
@@ -80,11 +86,30 @@ public class MainController extends StackPane
          return false;
       }
    }
+   
+   /**
+    * Removes the appropriate screen and its associated FXML from the hash map.
+    * Can be used in conjunction with loadScreen to reload and seamlessly reinitialize a screen.
+    * 
+    * @param screenName The name of the screen (screen ID) that the screen is known by.
+    * @return true if it was unloaded, false if the screen was never loaded.
+    */
+   public boolean unloadScreen(String screenName)
+   {
+      // Check if screen is loaded.
+      if (screens.remove(screenName) == null)
+      {
+         System.out.println("Screen didn't exist");
+         return false;
+      }
+      else
+         return true;
+   }
 
    /**
     * Display the screen with a predefined name by adding it to the root of the StackPane.
     * 
-    * @param stringName
+    * @param stringName The name of the screen (screen ID) that the screen is known by.
     * @return true is the screen is being displayed, false if hasn't been loaded yet.
     */
    public boolean displayScreen(final String screenName)
@@ -92,24 +117,46 @@ public class MainController extends StackPane
       // Check if screen is loaded.
       if (screens.get(screenName) != null)
       {
+         final DoubleProperty opacity = opacityProperty(); // For transition effects.
+         
          // Check if a screen is being displayed.
          if (!getChildren().isEmpty())
          {
-            // Remove the displayed screen.
-            getChildren().remove(0);
+            Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(Duration.millis(1000), action ->
+            {
+               // Remove the displayed screen.
+               getChildren().remove(0);
 
-            // Display the screenName.
-            getChildren().add(0, screens.get(screenName));
+               // Display the screenName.
+               getChildren().add(0, screens.get(screenName));
+               
+               Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(800), new KeyValue(opacity, 1.0)));
+               
+               fadeIn.play();
+            }, new KeyValue(opacity, 0.0)));
+            
+            fade.play();
+            
          }
          else
          {
+            setOpacity(0.0);
+            
             // There is nothing being displayed, just show screenName.
             getChildren().add(screens.get(screenName));
+            
+            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(2500), new KeyValue(opacity, 1.0)));
+            
+            fadeIn.play();
          }
 
          return true;
       }
       else
+      {
+         System.out.println("The screen hasn't been loaded yet!");
+         
          return false;
+      }
    }
 }

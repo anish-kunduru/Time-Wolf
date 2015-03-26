@@ -180,8 +180,17 @@ public class GameTableScreenController implements ControlledScreen {
 		// Handles action when a main table card is clicked
 		onTableCardClicked(mainDeck, stealth, attack);
 
-		//Handles actions when a player's hand card is clicked
+		// Handles actions when a player's hand card is clicked
 		onPlayerCardClicked();
+
+		// Demo for discard state
+		// Card c = new Card("Bury");
+		// Hand h = new Hand(3);
+		// h.addCard(starterDeck.draw());
+		// h.addCard(starterDeck.draw());
+		// h.addCard(starterDeck.draw());
+		// Action a = new Action(5, 1, c, h);
+		// determineAction(a);
 	}
 
 	/**
@@ -301,9 +310,13 @@ public class GameTableScreenController implements ControlledScreen {
 
 		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images
 		biteDeckImage.setImage(new Image("cards/bite.png"));
+		biteDeckImage.setId("Bite");
 		lurkDeckImage.setImage(new Image("cards/lurk.png"));
+		lurkDeckImage.setId("Lurk");
 		notSoImportantHistoricalFigureImage.setImage(new Image(
 				"cards/notSoImportantHistoricalFigure.png"));
+		notSoImportantHistoricalFigureImage
+				.setId("Not So Important Historical Figure");
 
 		// Set the face down card image.
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
@@ -347,9 +360,10 @@ public class GameTableScreenController implements ControlledScreen {
 		}
 
 	}
+
 	/**
-	 * Helper method to recall actions. Called after an action has taken place to
-	 * update the actions.
+	 * Helper method to recall actions. Called after an action has taken place
+	 * to update the actions.
 	 */
 	private void update() {
 		// Handles ending the turn on button clicked
@@ -359,10 +373,11 @@ public class GameTableScreenController implements ControlledScreen {
 	}
 
 	/**
-	 * Action that covers what happens when a main table card is clicked. This method
-	 * verifies first whether there is enough attack or stealth to get the card and if 
-	 * true it creates an action to send to the server with the card clicked as well as
-	 * sends the appropriate message to the play log.
+	 * Action that covers what happens when a main table card is clicked. This
+	 * method verifies first whether there is enough attack or stealth to get
+	 * the card and if true it creates an action to send to the server with the
+	 * card clicked as well as sends the appropriate message to the play log.
+	 * 
 	 * @param image
 	 * @param deck
 	 * @param stealth
@@ -410,9 +425,17 @@ public class GameTableScreenController implements ControlledScreen {
 						// Change image to a new card's image, reset id to new
 						// card's
 						// name,
-						Card card = deck.draw();
-						image.setImage(new Image(card.getImagePath()));
-						image.setId(card.getName());
+
+						if (oldCard.getName().equals("Bite")
+								|| oldCard.getName().equals(
+										"Not So Important Historical Figure")
+								|| oldCard.getName().equals("Lurk")) {
+						}
+						else{
+							Card card = deck.draw();
+							image.setImage(new Image(card.getImagePath()));
+							image.setId(card.getName());
+						}
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -424,9 +447,10 @@ public class GameTableScreenController implements ControlledScreen {
 		});
 		return action;
 	}
-	
+
 	/**
 	 * This method applies the tableCardClickedEvent to all the table cards.
+	 * 
 	 * @param deck
 	 * @param stealth
 	 * @param attack
@@ -435,6 +459,12 @@ public class GameTableScreenController implements ControlledScreen {
 
 	private void onTableCardClicked(Deck deck, int stealth, int attack)
 			throws SQLException {
+
+		onTableCardClickedEvent(biteDeckImage, deck, stealth, attack);
+		onTableCardClickedEvent(lurkDeckImage, deck, stealth, attack);
+		onTableCardClickedEvent(notSoImportantHistoricalFigureImage, deck,
+				stealth, attack);
+
 		for (int i = 0; i < 5; i++) {
 			onTableCardClickedEvent(gameTableImages[i], deck, stealth, attack);
 		}
@@ -451,9 +481,10 @@ public class GameTableScreenController implements ControlledScreen {
 	}
 
 	/**
-	 * This method handles the required actions when a player clicks on a card in 
-	 * their hand. It takes the appropriate actions given the game state and prints 
-	 * the appropriate message to the play log.
+	 * This method handles the required actions when a player clicks on a card
+	 * in their hand. It takes the appropriate actions given the game state and
+	 * prints the appropriate message to the play log.
+	 * 
 	 * @param image
 	 * @return
 	 */
@@ -517,6 +548,7 @@ public class GameTableScreenController implements ControlledScreen {
 	/**
 	 * This method determines the action associated with the given Action object
 	 * and passes it into the appropriate method.
+	 * 
 	 * @param a
 	 */
 	private void determineAction(Action a) {
@@ -534,6 +566,7 @@ public class GameTableScreenController implements ControlledScreen {
 	/**
 	 * This method handles action playCard by getting the card from the Action
 	 * object and building the appropriate play log message from it.
+	 * 
 	 * @param a
 	 */
 	private void playCard(Action a) {
@@ -549,8 +582,9 @@ public class GameTableScreenController implements ControlledScreen {
 	}
 
 	/**
-	 * This method handles the action aquireCard by getting the card from the Action
-	 * object and building the appropriate play log message from it.
+	 * This method handles the action aquireCard by getting the card from the
+	 * Action object and building the appropriate play log message from it.
+	 * 
 	 * @param a
 	 */
 	private void acquireCard(Action a) {
@@ -561,6 +595,7 @@ public class GameTableScreenController implements ControlledScreen {
 
 	/**
 	 * This method handles the discardCard action.
+	 * 
 	 * @param a
 	 */
 	private void discardCard(Action a) {

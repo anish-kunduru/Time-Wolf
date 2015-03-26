@@ -15,6 +15,10 @@
 					<items>
 						<MenuItem fx:id="fileNewGame" mnemonicParsing="false"
 							onAction="#initialize" text="New Game" />
+						<MenuItem fx:id="fileGameLobby" mnemonicParsing="false"
+							onAction="#initialize" text="Game Lobby" />
+						<MenuItem fx:id="fileSearchGames" mnemonicParsing="false"
+							onAction="#initialize" text="Search Games" />
 						<MenuItem fx:id="fileLogOut" mnemonicParsing="false"
 							onAction="#initialize" text="Log Out" />
 					</items>

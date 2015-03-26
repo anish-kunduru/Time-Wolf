@@ -73,6 +73,8 @@ public class RegistrationScreenController implements ControlledScreen
    private boolean validUsername = false;
    private boolean validEmail = false;
    private boolean validPassword = false;
+   private boolean setSecurityQuestion = false;
+   private boolean setSecurityAnswer = false;
 
    // If user uploads a profile picture.
    private Image profilePictureImage;
@@ -87,12 +89,12 @@ public class RegistrationScreenController implements ControlledScreen
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Open Profile Picture");
 
-         // Check if user opened a file or hit cancel.
-         if (fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage()) != null)
-         {
-            // Get the file from the fileChooser.
-            File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+         // Get the file from the fileChooser.
+         File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
 
+         // So we don't throw an exception.
+         if (profilePictureFile != null)
+         {
             // Check if it is a supported image format.
             if (isValidImage(profilePictureFile))
             {
@@ -104,7 +106,7 @@ public class RegistrationScreenController implements ControlledScreen
                userImage.setImage(profilePictureImage);
             }
             else
-               errorLabel.setText("Not a supported image format.");
+               errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
          }
       });
 
@@ -193,6 +195,10 @@ public class RegistrationScreenController implements ControlledScreen
             validPassword = false;
          }
       });
+      
+      // Check to make sure user sets something to the security question fields (changes something) in these fields.
+      securityQuestionTextField.setOnKeyReleased(event -> setSecurityQuestion = true);
+      securityAnswerTextField.setOnKeyReleased(event -> setSecurityAnswer = true);
 
       // Send the user back to the login screen.
       cancelButton.setOnAction(event ->
@@ -205,20 +211,24 @@ public class RegistrationScreenController implements ControlledScreen
       {
          if (!validUsername)
             errorLabel.setText("That username is not valid.");
-         else if (!over13CheckBox.isSelected())
-            errorLabel.setText("You are not over 13.");
          else if (!validEmail)
             errorLabel.setText("That e-mail address is not valid.");
          else if (!validPassword)
             errorLabel.setText("Passwords do not match.");
+         else if (!setSecurityQuestion)
+            errorLabel.setText("You must type a password reset question.");
+         else if (!setSecurityAnswer)
+            errorLabel.setText("You must answer your password reset question.");
+         else if (!over13CheckBox.isSelected())
+            errorLabel.setText("You are not over 13.");
          else
          {
             try
             {
+               // Check if user selected a profile picture.
                if (profilePictureImage != null)
                {
                   // TO-DO: Call overloaded register function that allows me to pass an image.
-
                   // Call normal registration until that is ready.
                   MainModel.getModel()
                            .currentLoginData()
@@ -247,14 +257,41 @@ public class RegistrationScreenController implements ControlledScreen
             {
                errorLabel.setText("There was an error registering your account. Please contact support.");
             }
-         }
-      });
+         } // End final else.
+      }); // End cancelButton lambda.
+   } // End #initialize.
 
-   }
-
+   /**
+    * This private helper method checks if the passed image is a valid one. It can be broken by intentionally passing a corrupted file.
+    * 
+    * @param file The file you think is an image.
+    * @return true if it is an image file; false otherwise.
+    */
    private boolean isValidImage(File file)
    {
-      return true;
+      String fileName = file.getName();
+      String fileExtension = "";
+
+      // Loop over fileName in reverse order.
+      for (int index = (fileName.length() - 1); index > 0; index--)
+      {
+         // Tack on index to beginning.
+         fileExtension = fileName.charAt(index) + fileExtension;
+
+         // Found it!
+         if (fileExtension.charAt(0) == '.')
+            break; // ////////////////////////////////////////////////////////////////////////////////
+      }
+
+      // Check if BMP, JPEG, PNG, or GIF.
+      if (fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".bmp") || fileExtension.equalsIgnoreCase(".gif")
+          || fileExtension.equalsIgnoreCase(".jpeg") || fileExtension.equalsIgnoreCase(".jpg"))
+      {
+         return true;
+      }
+
+      // Implied else
+      return false;
    }
 
    /**
@@ -266,7 +303,7 @@ public class RegistrationScreenController implements ControlledScreen
     */
    private boolean isValidEmail(String email)
    {
-      if (email.contains("@") && email.contains("."))
+      if (email.contains("@") & email.contains("."))
          return true;
 
       // Implied else.

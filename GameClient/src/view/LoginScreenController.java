@@ -32,7 +32,7 @@ public class LoginScreenController implements ControlledScreen
    @FXML
    private TextField usernameTextField;
    @FXML
-   private PasswordField passwordTextField;
+   private PasswordField passwordField;
 
    @FXML
    private Label errorMessage;
@@ -70,7 +70,7 @@ public class LoginScreenController implements ControlledScreen
 
          try
          {
-            userOne = login.logIn(usernameTextField.getText(), passwordTextField.getText());
+            userOne = login.logIn(usernameTextField.getText(), passwordField.getText());
             // TEST LOGIN: username: ssimmons, password: password
 
             // This will only be called if an exception isn't thrown by the previous statement, so no need to worry about error handling.
@@ -86,12 +86,20 @@ public class LoginScreenController implements ControlledScreen
             errorMessage.setText(e.getMessage());
          }
       });
-
+      
+      // Attempt login upon hitting return register in passwordField.
+      passwordField.setOnAction(event ->
+      {
+         loginButton.fire(); // Fire off a loginButton event.
+      });
+      
+      // Go to registration screen.
       registerButton.setOnAction(event ->
       {
          parentController.displayScreen(MainView.REGISTRATION_SCREEN);
       });
-
+      
+      // Go to forgot password screen.
       forgotUsernamePasswordHyperlink.setOnAction(event ->
       {
          parentController.displayScreen(MainView.FORGOT_PASSWORD_SCREEN);
