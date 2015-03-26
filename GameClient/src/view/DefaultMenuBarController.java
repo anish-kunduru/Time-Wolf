@@ -62,7 +62,6 @@ public class DefaultMenuBarController
       fileLogOut.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
-      });
-      
+      }); 
    }
 }

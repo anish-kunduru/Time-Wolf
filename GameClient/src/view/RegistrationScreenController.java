@@ -215,6 +215,7 @@ public class RegistrationScreenController implements ControlledScreen
          {
             try
             {
+               // Check if user selected a profile picture.
                if (profilePictureImage != null)
                {
                   // TO-DO: Call overloaded register function that allows me to pass an image.
@@ -247,10 +248,9 @@ public class RegistrationScreenController implements ControlledScreen
             {
                errorLabel.setText("There was an error registering your account. Please contact support.");
             }
-         }
-      });
-
-   }
+         } // End final else.
+      }); // End cancelButton lambda.
+   } // End #initialize.
 
    private boolean isValidImage(File file)
    {

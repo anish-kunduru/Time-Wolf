@@ -148,10 +148,9 @@ public class ForgotPasswordScreenController implements ControlledScreen
             {
                errorLabel.setText("There was an error resetting your account. Please contact support.");
             }
-         }
-
-      });
-   }
+         } // End else.
+      }); // End Lambda.
+   } // End initalize.
 
    /**
     * Private helper method to check if security answer is a match.
