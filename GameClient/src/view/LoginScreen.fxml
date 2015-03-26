@@ -19,8 +19,8 @@
 			AnchorPane.leftAnchor="545.0" />
 		<TextField fx:id="usernameTextField" layoutX="566.0"
 			layoutY="287.0" onAction="#initialize" />
-		<Text layoutX="17.0" layoutY="118.0" strokeType="OUTSIDE"
-			strokeWidth="0.0" text="Super Awesome Card Game">
+		<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time Wolf"
+			AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="50.0">
 			<font>
 				<Font name="System Bold" size="96.0" />
 			</font>
@@ -39,7 +39,12 @@
 		</Text>
 		<PasswordField fx:id="passwordField" layoutX="566.0"
 			layoutY="369.0" />
-		<Label fx:id="errorMessage" layoutX="549.0" layoutY="517.0"
-			prefHeight="21.0" textFill="RED" AnchorPane.leftAnchor="545.0" />
+		<Label fx:id="errorMessage" alignment="CENTER" prefHeight="21.0"
+			prefWidth="400.0" textFill="RED" AnchorPane.leftAnchor="440.0"
+			AnchorPane.topAnchor="540.0">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
 	</children>
 </AnchorPane>
