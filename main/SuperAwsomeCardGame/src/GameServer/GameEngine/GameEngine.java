@@ -32,7 +32,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	private Deck mainDeck;
 	private DiscardPile mainDiscard = new DiscardPile();
-	private Hand mainPlayAreaCards = new Hand(4);
+	private Hand mainPlayAreaCards = new Hand(5);
 	private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", "cards/notSoImportantHistoricalFigure.png", "Action", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
 	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", "cards/prowl.png", "Action", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
 	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", "cards/bite.png", "Action", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
@@ -52,7 +52,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		this.name = name;
 		
 		//Initialize the main play area cards.
-		for(int i = 0; i < 4; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+		for(int i = 0; i < 5; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw());
 		
 		
 	}
@@ -217,6 +217,44 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	
 	private void ruleDiscard(Player current, Card c, boolean isBefore) {
+		
+		int numOfCards;
+		//  open up standard input
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input; //place to put input from command line.
+		
+		
+		//We can either discard before or after
+		if(isBefore) {
+			numOfCards = c.getPreturnDiscard();
+		} else {
+			numOfCards = c.getPostturnDiscard();
+		}
+		
+		
+		for(int i = 0; i < numOfCards; i++) {
+			
+			GameEngine.printHand(current.getHand());
+			try {
+				input = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+				i--;
+				continue;
+			}
+			System.out.println("Choose card to discard: ");
+			
+			int cardIndex = Integer.parseInt(input) - 1;
+			
+			if(i < 0 || i >= current.getHand().size()) {
+				current.getDiscardPile().discard(current.getHand().get(cardIndex));
+				current.getHand().remove(cardIndex);
+			} else {
+				System.out.println("Invalid selection.");
+				i--;
+				continue;
+			}
+		}
 		
 	}
 	
@@ -489,7 +527,16 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		} else if(input.equals("2")) {
 			
 			GameEngine.printHand(this.mainPlayAreaCards);
+			System.out.println("(A) Not So Important Historical Figure: You think you may have read about this guy once.");
+			System.out.println("(B) Prowl: Gain 2 stealth when played.");
+			System.out.println("(C) Bite: Gain 2 attack when played.");
 			
+			/*
+			 * private static final Card defaultAttack = new Card("Not So Important Historical Figure", "You think you may have read about this guy once.", "cards/notSoImportantHistoricalFigure.png", "Action", 0, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);
+	private static final Card defaultBuyStealth = new Card("Prowl", "Gain 2 stealth when played.", "cards/prowl.png", "Action", 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	private static final Card defaultBuyAttack = new Card("Bite", "Gain 2 attack when played.", "cards/bite.png", "Action", 3, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false);;
+	
+			 */
 			System.out.println("Atack/Buy card #: ");
 			try {
 				input = br.readLine();
@@ -498,9 +545,23 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 				input = "1";
 			}
 			
-			int cardIndex = Integer.parseInt(input) - 1;
+			if(input.trim().equals("A")) {
+				chosen = new Action(Action.AQUIRE_CARD, -1, this.defaultAttack); 
+			} else if(input.trim().equals("B")) {
+				chosen = new Action(Action.AQUIRE_CARD, -1, this.defaultBuyStealth);
+				
+			} else if(input.trim().equals("C")) {
+				chosen = new Action(Action.AQUIRE_CARD, -1, this.defaultBuyAttack);
+			} else {
+				int cardIndex = Integer.parseInt(input) - 1;
+				
+				
+				
+				chosen = new Action(Action.AQUIRE_CARD, cardIndex, this.mainPlayAreaCards.get(cardIndex));
+				
+				
+			}
 			
-			chosen = new Action(Action.AQUIRE_CARD, cardIndex, this.mainPlayAreaCards.get(cardIndex));
 			
 		} else if(input.equals("3")) {
 			GameEngine.printHand(p.getHand());
@@ -539,13 +600,15 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 			
 			p.getDiscardPile().discard(c);
 			
-			this.mainPlayAreaCards.remove(a.getCardIndex());
-			this.mainPlayAreaCards.addCard(this.mainDeck.draw());
-			
-			//If this was the last card in the main deck, reshuffle the discard
-			//pile back in to the main play area deck.
-			if(this.mainDeck.size() == 0) {
-				this.mainDiscard.addToDeck(this.mainDeck);
+			if(a.getCardIndex() != -1) {
+				this.mainPlayAreaCards.remove(a.getCardIndex());
+				this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+				
+				//If this was the last card in the main deck, reshuffle the discard
+				//pile back in to the main play area deck.
+				if(this.mainDeck.size() == 0) {
+					this.mainDiscard.addToDeck(this.mainDeck);
+				}
 			}
 			
 		} else { //Aquire an historical figure
@@ -556,15 +619,16 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 			
 			p.addAttack(-1 * c.getCostAttack());
 			
-			p.getDiscardPile().discard(c);
-			
-			this.mainPlayAreaCards.remove(a.getCardIndex());
-			this.mainPlayAreaCards.addCard(this.mainDeck.draw());
-			
-			//If this was the last card in the main deck, reshuffle the discard
-			//pile back in to the main play area deck.
-			if(this.mainDeck.size() == 0) {
-				this.mainDiscard.addToDeck(this.mainDeck);
+			p.addVP(c.getVp());
+			if(a.getCardIndex() != -1) {
+				this.mainPlayAreaCards.remove(a.getCardIndex());
+				this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+				
+				//If this was the last card in the main deck, reshuffle the discard
+				//pile back in to the main play area deck.
+				if(this.mainDeck.size() == 0) {
+					this.mainDiscard.addToDeck(this.mainDeck);
+				}
 			}
 			
 			

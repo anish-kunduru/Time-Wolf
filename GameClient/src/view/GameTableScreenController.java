@@ -184,13 +184,13 @@ public class GameTableScreenController implements ControlledScreen {
 		onPlayerCardClicked();
 
 		// Demo for discard state
-//		Card c = new Card("Bury");
-//		Hand h = new Hand(3);
-//		h.addCard(starterDeck.draw());
-//		h.addCard(starterDeck.draw());
-//		h.addCard(starterDeck.draw());
-//		Action a = new Action(5, 1, c, h);
-//		determineAction(a);
+		// Card c = new Card("Bury");
+		// Hand h = new Hand(3);
+		// h.addCard(starterDeck.draw());
+		// h.addCard(starterDeck.draw());
+		// h.addCard(starterDeck.draw());
+		// Action a = new Action(5, 1, c, h);
+		// determineAction(a);
 	}
 
 	/**
@@ -310,9 +310,13 @@ public class GameTableScreenController implements ControlledScreen {
 
 		// Set the claw, lurk, and notSoImportantHistoricalFigure deck images
 		biteDeckImage.setImage(new Image("cards/bite.png"));
+		biteDeckImage.setId("Bite");
 		lurkDeckImage.setImage(new Image("cards/lurk.png"));
+		lurkDeckImage.setId("Lurk");
 		notSoImportantHistoricalFigureImage.setImage(new Image(
 				"cards/notSoImportantHistoricalFigure.png"));
+		notSoImportantHistoricalFigureImage
+				.setId("Not So Important Historical Figure");
 
 		// Set the face down card image.
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
@@ -421,9 +425,17 @@ public class GameTableScreenController implements ControlledScreen {
 						// Change image to a new card's image, reset id to new
 						// card's
 						// name,
-						Card card = deck.draw();
-						image.setImage(new Image(card.getImagePath()));
-						image.setId(card.getName());
+
+						if (oldCard.getName().equals("Bite")
+								|| oldCard.getName().equals(
+										"Not So Important Historical Figure")
+								|| oldCard.getName().equals("Lurk")) {
+						}
+						else{
+							Card card = deck.draw();
+							image.setImage(new Image(card.getImagePath()));
+							image.setId(card.getName());
+						}
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
