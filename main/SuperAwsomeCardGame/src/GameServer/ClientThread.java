@@ -68,7 +68,7 @@ public class ClientThread extends Thread
          System.out.println("There was an issue reading the input stream: " + cnfe);
       }
 
-      // Initializes everthing, we can roll.
+      // Initializes everything, we can roll.
       run = true;
    }
 
@@ -86,39 +86,39 @@ public class ClientThread extends Thread
          catch (IOException | ClassNotFoundException e)
          {
             System.out.println(clientID + " had an I/O stream exception: " + e);
-            break; ////////////////////// So we don't lock up the thread. ////////////////////////////
+            break; // //////////////////// So we don't lock up the thread. ////////////////////////////
          }
-         
-         // Extract the message
+
+         // Extract the message.
          String message = chatMessage.getMessage();
-         
-         // Parse enum
+
+         // Parse enum.
          switch (chatMessage.getMessageType())
          {
             case LOGOUT:
             {
                run = false; // Stop running.
-               
+
                // DEBUG
                System.out.println(clientID + " has disconnected.");
-               
+
                break;
             }
             case MESSAGE:
             {
                // Send the message to all the users in the server.
                parentServer.broadcastMessage(username + ": " + message);
-               
+
                break;
             }
          } // End while.
-         
+
          // Ya done! Leave the parent array.
          parentServer.removeClient(clientID);
          close();
       }
    }
-   
+
    /**
     * Private helper method to assit in closing the I/O streams and socket after client disconnect or fatal error.
     */
@@ -128,16 +128,17 @@ public class ClientThread extends Thread
       {
          output.close();
          input.close();
-         socket.close();         
+         socket.close();
       }
       catch (IOException ioe)
       {
          System.out.println("There was an error closing the streams AND/OR socket: " + ioe);
       }
    }
-   
+
    /**
     * Write a message to the object buffer (socket stream).
+    * 
     * @param message The message that you wish to send to the buffer.
     * @return true if the message was sucessfully sent, false if something failed.
     */
@@ -149,7 +150,7 @@ public class ClientThread extends Thread
          close();
          return false;
       }
-      
+
       // Write to buffer.
       try
       {
@@ -159,22 +160,24 @@ public class ClientThread extends Thread
       {
          System.out.println(clientID + " had an error while attempting to write to the buffer: " + ioe);
       }
-      
+
       // Implied else.
       return true;
    }
-   
+
    /**
     * Getter for clientID.
+    * 
     * @return The clientID associated with this client thread (passed by the calling chatServer).
     */
    public int getClientID()
    {
       return clientID;
    }
-   
+
    /**
     * Getter for username.
+    * 
     * @return The username associated with this client thread.
     */
    public String getUsername()

@@ -21,13 +21,14 @@ public class ChatMessage implements Serializable
    {
       LOGOUT, MESSAGE
    };
-   
+
    // Object vars.
    private Type messageType;
    private String message;
-   
+
    /**
     * Constructor that sets up the class variables.
+    * 
     * @param type The type of message of ChatMessage.Type.
     * @param message The message that you wish to broadcast to the chatroom.
     */
@@ -36,18 +37,20 @@ public class ChatMessage implements Serializable
       messageType = type;
       this.message = message;
    }
-   
+
    /**
     * Returns the type of message this is.
+    * 
     * @return A ChatMessage.Type enumeration.
     */
    public Type getMessageType()
    {
       return messageType;
    }
-   
+
    /**
     * Get the message in the object.
+    * 
     * @return A String representing the message that the user has sent.
     */
    public String getMessage()
