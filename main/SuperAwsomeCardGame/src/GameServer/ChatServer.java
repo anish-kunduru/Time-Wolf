@@ -87,7 +87,10 @@ public class ChatServer
          System.out.println("Error creating the serverSocket or creating the clientSocket: " + ioe);
       }
    }
-
+   
+   /**
+    * Stops the server.
+    */
    public void stop()
    {
       run = false;
