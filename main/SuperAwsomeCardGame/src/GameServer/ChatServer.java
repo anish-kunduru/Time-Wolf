@@ -87,7 +87,7 @@ public class ChatServer
          System.out.println("Error creating the serverSocket or creating the clientSocket: " + ioe);
       }
    }
-   
+
    /**
     * Stops the server.
     */
@@ -111,23 +111,28 @@ public class ChatServer
     * visible to more than one thread.
     * 
     * @param message The message that you wish to broadcast to all the clients part of this chatroom.
+    * @param chatroomID The chatroom that you wish this message to be broadcast to.
     */
-   public synchronized void broadcastMessage(String message)
+   public synchronized void broadcastMessage(String message, int chatroomID)
    {
       // Loop in reverse to remove disconnected clients along the way.
       for (int i = clients.size(); --i >= 0;)
       {
          ClientThread client = clients.get(i);
 
-         // Buffer messages, dumping a client if it fails.
-         if (!client.bufferMessage(message))
+         // Check if client is in room.
+         if (chatroomID == client.getChatroomID())
          {
-            clients.remove(i);
+            // Buffer messages, dumping a client if it fails.
+            if (!client.bufferMessage(message))
+            {
+               clients.remove(i);
 
-            // DEBUG
-            System.out.println("Client: " + clientID + " has been disconnected.");
+               // DEBUG
+               System.out.println("Client: " + clientID + " has been disconnected.");
+            }
          }
-      }
+      } // End for loop.
    }
 
    /**
@@ -149,6 +154,22 @@ public class ChatServer
          }
       }
    }
+
+   /*
+    * COMMENTED OUT BECAUSE I'M NOT TOO WORRIED ABOUT EFFIENCY AT THIS POINT. IMPLEMENTING THIS WOULD REQUIRE MORE CODE...
+    * 
+    * To be called by GameManagement at the start or end of a game. NOTE: WE ASSUME THAT IT ISN'T POSSIBLE FOR A USER TO JOIN MORE THAN ONE GAME/CHATROOM AT
+    * ONCE.
+    * 
+    * @param username The username of the user whose chatroomID must be changed.
+    * 
+    * @param chatroomID The identification number for the game room. -1 indicates the user is in the global lobby (not yet joined a game) and should be the
+    * value passed at the end of a game. public synchronized void joinChatroom(int username, int chatroomID) { // Scan the array until you find the username.
+    * for (int i = 0; i < clients.size(); i++) { ClientThread client = clients.get(i);
+    * 
+    * if (client.getUsername().equals(username)) { clients.get(i).setChatroomID(chatroomID); break; // ///////////////////// found it, we can stop looping now
+    * /////////////////// } } }
+    */
 
    public static void main(String[] args)
    {

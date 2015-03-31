@@ -20,6 +20,7 @@ public class ClientThread extends Thread
    private ObjectOutputStream output;
 
    private int clientID; // To properly close the thread upon disconnect.
+   private int chatroomID; // To know who to broadcast message to.
 
    private String username; // Username of the client.
 
@@ -52,11 +53,12 @@ public class ClientThread extends Thread
          input = new ObjectInputStream(socket.getInputStream());
          output = new ObjectOutputStream(socket.getOutputStream());
 
-         // Initialize username.
+         // Initialize username and chatroomID.
          username = (String) input.readObject();
+         chatroomID = input.readInt();
 
          // DEBUG
-         System.out.println(username + ": connected.");
+         System.out.println(username + ": connected in room: " + chatroomID + ".");
       }
       catch (IOException ioe)
       {
@@ -107,16 +109,18 @@ public class ClientThread extends Thread
             case MESSAGE:
             {
                // Send the message to all the users in the server.
-               parentServer.broadcastMessage(username + ": " + message);
+               String chatMsg = username + ": " + message;
+               
+               parentServer.broadcastMessage(chatMsg, chatroomID);
 
                break;
             }
-         } // End while.
-
-         // Ya done! Leave the parent array.
-         parentServer.removeClient(clientID);
-         close();
+         }
       }
+
+      // Ya done! Leave the parent array.
+      parentServer.removeClient(clientID);
+      close();
    }
 
    /**
@@ -163,6 +167,16 @@ public class ClientThread extends Thread
 
       // Implied else.
       return true;
+   }
+
+   /**
+    * Getter for chatroomID.
+    * 
+    * @return The chatroomID associated with this client thread.
+    */
+   public int getChatroomID()
+   {
+      return chatroomID;
    }
 
    /**
