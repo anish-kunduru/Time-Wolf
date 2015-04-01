@@ -125,6 +125,7 @@ public class GameTableScreenController implements ControlledScreen
    private Action action;
    private boolean isTurn;
    private boolean isDiscard;
+   private boolean isTrash;
    private boolean Update;
    private int stealth;
    private int attack;
@@ -181,13 +182,13 @@ public class GameTableScreenController implements ControlledScreen
       onPlayerCardClicked();
 
       // Demo for discard state
-      // Card c = new Card("Bury");
-      // Hand h = new Hand(3);
-      // h.addCard(starterDeck.draw());
-      // h.addCard(starterDeck.draw());
-      // h.addCard(starterDeck.draw());
-      // Action a = new Action(5, 1, c, h);
-      // determineAction(a);
+       Card c = new Card("Overhaul");
+       Hand h = new Hand(3);
+       h.addCard(starterDeck.draw());
+       h.addCard(starterDeck.draw());
+       h.addCard(starterDeck.draw());
+       Action a = new Action(6, 1, c, h);
+       determineAction(a);
    }
 
    /**
@@ -525,6 +526,27 @@ public class GameTableScreenController implements ControlledScreen
                e.printStackTrace();
             }
          }
+         if (isTurn && isTrash && counter > 0)
+         {
+            try
+            {
+               Card c = new Card(image.getId());
+               playLog.appendText("You trashed card " + c.getName() + ". " + c.getDescription() + "\n");
+
+               image.setImage(null);
+
+               counter--;
+               if (counter == 0)
+                  isTrash = false;
+
+               action = null;
+
+            }
+            catch (Exception e)
+            {
+               e.printStackTrace();
+            }
+         }
          else if (isTurn)
          {
             for (int i = 0; i < playerHandImages.length; i++)
@@ -589,7 +611,7 @@ public class GameTableScreenController implements ControlledScreen
       }
       else if (a.getAction() == 6)
       {
-
+    	  trashCard(a);
       }
    }
 
@@ -637,7 +659,24 @@ public class GameTableScreenController implements ControlledScreen
       else
          discard = c.getPostturnDiscard();
       isDiscard = true;
-      counter = 3;
+      counter = discard;
+   }
+   
+   /**
+    * This method handles the trash card state.
+    * @param a
+    */
+   private void trashCard(Action a)
+   {
+      Card c = a.getCard();
+      int trash = 0;
+
+      if (c.getTrashCardsMandatory() != 0)
+         trash = c.getTrashCardsMandatory();
+      else
+         trash = c.getTrashCardsOptional();
+      isTrash = true;
+      counter = trash;
    }
 
 }
