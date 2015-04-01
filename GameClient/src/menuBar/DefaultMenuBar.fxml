@@ -9,7 +9,8 @@
 <HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="menuBar.DefaultMenuBarController">
 	<children>
-		<MenuBar fx:id="menuBar" prefWidth="1280.0" HBox.hgrow="ALWAYS">
+		<MenuBar fx:id="menuBar" onMouseEntered="#initialize"
+			prefWidth="1280.0" HBox.hgrow="ALWAYS">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
@@ -35,6 +36,13 @@
 							onAction="#initialize" text="About" />
 						<MenuItem fx:id="helpGameRules" mnemonicParsing="false"
 							text="Game Rules" />
+					</items>
+				</Menu>
+				<Menu fx:id="administratorMenu" mnemonicParsing="false"
+					onAction="#initialize" text="Administrator" visible="false">
+					<items>
+						<MenuItem fx:id="adminUserListing" mnemonicParsing="false"
+							text="User Listing" />
 					</items>
 				</Menu>
 			</menus>

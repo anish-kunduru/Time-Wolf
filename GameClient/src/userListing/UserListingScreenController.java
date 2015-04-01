@@ -1,16 +1,16 @@
 /**
  * @author Anish Kunduru
  *
- * This program is our handler for GameRulesScreen.fxml.
+ * This program is our handler for UserListingScreen.fxml.
  */
 
-package gameRules;
+package userListing;
 
 import view.ControlledScreen;
 import view.MainController;
 import javafx.fxml.FXML;
 
-public class GameRulesScreenController implements ControlledScreen
+public class UserListingScreenController implements ControlledScreen
 {
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -30,4 +30,5 @@ public class GameRulesScreenController implements ControlledScreen
    {
       parentController = screenParent;
    }
+
 }

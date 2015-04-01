@@ -9,6 +9,7 @@ package menuBar;
 import singleton.MainModel;
 import view.MainView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
@@ -29,6 +30,11 @@ public class DefaultMenuBarController
    private MenuItem helpAbout;
    @FXML
    private MenuItem helpGameRules;
+   @FXML
+   private MenuItem adminUserListing;
+   
+   @FXML
+   private Menu administratorMenu;
    
    @FXML
    private MenuBar menuBar;
@@ -78,6 +84,19 @@ public class DefaultMenuBarController
       helpGameRules.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_RULES_SCREEN);
+      });
+      
+      adminUserListing.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.USER_LISTING_SCREEN);
+      });
+      
+      menuBar.setOnMouseEntered(event ->
+      {
+         if (MainModel.getModel().currentLoginData().getIsAdmin())
+            administratorMenu.setVisible(true);
+         else
+            administratorMenu.setVisible(false);
       });
    }
 }
