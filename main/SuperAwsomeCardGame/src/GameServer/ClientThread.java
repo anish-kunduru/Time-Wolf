@@ -28,10 +28,10 @@ public class ClientThread extends Thread
 
    private ChatServer parentServer; // Store reference of calling thread to remove myself upon logout.
 
-   private boolean run;
+   private boolean run; // To start and stop the thread.
 
    /**
-    * Default constructor creates a new client thread.
+    * Constructor creates a new client thread.
     * 
     * @param socket The socket that the client is operating on.
     * @param ID The unique ID number that represents the client.
@@ -69,9 +69,6 @@ public class ClientThread extends Thread
          // NOTE: If this is thrown, there is an error getting the username.
          System.out.println("There was an issue reading the input stream: " + cnfe);
       }
-
-      // Initializes everything, we can roll.
-      run = true;
    }
 
    /**
@@ -79,6 +76,8 @@ public class ClientThread extends Thread
     */
    public void run()
    {
+      run = true;
+      
       while (run)
       {
          try
@@ -110,7 +109,7 @@ public class ClientThread extends Thread
             {
                // Send the message to all the users in the server.
                String chatMsg = username + ": " + message;
-               
+
                parentServer.broadcastMessage(chatMsg, chatroomID);
 
                break;
@@ -144,7 +143,7 @@ public class ClientThread extends Thread
     * Write a message to the object buffer (socket stream).
     * 
     * @param message The message that you wish to send to the buffer.
-    * @return true if the message was sucessfully sent, false if something failed.
+    * @return true if the message was successfully sent, false if something failed.
     */
    public boolean bufferMessage(String message)
    {

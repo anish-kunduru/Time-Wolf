@@ -1,5 +1,6 @@
 /**
  * @author Anish Kunduru
+ * 
  * This class is the chat server that will connect all the clients together.
  * It calls and starts a new ClientThread for every user that connects to it.
  */
@@ -16,7 +17,7 @@ public class ChatServer
    private static int clientID; // Iterate to keep list of connected clients.
    private ArrayList<ClientThread> clients;
    private int serverPort; // Port number to listen to.
-   private boolean run;
+   private boolean run; // To start and stop server.
 
    /**
     * Create a new chat room.
