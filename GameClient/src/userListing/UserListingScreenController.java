@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import GameServer.Users.User;
-import singleton.MainData;
 import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
@@ -32,11 +31,11 @@ public class UserListingScreenController implements ControlledScreen
 {
    // So we can set the screen's parent later on.
    MainController parentController;
-   
+
    // Table components.
    ArrayList<User> users;
    ObservableList<UserRow> tableData;
-   
+
    @FXML
    TableView<UserRow> userTable;
    @FXML
@@ -47,7 +46,7 @@ public class UserListingScreenController implements ControlledScreen
    TableColumn bannedColumn;
    @FXML
    TableColumn roleColumn;
-   
+
    // User components.
    @FXML
    TextField usernameTextField;
@@ -65,22 +64,21 @@ public class UserListingScreenController implements ControlledScreen
    CheckBox userRoleCheckBox;
    @FXML
    Button resetPasswordButton;
-   
+
    @FXML
    ImageView profilePictureImageView;
    @FXML
    Button removePhotoButton;
-   
+
    // Save/Cancel components.
    @FXML
    Label errorLabel;
-   
+
    @FXML
    Button saveChangesButton;
    @FXML
    Button cancelButton;
-   
-   
+
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded.
     */
@@ -89,7 +87,7 @@ public class UserListingScreenController implements ControlledScreen
    {
       // Get list of users.
       // NOTE: THIS CODE ISN'T VERY EFFICIENT AND USES A TON OF MEMORY.
-      //       WE KNOW THIS, BUT THIS SHOULD SUFFICE FOR THE PURPOSES OF THIS DEMO.
+      // WE KNOW THIS, BUT THIS SHOULD SUFFICE FOR THE PURPOSES OF THIS DEMO.
       try
       {
          users = MainModel.getModel().currentLoginData().getLogInConnection().getUserList();
@@ -98,33 +96,28 @@ public class UserListingScreenController implements ControlledScreen
       {
          System.out.println("Error reading users from the database.");
       }
-      
+
       // Bind table elements to their appropriate values.
       usernameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("username"));
       emailColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("email"));
       bannedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("banned"));
       roleColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("role"));
-      
+
       // Bind the table values.
       tableData = FXCollections.observableArrayList();
-      userTable.setItems(tableData);      
-      
+      userTable.setItems(tableData);
+
       // Populate the table.
       for (int i = 0; i < users.size(); i++)
       {
          UserRow currentEntry = new UserRow(); // new row.
-         
+
          User currentUser = users.get(i); // Get index in ArrayList.
-         
+
          currentEntry.username.set(currentUser.getUsername()); // Set username.
          currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
-         
-         // Set banned.
-         if (currentUser.isBanned())
-            currentEntry.banned.set("Yes");
-         else
-            currentEntry.banned.set("No");
-         
+         currentEntry.banned.set(currentUser.isBanned());// Set banned.
+
          // Set role.
          if (currentUser.isAdmin())
             currentEntry.role.set("Administrator");
@@ -132,10 +125,39 @@ public class UserListingScreenController implements ControlledScreen
             currentEntry.role.set("Moderator");
          else
             currentEntry.role.set("User");
-         
+
          // Add to observableArrayList.
          tableData.add(currentEntry);
       }
+      
+      // NOTE: LOOKS LIKE I WILL HAVE TO PIN A CHANGE HANDLER TO THE SELECTEDITEM.
+      
+      // Event handling for selected row on userTable.
+      userTable.setOnMouseClicked(event ->
+      {
+         // Check to make sure something is selected.
+         if (userTable.getSelectionModel().getSelectedItem().username.get() != null)
+         {
+            usernameTextField.setText(userTable.getSelectionModel().getSelectedItem().username.get());
+            //emailTextField.setText(user.getEmail());
+
+            //bannedCheckBox.setSelected(user.isBanned());
+            //checkBannedCheckBoxText();
+
+            // bannedReasonTextArea.setText(user.getBannedReason);
+         }
+      });
+   }
+
+   /**
+    * Private helper method to set the text value of bannedCheckBox.
+    */
+   private void checkBannedCheckBoxText()
+   {
+      if (bannedCheckBox.isSelected())
+         bannedCheckBox.setText("Yes");
+      else
+         bannedCheckBox.setText("No");
    }
 
    /**

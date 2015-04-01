@@ -241,11 +241,13 @@ public class RegistrationScreenController implements ControlledScreen
                                      securityQuestionTextField.getText(), securityAnswerTextField.getText());
                }
                else
+               {
                   MainModel.getModel()
                            .currentLoginData()
                            .getLogInConnection()
                            .register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(),
                                      securityQuestionTextField.getText(), securityAnswerTextField.getText());
+               }
 
                // Timeline action event.
                errorLabel.setText("Registration sucessful! Redirecting to the login screen in 5 seconds.");

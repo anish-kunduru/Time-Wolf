@@ -6,6 +6,7 @@
 
 package userListing;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class UserRow
@@ -13,7 +14,7 @@ public class UserRow
    // Define our entry types.
    public SimpleStringProperty username = new SimpleStringProperty();
    public SimpleStringProperty email = new SimpleStringProperty();
-   public SimpleStringProperty banned = new SimpleStringProperty();
+   public SimpleBooleanProperty banned = new SimpleBooleanProperty();
    public SimpleStringProperty role = new SimpleStringProperty();
    
    // The following getters are called automatically when the table is loaded.
@@ -35,15 +36,15 @@ public class UserRow
    }
    
    /**
-    * @return The String representation of a user's ban status (yes for banned, no for not banned).
+    * @return The boolean representation of a user's ban status (true for banned, false for not banned).
     */
-   public String getBanned()
+   public boolean getBanned()
    {
       return banned.get();
    }
    
    /**
-    * @return The String representation of a user's role (admin, mod, user).
+    * @return The String representation of a user's role (administrator, moderator, user).
     */
    public String getRole()
    {
