@@ -4,8 +4,9 @@
  * The purpose of this program is to store MainView's application state data.
  */
 
-package view;
+package singleton;
 
+import view.MainController;
 import javafx.stage.Stage;
 
 public class MainData

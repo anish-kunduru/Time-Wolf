@@ -5,7 +5,7 @@
  * We don't have to worry about checking input before setting, because that is the job of the controller that will call this class.
  */
 
-package view;
+package singleton;
 
 import GameServer.Users.LogIn;
 

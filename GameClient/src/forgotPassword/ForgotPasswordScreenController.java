@@ -4,10 +4,14 @@
  * This program is our handler for RegistrationScreen.fxml.
  */
 
-package view;
+package forgotPassword;
 
 import java.sql.SQLException;
 
+import singleton.MainModel;
+import view.ControlledScreen;
+import view.MainController;
+import view.MainView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;

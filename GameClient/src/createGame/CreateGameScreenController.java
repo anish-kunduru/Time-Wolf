@@ -4,8 +4,11 @@
  * This program is our handler for CreateGameScreen.fxml.
  */
 
-package view;
+package createGame;
 
+import view.ControlledScreen;
+import view.MainController;
+import view.MainView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

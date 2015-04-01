@@ -4,10 +4,14 @@
  * This program is our handler for RegistrationScreen.fxml.
  */
 
-package view;
+package registration;
 
 import java.io.File;
 
+import singleton.MainModel;
+import view.ControlledScreen;
+import view.MainController;
+import view.MainView;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;

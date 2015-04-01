@@ -6,6 +6,7 @@
 
 package view;
 
+import singleton.MainModel;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,28 +17,28 @@ public class MainView extends Application
 
    // Constants that represent the screen names and locations in the workspace.
    public static final String LOGIN_SCREEN = "login";
-   public static final String LOGIN_SCREEN_FXML = "LoginScreen.fxml";
+   public static final String LOGIN_SCREEN_FXML = "/login/LoginScreen.fxml";
 
    public static final String FORGOT_PASSWORD_SCREEN = "forgotPassword";
-   public static final String FORGOT_PASSWORD_SCREEN_FXML = "ForgotPasswordScreen.fxml";
+   public static final String FORGOT_PASSWORD_SCREEN_FXML = "/forgotPassword/ForgotPasswordScreen.fxml";
 
    public static final String REGISTRATION_SCREEN = "registration";
-   public static final String REGISTRATION_SCREEN_FXML = "RegistrationScreen.fxml";
+   public static final String REGISTRATION_SCREEN_FXML = "/registration/RegistrationScreen.fxml";
 
    public static final String GAME_LOBBY_SCREEN = "gameLobby";
-   public static final String GAME_LOBBY_SCREEN_FXML = "GameLobbyScreen.fxml";
+   public static final String GAME_LOBBY_SCREEN_FXML = "/gameLobby/GameLobbyScreen.fxml";
    
    public static final String GAME_TABLE_SCREEN = "gameTable";
-   public static final String GAME_TABLE_SCREEN_FXML = "GameTableScreen.fxml";
+   public static final String GAME_TABLE_SCREEN_FXML = "/gameTable/GameTableScreen.fxml";
    
    public static final String CREATE_GAME_SCREEN = "createGame";
-   public static final String CREATE_GAME_SCREEN_FXML = "CreateGameScreen.fxml";
+   public static final String CREATE_GAME_SCREEN_FXML = "/createGame/CreateGameScreen.fxml";
    
    public static final String SEARCH_GAME_SCREEN = "searchGame";
-   public static final String SEARCH_GAME_SCREEN_FXML = "SearchGameScreen.fxml";
+   public static final String SEARCH_GAME_SCREEN_FXML = "/searchGame/SearchGameScreen.fxml";
    
    public static final String GAME_RULES_SCREEN = "gameRules";
-   public static final String GAME_RULES_SCREEN_FXML = "GameRulesScreen.fxml";
+   public static final String GAME_RULES_SCREEN_FXML = "/gameRules/GameRulesScreen.fxml";
    
    @Override
    public void start(Stage primaryStage)

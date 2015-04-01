@@ -4,7 +4,7 @@
  * This program is our handler for LoginScreen.fxml.
  */
 
-package view;
+package login;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +15,10 @@ import javafx.scene.control.TextField;
 
 import java.rmi.Naming;
 
+import singleton.MainModel;
+import view.ControlledScreen;
+import view.MainController;
+import view.MainView;
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
 

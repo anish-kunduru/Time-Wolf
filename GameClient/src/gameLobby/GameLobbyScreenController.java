@@ -4,8 +4,11 @@
  * This program is our handler for GameLobbyScreen.fxml.
  */
 
-package view;
+package gameLobby;
 
+import view.ControlledScreen;
+import view.MainController;
+import view.MainView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

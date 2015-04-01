@@ -6,7 +6,7 @@
  * We separate each controller's game data into a new submodel that will be implemented in this class.
  */
 
-package view;
+package singleton;
 
 public class MainModel
 {

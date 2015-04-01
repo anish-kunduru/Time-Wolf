@@ -4,8 +4,10 @@
  * This program is our handler for GameRulesScreen.fxml.
  */
 
-package view;
+package gameRules;
 
+import view.ControlledScreen;
+import view.MainController;
 import javafx.fxml.FXML;
 
 public class GameRulesScreenController implements ControlledScreen

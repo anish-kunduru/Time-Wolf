@@ -4,8 +4,10 @@
  * This program is our handler for DefaultMenuBar.fxml.
  */
 
-package view;
+package menuBar;
 
+import singleton.MainModel;
+import view.MainView;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
