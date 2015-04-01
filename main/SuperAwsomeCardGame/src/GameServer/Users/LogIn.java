@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.Remote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import GameServer.DBHelper;
 
@@ -216,13 +216,13 @@ public class LogIn implements Remote, Serializable {
 	}
 
 	/**
-	 * Returns a list of all users in the database
+	 * Returns an ArrayList of all users in the database
 	 * 
 	 * @return List of all users
 	 * @throws SQLException
 	 */
-	public static LinkedList<User> List() throws SQLException, RemoteException {
-		LinkedList<User> users = new LinkedList<User>();
+	public static ArrayList<User> getUserList() throws SQLException, RemoteException {
+		ArrayList<User> users = new ArrayList<User>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User";
 		ResultSet rs = dbh.executeQuery(query);
@@ -230,7 +230,7 @@ public class LogIn implements Remote, Serializable {
 		while (rs.next()) {
 			User u = new User();
 			u.setID(rs.getInt("ID"));
-			u.setUsername("Username");
+			u.setUsername(rs.getString("Username"));
 			u.setEmail(rs.getString("Email"));
 			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
