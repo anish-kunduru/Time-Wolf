@@ -14,6 +14,7 @@ import GameServer.Users.User;
 import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
+import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -100,7 +101,7 @@ public class UserListingScreenController implements ControlledScreen
       // Bind table elements to their appropriate values.
       usernameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("username"));
       emailColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("email"));
-      bannedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("banned"));
+      bannedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("isBanned"));
       roleColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("role"));
 
       // Bind the table values.
@@ -116,7 +117,10 @@ public class UserListingScreenController implements ControlledScreen
 
          currentEntry.username.set(currentUser.getUsername()); // Set username.
          currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
-         currentEntry.banned.set(currentUser.isBanned());// Set banned.
+         currentEntry.isBanned.set(currentUser.isBanned()); // Set banned.
+         
+         // TO-DO: REPLACE WITH CORRECT METHOD...
+         currentEntry.bannedReason.set("bannedReason");
 
          // Set role.
          if (currentUser.isAdmin())
@@ -129,23 +133,131 @@ public class UserListingScreenController implements ControlledScreen
          // Add to observableArrayList.
          tableData.add(currentEntry);
       }
-      
-      // NOTE: LOOKS LIKE I WILL HAVE TO PIN A CHANGE HANDLER TO THE SELECTEDITEM.
-      
+
       // Event handling for selected row on userTable.
       userTable.setOnMouseClicked(event ->
       {
          // Check to make sure something is selected.
-         if (userTable.getSelectionModel().getSelectedItem().username.get() != null)
+         if (userTable.getSelectionModel().getSelectedIndex() != -1)
          {
             usernameTextField.setText(userTable.getSelectionModel().getSelectedItem().username.get());
-            //emailTextField.setText(user.getEmail());
+            emailTextField.setText(userTable.getSelectionModel().getSelectedItem().email.get());
 
-            //bannedCheckBox.setSelected(user.isBanned());
-            //checkBannedCheckBoxText();
+            bannedCheckBox.setSelected(userTable.getSelectionModel().getSelectedItem().isBanned.get());
+            checkBannedCheckBoxText();
 
-            // bannedReasonTextArea.setText(user.getBannedReason);
+            // TO-DO: REPLACE WITH CORRECT GETTER ONCE CREATED.
+            bannedReasonTextArea.setText(userTable.getSelectionModel().getSelectedItem().bannedReason.get());
+
+            String role = userTable.getSelectionModel().getSelectedItem().role.get();
+            if (role.equals("Administrator"))
+            {
+               administratorRoleCheckBox.setSelected(true);
+               moderatorRoleCheckBox.setSelected(false);
+               userRoleCheckBox.setSelected(false);
+            }
+            else if (role.equals("Moderator"))
+            {
+               moderatorRoleCheckBox.setSelected(true);
+               administratorRoleCheckBox.setSelected(false);
+               userRoleCheckBox.setSelected(false);
+            }
+            else
+            {
+               userRoleCheckBox.setSelected(true);
+               administratorRoleCheckBox.setSelected(false);
+               moderatorRoleCheckBox.setSelected(false);
+            }
+
+            // TO-DO: SET PROFILE IMAGE.
          }
+      });
+      
+      // Remove profile picture.
+      removePhotoButton.setOnAction(event ->
+      {
+         // Check if a user is selected.
+         if (userTable.getSelectionModel().getSelectedIndex() != -1)
+         {
+            String username = userTable.getSelectionModel().getSelectedItem().username.get();
+            
+            // TO-DO: REMOVE PROFILE IMAGE.
+         }
+      });
+      
+      // Remove password.
+      resetPasswordButton.setOnAction(event ->
+      {
+      // Check if a user is selected.
+         if (userTable.getSelectionModel().getSelectedIndex() != -1)
+         {
+            String username = userTable.getSelectionModel().getSelectedItem().username.get();
+            
+            // TO-DO: RESET PASSWORD.
+            
+            /*
+             * IDEA FOR RESET PASSWORD:
+             * 
+             * There is a resetPassword boolean in the database. When this button is pushed, that field is tripped true.
+             * The login screen checks for the appropriate field, and when the user attempts to login, they are re-directed to the password reset screen.
+             * The password reset screen will always mark this resetPassword boolean false after a successful password changes.
+             * 
+             * Such functionality will also allow users all users passwords to easily be changed at particular intervals (security).
+             */
+         }
+      });
+
+      // Call helper method when user toggles this switch.
+      bannedCheckBox.setOnAction(event ->
+      {
+         checkBannedCheckBoxText();
+      });
+
+      // Check roles switching logic handling by calling helper method.
+      administratorRoleCheckBox.setOnAction(event ->
+      {
+         moderatorRoleCheckBox.setSelected(false);
+         userRoleCheckBox.setSelected(false);
+      });
+
+      moderatorRoleCheckBox.setOnAction(event ->
+      {
+         administratorRoleCheckBox.setSelected(false);
+         userRoleCheckBox.setSelected(false);
+      });
+
+      userRoleCheckBox.setOnAction(event ->
+      {
+         administratorRoleCheckBox.setSelected(false);
+         moderatorRoleCheckBox.setSelected(false);
+      });
+      
+      // Send to game lobby screen.
+      cancelButton.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_LOBBY_SCREEN);
+      });
+      
+      // Save changes.
+      saveChangesButton.setOnAction(event ->
+      {
+         String username = usernameTextField.getText();
+         
+         String email = emailTextField.getText();
+         
+         int role;
+         if (administratorRoleCheckBox.isSelected())
+            role = 2;
+         else if (moderatorRoleCheckBox.isSelected())
+            role = 1;
+         else
+            role = 0;
+         
+         boolean banned = bannedCheckBox.isSelected();
+         
+         String bannedReason = bannedReasonTextArea.getText();
+         
+         // TO-DO: CALL SAVE CHANGES METHOD IN LOGIN.
       });
    }
 
@@ -167,5 +279,4 @@ public class UserListingScreenController implements ControlledScreen
    {
       parentController = screenParent;
    }
-
 }
