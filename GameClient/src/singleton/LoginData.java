@@ -11,9 +11,10 @@ import GameServer.Users.LogIn;
 
 public class LoginData
 {
-   // Login information.
+   // User information.
    private String usernameString;
    private int userID;
+   private boolean isAdmin;
    
    // Login connection.
    private LogIn logInConnection;
@@ -46,6 +47,16 @@ public class LoginData
    }
    
    /**
+    * Sets if the user is an admin or not.
+    * 
+    * @param isAdmin True if the user is an administrator, false if he isn't.
+    */
+   public void setIsAdmin(boolean isAdmin)
+   {
+      this.isAdmin = isAdmin;
+   }
+   
+   /**
     * Sets the loginConnection.
     * 
     * @param loginConnection An valid LogInConnection that can be accessed and used by other screens.
@@ -69,6 +80,14 @@ public class LoginData
    public int getUserID()
    {
       return userID;
+   }
+   
+   /** 
+    * @return True if the user is an administrator, false if he isn't.
+    */
+   public boolean getIsAdmin()
+   {
+      return isAdmin;
    }
    
    /**

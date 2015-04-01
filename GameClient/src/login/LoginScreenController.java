@@ -70,17 +70,18 @@ public class LoginScreenController implements ControlledScreen
       // Lambda expressions allow you to create anonymous methods, which is perfect for eventHandling.
       loginButton.setOnAction(event ->
       {
-         User userOne = new User();
+         User user = new User();
 
          try
          {
-            userOne = login.logIn(usernameTextField.getText(), passwordField.getText());
+            user = login.logIn(usernameTextField.getText(), passwordField.getText());
             // TEST LOGIN: username: ssimmons, password: password
 
             // This will only be called if an exception isn't thrown by the previous statement, so no need to worry about error handling.
             // Set the login information in our shared model so that we can access it from other controllers.
             MainModel.getModel().currentLoginData().setUsername(usernameTextField.getText());
-            MainModel.getModel().currentLoginData().setUserID(userOne.getID());
+            MainModel.getModel().currentLoginData().setUserID(user.getID());
+            MainModel.getModel().currentLoginData().setIsAdmin(user.isAdmin());
 
             // Go to the next screen.
             parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
