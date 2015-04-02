@@ -22,6 +22,7 @@ public class Action implements Serializable {
 	public static final int VIEW_HAND = 4;		//Used for text based thing
 	public static final int DISCARD = 5;
 	public static final int TRASH = 6;
+	public static final int DRAW = 7;
 	
 	
 	private int action;
