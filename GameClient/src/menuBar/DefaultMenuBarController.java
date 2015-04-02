@@ -73,7 +73,7 @@ public class DefaultMenuBarController
 
       editProfile.setOnAction(event ->
       {
-         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.EDIT_PROFILE_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.PROFILE_SCREEN);
       });
 
       helpAbout.setOnAction(event ->
