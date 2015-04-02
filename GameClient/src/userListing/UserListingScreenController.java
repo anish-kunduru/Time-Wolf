@@ -258,6 +258,10 @@ public class UserListingScreenController implements ControlledScreen
          String bannedReason = bannedReasonTextArea.getText();
          
          // TO-DO: CALL SAVE CHANGES METHOD IN LOGIN.
+         
+         // Since the table isn't bound to the database (for now), we will need to re-initialize the page for the settings to be visible to the user.
+         errorLabel.setText("Changes saved.");
+         initialize();
       });
    }
 
