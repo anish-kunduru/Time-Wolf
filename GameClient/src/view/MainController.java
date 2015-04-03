@@ -105,6 +105,21 @@ public class MainController extends StackPane
       else
          return true;
    }
+   
+   /**
+    * Reloads the screen by calling unloadScreen() and loadScreen() subsequently.
+    * @param screenName The name of the screen (screen ID) that the screen is known by.
+    * @param screenLocation The location of the FXML file in the workspace.
+    * @return true if it was unloaded, flas eif the screen was never loaded.
+    */
+   public boolean reloadScreen(String screenName, String screenLocation)
+   {
+      if (unloadScreen(screenName) & loadScreen(screenName, screenLocation))
+         return true;
+      
+      // Implied else.
+      return false;
+   }
 
    /**
     * Display the screen with a predefined name by adding it to the root of the StackPane.

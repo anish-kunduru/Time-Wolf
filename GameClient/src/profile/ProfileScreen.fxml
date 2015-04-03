@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,5 +12,78 @@
 	fx:controller="profile.ProfileScreenController">
 	<children>
 		<fx:include source="../menuBar/DefaultMenuBar.fxml" />
+		<Label layoutX="31.0" layoutY="41.0" text="Profile - Username">
+			<font>
+				<Font name="System Bold" size="36.0" />
+			</font>
+		</Label>
+		<ImageView fitHeight="250.0" fitWidth="250.0" layoutX="31.0"
+			layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+		<VBox layoutX="55.0" layoutY="375.0" prefHeight="130.0"
+			prefWidth="300.0">
+			<children>
+				<Label layoutX="55.0" layoutY="375.0" text="Personal Info:">
+					<font>
+						<Font name="System Bold" size="20.0" />
+					</font>
+				</Label>
+				<Text layoutX="62.0" layoutY="426.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Email: ">
+					<font>
+						<Font size="16.0" />
+					</font>
+				</Text>
+				<Text layoutX="62.0" layoutY="455.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Location:">
+					<font>
+						<Font size="16.0" />
+					</font>
+				</Text>
+				<Text layoutX="62.0" layoutY="489.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="Paranoia:">
+					<font>
+						<Font size="16.0" />
+					</font>
+				</Text>
+				<Text layoutX="62.0" layoutY="520.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" text="User Type:">
+					<font>
+						<Font size="16.0" />
+					</font>
+				</Text>
+			</children>
+		</VBox>
+		<Button layoutX="64.0" layoutY="561.0" mnemonicParsing="false"
+			text="Change Settings" />
+		<Button layoutX="64.0" layoutY="614.0" mnemonicParsing="false"
+			text="Change Password" />
+		<TableView layoutX="669.0" layoutY="135.0" prefHeight="305.0"
+			prefWidth="569.0">
+			<columns>
+				<TableColumn prefWidth="163.0" text="Win?" />
+				<TableColumn prefWidth="241.0" text="Game Type" />
+				<TableColumn minWidth="0.0" prefWidth="178.0" text="Points Won" />
+			</columns>
+		</TableView>
+		<TableView layoutX="669.0" layoutY="486.0" prefHeight="200.0"
+			prefWidth="569.0">
+			<columns>
+				<TableColumn prefWidth="150.0" text="Rating" />
+				<TableColumn prefWidth="175.0" text="Player" />
+				<TableColumn prefWidth="243.0" text="Reason Given" />
+			</columns>
+		</TableView>
+		<Text layoutX="910.0" layoutY="479.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Karma">
+			<font>
+				<Font name="System Bold" size="24.0" />
+			</font>
+		</Text>
+		<Text layoutX="841.0" layoutY="125.0" strokeType="OUTSIDE"
+			strokeWidth="0.0" text="Recent Game Stats">
+			<font>
+				<Font name="System Bold" size="24.0" />
+			</font>
+		</Text>
 	</children>
 </AnchorPane>

@@ -1,16 +1,15 @@
 /**
+ * @author Anish Kunduru
  * 
+ * This program is our handler for ProfileScreen.fxml.
  */
+
 package profile;
 
 import javafx.fxml.FXML;
 import view.ControlledScreen;
 import view.MainController;
 
-/**
- * @author Anish Kunduru
- *
- */
 public class ProfileScreenController implements ControlledScreen
 {
    // So we can set the screen's parent later on.

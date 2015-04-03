@@ -25,6 +25,8 @@ public class DefaultMenuBarController
    @FXML
    private MenuItem fileLogOut;
    @FXML
+   private MenuItem fileExit;
+   @FXML
    private MenuItem editProfile;
    @FXML
    private MenuItem helpAbout;
@@ -69,10 +71,17 @@ public class DefaultMenuBarController
       fileLogOut.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
-      }); 
+      });
+      
+      // Exits and terminates the application.
+      fileExit.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainStage().close();
+      });
 
       editProfile.setOnAction(event ->
       {
+         MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.PROFILE_SCREEN, MainView.PROFILE_SCREEN_FXML);
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.PROFILE_SCREEN);
       });
 

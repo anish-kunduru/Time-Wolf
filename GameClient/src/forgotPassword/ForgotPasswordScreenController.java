@@ -1,7 +1,7 @@
 /**
  * @author Anish Kunduru
  * 
- * This program is our handler for RegistrationScreen.fxml.
+ * This program is our handler for ForgotPasswordScreen.fxml.
  */
 
 package forgotPassword;

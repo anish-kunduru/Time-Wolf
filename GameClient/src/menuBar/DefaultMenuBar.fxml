@@ -22,6 +22,8 @@
 							onAction="#initialize" text="Search Games" />
 						<MenuItem fx:id="fileLogOut" mnemonicParsing="false"
 							onAction="#initialize" text="Log Out" />
+						<MenuItem fx:id="fileExit" mnemonicParsing="false"
+							onAction="#initialize" text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edit">
