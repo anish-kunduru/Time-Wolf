@@ -14,8 +14,6 @@ public class MainModel
    private final static MainModel model = new MainModel();
 
    /**
-    * Get the current instance (data model).
-    * 
     * @return The current instance of MainModel.
     */
    public static MainModel getModel()
@@ -26,10 +24,10 @@ public class MainModel
    // Instantiate data classes to store information.
    private LoginData loginData = new LoginData();
    private MainData mainData = new MainData();
+   private GameLobbyData gameLobbyData = new GameLobbyData();
+   private ProfileData profileData = new ProfileData();
 
    /**
-    * Get the current loginData.
-    * 
     * @return The current instance of LoginData.
     */
    public LoginData currentLoginData()
@@ -38,12 +36,26 @@ public class MainModel
    }
 
    /**
-    * Get the current mainData.
-    * 
-    * @return The current instance of mainData.
+    * @return The current instance of MainData.
     */
    public MainData currentMainData()
    {
       return mainData;
+   }
+   
+   /**
+    * @return The current instance of GameLobbyData.
+    */
+   public GameLobbyData gameLobbyData()
+   {
+      return gameLobbyData;
+   }
+   
+   /**
+    * @return The current instance of ProfileData.
+    */
+   public ProfileData profileData()
+   {
+      return profileData;
    }
 }

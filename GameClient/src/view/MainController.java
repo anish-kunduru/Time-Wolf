@@ -108,6 +108,7 @@ public class MainController extends StackPane
    
    /**
     * Reloads the screen by calling unloadScreen() and loadScreen() subsequently.
+    * 
     * @param screenName The name of the screen (screen ID) that the screen is known by.
     * @param screenLocation The location of the FXML file in the workspace.
     * @return true if it was reloaded, false if there was an error.
