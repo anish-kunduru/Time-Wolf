@@ -132,43 +132,43 @@ public class UserStats implements Serializable {
 	 * @return corresponding user's statistic information
 	 * @throws SQLException
 	 */
-	public void getStats(int userID) {
-		try {
-
-			DBHelper dbh = new DBHelper();
-			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
-			ResultSet rs = dbh.executeQuery(query);
-			
-
-			if (rs.first()) // should only be one returned on table is incorrect
-			{
-				this.gamesPlayed = rs.getInt("TotalGames");
-				this.gamesWon = rs.getInt("TotalWins");
-				this.totalPoints = rs.getDouble("TotalPoints");
-				this.ID = rs.getInt("ID");
-				this.userID = userID;
-			} else {
-				// given userID is not valid
-				this.gamesPlayed = 0;
-				this.gamesWon = 0;
-				this.totalPoints = 0;
-				this.ID = 0;
-				this.userID = 0;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
-	
-	public void updateStatsDatabase()
-	{
-		DBHelper dbh = new DBHelper();
-		String query = "UPDATE Statistics SET TotalGames=" + gamesPlayed + ",TotalWins=" + gamesWon + ",TotalPoints=" + totalPoints;
-		query = query + " WHERE UserID=" + userID;
-		dbh.executeUpdate(query);
-		
-	}
+//	public void getStats(int userID) {
+//		try {
+//
+//			DBHelper dbh = new DBHelper();
+//			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
+//			ResultSet rs = dbh.executeQuery(query);
+//			
+//
+//			if (rs.first()) // should only be one returned on table is incorrect
+//			{
+//				this.gamesPlayed = rs.getInt("TotalGames");
+//				this.gamesWon = rs.getInt("TotalWins");
+//				this.totalPoints = rs.getDouble("TotalPoints");
+//				this.ID = rs.getInt("ID");
+//				this.userID = userID;
+//			} else {
+//				// given userID is not valid
+//				this.gamesPlayed = 0;
+//				this.gamesWon = 0;
+//				this.totalPoints = 0;
+//				this.ID = 0;
+//				this.userID = 0;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+//
+//	}
+//	
+//	public void updateStatsDatabase()
+//	{
+//		DBHelper dbh = new DBHelper();
+//		String query = "UPDATE Statistics SET TotalGames=" + gamesPlayed + ",TotalWins=" + gamesWon + ",TotalPoints=" + totalPoints;
+//		query = query + " WHERE UserID=" + userID;
+//		dbh.executeUpdate(query);
+//		
+//	}
 
 
 	
