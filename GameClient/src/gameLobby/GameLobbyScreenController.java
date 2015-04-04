@@ -31,6 +31,12 @@ public class GameLobbyScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+      // TO-DO: REDIRECT LOGIC.
+      
+      // TO-DO: INITIALIZE TABLE COMPONENTS.
+      
+      // TO-DO: INITALIZE CHAT.
+      
       joinButton.setOnAction(event ->
       {
          parentController.displayScreen(MainView.GAME_TABLE_SCREEN);

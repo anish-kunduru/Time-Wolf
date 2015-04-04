@@ -21,7 +21,7 @@ public class ProfileScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      
+      // TO-DO: REDIRECT LOGIC.
    }
    
    /**
