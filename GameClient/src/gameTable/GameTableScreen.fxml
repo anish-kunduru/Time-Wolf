@@ -171,45 +171,38 @@
 									AnchorPane.topAnchor="255.0">
 									<children>
 										<ImageView fx:id="playerHandOne" fitHeight="170.0"
-											fitWidth="96.0" layoutX="70.0" layoutY="27.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="23.0"
-											AnchorPane.topAnchor="25.0">
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="25.0">
 											<HBox.margin>
 												<Insets />
 											</HBox.margin>
 										</ImageView>
 										<ImageView fx:id="playerHandTwoo" fitHeight="170.0"
-											fitWidth="96.0" layoutX="81.0" layoutY="15.0" onMousePressed="#initialize"
-											pickOnBounds="true" preserveRatio="true"
-											AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" onMousePressed="#initialize" pickOnBounds="true"
+											preserveRatio="true" AnchorPane.leftAnchor="100.0"
+											AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandThree" fitHeight="170.0"
 											fitWidth="96.0" layoutX="149.0" layoutY="17.0" pickOnBounds="true"
 											preserveRatio="true" AnchorPane.leftAnchor="175.0"
 											AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandFour" fitHeight="170.0"
-											fitWidth="96.0" layoutX="287.0" layoutY="40.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="250.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandFive" fitHeight="170.0"
-											fitWidth="96.0" layoutX="380.0" layoutY="69.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="325.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandSix" fitHeight="170.0"
-											fitWidth="96.0" layoutX="447.0" layoutY="-1.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="400.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandSeven" fitHeight="170.0"
-											fitWidth="96.0" layoutX="537.0" layoutY="62.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="475.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="475.0" AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandEight" fitHeight="170.0"
-											fitWidth="96.0" layoutX="583.0" layoutY="-35.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="550.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="25.0" />
 										<ImageView fx:id="playerHandNine" fitHeight="170.0"
-											fitWidth="96.0" layoutX="613.0" layoutY="-7.0" pickOnBounds="true"
-											preserveRatio="true" AnchorPane.leftAnchor="625.0"
-											AnchorPane.topAnchor="25.0" />
+											fitWidth="96.0" pickOnBounds="true" preserveRatio="true"
+											AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="25.0" />
 										<Label text="Current Hand:" AnchorPane.leftAnchor="32.0"
 											AnchorPane.topAnchor="-15.0">
 											<font>

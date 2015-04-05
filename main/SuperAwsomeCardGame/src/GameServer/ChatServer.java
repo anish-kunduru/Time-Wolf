@@ -157,20 +157,32 @@ public class ChatServer
    }
 
    /*
-    * COMMENTED OUT BECAUSE I'M NOT TOO WORRIED ABOUT EFFIENCY AT THIS POINT. IMPLEMENTING THIS WOULD REQUIRE MORE CODE...
-    * 
+   
+   // COMMENTED OUT BECAUSE I'M NOT TOO WORRIED ABOUT EFFIENCY AT THIS POINT. IMPLEMENTING THIS WOULD REQUIRE MORE CODE...
+
+   /**
     * To be called by GameManagement at the start or end of a game. NOTE: WE ASSUME THAT IT ISN'T POSSIBLE FOR A USER TO JOIN MORE THAN ONE GAME/CHATROOM AT
     * ONCE.
     * 
     * @param username The username of the user whose chatroomID must be changed.
-    * 
     * @param chatroomID The identification number for the game room. -1 indicates the user is in the global lobby (not yet joined a game) and should be the
-    * value passed at the end of a game. public synchronized void joinChatroom(int username, int chatroomID) { // Scan the array until you find the username.
-    * for (int i = 0; i < clients.size(); i++) { ClientThread client = clients.get(i);
-    * 
-    * if (client.getUsername().equals(username)) { clients.get(i).setChatroomID(chatroomID); break; // ///////////////////// found it, we can stop looping now
-    * /////////////////// } } }
-    */
+    *        value passed at the end of a game.
+    *
+   public synchronized void joinChatroom(int username, int chatroomID)
+   { // Scan the array until you find the username.
+      for (int i = 0; i < clients.size(); i++)
+      {
+         ClientThread client = clients.get(i);
+
+         if (client.getUsername().equals(username))
+         {
+            clients.get(i).setChatroomID(chatroomID);
+            break; // ///////////////////// found it, we can stop looping now ///////////////////
+         }
+      } // End for loop.
+   }
+   
+   */
 
    public static void main(String[] args)
    {
