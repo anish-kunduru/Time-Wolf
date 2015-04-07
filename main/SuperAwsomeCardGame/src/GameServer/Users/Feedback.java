@@ -1,6 +1,13 @@
 package GameServer.Users;
 
-public class Feedback {
+import java.io.Serializable;
+import java.rmi.Remote;
+
+public class Feedback implements Remote, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int ID;
 	private int userID;
 	private String description;

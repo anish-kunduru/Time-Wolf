@@ -62,7 +62,7 @@ public class LogIn implements Remote, Serializable {
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
 			u.Statistics = initStats(u.getID());
-			u.Feedback = initFeedbackList(u.getID());
+			u.Feedback = getFeedbackList(u.getID());
 
 			return u;
 		} else {
@@ -77,7 +77,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return
 	 * @throws SQLException
 	 */
-	private static ArrayList<Feedback> initFeedbackList(int userID) throws SQLException
+	public static ArrayList<Feedback> getFeedbackList(int userID) throws SQLException
 	{
 		ArrayList<Feedback> fl = new ArrayList<Feedback>();
 		
@@ -431,5 +431,5 @@ public class LogIn implements Remote, Serializable {
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
-
+	
 }
