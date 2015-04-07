@@ -19,7 +19,7 @@ import GameServer.DBHelper;
 public class LogIn implements Remote, Serializable {
 
 	/**
-    * 
+    * Updates a user object in case of new updates
     */
 	private static final long serialVersionUID = 1L;
 
