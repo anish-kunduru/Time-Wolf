@@ -146,7 +146,6 @@ public class UserListingScreenController implements ControlledScreen
             bannedCheckBox.setSelected(userTable.getSelectionModel().getSelectedItem().isBanned.get());
             checkBannedCheckBoxText();
 
-            // TO-DO: REPLACE WITH CORRECT GETTER ONCE CREATED.
             bannedReasonTextArea.setText(userTable.getSelectionModel().getSelectedItem().bannedReason.get());
 
             String role = userTable.getSelectionModel().getSelectedItem().role.get();
