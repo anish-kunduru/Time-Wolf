@@ -7,6 +7,10 @@ public class Feedback {
 	private boolean isPositive;
 	private int byUserID;
 	
+	/**
+	 * ANY NEW FEEDBACK SHOULD ALWAYS HAVE AN ID OF 0
+	 * IF NOT, THE SAVE WILL NOT WORK CORRECTLY
+	 */
 	public Feedback()
 	{
 		ID = 0;

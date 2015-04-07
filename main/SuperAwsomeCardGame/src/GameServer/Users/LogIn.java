@@ -65,6 +65,13 @@ public class LogIn implements Remote, Serializable {
 		}
 	}
 
+	/**
+	 * Static method to initialize the feedback list for the user class
+	 * Used when retrieving a user
+	 * @param userID
+	 * @return
+	 * @throws SQLException
+	 */
 	private static ArrayList<Feedback> initFeedbackList(int userID) throws SQLException
 	{
 		ArrayList<Feedback> fl = new ArrayList<Feedback>();
@@ -242,6 +249,15 @@ public class LogIn implements Remote, Serializable {
 		return u;
 
 	}
+	
+	public static void insertFeedback(int userID, int byUserID, String desc, boolean isPositive)
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "INSERT INTO Feedback";
+		query += "(UserID, isGood, Comment, ByUserID)";
+		query += "VALUES ('" + userID + "','" + isPositive + "','" + desc + "','" + byUserID + "')";
+		dbh.executeUpdate(query);
+	}
 
 	/**
 	 * Returns an ArrayList of all users in the database
@@ -296,7 +312,9 @@ public class LogIn implements Remote, Serializable {
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
+		
 	}
+	
 
 	/**
 	 * Saves password parameter in database where ID=id
