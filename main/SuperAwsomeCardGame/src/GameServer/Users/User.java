@@ -29,7 +29,7 @@ public class User implements Serializable {
    public UserStats Statistics;
    private boolean isBanned;
    private int role;
-   private ArrayList<Feedback> Feedback;
+   public ArrayList<Feedback> Feedback;
 
    /**
     * Creates a new user object with empty fields

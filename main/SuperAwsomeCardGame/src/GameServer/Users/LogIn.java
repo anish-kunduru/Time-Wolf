@@ -57,6 +57,7 @@ public class LogIn implements Remote, Serializable {
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
 			u.Statistics = initStats(u.getID());
+			u.Feedback = initFeedbackList(u.getID());
 
 			return u;
 		} else {
@@ -64,6 +65,33 @@ public class LogIn implements Remote, Serializable {
 		}
 	}
 
+	private static ArrayList<Feedback> initFeedbackList(int userID) throws SQLException
+	{
+		ArrayList<Feedback> fl = new ArrayList<Feedback>();
+		
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Feedback WHERE UserID=" + userID;
+		ResultSet rs = dbh.executeQuery(query);
+		int ID = 0;
+		int uID = 0;
+		int byID = 0;
+		String desc = "";
+		boolean isPos = false;
+		
+		while(rs.next())
+		{
+			ID = rs.getInt("ID");
+			uID = rs.getInt("UserID");
+			byID = rs.getInt("ByUserID");
+			desc = rs.getString("Comment");
+			isPos = rs.getBoolean("isGood");
+			fl.add(new Feedback(ID, uID, desc, isPos, byID));
+		}
+		
+		
+		return fl;
+	}
+	
 	/**
 	 * Initializes and returns a UserStats object given a userID
 	 * @param userID - UserID to initialize the statistics of
