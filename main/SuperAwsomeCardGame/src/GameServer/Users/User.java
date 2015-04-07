@@ -29,7 +29,7 @@ public class User implements Serializable {
    public UserStats Statistics;
    private boolean isBanned;
    private int role;
-   //public ArrayList<Feedback> Feedback;
+   private ArrayList<Feedback> Feedback;
 
    /**
     * Creates a new user object with empty fields
@@ -100,6 +100,15 @@ public class User implements Serializable {
    
    public String getSecurityQuestion(){
 	   return securityQuestion;
+   }
+   
+   /**
+    * Returns the private list of all feedback for the given user
+    * @return
+    */
+   public ArrayList<Feedback> listFeedback()
+   {
+	   return Feedback;
    }
    
    /**
