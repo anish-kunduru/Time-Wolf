@@ -23,6 +23,11 @@ public class LogIn implements Remote, Serializable {
     */
 	private static final long serialVersionUID = 1L;
 
+	public static User getLiveUpdate(User u) throws RemoteException, Exception
+	{
+		return logIn(u.getUsername(), u.getPassword());
+	}
+	
 	/**
 	 * Returns the user to be logged in by the given username and password
 	 * 
