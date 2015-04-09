@@ -422,7 +422,7 @@ public class LogIn implements Remote, Serializable {
 	/**
 	 * Inserts new feedback record into database
 	 */
-	public static void insertFeedback(int userID, boolean isPositive,
+	public static void insertFeedback(int userID, int byUserID, boolean isPositive,
 			String comment) {
 		String query = "INSERT INTO Feedback ";
 		query += "(UserID, isGood, Comment)";

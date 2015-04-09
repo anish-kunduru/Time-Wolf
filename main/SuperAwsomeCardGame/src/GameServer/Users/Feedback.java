@@ -85,7 +85,7 @@ public class Feedback implements Remote, Serializable {
 	 * Returns the ID of the user who left the feedback
 	 * @return
 	 */
-	public int byUserID()
+	public int getByUserID()
 	{
 		return byUserID;
 	}
