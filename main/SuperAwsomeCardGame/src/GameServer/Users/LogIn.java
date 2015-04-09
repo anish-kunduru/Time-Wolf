@@ -23,9 +23,35 @@ public class LogIn implements Remote, Serializable {
     */
 	private static final long serialVersionUID = 1L;
 
-	public static User getLiveUpdate(User u) throws RemoteException, Exception
+	public static void getLiveUpdate(User u) throws RemoteException, Exception
 	{
-		return logIn(u.getUsername(), u.getPassword());
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User WHERE Username='" + u.getUsername() + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		if (rs.first()) {
+			u.setBannedStatus(false);
+			int bannedBit = rs.getInt("IsBanned");
+			if (bannedBit > 0)
+				u.setBannedStatus(true);
+
+			if (u.isBanned())
+				throw new Exception("This user is banned.");
+
+			u.setID(rs.getInt("ID"));
+			u.setUsername("Username");
+			u.setEmail(rs.getString("Email"));
+			u.setImagePath(rs.getString("ImagePath"));
+			u.setRole(rs.getInt("Role"));
+			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
+			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
+			u.Statistics = initStats(u.getID());
+			u.Feedback = getFeedbackList(u.getID());
+		}
+		else
+		{
+			throw new Exception("There was an error updating the user!");
+		}
+		
 	}
 	
 	/**
@@ -424,10 +450,12 @@ public class LogIn implements Remote, Serializable {
 	 */
 	public static void insertFeedback(int userID, int byUserID, boolean isPositive,
 			String comment) {
+		int bool = 0;
+		if(isPositive) bool = 1;
 		String query = "INSERT INTO Feedback ";
-		query += "(UserID, isGood, Comment)";
-		query += "VALUES ('" + userID + "','" + isPositive + "','" + comment
-				+ "')";
+		query += "(UserID, isGood, Comment, ByUserID)";
+		query += "VALUES ('" + userID + "','" + bool + "','" + comment
+				+ "','" + byUserID + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
