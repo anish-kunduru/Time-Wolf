@@ -27,6 +27,15 @@ public class Feedback implements Remote, Serializable {
 		byUserID = 0;
 	}
 	
+	public Feedback(int userid, String desc, boolean isPositive, int byUserID)
+	{
+		this.ID = 0;
+		this.userID = userid;
+		this.description = desc;
+		this.isPositive = isPositive;
+		this.byUserID = byUserID;
+	}
+	
 	public Feedback(int id, int userid, String desc, boolean isPositive, int byUserID)
 	{
 		this.ID = id;
