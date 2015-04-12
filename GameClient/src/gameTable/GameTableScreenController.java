@@ -4,8 +4,13 @@
 
 package gameTable;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.Random;
 
+import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
 import GameServer.GameEngine.Action;
@@ -131,6 +136,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	private int attack;
 	private int counter;
 
+	private String remoteString;
+
 	// So we can set the screen's parent later on.
 	MainController parentController;
 
@@ -142,6 +149,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
+		initRemoteObject();
 
 		// Objects used for testing, will be provided by server in the future.
 		Deck starterDeck = new Deck();
@@ -194,6 +202,25 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		h.addCard(starterDeck.draw());
 		Action a = new Action(7, 1, c, h);
 		determineAction(a);
+	}
+
+	private void initRemoteObject() {
+		Random rnd = new Random();
+		boolean flag = true;
+		while (flag) {
+			int id = rnd.nextInt();
+			Client thing = (Client)this;
+			String path = "//localhost/controller" + id;
+			try {
+				Naming.rebind(path, thing);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -257,7 +284,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 * Helper method that takes care of adding the highlight effect to the
 	 * appropriate cards.
 	 */
-	public void highlightEffect() {
+	private void highlightEffect() {
 
 		highlightOnMouseEntered(biteDeckImage);
 		highlightOnMouseEntered(lurkDeckImage);
@@ -286,7 +313,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 * appropriate cards.
 	 */
 
-	public void showCard() {
+	private void showCard() {
 
 		for (int i = 0; i < playerHandImages.length; i++) {
 			showOnMouseEntered(playerHandImages[i]);
@@ -302,7 +329,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 * @param gameTableHand
 	 * @param playerNames
 	 */
-	public void initializeTable(Hand playerHand, Hand gameTableHand,
+	private void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
 
 		// Add highlight effects
@@ -659,7 +686,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 			playerHandImages[j].setImage(new Image(a.getHand().get(i)
 					.getImagePath()));
 		}
-		
+
 		update();
 	}
 

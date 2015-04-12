@@ -1,8 +1,9 @@
 package GameServer.GameEngine;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 
-public interface Client extends Remote {
+public interface Client extends Remote, Serializable {
 
 	
 	/**
