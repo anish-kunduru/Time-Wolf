@@ -63,7 +63,7 @@ public class GameTableScreenController implements ControlledScreen {
 	@FXML
 	private ImageView playerHandOne;
 	@FXML
-	private ImageView playerHandTwoo;
+	private ImageView playerHandTwo;
 	@FXML
 	private ImageView playerHandThree;
 	@FXML
@@ -166,7 +166,7 @@ public class GameTableScreenController implements ControlledScreen {
 		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
 				gameTableCardThree, gameTableCardFour, gameTableCardFive };
 
-		playerHandImages = new ImageView[] { playerHandOne, playerHandTwoo,
+		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo,
 				playerHandThree, playerHandFour, playerHandFive, playerHandSix,
 				playerHandSeven, playerHandEight, playerHandNine,
 				playerHandTen, playerHandEleven, playerHandTwelve,
@@ -658,6 +658,8 @@ public class GameTableScreenController implements ControlledScreen {
 			playerHandImages[j].setImage(new Image(a.getHand().get(i)
 					.getImagePath()));
 		}
+		
+		update();
 	}
 
 }
