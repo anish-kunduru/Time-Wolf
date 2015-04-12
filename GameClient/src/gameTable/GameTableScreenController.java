@@ -10,6 +10,7 @@ import view.ControlledScreen;
 import view.MainController;
 import GameServer.GameEngine.Action;
 import GameServer.GameEngine.Card;
+import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GameTableScreenController implements ControlledScreen {
+public class GameTableScreenController implements ControlledScreen, Client {
 
 	// IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
 	// YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
@@ -570,7 +571,7 @@ public class GameTableScreenController implements ControlledScreen {
 	 * 
 	 * @param a
 	 */
-	private void determineAction(Action a) {
+	public void determineAction(Action a) {
 		if (a.getAction() == action.PLAY_CARD) {
 			playCard(a);
 		} else if (a.getAction() == action.AQUIRE_CARD) {
