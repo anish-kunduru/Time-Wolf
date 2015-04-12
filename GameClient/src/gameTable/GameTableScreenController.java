@@ -571,15 +571,15 @@ public class GameTableScreenController implements ControlledScreen {
 	 * @param a
 	 */
 	private void determineAction(Action a) {
-		if (a.getAction() == 0) {
+		if (a.getAction() == action.PLAY_CARD) {
 			playCard(a);
-		} else if (a.getAction() == 1) {
+		} else if (a.getAction() == action.AQUIRE_CARD) {
 			acquireCard(a);
-		} else if (a.getAction() == 5) {
+		} else if (a.getAction() == action.DISCARD) {
 			discardCard(a);
-		} else if (a.getAction() == 6) {
+		} else if (a.getAction() == action.TRASH) {
 			trashCard(a);
-		} else if (a.getAction() == 7) {
+		} else if (a.getAction() == action.DRAW) {
 			drawCards(a);
 		}
 	}
@@ -590,7 +590,7 @@ public class GameTableScreenController implements ControlledScreen {
 	 * 
 	 * @param a
 	 */
-	private void playCard(Action a) {
+	private void acquireCard(Action a) {
 		Card c = a.getCard();
 		if (c.getCardType().equals("Action")) {
 			playLog.appendText(a.getPlayerName() + " stole card " + c.getName()
@@ -608,7 +608,7 @@ public class GameTableScreenController implements ControlledScreen {
 	 * 
 	 * @param a
 	 */
-	private void acquireCard(Action a) {
+	private void playCard(Action a) {
 		playLog.appendText(a.getPlayerName() + " played card "
 				+ a.getCard().getName() + ". " + a.getCard().getDescription()
 				+ "\n");
