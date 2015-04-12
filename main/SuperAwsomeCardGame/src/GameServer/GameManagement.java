@@ -12,7 +12,6 @@ import GameServer.Users.User;
 
 public class GameManagement extends UnicastRemoteObject implements Runnable, Remote {
    
-   //private static final long serialVersionUID = 1L;
 	
 	private ArrayList<GameEngine> games;
 	private Deck startingDeck;
