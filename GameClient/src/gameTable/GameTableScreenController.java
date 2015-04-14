@@ -181,6 +181,10 @@ public class GameTableScreenController implements ControlledScreen, Client {
 				playerHandSeven, playerHandEight, playerHandNine,
 				playerHandTen, playerHandEleven, playerHandTwelve,
 				playerHandThirteen };
+		
+		for(int i = 0; i < playerHandImages.length; i++){
+			playerHandImages[i].setId(null);
+		}
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.
@@ -386,17 +390,6 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	}
 
 	/**
-	 * Helper method to recall actions. Called after an action has taken place
-	 * to update the actions.
-	 */
-	private void update() {
-		// Handles ending the turn on button clicked
-		endTurn();
-
-		onPlayerCardClicked();
-	}
-
-	/**
 	 * Action that covers what happens when a main table card is clicked. This
 	 * method verifies first whether there is enough attack or stealth to get
 	 * the card and if true it creates an action to send to the server with the
@@ -552,13 +545,6 @@ public class GameTableScreenController implements ControlledScreen, Client {
 					e.printStackTrace();
 				}
 			} else if (isTurn) {
-				for (int i = 0; i < playerHandImages.length; i++) {
-					if (playerHandImages[i].getId() == null) {
-						System.out.println(playerHandImages[i].getId());
-						playerHandImages[i].setVisible(true);
-					}
-				}
-
 				try {
 					Card oldCard = new Card(image.getId());
 					playLog.appendText("You played card " + oldCard.getName()
@@ -582,8 +568,11 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 * This sets onPlayerCardClickedEvent to each of the player's cards.
 	 */
 	private void onPlayerCardClicked() {
+	
 		for (int i = 0; i < playerHandImages.length; i++) {
-			onPlayerCardClickedEvent(playerHandImages[i]);
+			if(playerHandImages[i].getId() != null){
+				onPlayerCardClickedEvent(playerHandImages[i]);
+			}
 		}
 	}
 
