@@ -26,7 +26,8 @@ public class GameLobbyScreenController implements ControlledScreen
    MainController parentController;
 
    /**
-    * Initializes the controller class. Automatically called after the FXML file has been loaded.
+    * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game 
+    * management object and from that object it obtains a list of games. It also initializes a chat server. 
     */
    @FXML
    public void initialize()

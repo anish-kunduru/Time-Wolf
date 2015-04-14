@@ -81,7 +81,8 @@ public class UserListingScreenController implements ControlledScreen
    Button cancelButton;
 
    /**
-    * Initializes the controller class. Automatically called after the FXML file has been loaded.
+    * Initializes the controller class. Automatically called after the FXML file has been loaded. Uses the login remote object
+    * to create a list of users and their information which can then be changed by an admin.
     */
    @FXML
    public void initialize()

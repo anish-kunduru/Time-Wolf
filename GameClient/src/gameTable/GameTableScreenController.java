@@ -555,7 +555,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 				for (int i = 0; i < playerHandImages.length; i++) {
 					if (playerHandImages[i].getId() == null) {
 						System.out.println(playerHandImages[i].getId());
-						playerHandImages[i].setVisible(false);
+						playerHandImages[i].setVisible(true);
 					}
 				}
 
@@ -574,6 +574,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 				action = null;
 			}
 		});
+		Update = false;
 		return action;
 	}
 
@@ -674,9 +675,15 @@ public class GameTableScreenController implements ControlledScreen, Client {
 			}
 			playerHandImages[j].setImage(new Image(a.getHand().get(i)
 					.getImagePath()));
+			playerHandImages[j].setId(a.getHand().get(i).getName());
 		}
-
-		update();
+		
+		onPlayerCardClicked();
+		
+	}
+	
+	public void setGameEngine(String ge){
+		//TODO
 	}
 
 }
