@@ -23,7 +23,7 @@ public class LogIn implements Remote, Serializable {
     */
 	private static final long serialVersionUID = 1L;
 
-	public static void getLiveUpdate(User u) throws RemoteException, Exception
+	public void getLiveUpdate(User u) throws RemoteException, Exception
 	{
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Username='" + u.getUsername() + "'";
@@ -63,7 +63,7 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception
 	 */
 
-	public static User logIn(String username, String password)
+	public User logIn(String username, String password)
 			throws Exception, RemoteException {
 		User u = new User();
 
@@ -103,7 +103,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static ArrayList<Feedback> getFeedbackList(int userID) throws SQLException
+	public ArrayList<Feedback> getFeedbackList(int userID) throws SQLException
 	{
 		ArrayList<Feedback> fl = new ArrayList<Feedback>();
 		
@@ -135,7 +135,7 @@ public class LogIn implements Remote, Serializable {
 	 * @param userID - UserID to initialize the statistics of
 	 * @return the UserStats object corresponding to the given UserID
 	 */
-	private static UserStats initStats(int userID) {
+	private UserStats initStats(int userID) {
 		try {
 
 			DBHelper dbh = new DBHelper();
@@ -175,7 +175,7 @@ public class LogIn implements Remote, Serializable {
 		return null;
 	}
 
-	private static double GetKarma(int uID) {
+	private double GetKarma(int uID) {
 		double karma = 0;
 
 		try {
@@ -225,7 +225,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return true if username exists, false if it is not taken
 	 * @throws SQLException
 	 */
-	public static boolean doesUsernameExist(String username)
+	public boolean doesUsernameExist(String username)
 			throws SQLException, RemoteException {
 		String query = "SELECT 1 FROM User WHERE Username='" + username + "'";
 		DBHelper dbh = new DBHelper();
@@ -245,7 +245,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return the user object returned by this registration
 	 * @throws Exception
 	 */
-	public static User register(String username, String email, String password,
+	public User register(String username, String email, String password,
 			String question, String answer) throws RemoteException, Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
@@ -281,7 +281,7 @@ public class LogIn implements Remote, Serializable {
 
 	}
 	
-	public static void insertFeedback(int userID, int byUserID, String desc, boolean isPositive)
+	public void insertFeedback(int userID, int byUserID, String desc, boolean isPositive)
 	{
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO Feedback";
@@ -296,7 +296,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return List of all users
 	 * @throws SQLException
 	 */
-	public static ArrayList<User> getUserList() throws SQLException, RemoteException {
+	public ArrayList<User> getUserList() throws SQLException, RemoteException {
 		ArrayList<User> users = new ArrayList<User>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User";
@@ -326,7 +326,7 @@ public class LogIn implements Remote, Serializable {
 	 * @param u
 	 *            - user to be saved
 	 */
-	public static void save(User u) throws RemoteException {
+	public void save(User u) throws RemoteException {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
@@ -355,7 +355,7 @@ public class LogIn implements Remote, Serializable {
 	 * @param newPassword
 	 *            - new password to be saved
 	 */
-	public static void resetPassword(int id, String newPassword)
+	public void resetPassword(int id, String newPassword)
 			throws RemoteException {
 
 		DBHelper dbh = new DBHelper();
@@ -374,7 +374,7 @@ public class LogIn implements Remote, Serializable {
 	 * @param newPassword
 	 * @throws RemoteException
 	 */
-	public static void resetPassword(String username, String newPassword)
+	public void resetPassword(String username, String newPassword)
 			throws RemoteException {
 
 		DBHelper dbh = new DBHelper();
@@ -392,7 +392,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return true if answer is correct, false if answer is incorrect
 	 * @throws SQLException
 	 */
-	public static boolean checkSecurityQuestionAnswer(String username,
+	public boolean checkSecurityQuestionAnswer(String username,
 			String answer) throws SQLException {
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Username='" + username
@@ -411,7 +411,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return Username of the account the email parameter belongs to
 	 * @throws SQLException
 	 */
-	public static String findUsername(String email) throws SQLException {
+	public String findUsername(String email) throws SQLException {
 		String username;
 		
 		DBHelper dbh = new DBHelper();
@@ -431,7 +431,7 @@ public class LogIn implements Remote, Serializable {
 	 * @return Security question that corresponds to the account the email belongs to
 	 * @throws SQLException
 	 */
-	public static String getSecurityQuestion(String email) throws SQLException{
+	public String getSecurityQuestion(String email) throws SQLException{
 		String sq = "";
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Email='" + email + "'";
@@ -448,7 +448,7 @@ public class LogIn implements Remote, Serializable {
 	/**
 	 * Inserts new feedback record into database
 	 */
-	public static void insertFeedback(int userID, int byUserID, boolean isPositive,
+	public void insertFeedback(int userID, int byUserID, boolean isPositive,
 			String comment) {
 		int bool = 0;
 		if(isPositive) bool = 1;
