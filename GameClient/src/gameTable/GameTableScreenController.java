@@ -149,7 +149,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-		initRemoteObject();
+		//initRemoteObject();
 
 		// Objects used for testing, will be provided by server in the future.
 		Deck starterDeck = new Deck();
