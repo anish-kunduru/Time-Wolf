@@ -20,6 +20,15 @@ public interface Client {
 	 */
 	public void setGameEngine(String ge);
 	
-	
+	/**
+	 * Method called to initialize the game play area when the screen is first
+	 * loaded. Takes care of both effects and populating fields.
+	 * 
+	 * @param playerHand
+	 * @param gameTableHand
+	 * @param playerNames
+	 */
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames);
 	
 }

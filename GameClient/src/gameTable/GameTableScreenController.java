@@ -322,15 +322,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 
 	}
 
-	/**
-	 * Method called to initialize the game play area when the screen is first
-	 * loaded. Takes care of both effects and populating fields.
-	 * 
-	 * @param playerHand
-	 * @param gameTableHand
-	 * @param playerNames
-	 */
-	private void initializeTable(Hand playerHand, Hand gameTableHand,
+	@Override
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
 
 		// Add highlight effects
