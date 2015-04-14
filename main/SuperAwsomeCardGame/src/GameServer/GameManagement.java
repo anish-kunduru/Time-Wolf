@@ -1,17 +1,22 @@
 package GameServer;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
+import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngine;
 import GameServer.Users.User;
 
 
 public class GameManagement extends UnicastRemoteObject implements Runnable, Remote {
    
+	private int gameID = 0;
 	
 	private ArrayList<GameEngine> games;
 	private Deck startingDeck;
@@ -37,6 +42,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 			e.printStackTrace();
 			throw(e);
 		}
+		
 		
 	}
 	
@@ -98,8 +104,18 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 		GameEngine ge;
 		try {
 			ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck);
+			
+			
+			String path = "//localhost/GameEngine-" + this.gameID;
+			ge.setRmiRegistryName(path);
+			Naming.rebind(path, ge);
+			
 			this.games.add(ge);
+			this.gameID++;
 		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

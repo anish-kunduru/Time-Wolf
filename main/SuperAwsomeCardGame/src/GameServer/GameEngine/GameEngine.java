@@ -714,4 +714,14 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		
 	}
 
+
+	/**
+	 * Store the RMI registry name of this object. This is what will be communicated
+	 * to the client so it can talk to the server.
+	 * @param rmiRegistryName
+	 */
+	public void setRmiRegistryName(String rmiRegistryName) {
+		this.rmiRegistryName = rmiRegistryName;
+	}
+
 }

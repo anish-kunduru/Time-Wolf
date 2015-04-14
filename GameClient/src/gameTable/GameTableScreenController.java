@@ -17,6 +17,7 @@ import GameServer.GameEngine.Action;
 import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
+import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -209,8 +210,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		boolean flag = true;
 		while (flag) {
 			int id = rnd.nextInt();
-			Client thing = (Client)this;
-			String path = "//localhost/controller" + id;
+			FacadeClient thing = new FacadeClient((Client)this);
+			String path = "//localhost/client" + id;
 			try {
 				Naming.rebind(path, thing);
 			} catch (RemoteException e) {
@@ -592,12 +593,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		}
 	}
 
-	/**
-	 * This method determines the action associated with the given Action object
-	 * and passes it into the appropriate method.
-	 * 
-	 * @param a
-	 */
+	@Override
 	public void determineAction(Action a) {
 		if (a.getAction() == action.PLAY_CARD) {
 			playCard(a);
