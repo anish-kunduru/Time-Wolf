@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
 import GameServer.DBHelper;
 
 /**
@@ -30,6 +31,7 @@ public class User implements Serializable {
    private boolean isBanned;
    private int role;
    public ArrayList<Feedback> Feedback;
+   
 
    /**
     * Creates a new user object with empty fields
