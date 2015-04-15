@@ -492,11 +492,16 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	private void endTurn() {
 		endTurnButton.setOnMouseClicked(event -> {
 			isTurn = false;
+			Attack.setText("0");
+			Stealth.setText("0");
+			attack = 0;
+			stealth = 0;
 		});
 	}
 
 	public void startTurn() {
 		isTurn = true;
+		playerTurnLabel.setText("Your turn");
 	}
 
 	/**
@@ -682,6 +687,16 @@ public class GameTableScreenController implements ControlledScreen, Client {
 
 	public void setGameEngine(String ge) {
 		// TODO
+	}
+	
+	public void addStealth(int st) {
+		stealth += st;
+		Stealth.setText("" + stealth + "");
+	}
+	
+	public void addAttack(int at) {
+		attack += at;
+		Attack.setText("" + attack + "");
 	}
 
 }
