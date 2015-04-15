@@ -150,7 +150,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-		//initRemoteObject();
+		// initRemoteObject();
 
 		// Objects used for testing, will be provided by server in the future.
 		Deck starterDeck = new Deck();
@@ -181,8 +181,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 				playerHandSeven, playerHandEight, playerHandNine,
 				playerHandTen, playerHandEleven, playerHandTwelve,
 				playerHandThirteen };
-		
-		for(int i = 0; i < playerHandImages.length; i++){
+
+		for (int i = 0; i < playerHandImages.length; i++) {
 			playerHandImages[i].setId(null);
 		}
 
@@ -214,7 +214,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		boolean flag = true;
 		while (flag) {
 			int id = rnd.nextInt();
-			FacadeClient thing = new FacadeClient((Client)this);
+			FacadeClient thing = new FacadeClient((Client) this);
 			String path = "//localhost/client" + id;
 			try {
 				Naming.rebind(path, thing);
@@ -490,10 +490,13 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 * This method sets boolean isTurn to false after the end button is clicked.
 	 */
 	private void endTurn() {
-		// TODO Broken
 		endTurnButton.setOnMouseClicked(event -> {
 			isTurn = false;
 		});
+	}
+
+	public void startTurn() {
+		isTurn = true;
 	}
 
 	/**
@@ -508,71 +511,77 @@ public class GameTableScreenController implements ControlledScreen, Client {
 
 		image.setOnMouseClicked(event -> {
 
-			if (isTurn && isDiscard && counter > 0) {
-				try {
-					Card c = new Card(image.getId());
-					playLog.appendText("You discarded card " + c.getName()
-							+ ". " + c.getDescription() + "\n");
+			if (image.getId() != null) {
 
-					lastDiscardImage.setImage(image.getImage());
-					image.setImage(null);
+				if (isTurn && isDiscard && counter > 0) {
+					try {
+						Card c = new Card(image.getId());
+						playLog.appendText("You discarded card " + c.getName()
+								+ ". " + c.getDescription() + "\n");
 
-					counter--;
-					if (counter == 0)
-						isDiscard = false;
+						lastDiscardImage.setImage(image.getImage());
+						image.setImage(null);
+						image.setId(null);
 
+						counter--;
+						if (counter == 0)
+							isDiscard = false;
+
+						action = null;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if (isTurn && isTrash && counter > 0) {
+					try {
+						Card c = new Card(image.getId());
+						playLog.appendText("You trashed card " + c.getName()
+								+ ". " + c.getDescription() + "\n");
+
+						image.setImage(null);
+						image.setId(null);
+
+						counter--;
+						if (counter == 0)
+							isTrash = false;
+
+						action = null;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (isTurn) {
+					try {
+						Card oldCard = new Card(image.getId());
+						playLog.appendText("You played card "
+								+ oldCard.getName() + ". "
+								+ oldCard.getDescription() + "\n");
+						lastDiscardImage.setImage(image.getImage());
+						image.setImage(null);
+						image.setId(null);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+				else {
 					action = null;
-
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			}
-			if (isTurn && isTrash && counter > 0) {
-				try {
-					Card c = new Card(image.getId());
-					playLog.appendText("You trashed card " + c.getName() + ". "
-							+ c.getDescription() + "\n");
-
-					image.setImage(null);
-
-					counter--;
-					if (counter == 0)
-						isTrash = false;
-
-					action = null;
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (isTurn) {
-				try {
-					Card oldCard = new Card(image.getId());
-					playLog.appendText("You played card " + oldCard.getName()
-							+ ". " + oldCard.getDescription() + "\n");
-					lastDiscardImage.setImage(image.getImage());
-					image.setImage(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			else {
-				action = null;
 			}
 		});
+
 		Update = false;
 		return action;
+
 	}
 
 	/**
 	 * This sets onPlayerCardClickedEvent to each of the player's cards.
 	 */
 	private void onPlayerCardClicked() {
-	
 		for (int i = 0; i < playerHandImages.length; i++) {
-			if(playerHandImages[i].getId() != null){
-				onPlayerCardClickedEvent(playerHandImages[i]);
-			}
+			onPlayerCardClickedEvent(playerHandImages[i]);
 		}
 	}
 
@@ -666,13 +675,13 @@ public class GameTableScreenController implements ControlledScreen, Client {
 					.getImagePath()));
 			playerHandImages[j].setId(a.getHand().get(i).getName());
 		}
-		
+
 		onPlayerCardClicked();
-		
+
 	}
-	
-	public void setGameEngine(String ge){
-		//TODO
+
+	public void setGameEngine(String ge) {
+		// TODO
 	}
 
 }
