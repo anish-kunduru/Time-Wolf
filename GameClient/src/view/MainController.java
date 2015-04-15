@@ -81,7 +81,7 @@ public class MainController extends StackPane
       }
       catch (Exception e)
       {
-         System.out.println(e.getMessage());
+         System.out.println("Error loading the screen: " + e.getMessage());
          
          return false;
       }

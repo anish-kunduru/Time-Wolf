@@ -1,5 +1,5 @@
 /**
-i * @author Anish Kunduru
+* @author Anish Kunduru
  * 
  * This program is our handler for ProfileScreen.fxml.
  */
