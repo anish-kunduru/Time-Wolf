@@ -44,6 +44,7 @@ public class LogIn implements Remote, Serializable {
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
+			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
 		}
@@ -53,7 +54,7 @@ public class LogIn implements Remote, Serializable {
 		}
 		
 	}
-	
+
 	/**
 	 * Returns the user to be logged in by the given username and password
 	 * 
@@ -87,6 +88,48 @@ public class LogIn implements Remote, Serializable {
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
+			u.setBannedReason(rs.getString("BannedReason"));
+			u.Statistics = initStats(u.getID());
+			u.Feedback = getFeedbackList(u.getID());
+
+			return u;
+		} else {
+			throw new Exception("Username or password was incorrect!");
+		}
+	}
+	/**
+	 * Returns the user to be logged in by the given username
+	 * 
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
+
+	public User getUser(String username)
+			throws Exception, RemoteException {
+		User u = new User();
+
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM User WHERE Username='" + username
+				+ "'";
+		ResultSet rs = dbh.executeQuery(query);
+		if (rs.first()) {
+			u.setBannedStatus(false);
+			int bannedBit = rs.getInt("IsBanned");
+			if (bannedBit > 0)
+				u.setBannedStatus(true);
+
+			if (u.isBanned())
+				throw new Exception("This user is banned.");
+
+			u.setID(rs.getInt("ID"));
+			u.setUsername(username);
+			u.setEmail(rs.getString("Email"));
+			u.setImagePath(rs.getString("ImagePath"));
+			u.setRole(rs.getInt("Role"));
+			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
+			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
+			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
 
@@ -250,9 +293,9 @@ public class LogIn implements Remote, Serializable {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO User ";
-		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer)";
+		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer, BannedReason)";
 		query += "VALUES ('" + username + "','" + email + "','" + password
-				+ "','','0','0','" + question + "','" + answer + "')";
+				+ "','','0','0','" + question + "','" + answer + ",'')";
 
 		try {
 			dbh.executeUpdate(query);
@@ -265,6 +308,7 @@ public class LogIn implements Remote, Serializable {
 				u.setImagePath(rs.getString("ImagePath"));
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
+				u.setBannedReason(rs.getString("BannedReason"));
 				query = "INSERT INTO Statistics ";
 				query += "(UserID,TotalGames,TotalWins,TotalPoints)";
 				query += "VALUES ('" + u.getID() + "','0','0','0')";
@@ -311,6 +355,7 @@ public class LogIn implements Remote, Serializable {
 			u.setRole(rs.getInt("Role"));
 			u.setPassword(rs.getString("Password"));
 			u.setBannedStatus(rs.getBoolean("IsBanned"));
+			u.setBannedReason(rs.getString("BannedReason"));
 			u.initStats();
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -340,6 +385,7 @@ public class LogIn implements Remote, Serializable {
 		query += ",Role=" + u.getRole();
 		query += ",SecurityQuestion='" + u.getSecurityQuestion() + "'";
 		query += ",SecurityAnswer='" + u.getSecurityAnswer() + "'";
+		query += ",BannedReason='" + u.getBannedReason() + "'";
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);

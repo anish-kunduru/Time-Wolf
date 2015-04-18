@@ -29,6 +29,7 @@ public class User implements Serializable {
    private String securityAnswer;
    public UserStats Statistics;
    private boolean isBanned;
+   private String bannedReason;
    private int role;
    public ArrayList<Feedback> Feedback;
    
@@ -232,6 +233,23 @@ public class User implements Serializable {
    public void setBannedStatus(boolean banned)
    {
       this.isBanned = banned;
+   }
+   
+   /**
+    * Gets banned reason
+    * @return bannedReason
+    */
+   public String getBannedReason()
+   {
+	   return bannedReason;
+   }
+   
+   /**
+    * sets banned reason
+    */
+   public void setBannedReason(String br)
+   {
+	   bannedReason = br;
    }
    
    /**

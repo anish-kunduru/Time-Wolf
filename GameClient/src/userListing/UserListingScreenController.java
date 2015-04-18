@@ -6,10 +6,12 @@
 
 package userListing;
 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import GameServer.Users.LogIn;
 import GameServer.Users.User;
 import singleton.MainModel;
 import view.ControlledScreen;
@@ -79,6 +81,8 @@ public class UserListingScreenController implements ControlledScreen
    Button saveChangesButton;
    @FXML
    Button cancelButton;
+   
+   private LogIn login;
 
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded. Uses the login remote object
@@ -258,7 +262,19 @@ public class UserListingScreenController implements ControlledScreen
          String bannedReason = bannedReasonTextArea.getText();
          
          // TO-DO: CALL SAVE CHANGES METHOD IN LOGIN.
-         
+
+         try {
+			login = (LogIn) Naming.lookup("//localhost/auth");
+			User u = login.getUser(username);
+			u.setEmail(email);
+			u.setRole(role);
+			u.setBannedStatus(banned);
+			u.setBannedReason(bannedReason);
+			login.save(u);
+		} catch (Exception e) {
+			System.out.println("Could not retrieve remote object.");
+			e.printStackTrace();
+		}
          // Since the table isn't bound to the database (for now), we will need to re-initialize the page for the settings to be visible to the user.
          errorLabel.setText("Changes saved.");
          initialize();
