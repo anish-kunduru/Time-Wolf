@@ -25,4 +25,11 @@ public class FacadeClient implements Client, Remote {
 		this.c.setGameEngine(ge);
 	}
 
+	@Override
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
