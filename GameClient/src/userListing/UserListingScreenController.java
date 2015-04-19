@@ -31,55 +31,56 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 public class UserListingScreenController implements ControlledScreen {
-	// So we can set the screen's parent later on.
-	MainController parentController;
+	
+   // So we can set the screen's parent later on.
+	private MainController parentController;
 
 	// Table components.
-	ArrayList<User> users;
-	ObservableList<UserRow> tableData;
+	private ArrayList<User> users;
+	private ObservableList<UserRow> tableData;
 
 	@FXML
-	TableView<UserRow> userTable;
+	private TableView<UserRow> userTable;
 	@FXML
-	TableColumn usernameColumn;
+	private TableColumn usernameColumn;
 	@FXML
-	TableColumn emailColumn;
+	private TableColumn emailColumn;
 	@FXML
-	TableColumn bannedColumn;
+	private TableColumn bannedColumn;
 	@FXML
-	TableColumn roleColumn;
+	private TableColumn roleColumn;
 
 	// User components.
 	@FXML
-	TextField usernameTextField;
+	private TextField usernameTextField;
 	@FXML
-	TextField emailTextField;
+	private TextField emailTextField;
 	@FXML
-	CheckBox bannedCheckBox;
+	private CheckBox bannedCheckBox;
 	@FXML
-	TextArea bannedReasonTextArea;
+	private TextArea bannedReasonTextArea;
 	@FXML
-	CheckBox administratorRoleCheckBox;
+	private CheckBox administratorRoleCheckBox;
 	@FXML
-	CheckBox moderatorRoleCheckBox;
+	private CheckBox moderatorRoleCheckBox;
 	@FXML
-	CheckBox userRoleCheckBox;
+	private CheckBox userRoleCheckBox;
 	@FXML
-	Button resetPasswordButton;
+	private Button resetPasswordButton;
 
 	@FXML
-	ImageView profilePictureImageView;
+	private ImageView profilePictureImageView;
 	@FXML
-	Button removePhotoButton;
+	private Button removePhotoButton;
 
 	// Save/Cancel components.
 	@FXML
-	Label errorLabel;
+	private Label errorLabel;
 
 	@FXML
-	Button saveChangesButton;
+	private Button saveChangesButton;
 	@FXML
-	Button cancelButton;
+	private Button cancelButton;
 
 	private LogIn login;
 
@@ -124,8 +125,7 @@ public class UserListingScreenController implements ControlledScreen {
 
 			User currentUser = users.get(i); // Get index in ArrayList.
 
-			currentEntry.username.set(currentUser.getUsername()); // Set
-																	// username.
+			currentEntry.username.set(currentUser.getUsername()); // Set username.
 			currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
 			currentEntry.isBanned.set(currentUser.isBanned()); // Set banned.
 
