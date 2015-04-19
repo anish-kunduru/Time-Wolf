@@ -75,7 +75,7 @@ public class Chat
    }
    
    /**
-    * Closes out the I/O streams and sets the ChatListener.run boolean to false by calling its end() method.
+    * Closes out the I/O streams and sets the ChatListener run boolean to false by calling its end() method.
     */
    private void close()
    {
