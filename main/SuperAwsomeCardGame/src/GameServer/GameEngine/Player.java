@@ -6,6 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+
+
 //import view.GameTableScreenController;
 import GameServer.Users.User;
 
@@ -15,7 +17,7 @@ import GameServer.Users.User;
  *data floating around on user objects when a user is not in a game.
 **/
 
-public class Player {
+public class Player implements Client {
 	
 	//private GameTableScreenController client;
 	private User user;
@@ -26,6 +28,7 @@ public class Player {
 	private int stealth;
 	private int attack;
 	private int VP;
+	private Client client;
 	
 	/**
 	 * @param user The user who is the player.
@@ -119,7 +122,7 @@ public class Player {
 		this.stealth = 0;
 		this.VP = 0;
 		
-		//this.client = (GameTableScreenController) Naming.lookup(clientRegistryName);
+		this.client = (Client) Naming.lookup(clientRegistryName);
 		
 	}
 	
@@ -244,6 +247,32 @@ public class Player {
 	 */
 	public boolean getIsTurn(){
 		return isTurn;
+	}
+
+
+	@Override
+	public void determineAction(Action a) {
+		
+		if(this.client == null) throw new IllegalStateException();
+		
+		this.client.determineAction(a);
+		
+	}
+
+
+	@Override
+	public void setGameEngine(String ge) {
+		if(this.client == null) throw new IllegalStateException();
+		this.client.setGameEngine(ge);
+	}
+
+
+	@Override
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames) {
+		if(this.client == null) throw new IllegalStateException();
+		this.client.initializeTable(playerHand, gameTableHand, playerNames);
+		
 	}
 	
 }

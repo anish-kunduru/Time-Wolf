@@ -85,6 +85,8 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 			e.printStackTrace();
 		}
 		
+		//Tell the game client how to talk to me
+		p.setGameEngine(this.rmiRegistryName);
 		
 		//Add the player if there is room.
 		this.players[this.currentNumOfPlayers] = p;
