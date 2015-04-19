@@ -82,6 +82,19 @@ public class GameLobbyScreenController implements ControlledScreen
       // Store the information that game table might need in the GameLobbyData singleton... unless you are supposed to pass something to the server, up to you
       // guys...
       // The singleton has already been created, and linked, you just need to define whatever you need/want to store.
+      
+      // Event handling for selected row on gamesTable.
+      gamesTable.setOnMouseClicked(event ->
+      {
+         // Check to make sure something is selected.
+         if (gamesTable.getSelectionModel().getSelectedIndex() != -1)
+         {
+            // Get the selected name.
+            String selectedGame = gamesTable.getSelectionModel().getSelectedItem().name.get();
+            
+            // TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
+         }
+      });
 
       // TO-DO: INITALIZE CHAT.
 
@@ -123,7 +136,7 @@ public class GameLobbyScreenController implements ControlledScreen
          currentEntry.name.set(currentGame); // Set game name.
          currentEntry.type.set("gameType"); // Set game type.
          currentEntry.numberPlayers.set(2); // Set numberPlayers
-         
+
          // The following are features we can add later if time permits:
          currentEntry.chat.set(true); // Chat will be enabled for all games for now.
          currentEntry.privateLobby.set(false); // All lobbies will be public for now.
