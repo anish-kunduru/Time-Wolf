@@ -124,6 +124,7 @@ public class ProfileScreenController implements ControlledScreen
             try
             {
                MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(userID, password);
+               errorLabel.setText("Password reset successful!");
             }
             catch (Exception e)
             {
