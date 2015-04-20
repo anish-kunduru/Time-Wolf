@@ -6,12 +6,49 @@
 
 package profile;
 
+import java.rmi.RemoteException;
+
+import GameServer.Users.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
+import view.MainView;
 
 public class ProfileScreenController implements ControlledScreen
 {
+   // FXML components.
+   @FXML
+   ImageView profileImage;
+   
+   @FXML
+   Text emailText;
+   @FXML
+   Text locationText;
+   @FXML
+   Text paranoiaText;
+   @FXML
+   Text userTypeText;
+   
+   @FXML
+   Button changeSettingsButton;
+   @FXML
+   Button changePasswordButton;
+   
+   @FXML
+   PasswordField newPasswordTextField;
+   @FXML
+   PasswordField checkPasswordTextField;
+   
+   @FXML
+   Label errorLabel;
+   
    // So we can set the screen's parent later on.
    MainController parentController;
    
@@ -21,7 +58,81 @@ public class ProfileScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
-      // TO-DO: REDIRECT LOGIC.
+      // TO-DO: REDIRECT LOGIC (if we have time).
+      // For now, we will always point to the user that is logged in.
+      
+      if (MainModel.getModel().currentLoginData().getUsername() != null)
+      {
+         // TO-DO: Get image from database and set it.
+         
+         // Get personal information.
+         String username = MainModel.getModel().currentLoginData().getUsername();
+         String email = "undefined";
+         String userType = "undefined";
+         
+         try
+         {
+            // Get user.
+            User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+            
+            // Set email address.
+            email = user.getEmail();
+            
+            // Find admin type.
+            if (user.isAdmin())
+               userType = "admin";
+            else if (user.isModerator())
+               userType = "moderator";
+            else
+               userType = "player";
+         }
+         catch (Exception e)
+         {
+            // DEBUG
+            // Nothing much we can do at this point.
+            System.out.println("There was an error populating the elements in the profile screen. Is the server down?");
+         }        
+         
+         // Set personal information.
+         emailText.setText("E-mail: " + email);
+         userTypeText.setText("User Type: " + userType);
+         
+         // The following features are not yet supported... Maybe later if we wish.
+         locationText.setText("Location: -not supported-");
+         paranoiaText.setText("Paranoia: -not supported-");
+      }
+      
+      
+      // TO-DO: Recent game stats/karma (pull those from LogIn?).
+      
+      // Event handlers.
+      changeSettingsButton.setOnAction(event ->
+      {
+         // TO-DO: Change profile picture.
+         // What else can/do we want to we change?
+      });
+      
+      changePasswordButton.setOnAction(event ->
+      {
+         String password = newPasswordTextField.getText();
+         String checkPassword = checkPasswordTextField.getText();
+         
+         if (password.equals(checkPassword))
+         {
+            int userID = MainModel.getModel().currentLoginData().getUserID();
+            
+            try
+            {
+               MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(userID, password);
+            }
+            catch (Exception e)
+            {
+               errorLabel.setText("There was an error changing your password.");
+            }
+         }
+         else
+            errorLabel.setText("Your new passwords do not match.");
+      });
    }
    
    /**
