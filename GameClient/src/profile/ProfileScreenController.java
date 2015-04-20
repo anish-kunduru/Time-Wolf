@@ -25,29 +25,29 @@ public class ProfileScreenController implements ControlledScreen
 {
    // FXML components.
    @FXML
-   ImageView profileImage;
+   private ImageView profileImage;
    
    @FXML
-   Text emailText;
+   private Text emailText;
    @FXML
-   Text locationText;
+   private Text locationText;
    @FXML
-   Text paranoiaText;
+   private Text paranoiaText;
    @FXML
-   Text userTypeText;
+   private Text userTypeText;
    
    @FXML
-   Button changeSettingsButton;
+   private Button changeSettingsButton;
    @FXML
-   Button changePasswordButton;
+   private Button changePasswordButton;
    
    @FXML
-   PasswordField newPasswordTextField;
+   private PasswordField newPasswordTextField;
    @FXML
-   PasswordField checkPasswordTextField;
+   private PasswordField checkPasswordTextField;
    
    @FXML
-   Label errorLabel;
+   private Label errorLabel;
    
    // So we can set the screen's parent later on.
    MainController parentController;
