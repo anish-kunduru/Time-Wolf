@@ -144,6 +144,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	public int getCurrentNumOfPlayers() {
 		return currentNumOfPlayers;
 	}
+	
+	public Player[] getPlayers() {
+		return players;
+	}
 
 	
 	/**
