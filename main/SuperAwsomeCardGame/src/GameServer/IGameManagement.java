@@ -15,7 +15,7 @@ public interface IGameManagement extends Remote {
 	 * Returns a list of games to join for the game lobby screen
 	 * @return list of available games to join
 	 */
-	public ArrayList<String> listJoinableGames() throws RemoteException;
+	public ArrayList<GameInfo> listJoinableGames() throws RemoteException;
 	
 
 	public ArrayList<String> SearchGames(String name) throws RemoteException;

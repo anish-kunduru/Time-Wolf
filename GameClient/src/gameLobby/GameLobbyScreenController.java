@@ -10,6 +10,7 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 
 import chat.Chat;
+import GameServer.GameInfo;
 import GameServer.GameManagement;
 import singleton.MainModel;
 import view.ControlledScreen;
@@ -27,7 +28,7 @@ public class GameLobbyScreenController implements ControlledScreen
    // FXML Components
 
    // Table components.
-   private ArrayList<String> games;
+   private ArrayList<GameInfo> games;
    private ObservableList<LobbyRow> tableData;
 
    @FXML
@@ -74,7 +75,7 @@ public class GameLobbyScreenController implements ControlledScreen
       // Initialize gameManagement.
       try
       {
-         //gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+         gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
 
       }
       catch (Exception e)
@@ -158,11 +159,11 @@ public class GameLobbyScreenController implements ControlledScreen
       {
          LobbyRow currentEntry = new LobbyRow(); // new row.
 
-         String currentGame = games.get(i); // Get index in ArrayList.
+         GameInfo currentGame = games.get(i); // Get index in ArrayList.
 
-         currentEntry.name.set(currentGame); // Set game name.
-         currentEntry.type.set("gameType"); // Set game type.
-         currentEntry.numberPlayers.set(2); // Set numberPlayers
+         currentEntry.name.set(currentGame.getName()); // Set game name.
+         //currentEntry.type.set(); // Set game type.
+         currentEntry.numberPlayers.set(currentGame.getNumPlayers()); // Set numberPlayers
 
          // The following are features we can add later if time permits:
          currentEntry.chat.set(true); // Chat will be enabled for all games for now.

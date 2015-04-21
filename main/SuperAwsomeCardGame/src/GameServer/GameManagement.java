@@ -51,15 +51,19 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	 * Returns a list of games to join for the game lobby screen
 	 * @return list of available games to join
 	 */
-	public ArrayList<String> listJoinableGames()
+	public ArrayList<GameInfo> listJoinableGames()
 	{
-		//TODO : We can't return game engines here... String is probably not enough though
-		ArrayList<String> available = new ArrayList<String>();
+		ArrayList<GameInfo> available = new ArrayList<GameInfo>();
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
 			{
-				available.add(games.get(i).getName());
+				String[] playerNames = null;
+				for(int j = 0; i < games.get(i).getPlayers().length; j++){
+					playerNames[j] = games.get(i).getPlayers()[j].getUser().getUsername();
+				}
+				GameInfo gameInfo = new GameInfo(games.get(i).getName(), games.get(i).getTotalNumOfPlayers(), playerNames);
+				available.add(gameInfo);
 			}
 		}
 		
