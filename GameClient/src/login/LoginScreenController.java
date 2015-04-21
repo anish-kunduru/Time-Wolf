@@ -84,8 +84,7 @@ public class LoginScreenController implements ControlledScreen
             MainModel.getModel().currentLoginData().setIsAdmin(user.isAdmin());
 
             // Go to the next screen.
-            //parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
-            parentController.displayScreen(MainView.PROFILE_SCREEN);
+            parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
          }
          catch (Exception e)
          {
