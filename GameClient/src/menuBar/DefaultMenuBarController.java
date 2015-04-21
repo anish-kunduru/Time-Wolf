@@ -53,6 +53,8 @@ public class DefaultMenuBarController
       // menuBar.prefWidthProperty().bind(MainModel.getModel().currentMainData().getMainController().widthProperty());
 
       // Event handlers.
+	   
+	  
       fileNewGame.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
@@ -87,7 +89,7 @@ public class DefaultMenuBarController
 
       helpAbout.setOnAction(event ->
       {
-         // MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.ABOUT_SCREEN);
+          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.AFTER_GAME_SCREEN);
       });
       
       helpGameRules.setOnAction(event ->
