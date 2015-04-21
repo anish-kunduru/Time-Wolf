@@ -50,6 +50,7 @@ public class Chat
       try
       {
          output = new ObjectOutputStream(socket.getOutputStream());
+         input = new ObjectInputStream(socket.getInputStream());
       }
       catch (IOException ioe)
       {
