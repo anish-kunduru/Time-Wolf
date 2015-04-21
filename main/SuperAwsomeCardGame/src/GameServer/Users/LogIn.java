@@ -1,10 +1,12 @@
 package GameServer.Users;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.Remote;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +54,9 @@ public class LogIn implements Remote, Serializable {
 			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
+			Blob blob = rs.getBlob("Avatar");
+			if(blob != null)
+				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 		} else {
 			throw new Exception("There was an error updating the user!");
 		}
@@ -94,6 +99,9 @@ public class LogIn implements Remote, Serializable {
 			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
+			Blob blob = rs.getBlob("Avatar");
+			if(blob != null)
+				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 
 			return u;
 		} else {
@@ -134,6 +142,9 @@ public class LogIn implements Remote, Serializable {
 			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
+			Blob blob = rs.getBlob("Avatar");
+			if(blob != null)
+				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 
 			return u;
 		} else {
@@ -313,7 +324,7 @@ public class LogIn implements Remote, Serializable {
 					try {
 						Connection conn = dbh.getConnection();
 						conn.setAutoCommit(false);
-						String upload_pic = "Update User SET Avatar = ? WHERE UserID = ?";
+						String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
 						FileInputStream fis = new FileInputStream(picture);
 						java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
 						ps.setBinaryStream(1, fis, (int)picture.length());
@@ -333,6 +344,9 @@ public class LogIn implements Remote, Serializable {
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
 				u.setBannedReason(rs.getString("BannedReason"));
+				Blob blob = rs.getBlob("Avatar");
+				if(blob != null)
+					u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 				query = "INSERT INTO Statistics ";
 				query += "(UserID,TotalGames,TotalWins,TotalPoints)";
 				query += "VALUES ('" + u.getID() + "','0','0','0')";
@@ -384,6 +398,9 @@ public class LogIn implements Remote, Serializable {
 			u.initStats();
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
+			Blob blob = rs.getBlob("Avatar");
+			if(blob != null)
+				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			users.add(u);
 		}
 
@@ -395,8 +412,9 @@ public class LogIn implements Remote, Serializable {
 	 * 
 	 * @param u
 	 *            - user to be saved
+	 * @throws Exception 
 	 */
-	public void save(User u) throws RemoteException {
+	public void save(User u) throws Exception {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
@@ -414,7 +432,24 @@ public class LogIn implements Remote, Serializable {
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
-
+		if (u.getImageBytes() != null) {
+			try {
+				Connection conn = dbh.getConnection();
+				conn.setAutoCommit(false);
+				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
+				
+				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
+				ps.setBinaryStream(1, new ByteArrayInputStream(u.getImageBytes()), u.getImageBytes().length);
+				ps.setString(2, u.getUsername());
+				ps.executeUpdate();
+				conn.commit();
+				
+				
+			} catch (Exception ex) {
+				throw new Exception("Image save failed!");
+			}
+		}
+		
 	}
 
 	/**
