@@ -8,7 +8,11 @@ import java.sql.Statement;
 
 public class DBHelper {
 	
-	
+	public Connection getConnection() throws SQLException
+	{
+		return DriverManager.getConnection(
+				"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
+	}
 
 	public ResultSet executeQuery(String query)
 	{

@@ -1,11 +1,16 @@
 package GameServer.Users;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.Remote;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import GameServer.DBHelper;
 
@@ -19,14 +24,14 @@ import GameServer.DBHelper;
 public class LogIn implements Remote, Serializable {
 
 	/**
-    * Updates a user object in case of new updates
-    */
+	 * Updates a user object in case of new updates
+	 */
 	private static final long serialVersionUID = 1L;
 
-	public void getLiveUpdate(User u) throws RemoteException, Exception
-	{
+	public void getLiveUpdate(User u) throws RemoteException, Exception {
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * FROM User WHERE Username='" + u.getUsername() + "'";
+		String query = "SELECT * FROM User WHERE Username='" + u.getUsername()
+				+ "'";
 		ResultSet rs = dbh.executeQuery(query);
 		if (rs.first()) {
 			u.setBannedStatus(false);
@@ -47,12 +52,10 @@ public class LogIn implements Remote, Serializable {
 			u.setBannedReason(rs.getString("BannedReason"));
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
-		}
-		else
-		{
+		} else {
 			throw new Exception("There was an error updating the user!");
 		}
-		
+
 	}
 
 	/**
@@ -64,8 +67,8 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception
 	 */
 
-	public User logIn(String username, String password)
-			throws Exception, RemoteException {
+	public User logIn(String username, String password) throws Exception,
+			RemoteException {
 		User u = new User();
 
 		DBHelper dbh = new DBHelper();
@@ -97,6 +100,7 @@ public class LogIn implements Remote, Serializable {
 			throw new Exception("Username or password was incorrect!");
 		}
 	}
+
 	/**
 	 * Returns the user to be logged in by the given username
 	 * 
@@ -105,13 +109,11 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception
 	 */
 
-	public User getUser(String username)
-			throws Exception, RemoteException {
+	public User getUser(String username) throws Exception, RemoteException {
 		User u = new User();
 
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT * FROM User WHERE Username='" + username
-				+ "'";
+		String query = "SELECT * FROM User WHERE Username='" + username + "'";
 		ResultSet rs = dbh.executeQuery(query);
 		if (rs.first()) {
 			u.setBannedStatus(false);
@@ -140,16 +142,16 @@ public class LogIn implements Remote, Serializable {
 	}
 
 	/**
-	 * Static method to initialize the feedback list for the user class
-	 * Used when retrieving a user
+	 * Static method to initialize the feedback list for the user class Used
+	 * when retrieving a user
+	 * 
 	 * @param userID
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<Feedback> getFeedbackList(int userID) throws SQLException
-	{
+	public ArrayList<Feedback> getFeedbackList(int userID) throws SQLException {
 		ArrayList<Feedback> fl = new ArrayList<Feedback>();
-		
+
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM Feedback WHERE UserID=" + userID;
 		ResultSet rs = dbh.executeQuery(query);
@@ -158,9 +160,8 @@ public class LogIn implements Remote, Serializable {
 		int byID = 0;
 		String desc = "";
 		boolean isPos = false;
-		
-		while(rs.next())
-		{
+
+		while (rs.next()) {
 			ID = rs.getInt("ID");
 			uID = rs.getInt("UserID");
 			byID = rs.getInt("ByUserID");
@@ -168,14 +169,15 @@ public class LogIn implements Remote, Serializable {
 			isPos = rs.getBoolean("isGood");
 			fl.add(new Feedback(ID, uID, desc, isPos, byID));
 		}
-		
-		
+
 		return fl;
 	}
-	
+
 	/**
 	 * Initializes and returns a UserStats object given a userID
-	 * @param userID - UserID to initialize the statistics of
+	 * 
+	 * @param userID
+	 *            - UserID to initialize the statistics of
 	 * @return the UserStats object corresponding to the given UserID
 	 */
 	private UserStats initStats(int userID) {
@@ -232,11 +234,9 @@ public class LogIn implements Remote, Serializable {
 					pos++;
 				total++;
 			}
-			if(total > 0)
-			{
+			if (total > 0) {
 				karma = pos / total;
-			}
-			else
+			} else
 				karma = 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -268,8 +268,8 @@ public class LogIn implements Remote, Serializable {
 	 * @return true if username exists, false if it is not taken
 	 * @throws SQLException
 	 */
-	public boolean doesUsernameExist(String username)
-			throws SQLException, RemoteException {
+	public boolean doesUsernameExist(String username) throws SQLException,
+			RemoteException {
 		String query = "SELECT 1 FROM User WHERE Username='" + username + "'";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.executeQuery(query);
@@ -277,6 +277,11 @@ public class LogIn implements Remote, Serializable {
 			return true;
 		else
 			return false;
+	}
+
+	public User register(String username, String email, String password,
+			String question, String answer) throws RemoteException, Exception {
+		return register(username, email, password, question, answer, null);
 	}
 
 	/**
@@ -289,9 +294,11 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception
 	 */
 	public User register(String username, String email, String password,
-			String question, String answer) throws RemoteException, Exception {
+			String question, String answer, File picture)
+			throws RemoteException, Exception {
 		User u = new User();
 		DBHelper dbh = new DBHelper();
+
 		String query = "INSERT INTO User ";
 		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer, BannedReason)";
 		query += "VALUES ('" + username + "','" + email + "','" + password
@@ -302,6 +309,23 @@ public class LogIn implements Remote, Serializable {
 			query = " SELECT * FROM User WHERE Username='" + username + "'";
 			ResultSet rs = dbh.executeQuery(query);
 			if (rs.first()) {
+				if (picture != null) {
+					try {
+						Connection conn = dbh.getConnection();
+						conn.setAutoCommit(false);
+						String upload_pic = "Update User SET Avatar = ? WHERE UserID = ?";
+						FileInputStream fis = new FileInputStream(picture);
+						java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
+						ps.setBinaryStream(1, fis, (int)picture.length());
+						ps.setString(2, username);
+						ps.executeUpdate();
+						conn.commit();
+						
+						
+					} catch (Exception ex) {
+						throw new Exception("Image save failed!");
+					}
+				}
 				u.setID(rs.getInt("ID"));
 				u.setUsername(username);
 				u.setEmail(rs.getString("Email"));
@@ -324,13 +348,14 @@ public class LogIn implements Remote, Serializable {
 		return u;
 
 	}
-	
-	public void insertFeedback(int userID, int byUserID, String desc, boolean isPositive)
-	{
+
+	public void insertFeedback(int userID, int byUserID, String desc,
+			boolean isPositive) {
 		DBHelper dbh = new DBHelper();
 		String query = "INSERT INTO Feedback";
 		query += "(UserID, isGood, Comment, ByUserID)";
-		query += "VALUES ('" + userID + "','" + isPositive + "','" + desc + "','" + byUserID + "')";
+		query += "VALUES ('" + userID + "','" + isPositive + "','" + desc
+				+ "','" + byUserID + "')";
 		dbh.executeUpdate(query);
 	}
 
@@ -389,9 +414,8 @@ public class LogIn implements Remote, Serializable {
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
-		
+
 	}
-	
 
 	/**
 	 * Saves password parameter in database where ID=id
@@ -438,8 +462,8 @@ public class LogIn implements Remote, Serializable {
 	 * @return true if answer is correct, false if answer is incorrect
 	 * @throws SQLException
 	 */
-	public boolean checkSecurityQuestionAnswer(String username,
-			String answer) throws SQLException {
+	public boolean checkSecurityQuestionAnswer(String username, String answer)
+			throws SQLException {
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Username='" + username
 				+ "' AND SecurityAnswer='" + answer + "'";
@@ -453,42 +477,45 @@ public class LogIn implements Remote, Serializable {
 
 	/**
 	 * Return username corresponding to given email
+	 * 
 	 * @param email
 	 * @return Username of the account the email parameter belongs to
 	 * @throws SQLException
 	 */
 	public String findUsername(String email) throws SQLException {
 		String username;
-		
+
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Email='" + email + "'";
 		ResultSet rs = dbh.executeQuery(query);
-		if(rs.first())
+		if (rs.first())
 			username = rs.getString("Username");
 		else
-		   throw new SQLException(); // Throw an exception if we are passed an e-mail not in the table.
-		
+			throw new SQLException(); // Throw an exception if we are passed an
+										// e-mail not in the table.
+
 		return username;
 	}
-	
+
 	/**
 	 * Get security question given email
+	 * 
 	 * @param email
-	 * @return Security question that corresponds to the account the email belongs to
+	 * @return Security question that corresponds to the account the email
+	 *         belongs to
 	 * @throws SQLException
 	 */
-	public String getSecurityQuestion(String email) throws SQLException{
+	public String getSecurityQuestion(String email) throws SQLException {
 		String sq = "";
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Email='" + email + "'";
 		ResultSet rs = dbh.executeQuery(query);
-		if(rs.first())
-		{
+		if (rs.first()) {
 			sq = rs.getString("SecurityQuestion");
 		}
 
 		return sq;
-		
+
 	}
 
 	/**
@@ -497,13 +524,14 @@ public class LogIn implements Remote, Serializable {
 	public void insertFeedback(int userID, int byUserID, boolean isPositive,
 			String comment) {
 		int bool = 0;
-		if(isPositive) bool = 1;
+		if (isPositive)
+			bool = 1;
 		String query = "INSERT INTO Feedback ";
 		query += "(UserID, isGood, Comment, ByUserID)";
-		query += "VALUES ('" + userID + "','" + bool + "','" + comment
-				+ "','" + byUserID + "')";
+		query += "VALUES ('" + userID + "','" + bool + "','" + comment + "','"
+				+ byUserID + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
-	
+
 }
