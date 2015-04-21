@@ -32,6 +32,7 @@ public class User implements Serializable {
    private String bannedReason;
    private int role;
    public ArrayList<Feedback> Feedback;
+   private byte[] imageBytes;
    
 
    /**
@@ -48,6 +49,7 @@ public class User implements Serializable {
       this.Statistics = null;
       this.isBanned = false;
       this.role = 0;
+      this.imageBytes = null;
       //this.Feedback = new ArrayList<Feedback>();
    }
    
@@ -57,7 +59,7 @@ public class User implements Serializable {
     */
    public void initStats()
    {
-      this.Statistics = new UserStats(ID);
+      //this.Statistics = new UserStats(ID);
    
    }
    
@@ -94,6 +96,16 @@ public class User implements Serializable {
    public void setEmail(String email)
    {
       this.email = email;
+   }
+   
+   public void setImageBytes(byte[] bs)
+   {
+	   this.imageBytes = bs;
+   }
+   
+   public byte[] getImageBytes()
+   {
+	   return imageBytes;
    }
    
    /**
