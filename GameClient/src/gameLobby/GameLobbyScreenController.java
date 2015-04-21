@@ -65,7 +65,7 @@ public class GameLobbyScreenController implements ControlledScreen
       // Initialize gameManagement.
       try
       {
-         gameManagement = (GameManagement) Naming.lookup("//localhost/game");
+         //gameManagement = (GameManagement) Naming.lookup("//localhost/game");
 
       }
       catch (Exception e)
@@ -76,7 +76,7 @@ public class GameLobbyScreenController implements ControlledScreen
       }
 
       // Initialize table
-      loadGameTable();
+      //loadGameTable();
 
       // TO-DO: REDIRECT LOGIC.
       // Store the information that game table might need in the GameLobbyData singleton... unless you are supposed to pass something to the server, up to you
