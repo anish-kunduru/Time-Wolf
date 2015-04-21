@@ -11,6 +11,7 @@ import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngine;
+import GameServer.GameEngine.Player;
 import GameServer.Users.User;
 
 
@@ -51,6 +52,8 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	public ArrayList<GameInfo> listJoinableGames()
 	{
 		ArrayList<GameInfo> available = new ArrayList<GameInfo>();
+		
+		/*
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
@@ -62,6 +65,29 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 				GameInfo gameInfo = new GameInfo(games.get(i).getName(), games.get(i).getTotalNumOfPlayers(), playerNames);
 				available.add(gameInfo);
 			}
+		}
+		*/
+		
+		// Loop over every game.
+		for (GameEngine ge : games)
+		{
+		   // Make sure game isn't running and isn't finished.
+		   // NOTE: WHY AREN'T WE REMOVING FINISHED GAMES?		   
+		   if (!ge.isRunning() && !ge.isFinished())
+		   {
+		      // To hold the usernames of players.
+		      ArrayList<String> playerNames = new ArrayList<String>();
+		      
+		      // Loop over list of players and extract username.
+		      for (Player curPlayer : ge.getPlayers())
+		         playerNames.add(curPlayer.getUser().getUsername());
+		      
+		      // Create new game info.
+		      GameInfo gameInfo = new GameInfo(ge.getName(), ge.getTotalNumOfPlayers(), playerNames);
+		      
+		      // Add to array.
+		      available.add(gameInfo);
+		   }
 		}
 		
 		return available;

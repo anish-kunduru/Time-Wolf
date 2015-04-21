@@ -9,6 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import GameServer.Users.User;
@@ -17,7 +18,7 @@ import GameServer.Users.User;
 public class GameEngine extends UnicastRemoteObject implements Runnable, Remote {
 	
 	
-	private Player[] players;
+	private ArrayList<Player> players;
 	private int totalNumOfPlayers;
 	private int currentNumOfPlayers;
 	private int currentPlayerIndex = 0;
@@ -45,7 +46,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		//Create the array of players and initialize info about the number of players.
 		this.totalNumOfPlayers = numOfPlayers;
 		this.currentNumOfPlayers = 0;
-		this.players = new Player[numOfPlayers];
+		this.players = new ArrayList<Player>();
 		
 		this.mainDeck = (Deck) mainDeck.clone();
 		this.startingDeck = startingDeck;
@@ -89,7 +90,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		p.setGameEngine(this.rmiRegistryName);
 		
 		//Add the player if there is room.
-		this.players[this.currentNumOfPlayers] = p;
+		this.players.add(p);
 		this.currentNumOfPlayers++;
 		
 		return true;
@@ -145,7 +146,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		return currentNumOfPlayers;
 	}
 	
-	public Player[] getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 
@@ -186,7 +187,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	private boolean playCard(Action a) {
 		Card c = a.getCard();
-		Player p = this.players[this.currentPlayerIndex];
+		Player p = this.players.get(this.currentPlayerIndex);
 		
 		this.ruleDiscard(p, c, true);
 		this.ruleAttack(p, c);
@@ -493,7 +494,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input; //place to put input from command line.
 		
-		Player p = this.players[this.currentPlayerIndex];
+		Player p = this.players.get(this.currentPlayerIndex);
 		
 		System.out.println("\n\n\n");
 		System.out.println("Player: " + p.getUser().getUsername());
@@ -593,7 +594,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	private boolean aquireCard(Action a) {
 		
 		Card c = a.getCard();
-		Player p = this.players[this.currentPlayerIndex];
+		Player p = this.players.get(this.currentPlayerIndex);
 		
 		
 		//TODO: When the tagging for historical figures vs action cards gets done, fix this code
@@ -673,7 +674,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		while(true) {
 			
 			//set the current player
-			currentPlayer = this.players[this.currentPlayerIndex];
+			currentPlayer = this.players.get(this.currentPlayerIndex);
 			
 			//Stay true during turn
 			while(true) {
