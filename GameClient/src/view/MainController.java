@@ -81,7 +81,15 @@ public class MainController extends StackPane
       }
       catch (Exception e)
       {
+         // DEBUG
          System.out.println("Error loading the screen: " + e.getMessage() + "\n");
+         System.out.println("This error typically means that you are manipulating state data that hasn't been properly defined. Things to check:");
+         System.out.println("    - Are the FXML components you reference properly defined (use the right import)?");
+         System.out.println("    - Check the logic in initialize(). Realize that it is injected directly on load of the FXML and that because of this controller's design, this happens directly on program lanuch.");
+         System.out.println("    - Are you trying to load something indirectly or directly in initialize() that is null?");
+         System.out.println("    - Are you trying to access something from the singleton that is created by another page after program launch? You will need to reload this screen before calling it.");
+         System.out.println("    - Did you use the correct name and location for the FXML file in the MainView definition?");
+         System.out.println("    - Is the FXML linked to the controller?\n");
          e.printStackTrace();
          
          return false;
