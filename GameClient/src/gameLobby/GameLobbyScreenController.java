@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import chat.Chat;
 import GameServer.GameInfo;
-import GameServer.GameManagement;
 import GameServer.IGameManagement;
 import singleton.MainModel;
 import view.ControlledScreen;
@@ -25,172 +24,172 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 
-public class GameLobbyScreenController implements ControlledScreen
-{
-   // FXML Components
+public class GameLobbyScreenController implements ControlledScreen {
+	// FXML Components
 
-   // Table components.
-   private ArrayList<GameInfo> games;
-   private ObservableList<LobbyRow> tableData;
+	// Table components.
+	private ArrayList<GameInfo> games;
+	private ObservableList<LobbyRow> tableData;
 
-   @FXML
-   private TableView<LobbyRow> gamesTable;
-   @FXML
-   private TableColumn nameColumn;
-   @FXML
-   private TableColumn typeColumn;
-   @FXML
-   private TableColumn numPlayersColumn;
-   @FXML
-   private TableColumn chatColumn;
-   @FXML
-   private TableColumn privateColumn;
+	@FXML
+	private TableView<LobbyRow> gamesTable;
+	@FXML
+	private TableColumn nameColumn;
+	@FXML
+	private TableColumn typeColumn;
+	@FXML
+	private TableColumn numPlayersColumn;
+	@FXML
+	private TableColumn chatColumn;
+	@FXML
+	private TableColumn privateColumn;
 
-   @FXML
-   private Button reloadTableButton;
-   @FXML
-   private Button joinButton;
-   @FXML
-   private Button searchButton;
-   @FXML
-   private Button createButton;
-   
-   @FXML
-   private static TextArea chatBoxTextArea;
-   @FXML
-   private TextArea chatMessageTextArea;
+	@FXML
+	private Button reloadTableButton;
+	@FXML
+	private Button joinButton;
+	@FXML
+	private Button searchButton;
+	@FXML
+	private Button createButton;
 
-   // So we can set the screen's parent later on.
-   MainController parentController;
+	@FXML
+	private static TextArea chatBoxTextArea;
+	@FXML
+	private TextArea chatMessageTextArea;
 
-   // So that we can call it from different event listeners.
-   private Chat chat;
-   private IGameManagement gameManagement;
+	// So we can set the screen's parent later on.
+	MainController parentController;
 
-   /**
-    * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game management object and from that object it
-    * obtains a list of games. It also initializes a chat server.
-    */
-   @FXML
-   public void initialize()
-   {
-      // Initialize gameManagement.
-      try
-      {
-         gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-      }
-      catch (Exception e)
-      {
-         // DEBUG
-         System.out.println("Error initializing remote game management object.");
-         e.printStackTrace();
-      }
-      try {
-		gameManagement.createGame(2, "Test");
-	} catch (RemoteException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	// So that we can call it from different event listeners.
+	private Chat chat;
+	private IGameManagement gameManagement;
+
+	/**
+	 * Initializes the controller class. Automatically called after the FXML
+	 * file has been loaded. Calls remote game management object and from that
+	 * object it obtains a list of games. It also initializes a chat server.
+	 */
+	@FXML
+	public void initialize() {
+		// Initialize gameManagement.
+		try {
+			gameManagement = (IGameManagement) Naming
+					.lookup("//localhost/game");
+		} catch (Exception e) {
+			// DEBUG
+			System.out
+					.println("Error initializing remote game management object.");
+			e.printStackTrace();
+		}
+		try {
+			gameManagement.createGame(2, "Test");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Initialize table
+		loadGameTable();
+
+		// TO-DO: REDIRECT LOGIC.
+		// Store the information that game table might need in the GameLobbyData
+		// singleton... unless you are supposed to pass something to the server,
+		// up to you
+		// guys...
+		// The singleton has already been created, and linked, you just need to
+		// define whatever you need/want to store.
+
+		// Event handling for selected row on gamesTable.
+		gamesTable.setOnMouseClicked(event -> {
+			// Check to make sure something is selected.
+				if (gamesTable.getSelectionModel().getSelectedIndex() != -1) {
+					// Get the selected name.
+					String selectedGame = gamesTable.getSelectionModel()
+							.getSelectedItem().name.get();
+
+					// TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
+			}
+		});
+
+		// TO-DO: INITALIZE CHAT.
+		// chat = new Chat(true,
+		// MainModel.getModel().currentLoginData().getUsername(), -1); //
+		// chatroomID = -1, because main lobby.
+
+		reloadTableButton.setOnAction(event -> {
+			loadGameTable(); // Reload game table.
+			});
+
+		joinButton.setOnAction(event -> {
+			parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+		});
+
+		searchButton.setOnAction(event -> {
+			parentController.displayScreen(MainView.SEARCH_GAME_SCREEN);
+		});
+
+		createButton.setOnAction(event -> {
+			parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
+		});
 	}
 
-      // Initialize table
-      //loadGameTable();
-
-      // TO-DO: REDIRECT LOGIC.
-      // Store the information that game table might need in the GameLobbyData singleton... unless you are supposed to pass something to the server, up to you
-      // guys...
-      // The singleton has already been created, and linked, you just need to define whatever you need/want to store.
-      
-      // Event handling for selected row on gamesTable.
-      gamesTable.setOnMouseClicked(event ->
-      {
-         // Check to make sure something is selected.
-         if (gamesTable.getSelectionModel().getSelectedIndex() != -1)
-         {
-            // Get the selected name.
-            String selectedGame = gamesTable.getSelectionModel().getSelectedItem().name.get();
-            
-            // TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
-         }
-      });
-
-      // TO-DO: INITALIZE CHAT.
-      //chat = new Chat(true, MainModel.getModel().currentLoginData().getUsername(), -1); // chatroomID = -1, because main lobby.
-
-      reloadTableButton.setOnAction(event ->
-      {
-         loadGameTable(); // Reload game table.
-      });
-
-      joinButton.setOnAction(event ->
-      {
-         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
-      });
-
-      searchButton.setOnAction(event ->
-      {
-         parentController.displayScreen(MainView.SEARCH_GAME_SCREEN);
-      });
-
-      createButton.setOnAction(event ->
-      {
-         parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
-      });
-   }
-   
-   /**
-    * Will append an incoming message to the chat message box.
-    * @param message The message that you wish to append.
-    */
-   public static void appendChatMessage(String message)
-   {
-      chatBoxTextArea.appendText("> " + message);
-   }
-   
-   /**
-    * To be called by the chat's "Send message" button.
-    */
-   public void sendMessage()
-   {
-      chat.bufferMessage(chatMessageTextArea.getText());
-   }
-
-   /**
-    * A helper method that is called on initialize(), or whenever the user presses the refreshTableButton.
-    */
-   private void loadGameTable()
-   {
-      try {
-		games = gameManagement.listJoinableGames();
-	} catch (RemoteException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	/**
+	 * Will append an incoming message to the chat message box.
+	 * 
+	 * @param message
+	 *            The message that you wish to append.
+	 */
+	public static void appendChatMessage(String message) {
+		chatBoxTextArea.appendText("> " + message);
 	}
 
-      // Populate the table.
-      for (int i = 0; i < games.size(); i++)
-      {
-         LobbyRow currentEntry = new LobbyRow(); // new row.
+	/**
+	 * To be called by the chat's "Send message" button.
+	 */
+	public void sendMessage() {
+		chat.bufferMessage(chatMessageTextArea.getText());
+	}
 
-         GameInfo currentGame = games.get(i); // Get index in ArrayList.
+	/**
+	 * A helper method that is called on initialize(), or whenever the user
+	 * presses the refreshTableButton.
+	 */
+	private void loadGameTable() {
 
-         currentEntry.name.set(currentGame.getName()); // Set game name.
-         //currentEntry.type.set(); // Set game type.
-         currentEntry.numberPlayers.set(currentGame.getNumPlayers()); // Set numberPlayers
+		try {
+			games = gameManagement.listJoinableGames();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-         // The following are features we can add later if time permits:
-         currentEntry.chat.set(true); // Chat will be enabled for all games for now.
-         currentEntry.privateLobby.set(false); // All lobbies will be public for now.
+		// Populate the table.
+		for (int i = 0; i < games.size(); i++) {
+			LobbyRow currentEntry = new LobbyRow(); // new row.
 
-         // Add to observableArrayList.
-         tableData.add(currentEntry);
-      }
-   }
+			GameInfo currentGame = games.get(i); // Get index in ArrayList.
 
-   /**
-    * This method will allow for the injection of each screen's parent.
-    */
-   public void setScreenParent(MainController screenParent)
-   {
-      parentController = screenParent;
-   }
+			currentEntry.name.set(currentGame.getName()); // Set game name.
+			// currentEntry.type.set(); // Set game type.
+			currentEntry.numberPlayers.set(currentGame.getNumPlayers()); // Set
+																			// numberPlayers
+
+			// The following are features we can add later if time permits:
+			currentEntry.chat.set(true); // Chat will be enabled for all games
+											// for now.
+			currentEntry.privateLobby.set(false); // All lobbies will be public
+													// for now.
+
+			// Add to observableArrayList.
+			tableData.add(currentEntry);
+		}
+	}
+
+	/**
+	 * This method will allow for the injection of each screen's parent.
+	 */
+	public void setScreenParent(MainController screenParent) {
+		parentController = screenParent;
+	}
 }
