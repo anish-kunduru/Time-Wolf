@@ -14,7 +14,8 @@ import GameServer.GameEngine.GameEngine;
 import GameServer.Users.User;
 
 
-public class GameManagement extends UnicastRemoteObject implements Runnable, Remote {
+//public class GameManagement extends UnicastRemoteObject implements Runnable, Remote {
+public class GameManagement extends UnicastRemoteObject implements Runnable, IGameManagement {
    
 	private int gameID = 0;
 	
@@ -66,22 +67,22 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 	}
 	
 
-	public ArrayList<GameEngine> SearchGames(String name)
+	public ArrayList<String> SearchGames(String name)
 	{
-		ArrayList<GameEngine> games = SearchGames(name, 0);
+		ArrayList<String> games = SearchGames(name, 0);
 		return games;
 		
 	}
-	public ArrayList<GameEngine> SearchGames(int players)
+	public ArrayList<String> SearchGames(int players)
 	{
-		ArrayList<GameEngine> games =  SearchGames("", players);
+		ArrayList<String> games =  SearchGames("", players);
 		return games;
 	}
-	public ArrayList<GameEngine> SearchGames(String name, int players)
+	public ArrayList<String> SearchGames(String name, int players)
 	{
 		boolean nameSearch = (name != "");
 		boolean playerSearch = (players > 0);
-		ArrayList<GameEngine> available = new ArrayList<GameEngine>();
+		ArrayList<String> available = new ArrayList<String>();
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
@@ -89,7 +90,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 				if((games.get(i).getName().equals(name) || !nameSearch) && 
 						(games.get(i).getTotalNumOfPlayers() == players || !playerSearch))
 				{
-					available.add(games.get(i));
+					available.add(games.get(i).getName());
 				}
 			}
 		}
@@ -214,5 +215,6 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, Rem
 			e.printStackTrace();
 		}
 	}
+	
 
 }
