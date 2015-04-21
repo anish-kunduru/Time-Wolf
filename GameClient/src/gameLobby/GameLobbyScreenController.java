@@ -7,11 +7,13 @@
 package gameLobby;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import chat.Chat;
 import GameServer.GameInfo;
 import GameServer.GameManagement;
+import GameServer.IGameManagement;
 import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
@@ -63,7 +65,7 @@ public class GameLobbyScreenController implements ControlledScreen
 
    // So that we can call it from different event listeners.
    private Chat chat;
-   private GameManagement gameManagement;
+   private IGameManagement gameManagement;
 
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game management object and from that object it
@@ -75,8 +77,7 @@ public class GameLobbyScreenController implements ControlledScreen
       // Initialize gameManagement.
       try
       {
-         //gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-
+         gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
       }
       catch (Exception e)
       {
@@ -84,6 +85,12 @@ public class GameLobbyScreenController implements ControlledScreen
          System.out.println("Error initializing remote game management object.");
          e.printStackTrace();
       }
+      try {
+		gameManagement.createGame(2, "Test");
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       // Initialize table
       //loadGameTable();
@@ -152,7 +159,12 @@ public class GameLobbyScreenController implements ControlledScreen
     */
    private void loadGameTable()
    {
-      games = gameManagement.listJoinableGames();
+      try {
+		games = gameManagement.listJoinableGames();
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
       // Populate the table.
       for (int i = 0; i < games.size(); i++)
