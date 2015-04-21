@@ -47,7 +47,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -92,7 +91,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -135,7 +133,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -311,9 +308,9 @@ public class LogIn implements Remote, Serializable {
 		DBHelper dbh = new DBHelper();
 
 		String query = "INSERT INTO User ";
-		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer, BannedReason)";
+		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer)";
 		query += "VALUES ('" + username + "','" + email + "','" + password
-				+ "','','0','0','" + question + "','" + answer + ",'')";
+				+ "','','0','0','" + question + "','" + answer + "')";
 
 		try {
 			dbh.executeUpdate(query);
@@ -340,7 +337,6 @@ public class LogIn implements Remote, Serializable {
 				u.setID(rs.getInt("ID"));
 				u.setUsername(username);
 				u.setEmail(rs.getString("Email"));
-				u.setImagePath(rs.getString("ImagePath"));
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
 				u.setBannedReason(rs.getString("BannedReason"));
@@ -390,7 +386,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(rs.getString("Username"));
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setPassword(rs.getString("Password"));
 			u.setBannedStatus(rs.getBoolean("IsBanned"));
@@ -407,6 +402,13 @@ public class LogIn implements Remote, Serializable {
 		return users;
 	}
 
+	public void removeAvatar(String username)
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + username + "'";
+		dbh.executeUpdate(query);
+	}
+	
 	/**
 	 * Saves all properties of the user passed via parameter
 	 * 
@@ -448,6 +450,10 @@ public class LogIn implements Remote, Serializable {
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
 			}
+		}
+		else{
+			query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + u.getUsername() + "'";
+			dbh.executeUpdate(query);
 		}
 		
 	}

@@ -209,17 +209,6 @@ public class User implements Serializable {
       // get image from server
    }
    
-   /**
-    * Sets the image path for the user from the parameter
-    * Should link to a file path on the server
-    * @param path - image location on server
-    */
-   public void setImagePath(String path)
-   {
-      imgPath = path;
-      //sets image location, probably returned from a function that puts image on server
-      
-   }
    
    /**
     * Deletes image from server and sets imgPath to empty string
@@ -227,7 +216,7 @@ public class User implements Serializable {
    public void deleteImage()
    {
       //do server stuff to delete from server
-      this.imgPath = "";
+      imageBytes = null;
    }
 
    /**
