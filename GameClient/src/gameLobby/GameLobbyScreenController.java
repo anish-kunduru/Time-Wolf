@@ -9,7 +9,9 @@ package gameLobby;
 import java.rmi.Naming;
 import java.util.ArrayList;
 
+import chat.Chat;
 import GameServer.GameManagement;
+import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
@@ -18,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 
 public class GameLobbyScreenController implements ControlledScreen
 {
@@ -48,11 +51,17 @@ public class GameLobbyScreenController implements ControlledScreen
    private Button searchButton;
    @FXML
    private Button createButton;
+   
+   @FXML
+   private static TextArea chatBoxTextArea;
+   @FXML
+   private TextArea chatMessageTextArea;
 
    // So we can set the screen's parent later on.
    MainController parentController;
 
    // So that we can call it from different event listeners.
+   private Chat chat;
    private GameManagement gameManagement;
 
    /**
@@ -63,9 +72,9 @@ public class GameLobbyScreenController implements ControlledScreen
    public void initialize()
    {
       // Initialize gameManagement.
-      try
+      /*try
       {
-         gameManagement = (GameManagement) Naming.lookup("//localhost/game");
+         //gameManagement = (GameManagement) Naming.lookup("//localhost/game");
 
       }
       catch (Exception e)
@@ -74,9 +83,9 @@ public class GameLobbyScreenController implements ControlledScreen
          System.out.println("Error initializing remote game management object.");
          e.printStackTrace();
       }
-
+*/
       // Initialize table
-      loadGameTable();
+      //loadGameTable();
 
       // TO-DO: REDIRECT LOGIC.
       // Store the information that game table might need in the GameLobbyData singleton... unless you are supposed to pass something to the server, up to you
@@ -97,6 +106,7 @@ public class GameLobbyScreenController implements ControlledScreen
       });
 
       // TO-DO: INITALIZE CHAT.
+      //chat = new Chat(true, MainModel.getModel().currentLoginData().getUsername(), -1); // chatroomID = -1, because main lobby.
 
       reloadTableButton.setOnAction(event ->
       {
@@ -117,6 +127,23 @@ public class GameLobbyScreenController implements ControlledScreen
       {
          parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
       });
+   }
+   
+   /**
+    * Will append an incoming message to the chat message box.
+    * @param message The message that you wish to append.
+    */
+   public static void appendChatMessage(String message)
+   {
+      chatBoxTextArea.appendText("> " + message);
+   }
+   
+   /**
+    * To be called by the chat's "Send message" button.
+    */
+   public void sendMessage()
+   {
+      chat.bufferMessage(chatMessageTextArea.getText());
    }
 
    /**
