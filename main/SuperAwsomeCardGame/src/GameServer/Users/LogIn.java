@@ -47,7 +47,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -92,7 +91,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -135,7 +133,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
@@ -340,7 +337,6 @@ public class LogIn implements Remote, Serializable {
 				u.setID(rs.getInt("ID"));
 				u.setUsername(username);
 				u.setEmail(rs.getString("Email"));
-				u.setImagePath(rs.getString("ImagePath"));
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
 				u.setBannedReason(rs.getString("BannedReason"));
@@ -390,7 +386,6 @@ public class LogIn implements Remote, Serializable {
 			u.setID(rs.getInt("ID"));
 			u.setUsername(rs.getString("Username"));
 			u.setEmail(rs.getString("Email"));
-			u.setImagePath(rs.getString("ImagePath"));
 			u.setRole(rs.getInt("Role"));
 			u.setPassword(rs.getString("Password"));
 			u.setBannedStatus(rs.getBoolean("IsBanned"));
@@ -448,6 +443,10 @@ public class LogIn implements Remote, Serializable {
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
 			}
+		}
+		else{
+			query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + u.getUsername() + "'";
+			dbh.executeUpdate(query);
 		}
 		
 	}
