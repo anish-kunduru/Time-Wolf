@@ -23,8 +23,6 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	private Deck startingDeck;
 	private Deck mainDeck;
 	
-	
-	
 	/**
 	 * Create the game managment class. 
 	 * This is the primary class that manages all the game engines and such for 
@@ -43,7 +41,6 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 			e.printStackTrace();
 			throw(e);
 		}
-		
 		
 	}
 	

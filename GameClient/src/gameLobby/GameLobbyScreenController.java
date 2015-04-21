@@ -75,7 +75,7 @@ public class GameLobbyScreenController implements ControlledScreen
       // Initialize gameManagement.
       try
       {
-         gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+         //gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
 
       }
       catch (Exception e)
