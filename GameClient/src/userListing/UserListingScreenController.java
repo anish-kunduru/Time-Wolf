@@ -176,6 +176,16 @@ public class UserListingScreenController implements ControlledScreen {
 					}
 
 					// TO-DO: SET PROFILE IMAGE.
+					/*
+					 * User now has byte[] of image (must be stored this way to be serializable)
+					 *  getImageBytes()
+					 *  Get file by doing the following:
+					 *  FileOutputStream fos = new FileOutputStream("pathname");
+					 *  fos.write(myByteArray);
+					 *  fos.close();
+					 *  Then convert file to image and display
+					 *  
+					 */
 			}
 		});
 
@@ -186,7 +196,13 @@ public class UserListingScreenController implements ControlledScreen {
 					String username = userTable.getSelectionModel()
 							.getSelectedItem().username.get();
 
-					// TO-DO: REMOVE PROFILE IMAGE.
+					try {
+						login.removeAvatar(username);
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 		});
 

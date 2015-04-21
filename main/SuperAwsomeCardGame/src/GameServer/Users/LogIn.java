@@ -402,6 +402,13 @@ public class LogIn implements Remote, Serializable {
 		return users;
 	}
 
+	public void removeAvatar(String username)
+	{
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + username + "'";
+		dbh.executeUpdate(query);
+	}
+	
 	/**
 	 * Saves all properties of the user passed via parameter
 	 * 
