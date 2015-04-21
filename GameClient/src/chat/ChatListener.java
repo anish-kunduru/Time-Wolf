@@ -44,8 +44,8 @@ public class ChatListener extends Thread
             
             if (gameLobby)
                GameLobbyScreenController.appendChatMessage(message);
-            else
-               GameTableScreenController.appendChatMessage(message);
+            //else
+               //GameTableScreenController.appendChatMessage(message);
          }
          catch (IOException | ClassNotFoundException e)
          {

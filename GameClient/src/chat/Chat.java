@@ -49,7 +49,6 @@ public class Chat
       // Initialize streams.
       try
       {
-         input = new ObjectInputStream(socket.getInputStream());
          output = new ObjectOutputStream(socket.getOutputStream());
       }
       catch (IOException ioe)
