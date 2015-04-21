@@ -82,6 +82,7 @@ public class RegistrationScreenController implements ControlledScreen
 
    // If user uploads a profile picture.
    private Image profilePictureImage;
+   private File profilePictureFile;
 
    @FXML
    public void initialize()
@@ -94,7 +95,7 @@ public class RegistrationScreenController implements ControlledScreen
          fileChooser.setTitle("Open Profile Picture");
 
          // Get the file from the fileChooser.
-         File profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+         profilePictureFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
 
          // So we don't throw an exception.
          if (profilePictureFile != null)
@@ -238,7 +239,7 @@ public class RegistrationScreenController implements ControlledScreen
                            .currentLoginData()
                            .getLogInConnection()
                            .register(usernameTextField.getText(), checkEmailTextField.getText(), checkPasswordField.getText(),
-                                     securityQuestionTextField.getText(), securityAnswerTextField.getText());
+                                     securityQuestionTextField.getText(), securityAnswerTextField.getText(), profilePictureFile);
                }
                else
                {

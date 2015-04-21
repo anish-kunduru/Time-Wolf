@@ -6,10 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
-	prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="gameLobby.GameLobbyScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameLobby.GameLobbyScreenController">
 	<children>
 		<fx:include source="../menuBar/DefaultMenuBar.fxml" />
 		<Label layoutY="25.0" text="Lobby Listing:">
@@ -20,35 +17,21 @@
 				<Insets left="5.0" />
 			</padding>
 		</Label>
-		<TableView fx:id="gamesTable" layoutY="50.0" prefHeight="620.0"
-			prefWidth="1080.0">
+		<TableView fx:id="gamesTable" layoutX="-214.0" layoutY="52.0" prefHeight="620.0" prefWidth="1080.0">
 			<columns>
 				<TableColumn fx:id="nameColumn" prefWidth="306.0" text="Name" />
 				<TableColumn fx:id="typeColumn" prefWidth="174.0" text="Type" />
-				<TableColumn fx:id="numPlayersColumn" minWidth="4.0"
-					prefWidth="82.0" text="No. Players" />
+				<TableColumn fx:id="numPlayersColumn" minWidth="4.0" prefWidth="82.0" text="No. Players" />
 				<TableColumn fx:id="chatColumn" prefWidth="66.0" text="Chat" />
-				<TableColumn fx:id="privateColumn" prefWidth="68.0"
-					text="Private" />
+				<TableColumn fx:id="privateColumn" prefWidth="68.0" text="Private" />
 			</columns>
 		</TableView>
-		<ScrollPane layoutX="1080.0" layoutY="25.0" prefHeight="695.0"
-			prefWidth="200.0">
-			<content>
-				<Label alignment="CENTER" contentDisplay="CENTER" text="CHAT WINDOW TO-DO">
-					<font>
-						<Font name="System Bold Italic" size="14.0" />
-					</font>
-				</Label>
-			</content>
-		</ScrollPane>
-		<Button fx:id="joinButton" layoutX="1016.0" layoutY="681.0"
-			mnemonicParsing="false" onAction="#initialize" text="Join" />
-		<Button fx:id="createButton" layoutX="21.0" layoutY="681.0"
-			mnemonicParsing="false" onAction="#initialize" text="Create" />
-		<Button fx:id="searchButton" layoutX="98.0" layoutY="681.0"
-			mnemonicParsing="false" onAction="#initialize" text="Search" />
-		<Button fx:id="reloadTableButton" layoutX="898.0" layoutY="681.0"
-			mnemonicParsing="false" onAction="#initialize" text="Refresh Listings" />
+		<Button fx:id="joinButton" layoutX="827.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Join" />
+		<Button fx:id="createButton" layoutX="21.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Create" />
+		<Button fx:id="searchButton" layoutX="98.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Search" />
+		<Button fx:id="reloadTableButton" layoutX="709.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Refresh Listings" />
+      <TextArea fx:id="chatBoxTextArea" editable="false" layoutX="877.0" layoutY="52.0" prefHeight="456.0" prefWidth="403.0" wrapText="true" />
+      <TextArea fx:id="chatMessageTextArea" layoutX="877.0" layoutY="520.0" prefHeight="146.0" prefWidth="403.0" wrapText="true" />
+      <Button layoutX="1166.0" layoutY="681.0" mnemonicParsing="false" onAction="#sendMessage" text="Send Message" />
 	</children>
 </AnchorPane>

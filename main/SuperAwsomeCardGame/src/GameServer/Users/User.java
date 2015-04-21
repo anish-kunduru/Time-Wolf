@@ -32,6 +32,7 @@ public class User implements Serializable {
    private String bannedReason;
    private int role;
    public ArrayList<Feedback> Feedback;
+   private byte[] imageBytes;
    
 
    /**
@@ -48,6 +49,7 @@ public class User implements Serializable {
       this.Statistics = null;
       this.isBanned = false;
       this.role = 0;
+      this.imageBytes = null;
       //this.Feedback = new ArrayList<Feedback>();
    }
    
@@ -57,7 +59,7 @@ public class User implements Serializable {
     */
    public void initStats()
    {
-      this.Statistics = new UserStats(ID);
+      //this.Statistics = new UserStats(ID);
    
    }
    
@@ -94,6 +96,16 @@ public class User implements Serializable {
    public void setEmail(String email)
    {
       this.email = email;
+   }
+   
+   public void setImageBytes(byte[] bs)
+   {
+	   this.imageBytes = bs;
+   }
+   
+   public byte[] getImageBytes()
+   {
+	   return imageBytes;
    }
    
    /**
@@ -197,17 +209,6 @@ public class User implements Serializable {
       // get image from server
    }
    
-   /**
-    * Sets the image path for the user from the parameter
-    * Should link to a file path on the server
-    * @param path - image location on server
-    */
-   public void setImagePath(String path)
-   {
-      imgPath = path;
-      //sets image location, probably returned from a function that puts image on server
-      
-   }
    
    /**
     * Deletes image from server and sets imgPath to empty string
@@ -215,7 +216,7 @@ public class User implements Serializable {
    public void deleteImage()
    {
       //do server stuff to delete from server
-      this.imgPath = "";
+      imageBytes = null;
    }
 
    /**
