@@ -308,9 +308,9 @@ public class LogIn implements Remote, Serializable {
 		DBHelper dbh = new DBHelper();
 
 		String query = "INSERT INTO User ";
-		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer, BannedReason)";
+		query += "(Username, Email, Password, ImagePath, IsBanned, Role, SecurityQuestion, SecurityAnswer)";
 		query += "VALUES ('" + username + "','" + email + "','" + password
-				+ "','','0','0','" + question + "','" + answer + ",'')";
+				+ "','','0','0','" + question + "','" + answer + "')";
 
 		try {
 			dbh.executeUpdate(query);

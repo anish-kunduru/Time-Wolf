@@ -63,7 +63,7 @@ public class GameLobbyScreenController implements ControlledScreen
    public void initialize()
    {
       // Initialize gameManagement.
-      try
+      /*try
       {
          //gameManagement = (GameManagement) Naming.lookup("//localhost/game");
 
@@ -74,7 +74,7 @@ public class GameLobbyScreenController implements ControlledScreen
          System.out.println("Error initializing remote game management object.");
          e.printStackTrace();
       }
-
+*/
       // Initialize table
       //loadGameTable();
 
