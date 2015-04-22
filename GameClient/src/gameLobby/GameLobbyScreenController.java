@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -196,6 +197,9 @@ public class GameLobbyScreenController implements ControlledScreen
                tableData.add(currentEntry);
             }
          }
+         // Note that this won't work at initial launch because of the way the controller is created... This would be fixed with my revised controller.
+         else
+            gamesTable.setPlaceholder(new Label("There are no games to join. Create one!"));
       }
       catch (RemoteException e)
       {

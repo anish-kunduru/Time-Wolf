@@ -17,7 +17,7 @@
 				<Insets left="5.0" />
 			</padding>
 		</Label>
-		<TableView fx:id="gamesTable" layoutX="-214.0" layoutY="52.0" prefHeight="620.0" prefWidth="1080.0">
+		<TableView fx:id="gamesTable" layoutX="1.0" layoutY="52.0" prefHeight="620.0" prefWidth="865.0">
 			<columns>
 				<TableColumn fx:id="nameColumn" prefWidth="306.0" text="Name" />
 				<TableColumn fx:id="typeColumn" prefWidth="174.0" text="Type" />
