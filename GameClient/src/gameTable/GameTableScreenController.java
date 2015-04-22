@@ -6,6 +6,7 @@ package gameTable;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Random;
@@ -18,6 +19,7 @@ import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
+import GameServer.GameEngine.GameEngine;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -138,6 +140,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	private int counter;
 
 	private String remoteString;
+	private GameEngine gameEngine;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -329,6 +332,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	@Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
+		
+		System.out.println("Initialize happened.");
 
 		// Add highlight effects
 		highlightEffect();
@@ -686,7 +691,17 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	}
 
 	public void setGameEngine(String ge) {
-		// TODO
+		
+		//connect to the game engine
+		while(true) {
+			try {
+				this.gameEngine = (GameEngine) Naming.lookup(ge);
+				break;
+			} catch (MalformedURLException | RemoteException | NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void addStealth(int st) {
