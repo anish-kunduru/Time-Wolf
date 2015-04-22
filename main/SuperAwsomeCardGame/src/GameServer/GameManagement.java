@@ -42,7 +42,6 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 			e.printStackTrace();
 			throw(e);
 		}
-		
 	}
 	
 	/**
@@ -53,20 +52,20 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	{
 		ArrayList<GameInfo> available = new ArrayList<GameInfo>();
 		
-		/*
+		
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
 			{
-				String[] playerNames = null;
-				for(int j = 0; i < games.get(i).getPlayers().length; j++){
-					playerNames[j] = games.get(i).getPlayers()[j].getUser().getUsername();
+				ArrayList<String> playerNames = new ArrayList<String>();
+				for(int j = 0; i < games.get(i).getPlayers().size(); j++){
+					playerNames.add(games.get(i).getPlayers().get(i).getUser().getUsername());
 				}
 				GameInfo gameInfo = new GameInfo(games.get(i).getName(), games.get(i).getTotalNumOfPlayers(), playerNames);
 				available.add(gameInfo);
 			}
 		}
-		*/
+		
 		
 		// Loop over every game.
 		for (GameEngine ge : games)

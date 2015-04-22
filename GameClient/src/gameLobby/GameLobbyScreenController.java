@@ -97,7 +97,7 @@ public class GameLobbyScreenController implements ControlledScreen
       }
 
       // Initialize table
-      // loadGameTable();
+       loadGameTable();
 
       // TO-DO: REDIRECT LOGIC.
       // Store the information that game table might need in the GameLobbyData

@@ -6,11 +6,15 @@
 
 package afterGame;
 
+import java.rmi.RemoteException;
+
 import GameServer.GameEngine.AfterGameInfo;
+import GameServer.Users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
 
@@ -101,7 +105,6 @@ public class AfterGameScreenController implements ControlledScreen {
 	@FXML
 	private Label feedbackLabel;
 
-
 	@FXML
 	private Button submit;
 
@@ -125,7 +128,7 @@ public class AfterGameScreenController implements ControlledScreen {
 		dislikeButtons = new Button[] { dislikePlayerOne, dislikePlayerTwo,
 				dislikePlayerThree, dislikePlayerFour };
 
-		canPress = new boolean[] {true, true, true, true};
+		canPress = new boolean[] { true, true, true, true };
 
 		reasonOne.setVisible(false);
 		reasonTwo.setVisible(false);
@@ -135,19 +138,48 @@ public class AfterGameScreenController implements ControlledScreen {
 		feedbackLabel.setVisible(false);
 		submit.setVisible(false);
 
-		likeFeedbackEvent();
-		disLikeFeedbackEvent();
+	
 
 		// This part is for testing purposes only
-		AfterGameInfo playerOne = new AfterGameInfo("Player One Test", 1, 50,
+		User userOne = null;
+		try {
+			userOne = MainModel.getModel()
+			.currentLoginData()
+			.getLogInConnection()
+			.logIn("jkhaynes", "password1");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		User userTwo = null;
+		try {
+			userTwo = MainModel.getModel()
+			        .currentLoginData()
+			        .getLogInConnection()
+			        .logIn("ssimmons", "password");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		AfterGameInfo playerOne = new AfterGameInfo(userOne, 1, 50,
 				100);
-		AfterGameInfo playerTwo = new AfterGameInfo("Player Two Test", 2, 40,
+		AfterGameInfo playerTwo = new AfterGameInfo(userTwo, 2, 40,
 				80);
 
 		AfterGameInfo[] playerArray = new AfterGameInfo[] { playerOne,
 				playerTwo };
+		
+		//End of test code
 
 		setAfterGameInfo(playerArray);
+		likeFeedbackEvent(playerArray, userTwo);
+		disLikeFeedbackEvent();
 	}
 
 	public void setAfterGameInfo(AfterGameInfo[] afterGameInfo) {
@@ -156,7 +188,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 		for (i = 0; i < afterGameInfo.length; i++) {
 			rankList[i].setText("" + afterGameInfo[i].getRank());
-			nameList[i].setText(afterGameInfo[i].getName());
+			nameList[i].setText(afterGameInfo[i].getUser().getUsername());
 			vpList[i].setText("" + afterGameInfo[i].getVP());
 			deckList[i].setText("" + afterGameInfo[i].getNumDeck());
 		}
@@ -183,7 +215,7 @@ public class AfterGameScreenController implements ControlledScreen {
 				canPress[0] = false;
 			}
 		});
-		
+
 		dislikeButtons[1].setOnMouseClicked(event -> {
 			if (canPress[1]) {
 				reasonOne.setVisible(true);
@@ -198,7 +230,7 @@ public class AfterGameScreenController implements ControlledScreen {
 				canPress[1] = false;
 			}
 		});
-		
+
 		dislikeButtons[2].setOnMouseClicked(event -> {
 			if (canPress[2]) {
 				reasonOne.setVisible(true);
@@ -213,7 +245,7 @@ public class AfterGameScreenController implements ControlledScreen {
 				canPress[2] = false;
 			}
 		});
-		
+
 		dislikeButtons[3].setOnMouseClicked(event -> {
 			if (canPress[3]) {
 				reasonOne.setVisible(true);
@@ -230,7 +262,7 @@ public class AfterGameScreenController implements ControlledScreen {
 		});
 	}
 
-	private void likeFeedbackEvent() {
+	private void likeFeedbackEvent(AfterGameInfo[] agi, User user) {
 		likeButtons[0].setOnMouseClicked(event -> {
 			if (canPress[0]) {
 				feedbackLabel.setText("Thank You For Your Feedback");
@@ -242,6 +274,10 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[0] = false;
+				
+				MainModel.getModel()
+	            .currentLoginData()
+	            .getLogInConnection().insertFeedback(agi[0].getUser().getID(), user.getID(), true, "");
 			}
 		});
 		
@@ -256,6 +292,9 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[1] = false;
+				MainModel.getModel()
+	            .currentLoginData()
+	            .getLogInConnection().insertFeedback(agi[1].getUser().getID(), user.getID(), true, "");
 			}
 		});
 		
@@ -270,6 +309,9 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[2] = false;
+				MainModel.getModel()
+	            .currentLoginData()
+	            .getLogInConnection().insertFeedback(agi[2].getUser().getID(), user.getID(), true, "");
 			}
 		});
 		
@@ -284,10 +326,12 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[3] = false;
+				MainModel.getModel()
+	            .currentLoginData()
+	            .getLogInConnection().insertFeedback(agi[3].getUser().getID(), user.getID(), true, "");
 			}
 		});
 	}
-
 
 	/**
 	 * This method will allow the injection of the Parent.

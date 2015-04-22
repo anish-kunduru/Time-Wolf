@@ -1,21 +1,23 @@
 package GameServer.GameEngine;
 
+import GameServer.Users.User;
+
 public class AfterGameInfo {
 
-	private String name;
+	private User user;
 	private int rank;
 	private int VP;
 	private int numDeck;
 	
-	public AfterGameInfo(String name, int rank, int VP, int numDeck){
-		this.name = name;
+	public AfterGameInfo(User user, int rank, int VP, int numDeck){
+		this.user = user;
 		this.rank = rank;
 		this.VP = VP;
 		this.numDeck = numDeck;
 	}
 	
-	public String getName(){
-		return name;
+	public User getUser(){
+		return user;
 	}
 	
 	public int getRank(){
