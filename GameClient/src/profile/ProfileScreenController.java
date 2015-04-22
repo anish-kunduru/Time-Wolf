@@ -25,21 +25,35 @@ public class ProfileScreenController implements ControlledScreen
 {
    // FXML components.
    @FXML
+   private Label largeUsernameLabel;
+   
+   @FXML
    private ImageView profileImage;
    
    @FXML
-   private Text emailText;
+   private Label usernameLabel;
    @FXML
-   private Text locationText;
+   private Label emailLabel;
    @FXML
-   private Text paranoiaText;
+   private Label locationLabel;
    @FXML
-   private Text userTypeText;
+   private Label paranoiaLabel;
+   @FXML
+   private Label userTypeLabel;
    
    @FXML
    private Button changeSettingsButton;
    @FXML
    private Button changePasswordButton;
+   
+   @FXML
+   private TextField usernameTextField;
+   @FXML
+   private TextField emailTextField;
+   @FXML
+   private TextField locationTextField;
+   @FXML
+   private TextField paranoiaTextField;
    
    @FXML
    private PasswordField newPasswordTextField;
@@ -94,12 +108,12 @@ public class ProfileScreenController implements ControlledScreen
          }        
          
          // Set personal information.
-         emailText.setText("E-mail: " + email);
-         userTypeText.setText("User Type: " + userType);
+         emailLabel.setText("E-mail: " + email);
+         userTypeLabel.setText("User Type: " + userType);
          
          // The following features are not yet supported... Maybe later if we wish.
-         locationText.setText("Location: -not supported-");
-         paranoiaText.setText("Paranoia: -not supported-");
+         locationLabel.setText("Location: -not supported-");
+         paranoiaLabel.setText("Paranoia: -not supported-");
       }
       
       
