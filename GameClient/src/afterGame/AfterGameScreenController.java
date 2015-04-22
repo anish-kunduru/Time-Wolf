@@ -114,19 +114,13 @@ public class AfterGameScreenController implements ControlledScreen {
 	 */
 	@FXML
 	public void initialize() {
-		rankList = new Label[] { rankPlayerOne, rankPlayerTwo, rankPlayerThree,
-				rankPlayerFour };
-		nameList = new Label[] { namePlayerOne, namePlayerTwo, namePlayerThree,
-				namePlayerFour };
-		vpList = new Label[] { vpPlayerOne, vpPlayerTwo, vpPlayerThree,
-				vpPlayerFour };
-		deckList = new Label[] { deckPlayerOne, deckPlayerTwo, deckPlayerThree,
-				deckPlayerFour };
+		rankList = new Label[] { rankPlayerOne, rankPlayerTwo, rankPlayerThree, rankPlayerFour };
+		nameList = new Label[] { namePlayerOne, namePlayerTwo, namePlayerThree, namePlayerFour };
+		vpList = new Label[] { vpPlayerOne, vpPlayerTwo, vpPlayerThree, vpPlayerFour };
+		deckList = new Label[] { deckPlayerOne, deckPlayerTwo, deckPlayerThree, deckPlayerFour };
 
-		likeButtons = new Button[] { likePlayerOne, likePlayerTwo,
-				likePlayerThree, likePlayerFour };
-		dislikeButtons = new Button[] { dislikePlayerOne, dislikePlayerTwo,
-				dislikePlayerThree, dislikePlayerFour };
+		likeButtons = new Button[] { likePlayerOne, likePlayerTwo, likePlayerThree, likePlayerFour };
+		dislikeButtons = new Button[] { dislikePlayerOne, dislikePlayerTwo, dislikePlayerThree, dislikePlayerFour };
 
 		canPress = new boolean[] { true, true, true, true };
 
@@ -141,8 +135,7 @@ public class AfterGameScreenController implements ControlledScreen {
 		// This part is for testing purposes only
 		User userOne = null;
 		try {
-			userOne = MainModel.getModel().currentLoginData()
-					.getLogInConnection().logIn("jkhaynes", "password1");
+			userOne = MainModel.getModel().currentLoginData().getLogInConnection().logIn("jkhaynes", "password1");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,8 +146,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 		User userTwo = null;
 		try {
-			userTwo = MainModel.getModel().currentLoginData()
-					.getLogInConnection().logIn("ssimmons", "password");
+			userTwo = MainModel.getModel().currentLoginData().getLogInConnection().logIn("ssimmons", "password");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,8 +155,7 @@ public class AfterGameScreenController implements ControlledScreen {
 		AfterGameInfo playerOne = new AfterGameInfo(userOne, 1, 50, 100);
 		AfterGameInfo playerTwo = new AfterGameInfo(userTwo, 2, 40, 80);
 
-		AfterGameInfo[] playerArray = new AfterGameInfo[] { playerOne,
-				playerTwo };
+		AfterGameInfo[] playerArray = new AfterGameInfo[] { playerOne, playerTwo };
 
 		// End of test code
 
@@ -195,33 +186,17 @@ public class AfterGameScreenController implements ControlledScreen {
 	private void submitNegativeFeedbackEvent(AfterGameInfo[] agi, User user) {
 		submit.setOnMouseClicked(event -> {
 			if (reasonOne.isSelected()) {
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[count].getUser().getID(),
-								user.getID(), false, reasonOne.getText());
+				MainModel.getModel().currentLoginData().getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonOne.getText());
 			} else if (reasonTwo.isSelected()) {
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[count].getUser().getID(),
-								user.getID(), false, reasonTwo.getText());
+				MainModel.getModel().currentLoginData().getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonTwo.getText());
 			} else if (reasonThree.isSelected()) {
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[count].getUser().getID(),
-								user.getID(), false, reasonThree.getText());
+				MainModel.getModel().currentLoginData().getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonThree.getText());
 			} else if (reasonOne.isSelected()) {
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[count].getUser().getID(),
-								user.getID(), false, reasonThree.getText());
+				MainModel.getModel().currentLoginData().getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonThree.getText());
 			}
 			feedbackLabel.setText("Thank you for your feedback!");
 
@@ -231,7 +206,7 @@ public class AfterGameScreenController implements ControlledScreen {
 			reasonFour.setVisible(false);
 
 			submit.setVisible(false);
-			
+
 			canPress[count] = false;
 		});
 	}
@@ -249,8 +224,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				feedbackLabel.setVisible(true);
 				submit.setVisible(true);
-				feedbackLabel
-						.setText("Please Select Your Reason For This Rating");
+				feedbackLabel.setText("Please Select Your Reason For This Rating");
 				count = 0;
 			}
 		});
@@ -267,8 +241,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				feedbackLabel.setVisible(true);
 				submit.setVisible(true);
-				feedbackLabel
-						.setText("Please Select Your Reason For This Rating");
+				feedbackLabel.setText("Please Select Your Reason For This Rating");
 				count = 1;
 			}
 		});
@@ -285,8 +258,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				feedbackLabel.setVisible(true);
 				submit.setVisible(true);
-				feedbackLabel
-						.setText("Please Select Your Reason For This Rating");
+				feedbackLabel.setText("Please Select Your Reason For This Rating");
 				count = 2;
 			}
 		});
@@ -295,12 +267,12 @@ public class AfterGameScreenController implements ControlledScreen {
 			if (agi[3].getUser().getID() == user.getID()) {
 				feedbackLabel.setText("You cannot rate yourself!");
 				feedbackLabel.setVisible(true);
-				
+
 				reasonOne.setVisible(false);
 				reasonTwo.setVisible(false);
 				reasonThree.setVisible(false);
 				reasonFour.setVisible(false);
-				
+
 				submit.setVisible(false);
 			} else if (canPress[3]) {
 				reasonOne.setVisible(true);
@@ -310,8 +282,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				feedbackLabel.setVisible(true);
 				submit.setVisible(true);
-				feedbackLabel
-						.setText("Please Select Your Reason For This Rating");
+				feedbackLabel.setText("Please Select Your Reason For This Rating");
 				count = 3;
 			}
 		});
@@ -333,12 +304,7 @@ public class AfterGameScreenController implements ControlledScreen {
 				submit.setVisible(false);
 				canPress[0] = false;
 
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[0].getUser().getID(), user.getID(),
-								true, "");
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[0].getUser().getID(), user.getID(), true, "");
 			}
 		});
 
@@ -356,12 +322,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[1] = false;
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[1].getUser().getID(), user.getID(),
-								true, "");
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[1].getUser().getID(), user.getID(), true, "");
 			}
 		});
 
@@ -379,12 +340,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[2] = false;
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[2].getUser().getID(), user.getID(),
-								true, "");
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[2].getUser().getID(), user.getID(), true, "");
 			}
 		});
 
@@ -402,12 +358,7 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[3] = false;
-				MainModel
-						.getModel()
-						.currentLoginData()
-						.getLogInConnection()
-						.insertFeedback(agi[3].getUser().getID(), user.getID(),
-								true, "");
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[3].getUser().getID(), user.getID(), true, "");
 			}
 		});
 	}
