@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import chat.Chat;
+import chat.ChatLogBinding;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
 import singleton.MainModel;
@@ -59,7 +60,7 @@ public class GameLobbyScreenController implements ControlledScreen
    private Button createButton;
 
    @FXML
-   private static TextArea chatBoxTextArea;
+   private TextArea chatBoxTextArea;
    @FXML
    private TextArea chatMessageTextArea;
 
@@ -69,6 +70,8 @@ public class GameLobbyScreenController implements ControlledScreen
    // So that we can call it from different event listeners.
    private Chat chat;
    private IGameManagement gameManagement;
+   
+   ChatLogBinding chatLog;
 
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game management object and from that object it
@@ -127,7 +130,10 @@ public class GameLobbyScreenController implements ControlledScreen
       // MainModel.getModel().currentLoginData().getUsername(), -1); //
       // chatroomID = -1, because main lobby.
       
-      //chat = new Chat(true, "akunduru", -1);
+      chatLog = new ChatLogBinding();
+      chat = new Chat(true, "akunduru", -1, chatLog);
+      
+      chatBoxTextArea.textProperty().bind(chatLog.chatLog);
       
 
       reloadTableButton.setOnAction(event ->
