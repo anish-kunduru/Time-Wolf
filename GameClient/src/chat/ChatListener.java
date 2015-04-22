@@ -49,9 +49,11 @@ public class ChatListener extends Thread
             
             if (gameLobby)
             {
-               chatStr += message;
+               chatStr += ("> " + message + "\n");
                chatLog.chatLog.setValue(chatStr);
-               System.out.println(chatLog.getChatLog());
+               
+               // DEBUG
+               System.out.println("Incoming: " + message);
             }
                
                

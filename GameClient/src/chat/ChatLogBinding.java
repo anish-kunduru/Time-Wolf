@@ -1,6 +1,5 @@
 /**
  * @author Anish Kunduru
- *
  */
 
 package chat;

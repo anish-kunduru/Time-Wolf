@@ -126,11 +126,11 @@ public class GameLobbyScreenController implements ControlledScreen
          }
       });
       
+      // Initialize chat elements.
       chatLog = new ChatLogBinding();
-      chat = new Chat(true, "akunduru", -1, chatLog);
+      chat = new Chat(true, "sample user", -1, chatLog);
       
-      chatBoxTextArea.textProperty().bind(chatLog.chatLog);
-      
+      chatBoxTextArea.textProperty().bind(chatLog.chatLog);     
 
       reloadTableButton.setOnAction(event ->
       {
@@ -158,10 +158,14 @@ public class GameLobbyScreenController implements ControlledScreen
     */
    public void sendMessage()
    {
-      // DEBUG
-      System.out.println("Message: " + chatMessageTextArea.getText());
+      String outgoingMsg = chatMessageTextArea.getText();
+
+      chat.bufferMessage(outgoingMsg);
       
-      chat.bufferMessage(chatMessageTextArea.getText());
+      chatMessageTextArea.clear();
+      
+      // DEBUG
+      System.out.println("Outgoing: " + outgoingMsg);
    }
 
    /**
