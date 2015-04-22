@@ -117,9 +117,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		
 		return false;
 	}
-	
-	
-	
+
 	
 	/**
 	 * Get the name of the game.

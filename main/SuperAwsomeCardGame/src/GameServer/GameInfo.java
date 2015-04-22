@@ -69,9 +69,9 @@ public class GameInfo implements Serializable
    /**
     * @return The username of players participating in the game.
     */
-   public String[] getPlayers()
+   public ArrayList<String> getPlayers()
    {
-      return (String[]) players.toArray();
+      return players;
    }
    
    /**
