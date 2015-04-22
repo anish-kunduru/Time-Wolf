@@ -91,7 +91,7 @@ public class AfterGameScreenController implements ControlledScreen {
 	private Button[] dislikeButtons;
 
 	private boolean[] canPress;
-	int count;
+	private int count;
 
 	@FXML
 	private CheckBox reasonOne;
@@ -138,15 +138,11 @@ public class AfterGameScreenController implements ControlledScreen {
 		feedbackLabel.setVisible(false);
 		submit.setVisible(false);
 
-	
-
 		// This part is for testing purposes only
 		User userOne = null;
 		try {
-			userOne = MainModel.getModel()
-			.currentLoginData()
-			.getLogInConnection()
-			.logIn("jkhaynes", "password1");
+			userOne = MainModel.getModel().currentLoginData()
+					.getLogInConnection().logIn("jkhaynes", "password1");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,32 +150,28 @@ public class AfterGameScreenController implements ControlledScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		User userTwo = null;
 		try {
-			userTwo = MainModel.getModel()
-			        .currentLoginData()
-			        .getLogInConnection()
-			        .logIn("ssimmons", "password");
+			userTwo = MainModel.getModel().currentLoginData()
+					.getLogInConnection().logIn("ssimmons", "password");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		AfterGameInfo playerOne = new AfterGameInfo(userOne, 1, 50,
-				100);
-		AfterGameInfo playerTwo = new AfterGameInfo(userTwo, 2, 40,
-				80);
+
+		AfterGameInfo playerOne = new AfterGameInfo(userOne, 1, 50, 100);
+		AfterGameInfo playerTwo = new AfterGameInfo(userTwo, 2, 40, 80);
 
 		AfterGameInfo[] playerArray = new AfterGameInfo[] { playerOne,
 				playerTwo };
-		
-		//End of test code
+
+		// End of test code
 
 		setAfterGameInfo(playerArray);
 		likeFeedbackEvent(playerArray, userTwo);
-		disLikeFeedbackEvent();
+		disLikeFeedbackEvent(playerArray, userTwo);
+		submitNegativeFeedbackEvent(playerArray, userTwo);
 	}
 
 	public void setAfterGameInfo(AfterGameInfo[] afterGameInfo) {
@@ -200,9 +192,56 @@ public class AfterGameScreenController implements ControlledScreen {
 		}
 	}
 
-	private void disLikeFeedbackEvent() {
+	private void submitNegativeFeedbackEvent(AfterGameInfo[] agi, User user) {
+		submit.setOnMouseClicked(event -> {
+			if (reasonOne.isSelected()) {
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(),
+								user.getID(), false, reasonOne.getText());
+			} else if (reasonTwo.isSelected()) {
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(),
+								user.getID(), false, reasonTwo.getText());
+			} else if (reasonThree.isSelected()) {
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(),
+								user.getID(), false, reasonThree.getText());
+			} else if (reasonOne.isSelected()) {
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[count].getUser().getID(),
+								user.getID(), false, reasonThree.getText());
+			}
+			feedbackLabel.setText("Thank you for your feedback!");
+
+			reasonOne.setVisible(false);
+			reasonTwo.setVisible(false);
+			reasonThree.setVisible(false);
+			reasonFour.setVisible(false);
+
+			submit.setVisible(false);
+			
+			canPress[count] = false;
+		});
+	}
+
+	private void disLikeFeedbackEvent(AfterGameInfo[] agi, User user) {
 		dislikeButtons[0].setOnMouseClicked(event -> {
-			if (canPress[0]) {
+			if (agi[0].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[0]) {
 				reasonOne.setVisible(true);
 				reasonTwo.setVisible(true);
 				reasonThree.setVisible(true);
@@ -212,12 +251,15 @@ public class AfterGameScreenController implements ControlledScreen {
 				submit.setVisible(true);
 				feedbackLabel
 						.setText("Please Select Your Reason For This Rating");
-				canPress[0] = false;
+				count = 0;
 			}
 		});
 
 		dislikeButtons[1].setOnMouseClicked(event -> {
-			if (canPress[1]) {
+			if (agi[1].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[1]) {
 				reasonOne.setVisible(true);
 				reasonTwo.setVisible(true);
 				reasonThree.setVisible(true);
@@ -227,12 +269,15 @@ public class AfterGameScreenController implements ControlledScreen {
 				submit.setVisible(true);
 				feedbackLabel
 						.setText("Please Select Your Reason For This Rating");
-				canPress[1] = false;
+				count = 1;
 			}
 		});
 
 		dislikeButtons[2].setOnMouseClicked(event -> {
-			if (canPress[2]) {
+			if (agi[2].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[2]) {
 				reasonOne.setVisible(true);
 				reasonTwo.setVisible(true);
 				reasonThree.setVisible(true);
@@ -242,12 +287,22 @@ public class AfterGameScreenController implements ControlledScreen {
 				submit.setVisible(true);
 				feedbackLabel
 						.setText("Please Select Your Reason For This Rating");
-				canPress[2] = false;
+				count = 2;
 			}
 		});
 
 		dislikeButtons[3].setOnMouseClicked(event -> {
-			if (canPress[3]) {
+			if (agi[3].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+				
+				reasonOne.setVisible(false);
+				reasonTwo.setVisible(false);
+				reasonThree.setVisible(false);
+				reasonFour.setVisible(false);
+				
+				submit.setVisible(false);
+			} else if (canPress[3]) {
 				reasonOne.setVisible(true);
 				reasonTwo.setVisible(true);
 				reasonThree.setVisible(true);
@@ -257,14 +312,17 @@ public class AfterGameScreenController implements ControlledScreen {
 				submit.setVisible(true);
 				feedbackLabel
 						.setText("Please Select Your Reason For This Rating");
-				canPress[3] = false;
+				count = 3;
 			}
 		});
 	}
 
 	private void likeFeedbackEvent(AfterGameInfo[] agi, User user) {
 		likeButtons[0].setOnMouseClicked(event -> {
-			if (canPress[0]) {
+			if (agi[0].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[0]) {
 				feedbackLabel.setText("Thank You For Your Feedback");
 				feedbackLabel.setVisible(true);
 				reasonOne.setVisible(false);
@@ -274,15 +332,21 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[0] = false;
-				
-				MainModel.getModel()
-	            .currentLoginData()
-	            .getLogInConnection().insertFeedback(agi[0].getUser().getID(), user.getID(), true, "");
+
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[0].getUser().getID(), user.getID(),
+								true, "");
 			}
 		});
-		
+
 		likeButtons[1].setOnMouseClicked(event -> {
-			if (canPress[1]) {
+			if (agi[1].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[1]) {
 				feedbackLabel.setText("Thank You For Your Feedback");
 				feedbackLabel.setVisible(true);
 				reasonOne.setVisible(false);
@@ -292,14 +356,20 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[1] = false;
-				MainModel.getModel()
-	            .currentLoginData()
-	            .getLogInConnection().insertFeedback(agi[1].getUser().getID(), user.getID(), true, "");
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[1].getUser().getID(), user.getID(),
+								true, "");
 			}
 		});
-		
+
 		likeButtons[2].setOnMouseClicked(event -> {
-			if (canPress[2]) {
+			if (agi[2].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[2]) {
 				feedbackLabel.setText("Thank You For Your Feedback");
 				feedbackLabel.setVisible(true);
 				reasonOne.setVisible(false);
@@ -309,14 +379,20 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[2] = false;
-				MainModel.getModel()
-	            .currentLoginData()
-	            .getLogInConnection().insertFeedback(agi[2].getUser().getID(), user.getID(), true, "");
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[2].getUser().getID(), user.getID(),
+								true, "");
 			}
 		});
-		
+
 		likeButtons[3].setOnMouseClicked(event -> {
-			if (canPress[3]) {
+			if (agi[3].getUser().getID() == user.getID()) {
+				feedbackLabel.setText("You cannot rate yourself!");
+				feedbackLabel.setVisible(true);
+			} else if (canPress[3]) {
 				feedbackLabel.setText("Thank You For Your Feedback");
 				feedbackLabel.setVisible(true);
 				reasonOne.setVisible(false);
@@ -326,9 +402,12 @@ public class AfterGameScreenController implements ControlledScreen {
 
 				submit.setVisible(false);
 				canPress[3] = false;
-				MainModel.getModel()
-	            .currentLoginData()
-	            .getLogInConnection().insertFeedback(agi[3].getUser().getID(), user.getID(), true, "");
+				MainModel
+						.getModel()
+						.currentLoginData()
+						.getLogInConnection()
+						.insertFeedback(agi[3].getUser().getID(), user.getID(),
+								true, "");
 			}
 		});
 	}
