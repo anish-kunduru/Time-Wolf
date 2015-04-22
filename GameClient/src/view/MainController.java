@@ -185,3 +185,106 @@ public class MainController extends StackPane
       }
    }
 }
+
+/*
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ *
+ * 
+ * 
+ * 
+ * 
+
+
+/**
+ * This is the controller of controllers.
+ * Its job is to seamlessly manage handoffs between deifferent FXML pages and their respective controllers.
+ * 
+ * We create this by simply implementing the AbstractScreenController we created earlier (easy enough).
+
+
+package view;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.scene.Parent;
+import javafx.util.Duration;
+import login.LoginScreenController;
+import framework.AbstractScreenController;
+import gameBoard.GameBoardScreenController;
+
+public class MainController extends AbstractScreenController
+{
+   /**
+    * Method so that we can dynamically load screens and go them at run time.
+    * A similar method will need to be created for each screen we create.
+    
+   public void goToLoginScreen()
+   {
+      try
+      {
+         LoginScreenController loginController = (LoginScreenController) loadScreen("/login/LoginScreen.fxml");
+      }
+      catch (Exception e)
+      {
+         // DEBUG
+         System.out.println("Epic fail trying to load login.\n" + e.getMessage());
+         e.printStackTrace();
+      }
+   }
+   
+   /**
+    * Replaces the page.
+    * We will override this when we extend this class because we are fancy and want style (animations).
+    * 
+    * @param loadScreen The page that you wish to display.
+    
+   @Override
+   protected void displayPage(final Parent screen)
+   {
+      // For transition effects.
+      final DoubleProperty opacity = opacityProperty();
+      
+      // Check if a screen is being displayed.
+      if (!getChildren().isEmpty())
+      {
+         Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(Duration.millis(500), action ->
+         {
+            // Remove the displayed screen.
+            getChildren().remove(0);
+
+            // Display the passed screen.
+            getChildren().add(0, screen);
+            
+            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(400), new KeyValue(opacity, 1.0)));
+            
+            fadeIn.play();
+         }, new KeyValue(opacity, 0.0)));
+         
+         fade.play();
+         
+      }
+      else
+      {
+         setOpacity(0.0);
+         
+         // There is nothing being displayed, just show the passed screen.
+         getChildren().add(screen);
+         
+         Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1250), new KeyValue(opacity, 1.0)));
+         
+         fadeIn.play();
+      }
+   }
+}
+
+
+*/
