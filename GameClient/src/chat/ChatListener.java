@@ -7,7 +7,6 @@
 package chat;
 
 import gameLobby.GameLobbyScreenController;
-import gameTable.GameTableScreenController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -43,6 +42,7 @@ public class ChatListener extends Thread
             String message = (String) input.readObject();
             
             if (gameLobby)
+               //System.out.println(message);
                GameLobbyScreenController.appendChatMessage(message);
             //else
                //GameTableScreenController.appendChatMessage(message);

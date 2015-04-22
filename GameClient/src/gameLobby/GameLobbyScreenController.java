@@ -14,6 +14,7 @@ import chat.Chat;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
 import singleton.MainModel;
+import userListing.UserRow;
 import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
@@ -25,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GameLobbyScreenController implements ControlledScreen
 {
@@ -124,6 +126,8 @@ public class GameLobbyScreenController implements ControlledScreen
       // chat = new Chat(true,
       // MainModel.getModel().currentLoginData().getUsername(), -1); //
       // chatroomID = -1, because main lobby.
+      
+      //chat = new Chat(true, "akunduru", -1);
 
       reloadTableButton.setOnAction(event ->
       {
@@ -161,6 +165,8 @@ public class GameLobbyScreenController implements ControlledScreen
     */
    public void sendMessage()
    {
+      // DEBUG
+      System.out.println("Message: " + chatMessageTextArea.getText());
       chat.bufferMessage(chatMessageTextArea.getText());
    }
 
@@ -173,6 +179,13 @@ public class GameLobbyScreenController implements ControlledScreen
       try
       {
          games = gameManagement.listJoinableGames();
+         
+         // Bind table elements to their appropriate values.
+         nameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("name"));
+         typeColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("type"));
+         numPlayersColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("numberPlayers"));
+         chatColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("chat"));
+         privateColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("privateLobby"));
          
          // Bind the table values.
          tableData = FXCollections.observableArrayList();
