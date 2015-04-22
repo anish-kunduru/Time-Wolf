@@ -21,8 +21,8 @@ import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-//import javafx.scene.control.Alert;
-//import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -201,13 +201,13 @@ public class GameLobbyScreenController implements ControlledScreen {
 	/**
 	 * For testing to show it works.
 	 */
-	/*
-	 * @FXML private void testAlert() { Alert alert = new
-	 * Alert(AlertType.INFORMATION); alert.setTitle("Information Dialog");
-	 * alert.setHeaderText("You must have JDK 8u40 or newer!");
-	 * 
-	 * alert.showAndWait(); }
-	 */
+	
+	  @FXML private void testAlert() { Alert alert = new
+	  Alert(AlertType.INFORMATION); alert.setTitle("Information Dialog");
+	  alert.setHeaderText("You must have JDK 8u40 or newer!");
+	  
+	  alert.showAndWait(); }
+	 
 
 	/**
 	 * This method will allow for the injection of each screen's parent.

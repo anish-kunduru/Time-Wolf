@@ -135,7 +135,7 @@ public class AfterGameScreenController implements ControlledScreen {
 		// This part is for testing purposes only
 		User userOne = null;
 		try {
-			userOne = MainModel.getModel().currentLoginData().getLogInConnection().logIn("jkhaynes", "password1");
+			userOne = MainModel.getModel().currentLoginData().getLogInConnection().logIn("jkhaynes", "password");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
