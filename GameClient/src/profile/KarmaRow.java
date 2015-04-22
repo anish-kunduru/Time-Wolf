@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class KarmaRow
 {
    // Define our entry types.
-   public SimpleIntegerProperty rating = new SimpleIntegerProperty();
+   public SimpleStringProperty rating = new SimpleStringProperty();
    public SimpleStringProperty player = new SimpleStringProperty();
    public SimpleStringProperty reasonGiven = new SimpleStringProperty();
    
@@ -21,7 +21,7 @@ public class KarmaRow
    /**
     * @return The rating that was left by the player.
     */
-   public int getRating()
+   public String getRating()
    {
       return rating.get();
    }
