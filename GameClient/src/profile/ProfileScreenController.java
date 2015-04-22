@@ -108,6 +108,8 @@ public class ProfileScreenController implements ControlledScreen
          }        
          
          // Set personal information.
+         largeUsernameLabel.setText("Profile - " + username);
+         usernameLabel.setText("Username: " + username);
          emailLabel.setText("E-mail: " + email);
          userTypeLabel.setText("User Type: " + userType);
          
