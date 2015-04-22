@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 
 
+
 //import view.GameTableScreenController;
 import GameServer.Users.User;
 
@@ -263,7 +264,7 @@ public class Player implements Client {
 	@Override
 	public void setGameEngine(String ge) {
 		if(this.client == null) throw new IllegalStateException();
-		this.client.setGameEngine(ge);
+		this.client.setGameEngine(ge);		
 	}
 
 
@@ -274,5 +275,10 @@ public class Player implements Client {
 		this.client.initializeTable(playerHand, gameTableHand, playerNames);
 		
 	}
+	
+	
+	
+
+
 	
 }

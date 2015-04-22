@@ -36,6 +36,9 @@ public class GameServer
          Naming.rebind("//localhost/auth", login);
          Naming.rebind("//localhost/game", (IGameManagement)gm);
          
+         gm.createGame(2, "Default Game 1");
+         gm.createGame(2, "Default Game 2");
+         
       }
       catch (RemoteException e)
       {
@@ -51,6 +54,7 @@ public class GameServer
          try
          {
             Thread.sleep(60000);
+            System.out.println("Games: " + gm.listJoinableGames().size());
          }
          catch (InterruptedException e)
          {

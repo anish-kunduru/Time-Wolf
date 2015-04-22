@@ -50,9 +50,11 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	 */
 	public ArrayList<GameInfo> listJoinableGames()
 	{
+		System.out.println("GameManagment Internal Count: " + this.games.size());
+		
 		ArrayList<GameInfo> available = new ArrayList<GameInfo>();
 		
-		
+		/*
 		for(int i = 0; i < games.size(); i++)
 		{
 			if(!games.get(i).isRunning() && !games.get(i).isFinished())
@@ -65,14 +67,14 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 				available.add(gameInfo);
 			}
 		}
-		
+		*/
 		
 		// Loop over every game.
 		for (GameEngine ge : games)
 		{
 		   // Make sure game isn't running and isn't finished.
 		   // NOTE: WHY AREN'T WE REMOVING FINISHED GAMES?		   
-		   if (!ge.isRunning() && !ge.isFinished())
+		   if (!ge.isRunning() && !ge.isFinished()) 
 		   {
 		      // To hold the usernames of players.
 		      ArrayList<String> playerNames = new ArrayList<String>();
