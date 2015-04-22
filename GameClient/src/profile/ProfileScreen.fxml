@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="profile.ProfileScreenController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="profile.ProfileScreenController">
 	<children>
 		<fx:include source="../menuBar/DefaultMenuBar.fxml" />
 		<Label fx:id="largeUsernameLabel" layoutX="31.0" layoutY="41.0" text="Profile - Username">
@@ -25,11 +25,11 @@
 				<TableColumn minWidth="0.0" prefWidth="202.0" text="Total Points" />
 			</columns>
 		</TableView>
-		<TableView layoutX="669.0" layoutY="275.0" prefHeight="411.0" prefWidth="569.0">
+		<TableView fx:id="karmaTable" layoutX="669.0" layoutY="275.0" prefHeight="411.0" prefWidth="569.0">
 			<columns>
-				<TableColumn prefWidth="150.0" text="Rating" />
-				<TableColumn prefWidth="175.0" text="Player" />
-				<TableColumn prefWidth="243.0" text="Reason Given" />
+				<TableColumn fx:id="ratingColumn" prefWidth="150.0" text="Rating" />
+				<TableColumn fx:id="playerColumn" prefWidth="175.0" text="Player" />
+				<TableColumn fx:id="commentColumn" prefWidth="243.0" text="Reason Given" />
 			</columns>
 		</TableView>
 		<Text layoutX="910.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Karma" AnchorPane.topAnchor="240.0">
