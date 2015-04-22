@@ -14,7 +14,6 @@ import chat.Chat;
 import chat.ChatLogBinding;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
-import singleton.MainModel;
 import userListing.UserRow;
 import view.ControlledScreen;
 import view.MainController;
@@ -22,6 +21,8 @@ import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -124,11 +125,6 @@ public class GameLobbyScreenController implements ControlledScreen
             // TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
          }
       });
-
-      // TO-DO: INITALIZE CHAT.
-      // chat = new Chat(true,
-      // MainModel.getModel().currentLoginData().getUsername(), -1); //
-      // chatroomID = -1, because main lobby.
       
       chatLog = new ChatLogBinding();
       chat = new Chat(true, "akunduru", -1, chatLog);
@@ -155,16 +151,6 @@ public class GameLobbyScreenController implements ControlledScreen
       {
          parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
       });
-   }
-
-   /**
-    * Will append an incoming message to the chat message box.
-    * 
-    * @param message The message that you wish to append.
-    */
-   public void appendChatMessage(String message)
-   {
-      chatBoxTextArea.appendText("> " + message);
    }
 
    /**
@@ -225,6 +211,19 @@ public class GameLobbyScreenController implements ControlledScreen
       {
          System.out.println("There was an error in trying to create the table.");
       }
+   }
+   
+   /**
+    * For testing to show it works.
+    */
+   @FXML
+   private void testAlert()
+   {
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("You must have JDK 8u40 or newer!");
+      
+      alert.showAndWait();
    }
 
    /**
