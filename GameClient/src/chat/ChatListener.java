@@ -6,10 +6,10 @@
 
 package chat;
 
-import gameLobby.GameLobbyScreenController;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import javafx.beans.property.SimpleStringProperty;
 
 public class ChatListener extends Thread
 {
@@ -17,6 +17,9 @@ public class ChatListener extends Thread
    
    private boolean gameLobby; // If true, thread is to output to gameLobby. If false, thread is to output to gameTable.
    private boolean run; // To start and stop thread.
+   
+   ChatLogBinding chatLog;
+   String chatStr;
 
    /**
     * Constructor creates a new listener thread.
@@ -24,11 +27,14 @@ public class ChatListener extends Thread
     * @param gameLobby True if the output should go to the gameLobby, false if the output should go to the gameTable.
     * @param input The input stream of the socket the server is connected to.
     */
-   public ChatListener(boolean gameLobby, ObjectInputStream input)
+   public ChatListener(boolean gameLobby, ObjectInputStream input, ChatLogBinding chatLog)
    {
       // Initialize private state vars.
       this.gameLobby = gameLobby;
       this.input = input;
+      
+      this.chatLog = chatLog;
+      chatStr = "";
    }
 
    public void run()
@@ -42,8 +48,13 @@ public class ChatListener extends Thread
             String message = (String) input.readObject();
             
             if (gameLobby)
-               //System.out.println(message);
-               GameLobbyScreenController.appendChatMessage(message);
+            {
+               chatStr += message;
+               chatLog.chatLog.setValue(chatStr);
+               System.out.println(chatLog.getChatLog());
+            }
+               
+               
             //else
                //GameTableScreenController.appendChatMessage(message);
          }

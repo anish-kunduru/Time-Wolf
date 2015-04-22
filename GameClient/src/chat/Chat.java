@@ -34,7 +34,7 @@ public class Chat
     * @param username The username of the player that will be chatting.
     * @param chatroomID The chatroomID (as given to the client by the server as the gameID).
     */
-   public Chat(boolean gameLobby, String username, int chatroomID)
+   public Chat(boolean gameLobby, String username, int chatroomID, ChatLogBinding chatLog)
    {
       // Try and connect to the server.
       try
@@ -58,7 +58,7 @@ public class Chat
       }
       
       // Initialize the thread to listen from the server and start it.
-      listener = new ChatListener(gameLobby, input);
+      listener = new ChatListener(gameLobby, input, chatLog);
       listener.start();
       
       // Initialize server side calls to set username and chatroomID.

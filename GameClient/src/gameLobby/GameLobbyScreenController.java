@@ -11,9 +11,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import chat.Chat;
+import chat.ChatLogBinding;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
-import singleton.MainModel;
 import userListing.UserRow;
 import view.ControlledScreen;
 import view.MainController;
@@ -21,6 +21,8 @@ import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -59,7 +61,7 @@ public class GameLobbyScreenController implements ControlledScreen
    private Button createButton;
 
    @FXML
-   private static TextArea chatBoxTextArea;
+   private TextArea chatBoxTextArea;
    @FXML
    private TextArea chatMessageTextArea;
 
@@ -69,6 +71,8 @@ public class GameLobbyScreenController implements ControlledScreen
    // So that we can call it from different event listeners.
    private Chat chat;
    private IGameManagement gameManagement;
+   
+   ChatLogBinding chatLog;
 
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game management object and from that object it
@@ -121,13 +125,12 @@ public class GameLobbyScreenController implements ControlledScreen
             // TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
          }
       });
-
-      // TO-DO: INITALIZE CHAT.
-      // chat = new Chat(true,
-      // MainModel.getModel().currentLoginData().getUsername(), -1); //
-      // chatroomID = -1, because main lobby.
       
-      //chat = new Chat(true, "akunduru", -1);
+      chatLog = new ChatLogBinding();
+      chat = new Chat(true, "akunduru", -1, chatLog);
+      
+      chatBoxTextArea.textProperty().bind(chatLog.chatLog);
+      
 
       reloadTableButton.setOnAction(event ->
       {
@@ -151,22 +154,13 @@ public class GameLobbyScreenController implements ControlledScreen
    }
 
    /**
-    * Will append an incoming message to the chat message box.
-    * 
-    * @param message The message that you wish to append.
-    */
-   public static void appendChatMessage(String message)
-   {
-      chatBoxTextArea.appendText("> " + message);
-   }
-
-   /**
     * To be called by the chat's "Send message" button.
     */
    public void sendMessage()
    {
       // DEBUG
       System.out.println("Message: " + chatMessageTextArea.getText());
+      
       chat.bufferMessage(chatMessageTextArea.getText());
    }
 
@@ -175,7 +169,6 @@ public class GameLobbyScreenController implements ControlledScreen
     */
    private void loadGameTable()
    {
-
       try
       {
          games = gameManagement.listJoinableGames();
@@ -218,6 +211,19 @@ public class GameLobbyScreenController implements ControlledScreen
       {
          System.out.println("There was an error in trying to create the table.");
       }
+   }
+   
+   /**
+    * For testing to show it works.
+    */
+   @FXML
+   private void testAlert()
+   {
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText("You must have JDK 8u40 or newer!");
+      
+      alert.showAndWait();
    }
 
    /**
