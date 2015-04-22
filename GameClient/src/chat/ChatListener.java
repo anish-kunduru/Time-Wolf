@@ -11,6 +11,8 @@ import gameLobby.GameLobbyScreenController;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import singleton.MainModel;
+
 public class ChatListener extends Thread
 {
    private ObjectInputStream input;
@@ -42,8 +44,7 @@ public class ChatListener extends Thread
             String message = (String) input.readObject();
             
             if (gameLobby)
-               //System.out.println(message);
-               GameLobbyScreenController.appendChatMessage(message);
+               System.out.println(message);
             //else
                //GameTableScreenController.appendChatMessage(message);
          }

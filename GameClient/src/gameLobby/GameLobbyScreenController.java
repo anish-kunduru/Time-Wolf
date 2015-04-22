@@ -128,6 +128,7 @@ public class GameLobbyScreenController implements ControlledScreen
       // chatroomID = -1, because main lobby.
       
       //chat = new Chat(true, "akunduru", -1);
+      
 
       reloadTableButton.setOnAction(event ->
       {
@@ -155,7 +156,7 @@ public class GameLobbyScreenController implements ControlledScreen
     * 
     * @param message The message that you wish to append.
     */
-   public static void appendChatMessage(String message)
+   public void appendChatMessage(String message)
    {
       chatBoxTextArea.appendText("> " + message);
    }
@@ -167,6 +168,7 @@ public class GameLobbyScreenController implements ControlledScreen
    {
       // DEBUG
       System.out.println("Message: " + chatMessageTextArea.getText());
+      
       chat.bufferMessage(chatMessageTextArea.getText());
    }
 
@@ -175,7 +177,6 @@ public class GameLobbyScreenController implements ControlledScreen
     */
    private void loadGameTable()
    {
-
       try
       {
          games = gameManagement.listJoinableGames();
