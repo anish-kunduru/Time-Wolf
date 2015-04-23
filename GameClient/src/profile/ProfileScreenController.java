@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -96,14 +97,14 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	private TextField locationTextField;
 	@FXML
-	private ChoiceBox paranoiaChoiceBox;
+	private CheckBox paranoiaChoiceBox;
 
 	@FXML
 	private PasswordField newPasswordTextField;
 	@FXML
 	private PasswordField checkPasswordTextField;
-	
-	@FXML 
+
+	@FXML
 	private Label changePasswordLabel;
 	@FXML
 	private Text passwordLabel;
@@ -129,7 +130,7 @@ public class ProfileScreenController implements ControlledScreen {
 
 		if (MainModel.getModel().profileData().getRedirectToClicked() == true) {
 			String username = MainModel.getModel().profileData().getClickedUsername();
-			
+
 			changeSettingsButton.setVisible(false);
 			changePasswordButton.setVisible(false);
 			usernameTextField.setVisible(false);
@@ -141,14 +142,14 @@ public class ProfileScreenController implements ControlledScreen {
 			changePasswordLabel.setVisible(false);
 			passwordLabel.setVisible(false);
 			checkPasswordLabel.setVisible(false);
-			
+
 			try {
 				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-				
+
 				setInformation();
 				loadKarmaTable();
 				loadStatTable();
-				
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -164,24 +165,69 @@ public class ProfileScreenController implements ControlledScreen {
 					user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
 
 					setInformation();
-					
+
 					loadKarmaTable();
 					loadStatTable();
 					
+					paranoiaChoiceBox.setOnAction(event ->
+				      {
+				         if (paranoiaChoiceBox.isSelected())
+				            paranoiaChoiceBox.setText("On");
+				         else
+				            paranoiaChoiceBox.setText("Off");
+				      });
+					
+					changeSettingsButton.setOnAction(event -> {
+						
+						String username2 = usernameTextField.getText();
+						String email = emailTextField.getText();
+						String location = locationTextField.getText();
+						Boolean paranoia = null;
+						
+						System.out.println("Test: " + username2);
+
+						if (paranoiaChoiceBox.isSelected()) {
+							paranoia = true;
+						}
+						else{
+							paranoia = false;
+						}
+
+						if ((usernameTextField.getText() != null && ! usernameTextField.getText().trim().isEmpty())) {
+							user.setUsername(username2);
+						}
+						
+						if ((emailTextField.getText() != null && ! emailTextField.getText().trim().isEmpty())){
+							user.setEmail(email);
+						}
+						
+						if (((locationTextField.getText() != null && ! locationTextField.getText().trim().isEmpty()))){
+							user.setLocation(location);
+						}
+						
+						if (paranoia != null){
+							user.setParanoid(paranoia);
+						}
+						
+						try {
+							MainModel.getModel().currentLoginData().getLogInConnection().updateSettings(user);
+							errorLabel.setText("Settings update was successful.");
+						} catch (Exception e) {
+							errorLabel.setText("Settings update was unsuccessful.");
+							e.printStackTrace();
+						}
+
+					});
+
 				} catch (Exception e) {
 					System.out.println("There was an error getting the User object. Is the server down?");
 				}
 			}
 
-			
-
 		}
 
 		// Event handlers.
-		changeSettingsButton.setOnAction(event -> {
-			// TO-DO: Change profile picture.
-			// What else can/do we want to we change?
-			});
+		
 
 		changePasswordButton.setOnAction(event -> {
 			String password = newPasswordTextField.getText();
@@ -200,8 +246,8 @@ public class ProfileScreenController implements ControlledScreen {
 				errorLabel.setText("Your new passwords do not match.");
 		});
 	}
-	
-	private void setInformation(){
+
+	private void setInformation() {
 		String email = "";
 		String userType = "";
 		String location = "";

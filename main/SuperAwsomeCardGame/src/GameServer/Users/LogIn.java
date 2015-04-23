@@ -491,6 +491,44 @@ public class LogIn implements Remote, Serializable {
 		}
 		
 	}
+	
+	public void updateSettings(User u) throws Exception {
+		DBHelper dbh = new DBHelper();
+		String query = "UPDATE User SET ";
+		query += "Username='" + u.getUsername() + "'";
+		query += ",Email='" + u.getEmail() + "'";
+		query += ",ImagePath='" + u.getImagePath() + "'";
+		query += ",Location='" + u.getLocation() +"'";
+		int pBit = 0;
+		if(u.isParanoid())
+			pBit = 1;
+		query+= ",Paranoia=" + pBit;
+		query += " WHERE ID=" + u.getID();
+
+		dbh.executeUpdate(query);
+		if (u.getImageBytes() != null) {
+			try {
+				Connection conn = dbh.getConnection();
+				conn.setAutoCommit(false);
+				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
+				
+				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
+				ps.setBinaryStream(1, new ByteArrayInputStream(u.getImageBytes()), u.getImageBytes().length);
+				ps.setString(2, u.getUsername());
+				ps.executeUpdate();
+				conn.commit();
+				
+				
+			} catch (Exception ex) {
+				throw new Exception("Image save failed!");
+			}
+		}
+		else{
+			query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + u.getUsername() + "'";
+			dbh.executeUpdate(query);
+		}
+		
+	}
 
 	/**
 	 * Saves password parameter in database where ID=id

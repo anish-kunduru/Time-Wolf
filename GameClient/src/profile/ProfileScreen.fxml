@@ -129,7 +129,7 @@
                </font>
             </Label>
             <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="paranoiaChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <CheckBox fx:id="paranoiaChoiceBox" mnemonicParsing="false" text="Off" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
 	</children>
