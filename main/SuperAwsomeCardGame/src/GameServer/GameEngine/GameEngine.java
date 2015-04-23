@@ -96,7 +96,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		String[] players = {""};
 		
 		p.initializeTable(p.getHand(), this.mainPlayAreaCards, players);
-		
+		System.out.println("initialize game table: Player.");
 		return true;
 	}
 	

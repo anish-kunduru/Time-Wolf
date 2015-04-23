@@ -28,7 +28,8 @@ public class FacadeClient implements Client, Remote {
 	@Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
-		// TODO Auto-generated method stub
+		System.out.println("In inittializetable in facade client.");
+		this.c.initializeTable(playerHand, gameTableHand, playerNames);
 		
 	}
 

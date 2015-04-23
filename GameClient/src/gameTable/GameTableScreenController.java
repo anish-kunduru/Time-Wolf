@@ -156,6 +156,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		// initRemoteObject();
 
 		// Objects used for testing, will be provided by server in the future.
+		/*
 		Deck starterDeck = new Deck();
 		starterDeck = Deck.getStarterDeck();
 
@@ -169,7 +170,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "Player One", "Player Two",
 				"Player Three" };
-
+		*/
 		attack = 5;
 		stealth = 5;
 		isTurn = true;
@@ -191,18 +192,20 @@ public class GameTableScreenController implements ControlledScreen, Client {
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.
-		initializeTable(playerHand, tableHand, playerNames);
+		//Temp disable due to implementing things
+		//initializeTable(playerHand, tableHand, playerNames);
 
 		// Handles ending the turn on button clicked
 		endTurn();
 
 		// Handles action when a main table card is clicked
-		onTableCardClicked(mainDeck, stealth, attack);
+		//onTableCardClicked(mainDeck, stealth, attack);
 
 		// Handles actions when a player's hand card is clicked
-		onPlayerCardClicked();
+		//onPlayerCardClicked();
 
 		// Demo for discard state
+		/*
 		Card c = new Card("Overhaul");
 		Hand h = new Hand(3);
 		h.addCard(starterDeck.draw());
@@ -210,6 +213,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		h.addCard(starterDeck.draw());
 		Action a = new Action(7, 1, c, h);
 		determineAction(a);
+		*/
 	}
 
 	private void initRemoteObject() {
@@ -333,7 +337,7 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
 		
-		System.out.println("Initialize happened.");
+		System.out.println("Initialize table happened.");
 
 		// Add highlight effects
 		highlightEffect();
@@ -380,13 +384,13 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		}
 
 		// Populate hand image fields for player and main table
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < gameTableHand.size(); i++) {
 			gameTableImages[i].setImage(new Image(gameTableHand.get(i)
 					.getImagePath()));
 			gameTableImages[i].setId(gameTableHand.get(i).getName());
 		}
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < playerHand.size(); i++) {
 			playerHandImages[i].setImage(new Image(playerHand.get(i)
 					.getImagePath()));
 			playerHandImages[i].setId(playerHand.get(i).getName());

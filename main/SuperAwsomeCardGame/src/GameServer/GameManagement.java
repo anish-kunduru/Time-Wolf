@@ -152,7 +152,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	}
 	
 	public boolean addUserToGame(int game, User u, String clientRegistryName) {
-		
+		System.out.println("initialize game table: GameManagement.");
 		//User must be initialized
 		if(u == null) {
 			return false;

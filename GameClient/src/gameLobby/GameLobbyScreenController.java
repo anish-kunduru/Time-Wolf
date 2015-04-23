@@ -189,6 +189,8 @@ public class GameLobbyScreenController implements ControlledScreen {
 					// Add to observableArrayList.
 					tableData.add(currentEntry);
 				}
+				
+				
 			}
 			// Note that this won't work at initial launch because of the way the controller is created... This would be fixed with my revised controller.
 			else
