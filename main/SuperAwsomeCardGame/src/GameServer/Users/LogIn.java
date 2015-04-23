@@ -56,6 +56,8 @@ public class LogIn implements Remote, Serializable {
 			Blob blob = rs.getBlob("Avatar");
 			if(blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
+			u.setLocation(rs.getString("Location"));
+			u.setParanoid(rs.getBoolean("Paranoia"));
 		} else {
 			throw new Exception("There was an error updating the user!");
 		}
@@ -100,6 +102,8 @@ public class LogIn implements Remote, Serializable {
 			Blob blob = rs.getBlob("Avatar");
 			if(blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
+			u.setLocation(rs.getString("Location"));
+			u.setParanoid(rs.getBoolean("Paranoia"));
 
 			return u;
 		} else {
@@ -142,6 +146,8 @@ public class LogIn implements Remote, Serializable {
 			Blob blob = rs.getBlob("Avatar");
 			if(blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
+			u.setLocation(rs.getString("Location"));
+			u.setParanoid(rs.getBoolean("Paranoia"));
 
 			return u;
 		} else {
@@ -362,6 +368,8 @@ public class LogIn implements Remote, Serializable {
 				Blob blob = rs.getBlob("Avatar");
 				if(blob != null)
 					u.setImageBytes(blob.getBytes(1, (int) blob.length()));
+				u.setLocation(rs.getString("Location"));
+				u.setParanoid(rs.getBoolean("Paranoia"));
 				query = "INSERT INTO Statistics ";
 				query += "(UserID,TotalGames,TotalWins,TotalPoints)";
 				query += "VALUES ('" + u.getID() + "','0','0','0')";
@@ -415,6 +423,8 @@ public class LogIn implements Remote, Serializable {
 			Blob blob = rs.getBlob("Avatar");
 			if(blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
+			u.setLocation(rs.getString("Location"));
+			u.setParanoid(rs.getBoolean("Paranoia"));
 			users.add(u);
 		}
 
@@ -450,6 +460,11 @@ public class LogIn implements Remote, Serializable {
 		query += ",SecurityQuestion='" + u.getSecurityQuestion() + "'";
 		query += ",SecurityAnswer='" + u.getSecurityAnswer() + "'";
 		query += ",BannedReason='" + u.getBannedReason() + "'";
+		query += ",Location='" + u.getLocation() +"'";
+		int pBit = 0;
+		if(u.isParanoid())
+			pBit = 1;
+		query+= ",Paranoia=" + pBit;
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
