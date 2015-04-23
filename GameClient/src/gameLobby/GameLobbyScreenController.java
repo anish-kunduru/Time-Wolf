@@ -116,10 +116,10 @@ public class GameLobbyScreenController implements ControlledScreen {
 			});
 
 		// Initialize chat elements.
-		//chatLog = new ChatLogBinding();
-		//chat = new Chat(true, "sample user", -1, chatLog);
+		chatLog = new ChatLogBinding();
+		chat = new Chat(true, "sample user", -1, chatLog);
 
-		//chatBoxTextArea.textProperty().bind(chatLog.chatLog);
+		chatBoxTextArea.textProperty().bind(chatLog.chatLog);
 
 		reloadTableButton.setOnAction(event -> {
 			loadGameTable(); // Reload game table.
