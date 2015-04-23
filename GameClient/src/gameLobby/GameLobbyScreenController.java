@@ -155,7 +155,9 @@ public class GameLobbyScreenController implements ControlledScreen {
 			String username = searchUsersTextField.getText();
 			try {
 				User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-				MainModel.getModel().profileData().setRedirect(true, username);
+				MainModel.getModel().profileData().setRedirectToClicked(true);
+				MainModel.getModel().profileData().setClickedUsername(username);
+				MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.PROFILE_SCREEN, MainView.PROFILE_SCREEN_FXML);
 				parentController.displayScreen(MainView.PROFILE_SCREEN);
 			} catch (Exception e) {
 				userNotFoundLabel.setVisible(true);

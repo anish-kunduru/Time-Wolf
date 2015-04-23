@@ -19,7 +19,7 @@
 		<ImageView fx:id="profileImage" fitHeight="250.0" fitWidth="250.0" layoutX="31.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="105.0" />
 		<Button fx:id="changeSettingsButton" layoutX="350.0" layoutY="671.0" mnemonicParsing="false" text="Change Settings" AnchorPane.bottomAnchor="10.0" />
 		<Button fx:id="changePasswordButton" layoutX="483.0" layoutY="669.0" mnemonicParsing="false" text="Change Password" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="490.0" />
-		<TableView fx:id="statTable" layoutX="669.0" layoutY="135.0" prefHeight="79.0" prefWidth="569.0">
+		<TableView fx:id="statTable" fixedCellSize="0.0" layoutX="669.0" layoutY="135.0" prefHeight="61.0" prefWidth="569.0">
 			<columns>
 				<TableColumn fx:id="gamesPlayedColumn" prefWidth="107.0" text="Games Played" />
 				<TableColumn fx:id="gamesWonColumn" prefWidth="90.33331298828125" text="Games Won" />
@@ -84,17 +84,17 @@
 						<Font name="System Bold" size="20.0" />
 					</font>
 				</Label>
-				<Label text="Change Password:" GridPane.rowIndex="6">
+				<Label fx:id="changePasswordLabel" text="Change Password:" GridPane.rowIndex="6">
 					<font>
 						<Font name="System Bold" size="20.0" />
 					</font>
 				</Label>
-				<Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Password:" GridPane.rowIndex="7">
+				<Text fx:id="passwordLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password:" GridPane.rowIndex="7">
 					<font>
 						<Font size="16.0" />
 					</font>
 				</Text>
-				<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password:" GridPane.rowIndex="8">
+				<Text fx:id="checkPasswordLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password:" GridPane.rowIndex="8">
 					<font>
 						<Font size="16.0" />
 					</font>

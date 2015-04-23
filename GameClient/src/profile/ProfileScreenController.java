@@ -102,6 +102,13 @@ public class ProfileScreenController implements ControlledScreen {
 	private PasswordField newPasswordTextField;
 	@FXML
 	private PasswordField checkPasswordTextField;
+	
+	@FXML 
+	private Label changePasswordLabel;
+	@FXML
+	private Text passwordLabel;
+	@FXML
+	private Text checkPasswordLabel;
 
 	@FXML
 	private Label errorLabel;
@@ -120,10 +127,28 @@ public class ProfileScreenController implements ControlledScreen {
 
 		System.out.println(MainModel.getModel().profileData().getRedirectToClicked());
 
-		if (MainModel.getModel().profileData().getRedirectToClicked()) {
+		if (MainModel.getModel().profileData().getRedirectToClicked() == true) {
 			String username = MainModel.getModel().profileData().getClickedUsername();
+			
+			changeSettingsButton.setVisible(false);
+			changePasswordButton.setVisible(false);
+			usernameTextField.setVisible(false);
+			emailTextField.setVisible(false);
+			locationTextField.setVisible(false);
+			paranoiaChoiceBox.setVisible(false);
+			newPasswordTextField.setVisible(false);
+			checkPasswordTextField.setVisible(false);
+			changePasswordLabel.setVisible(false);
+			passwordLabel.setVisible(false);
+			checkPasswordLabel.setVisible(false);
+			
 			try {
 				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+				
+				setInformation();
+				loadKarmaTable();
+				loadStatTable();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
