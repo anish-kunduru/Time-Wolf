@@ -83,6 +83,7 @@ public class DefaultMenuBarController
 
       editProfile.setOnAction(event ->
       {
+    	 MainModel.getModel().profileData().setRedirectToClicked(false);
          MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.PROFILE_SCREEN, MainView.PROFILE_SCREEN_FXML);
          MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.PROFILE_SCREEN);
       });
