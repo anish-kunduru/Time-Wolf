@@ -31,8 +31,8 @@
 		<TableView fx:id="karmaTable" layoutX="669.0" layoutY="275.0" prefHeight="411.0" prefWidth="569.0">
 			<columns>
 				<TableColumn fx:id="ratingColumn" prefWidth="150.0" text="Rating" />
-				<TableColumn fx:id="playerColumn" prefWidth="175.0" text="Player" />
-				<TableColumn fx:id="commentColumn" prefWidth="243.0" text="Reason Given" />
+				<TableColumn fx:id="playerColumn" prefWidth="167.0" text="Player" />
+				<TableColumn fx:id="commentColumn" prefWidth="250.0" text="Reason Given" />
 			</columns>
 		</TableView>
 		<Text layoutX="910.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Karma" AnchorPane.topAnchor="240.0">
