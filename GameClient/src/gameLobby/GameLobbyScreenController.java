@@ -14,6 +14,8 @@ import chat.Chat;
 import chat.ChatLogBinding;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
+import GameServer.Users.User;
+import singleton.MainModel;
 import userListing.UserRow;
 import view.ControlledScreen;
 import view.MainController;
@@ -62,11 +64,13 @@ public class GameLobbyScreenController implements ControlledScreen {
 	private TextArea chatBoxTextArea;
 	@FXML
 	private TextArea chatMessageTextArea;
-	
+
 	@FXML
 	private Button searchUsersButton;
-	@FXML 
+	@FXML
 	private TextField searchUsersTextField;
+	@FXML
+	private Label userNotFoundLabel;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -84,6 +88,9 @@ public class GameLobbyScreenController implements ControlledScreen {
 	 */
 	@FXML
 	public void initialize() {
+
+		//Hide error Label for now
+		userNotFoundLabel.setVisible(false);
 		// Initialize gameManagement.
 		try {
 			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
@@ -142,6 +149,18 @@ public class GameLobbyScreenController implements ControlledScreen {
 		createButton.setOnAction(event -> {
 			parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
 		});
+
+		searchUsersButton.setOnAction(event -> {
+
+			String username = searchUsersTextField.getText();
+			try {
+				User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+				MainModel.getModel().profileData().setRedirect(true, username);
+				parentController.displayScreen(MainView.PROFILE_SCREEN);
+			} catch (Exception e) {
+				userNotFoundLabel.setVisible(true);
+			}
+		});
 	}
 
 	/**
@@ -180,12 +199,12 @@ public class GameLobbyScreenController implements ControlledScreen {
 				// Populate the table.
 				for (GameInfo currentGame : games) {
 					LobbyRow currentEntry = new LobbyRow(); // new row.
-					
+
 					// Get number of players currently playing.
 					int curPlayers = currentGame.getPlayers().size();
 					// Get the total number of players.
 					int maxPlayers = currentGame.getNumPlayers();
-					
+
 					// Combine number of players.
 					String numberPlayers = curPlayers + "/" + maxPlayers;
 
@@ -199,8 +218,7 @@ public class GameLobbyScreenController implements ControlledScreen {
 					// Add to observableArrayList.
 					tableData.add(currentEntry);
 				}
-				
-				
+
 			}
 			// Note that this won't work at initial launch because of the way the controller is created... This would be fixed with my revised controller.
 			else
@@ -213,13 +231,15 @@ public class GameLobbyScreenController implements ControlledScreen {
 	/**
 	 * For testing to show it works.
 	 */
-	
-	  @FXML private void testAlert() { Alert alert = new
-	  Alert(AlertType.INFORMATION); alert.setTitle("Information Dialog");
-	  alert.setHeaderText("You must have JDK 8u40 or newer!");
-	  
-	  alert.showAndWait(); }
-	 
+
+	@FXML
+	private void testAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText("You must have JDK 8u40 or newer!");
+
+		alert.showAndWait();
+	}
 
 	/**
 	 * This method will allow for the injection of each screen's parent.

@@ -35,5 +35,6 @@
       <Button layoutX="896.0" layoutY="309.0" mnemonicParsing="false" onAction="#testAlert" prefHeight="186.0" prefWidth="379.0" text="Test Alert (press me) -- You need JDK 8u40 or newer..." AnchorPane.leftAnchor="888.0" />
       <Button fx:id="searchUsersButton" layoutX="209.0" layoutY="681.0" mnemonicParsing="false" text="Search Users" />
       <TextField fx:id="searchUsersTextField" layoutX="8.0" layoutY="681.0" prefHeight="31.0" prefWidth="193.0" />
+      <Label fx:id="userNotFoundLabel" layoutX="325.0" layoutY="686.0" text="User couldn't be found" textFill="RED" />
 	</children>
 </AnchorPane>
