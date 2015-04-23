@@ -33,6 +33,8 @@ public class User implements Serializable {
    private int role;
    public ArrayList<Feedback> Feedback;
    private byte[] imageBytes;
+   private String location;
+   private boolean paranoia;
    
 
    /**
@@ -50,7 +52,29 @@ public class User implements Serializable {
       this.isBanned = false;
       this.role = 0;
       this.imageBytes = null;
+      this.location = "";
+      this.paranoia = true;
       //this.Feedback = new ArrayList<Feedback>();
+   }
+   
+   public boolean isParanoid()
+   {
+	   return paranoia;
+   }
+   
+   public void setParanoid(boolean isParanoid)
+   {
+	   paranoia = isParanoid;
+   }
+   
+   public String getLocation()
+   {
+	   return location;
+   }
+   
+   public void setLocation(String loc)
+   {
+	   location = loc;
    }
    
    /**
