@@ -6,8 +6,10 @@
 
 package userListing;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -183,14 +185,11 @@ public class UserListingScreenController implements ControlledScreen
              * new FileOutputStream("pathname"); fos.write(myByteArray); fos.close(); Then convert file to image and display
              */
             try {
-//				User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
-//				byte[] imgBytes = u.getImageBytes();
-//				File f = new File("temp");
-//				FileOutputStream fos = new FileOutputStream(f);
-//				fos.write(imgBytes);
-//				fos.flush();
-//				fos.close();
-//				Image img = new Image(f.getAbsolutePath());
+				User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
+				byte[] imgBytes = u.getImageBytes();
+				InputStream is = new ByteArrayInputStream(imgBytes);
+				Image img = new Image(is);
+				profilePictureImageView.setImage(img);
 			} catch (Exception e) {
 				System.out.println("Image could not be loaded for selected user.");
 				
