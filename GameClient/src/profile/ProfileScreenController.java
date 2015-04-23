@@ -37,6 +37,8 @@ public class ProfileScreenController implements ControlledScreen {
 	// FXML components.
 	@FXML
 	private ObservableList<KarmaRow> tableData;
+	@FXML
+	private ObservableList<KarmaRow> tableData2;
 
 	@FXML
 	private TableView<KarmaRow> karmaTable;
@@ -46,6 +48,21 @@ public class ProfileScreenController implements ControlledScreen {
 	private TableColumn playerColumn;
 	@FXML
 	private TableColumn commentColumn;
+	
+	@FXML
+	private TableView<RecentGameStatsRow> statTable;
+	@FXML
+	private TableColumn gamesPlayedColumn;
+	@FXML
+	private TableColumn gamesWonColumn;
+	@FXML
+	private TableColumn ratioColumn;
+	@FXML
+	private TableColumn totalPointsColumn;
+	@FXML
+	private TableColumn avgPointsColumn;
+	@FXML
+	private TableColumn karmaColumn;
 
 	@FXML
 	private Label largeUsernameLabel;
