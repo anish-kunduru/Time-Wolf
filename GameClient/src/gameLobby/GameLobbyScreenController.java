@@ -42,8 +42,6 @@ public class GameLobbyScreenController implements ControlledScreen {
 	@FXML
 	private TableColumn nameColumn;
 	@FXML
-	private TableColumn typeColumn;
-	@FXML
 	private TableColumn numPlayersColumn;
 	@FXML
 	private TableColumn chatColumn;
@@ -164,7 +162,6 @@ public class GameLobbyScreenController implements ControlledScreen {
 
 			// Bind table elements to their appropriate values.
 			nameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("name"));
-			typeColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("type"));
 			numPlayersColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("numberPlayers"));
 			chatColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("chat"));
 			privateColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("privateLobby"));
@@ -179,7 +176,6 @@ public class GameLobbyScreenController implements ControlledScreen {
 					LobbyRow currentEntry = new LobbyRow(); // new row.
 
 					currentEntry.name.set(currentGame.getName()); // Set game name.
-					// currentEntry.type.set(); // Set game type.
 					currentEntry.numberPlayers.set(currentGame.getNumPlayers()); // Set numberPlayers
 
 					// The following are features we can add later if time permits:
