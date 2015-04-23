@@ -7,6 +7,7 @@
 package profile;
 
 import profile.KarmaRow;
+import profile.RecentGameStatsRow;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -19,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -38,7 +41,7 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	private ObservableList<KarmaRow> tableData;
 	@FXML
-	private ObservableList<KarmaRow> tableData2;
+	private ObservableList<RecentGameStatsRow> tableData2;
 
 	@FXML
 	private TableView<KarmaRow> karmaTable;
@@ -93,7 +96,7 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	private TextField locationTextField;
 	@FXML
-	private TextField paranoiaTextField;
+	private ChoiceBox paranoiaChoiceBox;
 
 	@FXML
 	private PasswordField newPasswordTextField;
@@ -114,6 +117,7 @@ public class ProfileScreenController implements ControlledScreen {
 	public void initialize() {
 		// TO-DO: REDIRECT LOGIC (if we have time).
 		// For now, we will always point to the user that is logged in.
+		
 
 		if (MainModel.getModel().currentLoginData().getUsername() != null) {
 			// TO-DO: Get image from database and set it.
@@ -152,6 +156,7 @@ public class ProfileScreenController implements ControlledScreen {
 			// The following features are not yet supported... Maybe later if we wish.
 			locationLabel.setText("Location: -not supported-");
 			paranoiaLabel.setText("Paranoia: -not supported-");
+			
 
 			loadKarmaTable();
 			loadStatTable();
@@ -230,7 +235,35 @@ public class ProfileScreenController implements ControlledScreen {
 	}
 	
 	private void loadStatTable(){
+		gamesPlayedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("gamesPlayed"));
+		gamesWonColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("gamesWon"));
+		ratioColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("winLossRatio"));
+		totalPointsColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("totalPoints"));
+		avgPointsColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("avgPoints"));
+		karmaColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("karma"));
 		
+		// Bind the table values.
+		tableData2 = FXCollections.observableArrayList();
+		statTable.setItems(tableData2);
+		
+		String username = MainModel.getModel().currentLoginData().getUsername();
+		User user = null;
+		try {
+			user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		RecentGameStatsRow currentRow = new RecentGameStatsRow();
+		currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
+		currentRow.gamesWon.set(user.Statistics.getGamesWon());
+		currentRow.winLossRatio.set(user.Statistics.getWinLossRatio());
+		currentRow.totalPoints.set(user.Statistics.getTotalPoints());
+		currentRow.avgPoints.set(user.Statistics.getAveragePoints());
+		currentRow.karma.set(user.Statistics.getKarma());
+		
+		tableData2.add(currentRow);
 	}
 
 	/**

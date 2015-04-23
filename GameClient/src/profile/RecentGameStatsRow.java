@@ -8,7 +8,6 @@ package profile;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class RecentGameStatsRow
 {
@@ -41,7 +40,7 @@ public class RecentGameStatsRow
    /**
     * @return the win/loss ratio 
     */
-   public double getWinLossRation()
+   public double getWinLossRatio()
    {
       return winLossRatio.get();
    }

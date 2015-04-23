@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -18,7 +19,7 @@
 		<ImageView fx:id="profileImage" fitHeight="250.0" fitWidth="250.0" layoutX="31.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="105.0" />
 		<Button fx:id="changeSettingsButton" layoutX="350.0" layoutY="671.0" mnemonicParsing="false" text="Change Settings" AnchorPane.bottomAnchor="10.0" />
 		<Button fx:id="changePasswordButton" layoutX="483.0" layoutY="669.0" mnemonicParsing="false" text="Change Password" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="490.0" />
-		<TableView layoutX="669.0" layoutY="135.0" prefHeight="79.0" prefWidth="569.0">
+		<TableView fx:id="statTable" layoutX="669.0" layoutY="135.0" prefHeight="79.0" prefWidth="569.0">
 			<columns>
 				<TableColumn fx:id="gamesPlayedColumn" prefWidth="107.0" text="Games Played" />
 				<TableColumn fx:id="gamesWonColumn" prefWidth="90.33331298828125" text="Games Won" />
@@ -31,8 +32,8 @@
 		<TableView fx:id="karmaTable" layoutX="669.0" layoutY="275.0" prefHeight="411.0" prefWidth="569.0">
 			<columns>
 				<TableColumn fx:id="ratingColumn" prefWidth="150.0" text="Rating" />
-				<TableColumn fx:id="playerColumn" prefWidth="175.0" text="Player" />
-				<TableColumn fx:id="commentColumn" prefWidth="243.0" text="Reason Given" />
+				<TableColumn fx:id="playerColumn" prefWidth="167.0" text="Player" />
+				<TableColumn fx:id="commentColumn" prefWidth="250.0" text="Reason Given" />
 			</columns>
 		</TableView>
 		<Text layoutX="910.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Karma" AnchorPane.topAnchor="240.0">
@@ -100,7 +101,6 @@
 				</Text>
 				<PasswordField fx:id="newPasswordTextField" prefHeight="31.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 				<PasswordField fx:id="checkPasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="paranoiaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="emailLabel" text="Email: " GridPane.rowIndex="2">
@@ -129,6 +129,7 @@
                </font>
             </Label>
             <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="paranoiaChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
 	</children>

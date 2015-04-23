@@ -14,7 +14,6 @@ public class LobbyRow
 {
    // Define entry types.
    public SimpleStringProperty name = new SimpleStringProperty(); // Lobby name.
-   public SimpleStringProperty type = new SimpleStringProperty(); // Game type.
    public SimpleIntegerProperty numberPlayers = new SimpleIntegerProperty(); // Number allowed players in game.
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
    public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
@@ -27,14 +26,6 @@ public class LobbyRow
    public String getName()
    {
       return name.get();
-   }
-   
-   /**
-    * @return The String description of the type of game that it is.
-    */
-   public String getType()
-   {
-      return type.get();
    }
    
    /**

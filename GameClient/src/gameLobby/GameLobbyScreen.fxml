@@ -6,10 +6,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameLobby.GameLobbyScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameLobby.GameLobbyScreenController">
 	<children>
 		<fx:include source="../menuBar/DefaultMenuBar.fxml" />
-		<Label layoutY="25.0" text="Lobby Listing:">
+		<Label layoutY="25.0" text="Lobby Listing:" AnchorPane.topAnchor="35.0">
 			<font>
 				<Font name="System Bold" size="18.0" />
 			</font>
@@ -17,22 +17,21 @@
 				<Insets left="5.0" />
 			</padding>
 		</Label>
-		<TableView fx:id="gamesTable" layoutX="1.0" layoutY="52.0" prefHeight="620.0" prefWidth="865.0">
+		<TableView fx:id="gamesTable" layoutX="1.0" layoutY="66.0" prefHeight="606.0" prefWidth="865.0">
 			<columns>
-				<TableColumn fx:id="nameColumn" prefWidth="306.0" text="Name" />
-				<TableColumn fx:id="typeColumn" prefWidth="174.0" text="Type" />
-				<TableColumn fx:id="numPlayersColumn" minWidth="4.0" prefWidth="82.0" text="No. Players" />
-				<TableColumn fx:id="chatColumn" prefWidth="66.0" text="Chat" />
-				<TableColumn fx:id="privateColumn" prefWidth="68.0" text="Private" />
+				<TableColumn fx:id="nameColumn" prefWidth="430.33331298828125" text="Name" />
+				<TableColumn fx:id="numPlayersColumn" minWidth="4.0" prefWidth="149.0" text="No. Players" />
+				<TableColumn fx:id="chatColumn" prefWidth="145.0" text="Chat" />
+				<TableColumn fx:id="privateColumn" prefWidth="137.66668701171875" text="Private" />
 			</columns>
 		</TableView>
-		<Button fx:id="joinButton" layoutX="827.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Join" />
+		<Button fx:id="joinButton" layoutX="827.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Join" AnchorPane.leftAnchor="820.0" />
 		<Button fx:id="createButton" layoutX="21.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Create" />
 		<Button fx:id="searchButton" layoutX="98.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Search" />
-		<Button fx:id="reloadTableButton" layoutX="709.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Refresh Listings" />
-      <TextArea fx:id="chatBoxTextArea" editable="false" layoutX="877.0" layoutY="52.0" prefHeight="456.0" prefWidth="403.0" wrapText="true" />
-      <TextArea fx:id="chatMessageTextArea" layoutX="877.0" layoutY="520.0" prefHeight="146.0" prefWidth="403.0" wrapText="true" />
-      <Button layoutX="1166.0" layoutY="681.0" mnemonicParsing="false" onAction="#sendMessage" text="Send Message" />
-      <Button layoutX="896.0" layoutY="309.0" mnemonicParsing="false" onAction="#testAlert" prefHeight="186.0" prefWidth="379.0" text="Test Alert (press me) -- You need JDK 8u40 or newer..." />
+		<Button fx:id="reloadTableButton" layoutX="709.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Refresh Listings" AnchorPane.leftAnchor="690.0" />
+      <TextArea fx:id="chatBoxTextArea" editable="false" layoutX="877.0" layoutY="38.0" prefHeight="470.0" prefWidth="399.0" wrapText="true" />
+      <TextArea fx:id="chatMessageTextArea" layoutX="877.0" layoutY="520.0" prefHeight="146.0" prefWidth="399.0" wrapText="true" />
+      <Button layoutX="1166.0" layoutY="681.0" mnemonicParsing="false" onAction="#sendMessage" text="Send Message" AnchorPane.leftAnchor="1160.0" />
+      <Button layoutX="896.0" layoutY="309.0" mnemonicParsing="false" onAction="#testAlert" prefHeight="186.0" prefWidth="379.0" text="Test Alert (press me) -- You need JDK 8u40 or newer..." AnchorPane.leftAnchor="888.0" />
 	</children>
 </AnchorPane>
