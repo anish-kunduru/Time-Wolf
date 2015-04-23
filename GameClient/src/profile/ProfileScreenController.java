@@ -154,6 +154,7 @@ public class ProfileScreenController implements ControlledScreen {
 			paranoiaLabel.setText("Paranoia: -not supported-");
 
 			loadKarmaTable();
+			loadStatTable();
 		}
 
 		// Event handlers.
@@ -226,6 +227,10 @@ public class ProfileScreenController implements ControlledScreen {
 			tableData.add(currentRow);
 		}
 
+	}
+	
+	private void loadStatTable(){
+		
 	}
 
 	/**

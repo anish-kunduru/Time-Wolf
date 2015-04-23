@@ -6,40 +6,64 @@
 
 package profile;
 
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class RecentGameStatsRow
 {
    // Define our entry types.
-   public SimpleBooleanProperty win = new SimpleBooleanProperty();
-   public SimpleStringProperty gameType = new SimpleStringProperty();
-   public SimpleIntegerProperty pointsWon = new SimpleIntegerProperty();
+   public SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
+   public SimpleIntegerProperty gamesWon = new SimpleIntegerProperty();
+   public SimpleDoubleProperty winLossRatio = new SimpleDoubleProperty();
+   public SimpleDoubleProperty totalPoints = new SimpleDoubleProperty();
+   public SimpleDoubleProperty avgPoints = new SimpleDoubleProperty();
+   public SimpleDoubleProperty karma = new SimpleDoubleProperty();
 
    // Define auto getters to populate table on initialize.
 
    /**
-    * @return true if this game was a win, false if this game was a loss.
+    * @return number of games played
     */
-   public boolean getWin()
+   public int getGamesPlayed()
    {
-      return win.get();
+      return gamesPlayed.get();
    }
 
    /**
-    * @return The String type of game.
+    * @return number of games won
     */
-   public String getGameTye()
+   public int getGamesWon()
    {
-      return gameType.get();
+      return gamesWon.get();
    }
 
    /**
-    * @return The number of points won in this game.
+    * @return the win/loss ratio 
     */
-   public int getPointsWon()
+   public double getWinLossRation()
    {
-      return pointsWon.get();
+      return winLossRatio.get();
+   }
+   
+   /**
+    * @return total points won
+    */
+   public double getTotalPoints(){
+	   return totalPoints.get();
+   }
+   
+   /**
+    * @return avg points won per game
+    */
+   public double getAvgPoints(){
+	   return avgPoints.get();
+   }
+   
+   /**
+    * @return user's karma score
+    */
+   public double getKarma(){
+	   return karma.get();
    }
 }
