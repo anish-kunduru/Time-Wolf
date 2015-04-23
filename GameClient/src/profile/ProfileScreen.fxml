@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -100,7 +101,6 @@
 				</Text>
 				<PasswordField fx:id="newPasswordTextField" prefHeight="31.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 				<PasswordField fx:id="checkPasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="paranoiaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="emailLabel" text="Email: " GridPane.rowIndex="2">
@@ -129,6 +129,7 @@
                </font>
             </Label>
             <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="paranoiaChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
 	</children>

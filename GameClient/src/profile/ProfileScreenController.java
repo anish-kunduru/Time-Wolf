@@ -20,6 +20,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -94,7 +96,7 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	private TextField locationTextField;
 	@FXML
-	private TextField paranoiaTextField;
+	private ChoiceBox paranoiaChoiceBox;
 
 	@FXML
 	private PasswordField newPasswordTextField;
@@ -115,6 +117,7 @@ public class ProfileScreenController implements ControlledScreen {
 	public void initialize() {
 		// TO-DO: REDIRECT LOGIC (if we have time).
 		// For now, we will always point to the user that is logged in.
+		
 
 		if (MainModel.getModel().currentLoginData().getUsername() != null) {
 			// TO-DO: Get image from database and set it.
@@ -153,6 +156,7 @@ public class ProfileScreenController implements ControlledScreen {
 			// The following features are not yet supported... Maybe later if we wish.
 			locationLabel.setText("Location: -not supported-");
 			paranoiaLabel.setText("Paranoia: -not supported-");
+			
 
 			loadKarmaTable();
 			loadStatTable();
