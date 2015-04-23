@@ -15,6 +15,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
@@ -225,18 +226,13 @@ public class UserListingScreenController implements ControlledScreen
          if (userTable.getSelectionModel().getSelectedIndex() != -1)
          {
             String username = userTable.getSelectionModel().getSelectedItem().username.get();
-
-            // TO-DO: RESET PASSWORD.
-
-            /*
-             * IDEA FOR RESET PASSWORD:
-             * 
-             * There is a resetPassword boolean in the database. When this button is pushed, that field is tripped true. The login screen checks for the
-             * appropriate field, and when the user attempts to login, they are re-directed to the password reset screen. The password reset screen will always
-             * mark this resetPassword boolean false after a successful password changes.
-             * 
-             * Such functionality will also allow users all users passwords to easily be changed at particular intervals (security).
-             */
+            Random rnd = new Random();
+            try {
+				login.resetPassword(username, Integer.toString(rnd.nextInt()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
          }
       });
 
