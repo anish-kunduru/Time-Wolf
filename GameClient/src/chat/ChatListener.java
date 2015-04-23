@@ -63,6 +63,7 @@ public class ChatListener extends Thread
          catch (IOException | ClassNotFoundException e)
          {
             System.out.println("It appears the chat server has closed the connection: " + e);
+            run = false;
          }
       }
    }
