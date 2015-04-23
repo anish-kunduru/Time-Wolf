@@ -116,10 +116,10 @@ public class GameLobbyScreenController implements ControlledScreen {
 			});
 
 		// Initialize chat elements.
-		chatLog = new ChatLogBinding();
-		chat = new Chat(true, "sample user", -1, chatLog);
+		//chatLog = new ChatLogBinding();
+		//chat = new Chat(true, "sample user", -1, chatLog);
 
-		chatBoxTextArea.textProperty().bind(chatLog.chatLog);
+		//chatBoxTextArea.textProperty().bind(chatLog.chatLog);
 
 		reloadTableButton.setOnAction(event -> {
 			loadGameTable(); // Reload game table.
@@ -174,9 +174,17 @@ public class GameLobbyScreenController implements ControlledScreen {
 				// Populate the table.
 				for (GameInfo currentGame : games) {
 					LobbyRow currentEntry = new LobbyRow(); // new row.
+					
+					// Get number of players currently playing.
+					int curPlayers = currentGame.getPlayers().size();
+					// Get the total number of players.
+					int maxPlayers = currentGame.getNumPlayers();
+					
+					// Combine number of players.
+					String numberPlayers = curPlayers + "/" + maxPlayers;
 
 					currentEntry.name.set(currentGame.getName()); // Set game name.
-					currentEntry.numberPlayers.set(currentGame.getNumPlayers()); // Set numberPlayers
+					currentEntry.numberPlayers.set(numberPlayers); // Set numberPlayers
 
 					// The following are features we can add later if time permits:
 					currentEntry.chat.set(true); // Chat will be enabled for all games for now.

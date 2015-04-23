@@ -7,14 +7,13 @@
 package gameLobby;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class LobbyRow
 {
    // Define entry types.
    public SimpleStringProperty name = new SimpleStringProperty(); // Lobby name.
-   public SimpleIntegerProperty numberPlayers = new SimpleIntegerProperty(); // Number allowed players in game.
+   public SimpleStringProperty numberPlayers = new SimpleStringProperty(); // Players in game / maxPlayers
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
    public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
    
@@ -31,7 +30,7 @@ public class LobbyRow
    /**
     * @return Get the maximum number of allowed players for this game.
     */
-   public int getNumberPlayers()
+   public String getNumberPlayers()
    {
       return numberPlayers.get();
    }
