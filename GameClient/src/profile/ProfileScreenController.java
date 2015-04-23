@@ -126,8 +126,6 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	public void initialize() {
 
-		System.out.println(MainModel.getModel().profileData().getRedirectToClicked());
-
 		if (MainModel.getModel().profileData().getRedirectToClicked() == true) {
 			String username = MainModel.getModel().profileData().getClickedUsername();
 
