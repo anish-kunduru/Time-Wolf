@@ -6,6 +6,9 @@
 
 package userListing;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -28,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class UserListingScreenController implements ControlledScreen
@@ -178,6 +182,19 @@ public class UserListingScreenController implements ControlledScreen
              * User now has byte[] of image (must be stored this way to be serializable) getImageBytes() Get file by doing the following: FileOutputStream fos =
              * new FileOutputStream("pathname"); fos.write(myByteArray); fos.close(); Then convert file to image and display
              */
+            try {
+//				User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
+//				byte[] imgBytes = u.getImageBytes();
+//				File f = new File("temp");
+//				FileOutputStream fos = new FileOutputStream(f);
+//				fos.write(imgBytes);
+//				fos.flush();
+//				fos.close();
+//				Image img = new Image(f.getAbsolutePath());
+			} catch (Exception e) {
+				System.out.println("Image could not be loaded for selected user.");
+				
+			}
          }
       });
 

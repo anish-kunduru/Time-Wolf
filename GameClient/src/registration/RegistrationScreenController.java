@@ -105,6 +105,7 @@ public class RegistrationScreenController implements ControlledScreen
             {
                // Set the image.
                profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
+           
 
                // Display the image.
                profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
