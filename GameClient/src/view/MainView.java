@@ -49,6 +49,9 @@ public class MainView extends Application
    public static final String AFTER_GAME_SCREEN = "afterGameScreen";
    public static final String AFTER_GAME_SCREEN_FXML = "/afterGame/AfterGameScreen.fxml";
    
+   public static final String LEADERBOARDS_SCREEN = "leaderboards";
+   public static final String LEADERBOARDS_SCREEN_FXML = "/leaderboards/LeaderboardsScreen.fxml";
+   
    @Override
    public void start(Stage primaryStage)
    {
@@ -66,6 +69,7 @@ public class MainView extends Application
       mainController.loadScreen(PROFILE_SCREEN, PROFILE_SCREEN_FXML);
       mainController.loadScreen(AFTER_GAME_SCREEN, AFTER_GAME_SCREEN_FXML);
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
+      mainController.loadScreen(LEADERBOARDS_SCREEN, LEADERBOARDS_SCREEN_FXML);
       
       // Add the controller to the singleton.
       MainModel.getModel().currentMainData().setMainController(mainController);
