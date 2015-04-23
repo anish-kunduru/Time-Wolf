@@ -51,7 +51,7 @@ public class ProfileScreenController implements ControlledScreen {
 	private TableColumn playerColumn;
 	@FXML
 	private TableColumn commentColumn;
-	
+
 	@FXML
 	private TableView<RecentGameStatsRow> statTable;
 	@FXML
@@ -109,57 +109,47 @@ public class ProfileScreenController implements ControlledScreen {
 	// So we can set the screen's parent later on.
 	MainController parentController;
 
+	private User user;
+
 	/**
 	 * Initializes the controller class. Automatically called after the FXML
 	 * file has been loaded.
 	 */
 	@FXML
 	public void initialize() {
-		// TO-DO: REDIRECT LOGIC (if we have time).
-		// For now, we will always point to the user that is logged in.
-		
 
-		if (MainModel.getModel().currentLoginData().getUsername() != null) {
-			// TO-DO: Get image from database and set it.
+		System.out.println(MainModel.getModel().profileData().getRedirectToClicked());
 
-			// Get personal information.
-			String username = MainModel.getModel().currentLoginData().getUsername();
-			String email = "undefined";
-			String userType = "undefined";
-
+		if (MainModel.getModel().profileData().getRedirectToClicked()) {
+			String username = MainModel.getModel().profileData().getClickedUsername();
 			try {
-				// Get user.
-				User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-
-				// Set email address.
-				email = user.getEmail();
-
-				// Find admin type.
-				if (user.isAdmin())
-					userType = "admin";
-				else if (user.isModerator())
-					userType = "moderator";
-				else
-					userType = "player";
+				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
 			} catch (Exception e) {
-				// DEBUG
-				// Nothing much we can do at this point.
-				System.out.println("There was an error populating the elements in the profile screen. Is the server down?");
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		else if (MainModel.getModel().profileData().getRedirectToClicked() == false) {
+			if (MainModel.getModel().currentLoginData().getUsername() != null) {
+				// TO-DO: Get image from database and set it.
+				String username = MainModel.getModel().currentLoginData().getUsername();
+				try {
+					// Get user.
+					user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+
+					setInformation();
+					
+					loadKarmaTable();
+					loadStatTable();
+					
+				} catch (Exception e) {
+					System.out.println("There was an error getting the User object. Is the server down?");
+				}
 			}
 
-			// Set personal information.
-			largeUsernameLabel.setText("Profile - " + username);
-			usernameLabel.setText("Username: " + username);
-			emailLabel.setText("E-mail: " + email);
-			userTypeLabel.setText("User Type: " + userType);
-
-			// The following features are not yet supported... Maybe later if we wish.
-			locationLabel.setText("Location: -not supported-");
-			paranoiaLabel.setText("Paranoia: -not supported-");
 			
 
-			loadKarmaTable();
-			loadStatTable();
 		}
 
 		// Event handlers.
@@ -185,6 +175,46 @@ public class ProfileScreenController implements ControlledScreen {
 				errorLabel.setText("Your new passwords do not match.");
 		});
 	}
+	
+	private void setInformation(){
+		String email = "";
+		String userType = "";
+		String location = "";
+		Boolean paranoia = false;
+
+		//Set username
+		String username = user.getUsername();
+
+		// Set email address.
+		email = user.getEmail();
+
+		// Find admin type.
+		if (user.isAdmin())
+			userType = "admin";
+		else if (user.isModerator())
+			userType = "moderator";
+		else
+			userType = "player";
+
+		//Set location
+		location = user.getLocation();
+
+		//Set paranoia
+		paranoia = user.isParanoid();
+
+		// Set personal information.
+		largeUsernameLabel.setText("Profile - " + username);
+		usernameLabel.setText("Username: " + username);
+		emailLabel.setText("E-mail: " + email);
+		userTypeLabel.setText("User Type: " + userType);
+		locationLabel.setText("Location: " + location);
+
+		if (paranoia) {
+			paranoiaLabel.setText("Paranoia: on");
+		} else {
+			paranoiaLabel.setText("Paranoia: off");
+		}
+	}
 
 	private void loadKarmaTable() {
 
@@ -196,15 +226,6 @@ public class ProfileScreenController implements ControlledScreen {
 		// Bind the table values.
 		tableData = FXCollections.observableArrayList();
 		karmaTable.setItems(tableData);
-
-		String username = MainModel.getModel().currentLoginData().getUsername();
-		User user = null;
-		try {
-			user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		ArrayList<Feedback> feedback = new ArrayList<Feedback>();
 		try {
@@ -219,42 +240,31 @@ public class ProfileScreenController implements ControlledScreen {
 			KarmaRow currentRow = new KarmaRow();
 			if (feedback.get(i).isPositive()) {
 				currentRow.rating.set("like");
-			}
-			else{
+			} else {
 				currentRow.rating.set("dislike");
 			}
 			String userBy = MainModel.getModel().currentLoginData().getLogInConnection().getUsername(feedback.get(i).getByUserID());
 			currentRow.player.set(userBy);
-			
-			
+
 			currentRow.reasonGiven.set("" + feedback.get(i).getDescription());
 
 			tableData.add(currentRow);
 		}
 
 	}
-	
-	private void loadStatTable(){
+
+	private void loadStatTable() {
 		gamesPlayedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("gamesPlayed"));
 		gamesWonColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("gamesWon"));
 		ratioColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("winLossRatio"));
 		totalPointsColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("totalPoints"));
 		avgPointsColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("avgPoints"));
 		karmaColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("karma"));
-		
+
 		// Bind the table values.
 		tableData2 = FXCollections.observableArrayList();
 		statTable.setItems(tableData2);
-		
-		String username = MainModel.getModel().currentLoginData().getUsername();
-		User user = null;
-		try {
-			user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+
 		RecentGameStatsRow currentRow = new RecentGameStatsRow();
 		currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
 		currentRow.gamesWon.set(user.Statistics.getGamesWon());
@@ -262,7 +272,7 @@ public class ProfileScreenController implements ControlledScreen {
 		currentRow.totalPoints.set(user.Statistics.getTotalPoints());
 		currentRow.avgPoints.set(user.Statistics.getAveragePoints());
 		currentRow.karma.set(user.Statistics.getKarma());
-		
+
 		tableData2.add(currentRow);
 	}
 
