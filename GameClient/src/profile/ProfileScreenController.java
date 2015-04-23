@@ -9,7 +9,10 @@ package profile;
 import profile.KarmaRow;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import GameServer.Users.Feedback;
 import GameServer.Users.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -171,12 +174,41 @@ public class ProfileScreenController implements ControlledScreen {
 		tableData = FXCollections.observableArrayList();
 		karmaTable.setItems(tableData);
 
-		KarmaRow currentRow = new KarmaRow();
-		currentRow.rating.set("dislike");
-		currentRow.player.set("ssimmons");
-		currentRow.reasonGiven.set("Unskilled player");
+		String username = MainModel.getModel().currentLoginData().getUsername();
+		User user = null;
+		try {
+			user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		tableData.add(currentRow);
+		ArrayList<Feedback> feedback = new ArrayList<Feedback>();
+		try {
+			feedback = MainModel.getModel().currentLoginData().getLogInConnection().getFeedbackList(user.getID());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < feedback.size(); i++) {
+
+			KarmaRow currentRow = new KarmaRow();
+			if (feedback.get(i).isPositive()) {
+				currentRow.rating.set("like");
+			}
+			else{
+				currentRow.rating.set("dislike");
+			}
+			String userBy = MainModel.getModel().currentLoginData().getLogInConnection().getUsername(feedback.get(i).getByUserID());
+			currentRow.player.set(userBy);
+			
+			
+			currentRow.reasonGiven.set("" + feedback.get(i).getDescription());
+
+			tableData.add(currentRow);
+		}
+
 	}
 
 	/**

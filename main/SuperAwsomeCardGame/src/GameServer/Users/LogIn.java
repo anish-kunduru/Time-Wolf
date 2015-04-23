@@ -148,6 +148,25 @@ public class LogIn implements Remote, Serializable {
 			throw new Exception("Username or password was incorrect!");
 		}
 	}
+	
+	public String getUsername(int id){
+		
+		String userName = "";
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT Username FROM User WHERE ID='" + id + "'";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		try {
+			if(rs.first()){
+				userName = rs.getString("Username");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userName;
+	}
 
 	/**
 	 * Static method to initialize the feedback list for the user class Used
