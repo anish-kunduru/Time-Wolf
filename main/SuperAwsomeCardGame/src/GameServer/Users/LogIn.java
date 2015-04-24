@@ -628,7 +628,33 @@ public class LogIn implements Remote, Serializable {
 		}
 
 		return sq;
+	}
+	
+	public ArrayList<User> getLeaderboard() throws SQLException {
+		
+		ArrayList<User> users = new ArrayList<User>();
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT ID FROM Statistics ORDER BY TotalPoints desc";
+		ResultSet rs = dbh.executeQuery(query);
+		ArrayList<Integer> userIDs = new ArrayList<Integer>();
 
+		while (rs.next()) {
+			userIDs.add(rs.getInt("ID"));
+		}
+		
+		for(int i = 0; i < userIDs.size(); i++){
+			String username = getUsername(userIDs.get(i));
+			try {
+				User user = getUser(username);
+				users.add(user);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return users;
+		
 	}
 
 	/**
