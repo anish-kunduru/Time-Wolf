@@ -11,8 +11,8 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Random;
 
+import framework.ControlledScreen;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import GameServer.IGameManagement;
 import GameServer.GameEngine.Action;

@@ -8,8 +8,8 @@ package forgotPassword;
 
 import java.sql.SQLException;
 
+import framework.ControlledScreen;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.animation.KeyFrame;

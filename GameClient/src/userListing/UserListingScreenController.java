@@ -17,10 +17,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import framework.ControlledScreen;
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.collections.FXCollections;

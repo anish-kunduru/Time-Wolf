@@ -9,6 +9,7 @@ package view;
 
 import java.util.HashMap;
 
+import framework.ControlledScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

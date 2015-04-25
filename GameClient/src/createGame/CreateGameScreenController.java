@@ -6,7 +6,7 @@
 
 package createGame;
 
-import view.ControlledScreen;
+import framework.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.fxml.FXML;

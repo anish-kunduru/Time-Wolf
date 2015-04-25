@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 import chat.Chat;
 import chat.ChatLogBinding;
+import framework.ControlledScreen;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
 import GameServer.Users.User;
 import singleton.MainModel;
 import userListing.UserRow;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.collections.FXCollections;

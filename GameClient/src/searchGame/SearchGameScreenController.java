@@ -6,9 +6,9 @@
 
 package searchGame;
 
+import framework.ControlledScreen;
 import singleton.MainData;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.fxml.FXML;

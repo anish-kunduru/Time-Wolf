@@ -8,8 +8,8 @@ package registration;
 
 import java.io.File;
 
+import framework.ControlledScreen;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import javafx.animation.Timeline;

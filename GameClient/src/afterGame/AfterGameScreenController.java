@@ -8,6 +8,7 @@ package afterGame;
 
 import java.rmi.RemoteException;
 
+import framework.ControlledScreen;
 import GameServer.GameEngine.AfterGameInfo;
 import GameServer.Users.User;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 
 public class AfterGameScreenController implements ControlledScreen

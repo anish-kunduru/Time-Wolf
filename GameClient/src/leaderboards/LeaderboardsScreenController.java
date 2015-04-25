@@ -9,6 +9,7 @@ package leaderboards;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import framework.ControlledScreen;
 import GameServer.Users.User;
 import profile.KarmaRow;
 import profile.RecentGameStatsRow;
@@ -20,7 +21,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import singleton.MainModel;
 import userListing.UserRow;
-import view.ControlledScreen;
 import view.MainController;
 
 public class LeaderboardsScreenController implements ControlledScreen

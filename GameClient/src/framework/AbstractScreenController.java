@@ -27,7 +27,7 @@ public abstract class AbstractScreenController extends StackPane
     * @param fxmlLocation The location of the FXML file in the workspace.
     * @return a ControlledScreen type (the controller of the FXML as defined in the fx.controller link).
     */
-   protected ControlledScreen loadScreen(String fxmlLocation)
+   protected ControlledScreen2 loadScreen(String fxmlLocation)
    {
       // Get the FXML loader and attempt to load it.
       FXMLLoader fxmlLoader = new FXMLLoader(AbstractScreenController.class.getResource(fxmlLocation));
@@ -52,7 +52,7 @@ public abstract class AbstractScreenController extends StackPane
       }
 
       // Get our controller from the FXML.
-      ControlledScreen controller = (ControlledScreen) fxmlLoader.getController();
+      ControlledScreen2 controller = (ControlledScreen2) fxmlLoader.getController();
 
       // Only attempt to destroy a page if it has implemented destroyable.
       // Otherwise there might be a reason why the calling class kept it in memory!
@@ -75,8 +75,8 @@ public abstract class AbstractScreenController extends StackPane
    protected void loadScreen(Parent loadScreen)
    {
       // Make sure the calling class knows what's up.
-      if (loadScreen instanceof ControlledScreen)
-         ((ControlledScreen) loadScreen).setScreenParent(this);
+      if (loadScreen instanceof ControlledScreen2)
+         ((ControlledScreen2) loadScreen).setScreenParent(this);
       else
          throw new ClassCastException("You need to implement ControlledScreen!");
 

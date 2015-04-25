@@ -6,7 +6,7 @@
 
 package gameRules;
 
-import view.ControlledScreen;
+import framework.ControlledScreen;
 import view.MainController;
 import javafx.fxml.FXML;
 

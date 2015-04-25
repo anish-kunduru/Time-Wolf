@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import framework.ControlledScreen;
 import GameServer.Users.Feedback;
 import GameServer.Users.User;
 import javafx.application.Platform;
@@ -33,7 +34,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import singleton.MainModel;
 import userListing.UserRow;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 

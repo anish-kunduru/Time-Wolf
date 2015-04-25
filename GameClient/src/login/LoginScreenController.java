@@ -15,8 +15,8 @@ import javafx.scene.control.TextField;
 
 import java.rmi.Naming;
 
+import framework.ControlledScreen;
 import singleton.MainModel;
-import view.ControlledScreen;
 import view.MainController;
 import view.MainView;
 import GameServer.Users.LogIn;
