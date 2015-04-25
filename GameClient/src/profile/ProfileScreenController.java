@@ -160,6 +160,7 @@ public class ProfileScreenController implements ControlledScreen {
 			changePasswordLabel.setVisible(false);
 			passwordLabel.setVisible(false);
 			checkPasswordLabel.setVisible(false);
+			removeImage.setVisible(false);
 
 			try {
 				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
@@ -223,6 +224,10 @@ public class ProfileScreenController implements ControlledScreen {
 							paranoiaChoiceBox.setText("On");
 						else
 							paranoiaChoiceBox.setText("Off");
+					});
+					
+					removeImage.setOnAction(event ->{
+						
 					});
 
 					changeSettingsButton.setOnAction(event -> {
