@@ -103,15 +103,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
          System.out.println("Error initializing remote game management object.");
          e.printStackTrace();
       }
-      try
-      {
-         gameManagement.createGame(2, "Test");
-      }
-      catch (RemoteException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
 
       // Initialize table
       loadGameTable();
