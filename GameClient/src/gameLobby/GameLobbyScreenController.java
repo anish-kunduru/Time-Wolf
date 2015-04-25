@@ -72,6 +72,8 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
    private TextField searchUsersTextField;
    @FXML
    private Label userNotFoundLabel;
+   
+   private int id;
 
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -101,15 +103,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
          System.out.println("Error initializing remote game management object.");
          e.printStackTrace();
       }
-      try
-      {
-         gameManagement.createGame(2, "Test");
-      }
-      catch (RemoteException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
 
       // Initialize table
       loadGameTable();
@@ -128,10 +121,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
          // Check to make sure something is selected.
          if (gamesTable.getSelectionModel().getSelectedIndex() != -1)
          {
-            // Get the selected name.
-            String selectedGame = gamesTable.getSelectionModel().getSelectedItem().name.get();
-
-            // TODO: OKAY, WHAT DO WE WANT TO DO NEXT?
+            id = gamesTable.getSelectionModel().getSelectedItem().id.get();   
          }
       });
 
@@ -145,6 +135,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 
       joinButton.setOnAction(event ->
       {
+    	 System.out.print(id + "\n");
          parentController.goToGameTableScreen();
       });
 
@@ -233,7 +224,10 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
                // The following are features we can add later if time permits:
                currentEntry.chat.set(true); // Chat will be enabled for all games for now.
                currentEntry.privateLobby.set(false); // All lobbies will be public for now.
-
+               
+               currentEntry.id.set(currentGame.getID());
+               currentEntry.numPlayers.set(currentGame.getNumPlayers());
+               
                // Add to observableArrayList.
                tableData.add(currentEntry);
             }

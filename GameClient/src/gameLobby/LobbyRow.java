@@ -18,8 +18,16 @@ public class LobbyRow
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
    public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
    public SimpleIntegerProperty id = new SimpleIntegerProperty();
+   public SimpleIntegerProperty numPlayers = new SimpleIntegerProperty();
 
    // Auto load getters for "automagic" initialization of rows.
+   
+   /**
+    * @return number of players allowed in game
+    */
+   public int getNumPlayers(){
+	   return numPlayers.get();
+   }
    
    /**
     * @return id of the game
