@@ -242,7 +242,7 @@ public class MainController extends AbstractScreenController
    /**
     * Method so that we can dynamically access the registration screen at runtime.
     */
-   public void gotToRegistrationScreen()
+   public void goToRegistrationScreen()
    {
       try
       {

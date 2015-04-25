@@ -101,7 +101,7 @@ public class LoginScreenController implements ControlledScreen
       // Go to registration screen.
       registerButton.setOnAction(event ->
       {
-         parentController.gotToRegistrationScreen();
+         parentController.goToRegistrationScreen();
       });
 
       // Go to forgot password screen.
