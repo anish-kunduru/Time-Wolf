@@ -317,21 +317,16 @@ public class ProfileScreenController implements ControlledScreen
       ratingColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("rating"));
       playerColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("player"));
       commentColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("reasonGiven"));
+      
+      
 
       // Bind the table values.
       tableData = FXCollections.observableArrayList();
       karmaTable.setItems(tableData);
 
       ArrayList<Feedback> feedback = new ArrayList<Feedback>();
-      try
-      {
-         feedback = MainModel.getModel().currentLoginData().getLogInConnection().getFeedbackList(user.getID());
-      }
-      catch (SQLException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
+
+         feedback = user.Feedback;
 
       for (int i = 0; i < feedback.size(); i++)
       {
