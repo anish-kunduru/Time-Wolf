@@ -8,15 +8,16 @@ package profile;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class RecentGameStatsRow
 {
    // Define our entry types.
    public SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
    public SimpleIntegerProperty gamesWon = new SimpleIntegerProperty();
-   public SimpleDoubleProperty winLossRatio = new SimpleDoubleProperty();
+   public SimpleStringProperty winLossRatio = new SimpleStringProperty();
    public SimpleDoubleProperty totalPoints = new SimpleDoubleProperty();
-   public SimpleDoubleProperty avgPoints = new SimpleDoubleProperty();
+   public SimpleIntegerProperty avgPoints = new SimpleIntegerProperty();
    public SimpleDoubleProperty karma = new SimpleDoubleProperty();
 
    // Define auto getters to populate table on initialize.
@@ -40,7 +41,7 @@ public class RecentGameStatsRow
    /**
     * @return the win/loss ratio
     */
-   public double getWinLossRatio()
+   public String getWinLossRatio()
    {
       return winLossRatio.get();
    }
@@ -56,7 +57,7 @@ public class RecentGameStatsRow
    /**
     * @return avg points won per game
     */
-   public double getAvgPoints()
+   public int getAvgPoints()
    {
       return avgPoints.get();
    }
