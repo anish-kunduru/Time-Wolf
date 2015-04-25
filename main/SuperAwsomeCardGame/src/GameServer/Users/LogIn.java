@@ -318,6 +318,32 @@ public class LogIn implements Remote, Serializable {
 	}
 
 	/**
+	 * Update picture
+	 * @throws Exception 
+	 */
+	public void updateImage(String username, File picture) throws Exception
+	{
+		if (picture != null) {
+			try {
+				DBHelper dbh = new DBHelper();
+				Connection conn = dbh.getConnection();
+				conn.setAutoCommit(false);
+				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
+				FileInputStream fis = new FileInputStream(picture);
+				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
+				ps.setBinaryStream(1, fis, (int)picture.length());
+				ps.setString(2, username);
+				ps.executeUpdate();
+				conn.commit();
+				
+				
+			} catch (Exception ex) {
+				throw new Exception("Image save failed!");
+			}
+		}
+	}
+	
+	/**
 	 * Registers the current user by username, email, and password
 	 * 
 	 * @param username
