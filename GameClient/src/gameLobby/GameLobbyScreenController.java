@@ -10,10 +10,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
-
 import chat.Chat;
-import chat.ChatLogBinding;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import framework.Destroyable;
@@ -23,7 +20,6 @@ import GameServer.Users.User;
 import singleton.MainModel;
 import userListing.UserRow;
 import view.MainController;
-import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -84,8 +80,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
    private Chat chat;
    private IGameManagement gameManagement;
 
-   ChatLogBinding chatLog;
-
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded. Calls remote game management object and from that object it
     * obtains a list of games. It also initializes a chat server.
@@ -141,11 +135,8 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
          }
       });
 
-      // Initialize chat elements.
-      chatLog = new ChatLogBinding();
-      chat = new Chat(true, "sample user", -1, chatLog);
-
-      chatBoxTextArea.textProperty().bind(chatLog.chatLog);
+      // Initialize chat.
+      chat = new Chat(true, MainModel.getModel().currentLoginData().getUsername(), -1);
 
       reloadTableButton.setOnAction(event ->
       {
@@ -191,8 +182,10 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
    public void sendMessage()
    {
       String outgoingMsg = chatMessageTextArea.getText();
-
-      chat.bufferMessage(outgoingMsg);
+      
+      // Make sure the user didn't just press the button without anything in the text field.
+      if (!outgoingMsg.equals(""))
+         chat.bufferMessage(outgoingMsg);
 
       chatMessageTextArea.clear();
 
@@ -268,6 +261,17 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
       alert.setHeaderText("You must have JDK 8u40 or newer!");
 
       alert.showAndWait();
+   }
+   
+   /**
+    * Append a message to the chatBoxTextArea that is visible to the user.
+    * 
+    * @param message The message that you wish appended to the chat box.
+    */
+   public void appendToChatBox(String message)
+   {
+      String append = message + "\n";
+      chatBoxTextArea.appendText(append);
    }
 
    /**

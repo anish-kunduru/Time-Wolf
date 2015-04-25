@@ -35,7 +35,7 @@ public class Chat
     * @param username The username of the player that will be chatting.
     * @param chatroomID The chatroomID (as given to the client by the server as the gameID).
     */
-   public Chat(boolean gameLobby, String username, int chatroomID, ChatLogBinding chatLog)
+   public Chat(boolean gameLobby, String username, int chatroomID)
    {
       // Try and connect to the server.
       try
@@ -57,9 +57,13 @@ public class Chat
       {
          System.out.println("Exception creating I/O streams: " + ioe);
       }
+      
+      // The following may or may not be necessary. I think it depends on how heavy the page we are to call is.
+      // Put this thread to sleep to make sure we that MainController has enough time to update the current controller.
+      // Thread.sleep(1000);
 
       // Initialize the thread to listen from the server and start it.
-      listener = new ChatListener(gameLobby, input, chatLog);
+      listener = new ChatListener(gameLobby, input);
       listener.start();
 
       // Initialize server side calls to set username and chatroomID.
