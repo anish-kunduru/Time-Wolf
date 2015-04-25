@@ -321,7 +321,7 @@ public class MainController extends AbstractScreenController
       // Check if a screen is being displayed.
       if (!getChildren().isEmpty())
       {
-         Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(Duration.millis(500), action ->
+         Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(Duration.millis(275), action ->
          {
             // Remove the displayed screen.
             getChildren().remove(0);
@@ -329,7 +329,7 @@ public class MainController extends AbstractScreenController
             // Display the passed screen.
             getChildren().add(0, screen);
             
-            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(400), new KeyValue(opacity, 1.0)));
+            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(225), new KeyValue(opacity, 1.0)));
             
             fadeIn.play();
          }, new KeyValue(opacity, 0.0))); 
@@ -344,7 +344,7 @@ public class MainController extends AbstractScreenController
          // There is nothing being displayed, just show the passed screen.
          getChildren().add(screen);
          
-         Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1250), new KeyValue(opacity, 1.0)));
+         Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1000), new KeyValue(opacity, 1.0)));
          
          fadeIn.play();
       }
