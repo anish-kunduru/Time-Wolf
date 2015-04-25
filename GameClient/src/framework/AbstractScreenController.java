@@ -18,7 +18,7 @@ import javafx.scene.layout.StackPane;
 public abstract class AbstractScreenController extends StackPane
 {
    // Destroyable will allow us to gracefully shut down dependencies and threading operations a screen may need to create.
-   private Destroyable destroyableController;
+   protected Destroyable destroyableController;
 
    /**
     * Load a screen by calling this method (to be used by the calling class that extends this).
