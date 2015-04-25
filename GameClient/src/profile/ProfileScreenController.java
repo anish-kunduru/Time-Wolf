@@ -9,12 +9,19 @@ package profile;
 import profile.KarmaRow;
 import profile.RecentGameStatsRow;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.Users.Feedback;
+import GameServer.Users.LogIn;
 import GameServer.Users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +34,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import singleton.MainModel;
@@ -116,6 +124,7 @@ public class ProfileScreenController implements ControlledScreen
 
    private User user;
 
+   private LogIn login;
    /**
     * Initializes the controller class. Automatically called after the FXML file has been loaded.
     */
@@ -123,6 +132,18 @@ public class ProfileScreenController implements ControlledScreen
    public void initialize()
    {
 
+       try {
+		login = (LogIn) Naming.lookup("//localhost/auth");
+	} catch (MalformedURLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} catch (RemoteException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	} catch (NotBoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
       if (MainModel.getModel().profileData().getRedirectToClicked() == true)
       {
          String username = MainModel.getModel().profileData().getClickedUsername();
@@ -159,8 +180,25 @@ public class ProfileScreenController implements ControlledScreen
       {
          if (MainModel.getModel().currentLoginData().getUsername() != null)
          {
-            // TO-DO: Get image from database and set it.
             String username = MainModel.getModel().currentLoginData().getUsername();
+            try {
+				if (login == null) {
+					login = (LogIn) Naming.lookup("//localhost/auth");
+				}
+				User u = login.getUser(username);
+				byte[] imgBytes = u.getImageBytes();
+				if (imgBytes != null) {
+					InputStream is = new ByteArrayInputStream(imgBytes);
+					Image img = new Image(is);
+					profileImage.setImage(img);
+				} else {
+					profileImage.setImage(null);
+				}
+			} catch (Exception e) {
+				System.out
+						.println("Image could not be loaded for selected user.");
+				e.printStackTrace();
+			}
             try
             {
                // Get user.
