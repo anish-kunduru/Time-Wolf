@@ -82,6 +82,7 @@ public class LoginScreenController implements ControlledScreen
             MainModel.getModel().currentLoginData().setUsername(usernameTextField.getText());
             MainModel.getModel().currentLoginData().setUserID(user.getID());
             MainModel.getModel().currentLoginData().setIsAdmin(user.isAdmin());
+            MainModel.getModel().currentLoginData().setIsModerator(user.isModerator());
 
             // Go to the next screen.
             parentController.goToGameLobbyScreen();

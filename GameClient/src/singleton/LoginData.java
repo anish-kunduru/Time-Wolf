@@ -14,7 +14,7 @@ public class LoginData
    // User information.
    private String usernameString;
    private int userID;
-   private boolean isAdmin;
+   private boolean isAdmin, isModerator;
 
    // Login connection.
    private LogIn logInConnection;
@@ -54,6 +54,24 @@ public class LoginData
    public void setIsAdmin(boolean isAdmin)
    {
       this.isAdmin = isAdmin;
+   }
+   
+   /**
+    * Sets if the user is a moderator or not.
+    * 
+    * @param isModerator True if the user is a moderator, false if he isn't.
+    */
+   public void setIsModerator(boolean isModerator)
+   {
+      this.isModerator = isModerator;
+   }
+   
+   /**
+    * @return True if the user is an admin, false if he isn't.
+    */
+   public boolean getIsModerator()
+   {
+      return isModerator;
    }
 
    /**
