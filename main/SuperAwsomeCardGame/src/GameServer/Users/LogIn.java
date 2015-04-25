@@ -41,8 +41,6 @@ public class LogIn implements Remote, Serializable {
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
 
-			if (u.isBanned())
-				throw new Exception("This user is banned.");
 
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
@@ -130,9 +128,6 @@ public class LogIn implements Remote, Serializable {
 			int bannedBit = rs.getInt("IsBanned");
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
-
-			if (u.isBanned())
-				throw new Exception("This user is banned.");
 
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
