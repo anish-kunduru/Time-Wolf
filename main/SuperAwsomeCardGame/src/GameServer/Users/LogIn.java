@@ -401,9 +401,41 @@ public class LogIn implements Remote, Serializable {
 		dbh.executeUpdate(query);
 	}
 
-	public ArrayList<Report> getReports()
+	/**
+	 * Deletes the report row from the database
+	 * @param id - report id to be deleted from database
+	 * @throws SQLException
+	 */
+	public void deleteReport(int id) throws SQLException
+	{
+		DBHelper dbh = new DBHelper();
+		Connection conn = dbh.getConnection();
+		String query = "DELETE FROM Reports WHERE ID = ?";
+		java.sql.PreparedStatement prepStmt = conn.prepareStatement(query);
+		prepStmt.setInt(1, id);
+		prepStmt.execute();
+		conn.close();
+	}
+	
+	
+	/**
+	 * Creates a list of all reports in database
+	 * @return list of all reports
+	 * @throws SQLException
+	 */
+	public ArrayList<Report> getReports() throws SQLException
 	{
 		ArrayList<Report> report = new ArrayList<Report>();
+		DBHelper dbh = new DBHelper();
+		String query = "SELECT * FROM Reports";
+		ResultSet rs = dbh.executeQuery(query);
+		
+		while(rs.next())
+		{
+			int id = rs.getInt("ID");
+			String log = rs.getString("LogText");
+			report.add(new Report(id, log));
+		}
 		
 		return report;
 	}
