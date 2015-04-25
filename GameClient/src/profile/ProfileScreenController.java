@@ -421,7 +421,7 @@ public class ProfileScreenController implements ControlledScreen {
 		currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
 		currentRow.gamesWon.set(user.Statistics.getGamesWon());
 		currentRow.winLossRatio.set(DF.format(user.Statistics.getWinLossRatio()));
-		currentRow.totalPoints.set(user.Statistics.getTotalPoints());
+		currentRow.totalPoints.set((int)user.Statistics.getTotalPoints());
 		currentRow.avgPoints.set((int)user.Statistics.getAveragePoints());
 		currentRow.karma.set(user.Statistics.getKarma());
 
