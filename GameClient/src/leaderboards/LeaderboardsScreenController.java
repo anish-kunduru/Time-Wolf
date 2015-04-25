@@ -75,7 +75,7 @@ public class LeaderboardsScreenController implements ControlledScreen
          users = MainModel.getModel().currentLoginData().getLogInConnection().getLeaderboard();
          int count = 1;
 
-         for (int i = users.size() - 1; i >= 0; i--)
+         for (int i = 0; i < users.size(); i++)
          {
             User user = users.get(i);
             LeaderboardRow currentRow = new LeaderboardRow();
