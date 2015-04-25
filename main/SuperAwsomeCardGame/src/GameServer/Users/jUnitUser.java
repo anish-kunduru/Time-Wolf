@@ -11,21 +11,22 @@ public class jUnitUser {
 	private User userTwo;
 	private User userThree;
 	private User userFour;
+	private LogIn login;
 
 	@Before
 	public void setUp() throws Exception {
 		
 		userOne = new User();
-		userOne = LogIn.logIn("ssimmons", "password");
+		userOne = login.logIn("ssimmons", "password");
 		
 		userTwo = new User();
-		userTwo = LogIn.logIn("test2", "testpw");
+		userTwo = login.logIn("test2", "testpw");
 		
 		userThree = new User();
-		userThree = LogIn.logIn("test3", "test34");
+		userThree = login.logIn("test3", "test34");
 		
 		userFour = new User();
-		userFour = LogIn.logIn("test1", "testpw");
+		userFour = login.logIn("test1", "testpw");
 	}
 
 	@Test
@@ -81,13 +82,13 @@ public class jUnitUser {
 	@Test
 	public void Ban() throws Exception {
 		userThree.setBannedStatus(true);
-		LogIn.save(userThree);
+		login.save(userThree);
 		assertEquals(true, userThree.isBanned());
 	}
 	
 	@Test
 	public void resetPassword() throws Exception {
-		LogIn.resetPassword("test3", "test34");
+		login.resetPassword("test3", "test34");
 		assertEquals("test34", userThree.getPassword());
 	}
 	

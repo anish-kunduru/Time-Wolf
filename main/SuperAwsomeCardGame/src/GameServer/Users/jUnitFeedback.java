@@ -12,21 +12,22 @@ public class jUnitFeedback {
 	
 	private User userOne;
 	private User userTwo;
+	private LogIn login;
 	
 	@Before
 	public void setUp() throws Exception {
 		userOne = new User();
-		userOne = LogIn.logIn("ssimmons", "password");
+		userOne = login.logIn("ssimmons", "password");
 		
 		userTwo = new User();
-		userTwo = LogIn.logIn("test1", "testpw");
+		userTwo = login.logIn("test1", "testpw");
 	}
 
 	@Test
 	public void leaveFeedback() throws RemoteException, Exception {
 		int currSize = userOne.Feedback.size();
-		LogIn.insertFeedback(userOne.getID(), userTwo.getID(), true, "She is the greatest");
-		LogIn.getLiveUpdate(userOne);
+		login.insertFeedback(userOne.getID(), userTwo.getID(), true, "She is the greatest");
+		login.getLiveUpdate(userOne);
 		assertEquals(currSize + 1, userOne.Feedback.size());
 	}
 	
