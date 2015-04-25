@@ -8,11 +8,11 @@ public class LeaderboardRow {
 
 	public SimpleIntegerProperty rank = new SimpleIntegerProperty();
 	public SimpleStringProperty username = new SimpleStringProperty();
-	public SimpleDoubleProperty totalPoints = new SimpleDoubleProperty();
-	public SimpleDoubleProperty avgPoints = new SimpleDoubleProperty();
+	public SimpleIntegerProperty totalPoints = new SimpleIntegerProperty();
+	public SimpleIntegerProperty avgPoints = new SimpleIntegerProperty();
 	public SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
 	public SimpleIntegerProperty gamesWon = new SimpleIntegerProperty();
-	public SimpleDoubleProperty ratio = new SimpleDoubleProperty();
+	public SimpleStringProperty ratio = new SimpleStringProperty();
 	public SimpleDoubleProperty karma = new SimpleDoubleProperty();
 	
 	public int getRank(){
@@ -23,11 +23,11 @@ public class LeaderboardRow {
 		return username.get();
 	}
 	
-	public Double getTotalPoints(){
+	public Integer getTotalPoints(){
 		return totalPoints.get();
 	}
 	
-	public Double getAvgPoints(){
+	public Integer getAvgPoints(){
 		return avgPoints.get();
 	}
 	
@@ -39,7 +39,7 @@ public class LeaderboardRow {
 		return gamesWon.get();
 	}
 	
-	public double getRatio(){
+	public String getRatio(){
 		return ratio.get();
 	}
 	

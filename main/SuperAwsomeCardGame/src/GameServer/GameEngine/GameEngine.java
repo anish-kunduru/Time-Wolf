@@ -22,6 +22,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	private int totalNumOfPlayers;
 	private int currentNumOfPlayers;
 	private int currentPlayerIndex = 0;
+	private int id = 0;
 	
 	private String rmiRegistryName;
 	private String name;
@@ -40,13 +41,14 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 	
 
-	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) throws RemoteException {
+	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck, int id) throws RemoteException {
 		super();
 		
 		//Create the array of players and initialize info about the number of players.
 		this.totalNumOfPlayers = numOfPlayers;
 		this.currentNumOfPlayers = 0;
 		this.players = new ArrayList<Player>();
+		this.id = id;
 		
 		this.mainDeck = (Deck) mainDeck.clone();
 		this.startingDeck = startingDeck;
@@ -56,6 +58,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		for(int i = 0; i < 5; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw());
 		
 		
+	}
+	
+	public int getID(){
+		return id;
 	}
 	
 	/**

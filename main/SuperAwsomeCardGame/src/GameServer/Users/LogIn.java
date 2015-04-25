@@ -318,6 +318,32 @@ public class LogIn implements Remote, Serializable {
 	}
 
 	/**
+	 * Update picture
+	 * @throws Exception 
+	 */
+	public void updateImage(String username, File picture) throws Exception
+	{
+		if (picture != null) {
+			try {
+				DBHelper dbh = new DBHelper();
+				Connection conn = dbh.getConnection();
+				conn.setAutoCommit(false);
+				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
+				FileInputStream fis = new FileInputStream(picture);
+				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
+				ps.setBinaryStream(1, fis, (int)picture.length());
+				ps.setString(2, username);
+				ps.executeUpdate();
+				conn.commit();
+				
+				
+			} catch (Exception ex) {
+				throw new Exception("Image save failed!");
+			}
+		}
+	}
+	
+	/**
 	 * Registers the current user by username, email, and password
 	 * 
 	 * @param username
@@ -342,23 +368,7 @@ public class LogIn implements Remote, Serializable {
 			query = " SELECT * FROM User WHERE Username='" + username + "'";
 			ResultSet rs = dbh.executeQuery(query);
 			if (rs.first()) {
-				if (picture != null) {
-					try {
-						Connection conn = dbh.getConnection();
-						conn.setAutoCommit(false);
-						String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
-						FileInputStream fis = new FileInputStream(picture);
-						java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
-						ps.setBinaryStream(1, fis, (int)picture.length());
-						ps.setString(2, username);
-						ps.executeUpdate();
-						conn.commit();
-						
-						
-					} catch (Exception ex) {
-						throw new Exception("Image save failed!");
-					}
-				}
+				updateImage(username, picture);
 				u.setID(rs.getInt("ID"));
 				u.setUsername(username);
 				u.setEmail(rs.getString("Email"));
@@ -446,11 +456,11 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception 
 	 */
 	public void save(User u) throws Exception {
+		
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
 		query += ",Email='" + u.getEmail() + "'";
-		query += ",Password='" + u.getPassword() + "'";
 		query += ",ImagePath='" + u.getImagePath() + "'";
 		int bit = 0;
 		if (u.isBanned())

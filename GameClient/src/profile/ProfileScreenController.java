@@ -10,6 +10,7 @@ import profile.KarmaRow;
 import profile.RecentGameStatsRow;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -37,6 +38,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import singleton.MainModel;
 import userListing.UserRow;
 import view.MainController;
@@ -78,6 +80,8 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	private ImageView profileImage;
 
+	private File profileImageFile;
+	
 	@FXML
 	private Label usernameLabel;
 	@FXML
@@ -93,6 +97,10 @@ public class ProfileScreenController implements ControlledScreen {
 	private Button changeSettingsButton;
 	@FXML
 	private Button changePasswordButton;
+	@FXML
+	private Button removeImage;
+	@FXML
+	private Button browseButton;
 
 	@FXML
 	private TextField usernameTextField;
@@ -158,6 +166,8 @@ public class ProfileScreenController implements ControlledScreen {
 			changePasswordLabel.setVisible(false);
 			passwordLabel.setVisible(false);
 			checkPasswordLabel.setVisible(false);
+			removeImage.setVisible(false);
+			browseButton.setVisible(false);
 
 			try {
 				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
@@ -222,6 +232,35 @@ public class ProfileScreenController implements ControlledScreen {
 						else
 							paranoiaChoiceBox.setText("Off");
 					});
+					
+					removeImage.setOnAction(event ->{
+						login.removeAvatar(username);
+						profileImage.setImage(null);
+					});
+					
+					browseButton.setOnAction(event ->{
+						// Initialize and setup fileChooser.
+				         FileChooser fileChooser = new FileChooser();
+				         fileChooser.setTitle("Open Profile Picture");
+
+				         // Get the file from the fileChooser.
+				         profileImageFile = fileChooser.showOpenDialog(MainModel.getModel().currentMainData().getMainStage());
+
+				         // So we don't throw an exception.
+				         if (profileImageFile != null)
+				         {
+				            // Check if it is a supported image format.
+				            if (isValidImage(profileImageFile))
+				            {
+				               // Set the image.
+				               Image img = new Image("file:/" + profileImageFile.getAbsolutePath());
+
+				               profileImage.setImage(img);
+				            }
+				            else
+				               errorLabel.setText("Not a supported image format. Please upload a valid BMP, JPEG, PNG, or GIF.");
+				         }
+					});
 
 					changeSettingsButton.setOnAction(event -> {
 
@@ -256,6 +295,7 @@ public class ProfileScreenController implements ControlledScreen {
 
 						try {
 							MainModel.getModel().currentLoginData().getLogInConnection().updateSettings(user);
+							MainModel.getModel().currentLoginData().getLogInConnection().updateImage(username, profileImageFile);
 							errorLabel.setText("Settings update was successful.");
 						} catch (Exception e) {
 							errorLabel.setText("Settings update was unsuccessful.");
@@ -394,4 +434,30 @@ public class ProfileScreenController implements ControlledScreen {
 	public void setScreenParent(AbstractScreenController screenParent) {
 		parentController = (MainController) screenParent;
 	}
+	private boolean isValidImage(File file)
+	   {
+	      String fileName = file.getName();
+	      String fileExtension = "";
+
+	      // Loop over fileName in reverse order.
+	      for (int index = (fileName.length() - 1); index > 0; index--)
+	      {
+	         // Tack on index to beginning.
+	         fileExtension = fileName.charAt(index) + fileExtension;
+
+	         // Found it!
+	         if (fileExtension.charAt(0) == '.')
+	            break; // ////////////////////////////////////////////////////////////////////////////////
+	      }
+
+	      // Check if BMP, JPEG, PNG, or GIF.
+	      if (fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".bmp") || fileExtension.equalsIgnoreCase(".gif")
+	          || fileExtension.equalsIgnoreCase(".jpeg") || fileExtension.equalsIgnoreCase(".jpg"))
+	      {
+	         return true;
+	      }
+
+	      // Implied else
+	      return false;
+	   }
 }

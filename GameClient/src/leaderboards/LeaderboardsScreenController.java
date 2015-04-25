@@ -7,6 +7,8 @@
 package leaderboards;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import framework.AbstractScreenController;
@@ -77,15 +79,16 @@ public class LeaderboardsScreenController implements ControlledScreen
 
          for (int i = 0; i < users.size(); i++)
          {
+        	DecimalFormat df = new DecimalFormat("#0.00");
             User user = users.get(i);
             LeaderboardRow currentRow = new LeaderboardRow();
             currentRow.rank.set(count++);
             currentRow.username.set(user.getUsername());
             currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
             currentRow.gamesWon.set(user.Statistics.getGamesWon());
-            currentRow.ratio.set(user.Statistics.getWinLossRatio());
-            currentRow.totalPoints.set(user.Statistics.getTotalPoints());
-            currentRow.avgPoints.set(user.Statistics.getAveragePoints());
+            currentRow.ratio.set(df.format(user.Statistics.getWinLossRatio()));
+            currentRow.totalPoints.set((int)user.Statistics.getTotalPoints());
+            currentRow.avgPoints.set((int) user.Statistics.getAveragePoints());
             currentRow.karma.set(user.Statistics.getKarma());
 
             tableData.add(currentRow);

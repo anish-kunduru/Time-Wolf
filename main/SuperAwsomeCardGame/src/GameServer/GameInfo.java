@@ -17,6 +17,7 @@ public class GameInfo implements Serializable
    private boolean chat;
    private boolean privacy;
    private ArrayList<String> players;
+   private int id;
    
    /**
     * Constructor creates a new GameInfo object.
@@ -25,13 +26,21 @@ public class GameInfo implements Serializable
     * @param numPlayers The number of players in the game.
     * @param players An ArrayList<String> of the username of players in the game.
     */
-   public GameInfo(String name, int numPlayers, ArrayList<String> players)
+   public GameInfo(String name, int numPlayers, ArrayList<String> players, int id)
    {
       this.name = name;
       this.numPlayers = numPlayers;
       // this.chat = chat;
       // this.privacy = privacy;
       this.players = players;
+      this.id = id;
+   }
+   
+   /**
+    * @return the id of the game engine
+    */
+   public int getID(){
+	   return id;
    }
    
    /**
