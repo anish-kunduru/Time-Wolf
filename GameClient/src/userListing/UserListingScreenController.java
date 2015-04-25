@@ -144,7 +144,7 @@ public class UserListingScreenController implements ControlledScreen {
 			currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
 			currentEntry.isBanned.set(currentUser.isBanned()); // Set banned.
 
-			currentEntry.bannedReason.set("bannedReason");
+			currentEntry.bannedReason.set(currentUser.getBannedReason());
 
 			// Set role.
 			if (currentUser.isAdmin())
