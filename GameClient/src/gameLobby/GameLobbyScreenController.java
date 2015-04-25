@@ -10,10 +10,13 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import com.sun.media.jfxmediaimpl.MediaDisposer.Disposable;
+
 import chat.Chat;
 import chat.ChatLogBinding;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
+import framework.Destroyable;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
 import GameServer.Users.User;
@@ -34,7 +37,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GameLobbyScreenController implements ControlledScreen
+public class GameLobbyScreenController implements ControlledScreen, Destroyable
 {
    // FXML Components
 
@@ -274,5 +277,18 @@ public class GameLobbyScreenController implements ControlledScreen
    public void setScreenParent(AbstractScreenController screenParent)
    {
       parentController = (MainController) screenParent;
+   }
+
+   /**
+    * This method will allow us to safely close thread elements when we are ready to leave the page.
+    */
+   @Override
+   public void onDestroy()
+   {
+      // DEBUG
+      System.out.println("Destroying the game lobby screen...");
+      
+      // Close out chat.
+      chat.end();
    }
 }

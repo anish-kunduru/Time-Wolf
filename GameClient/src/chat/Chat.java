@@ -15,17 +15,18 @@ import GameServer.ChatMessage;
 
 public class Chat
 {
-   private Socket socket; // What we will listen on.
+   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+   public final String SERVER_ADDRESS = "localhost";
+   public final int SERVER_PORT = 1444;
+   
+   // What we will listen on.
+   private Socket socket;
 
    // For our ChatMessage objects.
    private ObjectInputStream input;
    private ObjectOutputStream output;
 
    private ChatListener listener; // Listening thread waits for server message.
-
-   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
-   public final String SERVER_ADDRESS = "localhost";
-   public final int SERVER_PORT = 1444;
 
    /**
     * Constructor creates a new Chat object.
@@ -75,12 +76,13 @@ public class Chat
    }
 
    /**
-    * Closes out the I/O streams and sets the ChatListener run boolean to false by calling its end() method.
+    * Closes out the I/O streams, socket, and sets the ChatListener run boolean to false by calling its end() method.
     */
    private void close()
    {
       try
       {
+         socket.close();
          input.close();
          output.close();
       }
