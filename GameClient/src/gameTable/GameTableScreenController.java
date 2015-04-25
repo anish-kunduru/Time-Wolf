@@ -13,7 +13,9 @@ import java.util.Random;
 
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
+import singleton.MainModel;
 import view.MainController;
+import GameServer.IGameManagement;
 import GameServer.GameEngine.Action;
 import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
@@ -154,12 +156,21 @@ public class GameTableScreenController implements ControlledScreen, Client
    @FXML
    public void initialize() throws SQLException // NOTE FROM ANISH: YOU SHOULD HANDLE THE SQL EX RIGHT HERE, OTHERWISE IT'LL CRASH THE ENTIRE APP IF IT IS THROWN SINCE THIS IS CALLED VIA DI.
    {
-      // initRemoteObject();
-      /*
-       * try { IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game"); //gameManagement.addUserToGame(1, //
-       * MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), // this.remoteString); System.out.println("GO THROUGH THE JOIN."); }
-       * catch (Exception e) { // DEBUG System.out.println("Error initializing remote game management object."); e.printStackTrace(); }
-       */
+      initRemoteObject();
+      
+      try { 
+    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game"); 
+    	  gameManagement.addUserToGame(1,
+    			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
+    			  this.remoteString); 
+    	  System.out.println("GO THROUGH THE JOIN."); 
+      }
+      catch (Exception e) { 
+    	  // DEBUG System.out.println("Error initializing remote game management object."); 
+    	  e.printStackTrace(); 
+    	  
+      }
+      
       // Objects used for testing, will be provided by server in the future.
       /*
        * Deck starterDeck = new Deck(); starterDeck = Deck.getStarterDeck();
@@ -214,12 +225,19 @@ public class GameTableScreenController implements ControlledScreen, Client
       while (flag)
       {
          int id = rnd.nextInt();
-         FacadeClient thing = new FacadeClient();
-         thing.c = (Client) this;
+         Client thing = null;
+		try {
+			thing = (Client) new FacadeClient();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+         //thing.c = (Client) this;
          String path = "//localhost/client" + id;
          try
          {
             Naming.rebind(path, thing);
+            flag = false;
          }
          catch (RemoteException e)
          {
@@ -328,7 +346,7 @@ public class GameTableScreenController implements ControlledScreen, Client
 
    }
 
-   @Override
+   //@Override
    public void initializeTable(Hand playerHand, Hand gameTableHand, String[] playerNames)
    {
 
@@ -620,7 +638,7 @@ public class GameTableScreenController implements ControlledScreen, Client
       }
    }
 
-   @Override
+   //@Override
    public void determineAction(Action a)
    {
       if (a.getAction() == action.PLAY_CARD)

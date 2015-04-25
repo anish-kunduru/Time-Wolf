@@ -251,29 +251,29 @@ public class Player implements Client {
 	}
 
 
-	@Override
+	//@Override
 	public void determineAction(Action a) {
 		
 		if(this.client == null) throw new IllegalStateException();
 		
-		this.client.determineAction(a);
+		//this.client.determineAction(a);
 		
 	}
 
 
-	@Override
-	public void setGameEngine(String ge) {
+	//@Override
+	public void setGameEngine(String ge) throws RemoteException {
 		if(this.client == null) throw new IllegalStateException();
 		this.client.setGameEngine(ge);		
 	}
 
 
-	@Override
+	//@Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) {
 		if(this.client == null) throw new IllegalStateException();
 		System.out.println("initialize game table: Player.");
-		this.client.initializeTable(playerHand, gameTableHand, playerNames);
+		//this.client.initializeTable(playerHand, gameTableHand, playerNames);
 		
 	}
 	
