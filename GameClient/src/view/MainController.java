@@ -1,250 +1,150 @@
 /**
- * @author Anish Kunduru
- *
  * This is the controller of controllers.
- * It's job is to seamlessly manage handoffs between different FXML pages and their respective controllers.
+ * Its job is to seamlessly manage handoffs between deifferent FXML pages and their respective controllers.
+ * 
+ * We create this by simply implementing the AbstractScreenController we created earlier (easy enough).
  */
 
 package view;
 
-import java.util.HashMap;
-
-import framework.ControlledScreen;
+import singleton.MainModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import login.LoginScreenController;
+import framework.AbstractScreenController;
+import framework.ControlledScreen;
 
-public class MainController extends StackPane
+public class MainController extends AbstractScreenController
 {
-   // A hash map that contains all the screens.
-   private HashMap<String, Node> screens = new HashMap<>();
+// Constants that represent the screen names and locations in the workspace.
+   public static final String LOGIN_SCREEN = "login";
+   public static final String LOGIN_SCREEN_FXML = "/login/LoginScreen.fxml";
 
-   /**
-    * Implicit super() to StackPane.
-    */
-   public MainController()
-   {
-   }
+   public static final String FORGOT_PASSWORD_SCREEN = "forgotPassword";
+   public static final String FORGOT_PASSWORD_SCREEN_FXML = "/forgotPassword/ForgotPasswordScreen.fxml";
 
-   /**
-    * Adds the screen to the collection.
-    * 
-    * @param screenName The name of the screen.
-    * @param screen The screen to add to the collection
-    */
-   public void addScreen(String screenName, Node screen)
-   {
-      screens.put(screenName, screen);
-   }
+   public static final String REGISTRATION_SCREEN = "registration";
+   public static final String REGISTRATION_SCREEN_FXML = "/registration/RegistrationScreen.fxml";
 
-   /**
-    * Return the Node with the appropriate name.
-    * 
-    * @param screenName The screen ID that you wish to get.
-    * @return The Node with the screenName.
-    */
-   public Node getScreen(String screenName)
-   {
-      return screens.get(screenName);
-   }
+   public static final String GAME_LOBBY_SCREEN = "gameLobby";
+   public static final String GAME_LOBBY_SCREEN_FXML = "/gameLobby/GameLobbyScreen.fxml";
 
+   public static final String GAME_TABLE_SCREEN = "gameTable";
+   public static final String GAME_TABLE_SCREEN_FXML = "/gameTable/GameTableScreen.fxml";
+
+   public static final String CREATE_GAME_SCREEN = "createGame";
+   public static final String CREATE_GAME_SCREEN_FXML = "/createGame/CreateGameScreen.fxml";
+
+   public static final String SEARCH_GAME_SCREEN = "searchGame";
+   public static final String SEARCH_GAME_SCREEN_FXML = "/searchGame/SearchGameScreen.fxml";
+
+   public static final String GAME_RULES_SCREEN = "gameRules";
+   public static final String GAME_RULES_SCREEN_FXML = "/gameRules/GameRulesScreen.fxml";
+
+   public static final String USER_LISTING_SCREEN = "userListing";
+   public static final String USER_LISTING_SCREEN_FXML = "/userListing/UserListingScreen.fxml";
+
+   public static final String PROFILE_SCREEN = "profileScreen";
+   public static final String PROFILE_SCREEN_FXML = "/profile/ProfileScreen.fxml";
+
+   public static final String AFTER_GAME_SCREEN = "afterGameScreen";
+   public static final String AFTER_GAME_SCREEN_FXML = "/afterGame/AfterGameScreen.fxml";
+
+   public static final String LEADERBOARDS_SCREEN = "leaderboards";
+   public static final String LEADERBOARDS_SCREEN_FXML = "/leaderboards/LeaderboardsScreen.fxml";
+
+   
    /**
-    * Loads the appropriate FXML and add it to our internal list of screens.
-    * 
-    * @param screenName The name of the screen that will be used as a screen ID.
-    * @param screenLocation The location of the FXML file in the workspace.
-    * @return true if it was loaded, false if there was an error.
+    * Method so that we can dynamically load screens and go them at run time.
+    * A similar method will need to be created for each screen we create.
     */
-   public boolean loadScreen(String screenName, String screenLocation)
+   public void goToLoginScreen()
    {
       try
       {
-         // Get the FXML loader and load it.
-         FXMLLoader FXMLLoader = new FXMLLoader(getClass().getResource(screenLocation));
-         Parent loadScreen = (Parent) FXMLLoader.load();
-
-         // Get controller associated to the screen.
-         ControlledScreen screenController = ((ControlledScreen) FXMLLoader.getController());
-
-         // Set the parent for the screen.
-         screenController.setScreenParent(this);
-
-         // Add the screen to our hash map.
-         addScreen(screenName, loadScreen);
-
-         return true;
+         LoginScreenController loginController = (LoginScreenController) loadScreen("/login/LoginScreen.fxml");
+         MainModel.getModel().currentControllerData().setCurrentController(LOGIN);
+         MainModel.getModel().currentControllerData().setLoginScreenController(loginController);
       }
       catch (Exception e)
       {
          // DEBUG
-         System.out.println("Error loading the screen: " + e.getMessage() + "\n");
-         System.out.println("This error typically means that you are manipulating state data that hasn't been properly defined. Things to check:");
-         System.out.println("    - Are the FXML components you reference properly defined (use the right import)?");
-         System.out.println("    - Check the logic in initialize(). Realize that it is injected directly on load of the FXML and that because of this controller's design, this happens directly on program lanuch.");
-         System.out.println("    - Are you trying to load something indirectly or directly in initialize() that is null?");
-         System.out.println("    - Are you trying to access something from the singleton that is created by another page after program launch? You will need to reload this screen before calling it.");
-         System.out.println("    - Did you use the correct name and location for the FXML file in the MainView definition?");
-         System.out.println("    - Is the FXML linked to the controller?\n");
+         System.out.println("Epic fail trying to load login.\n" + e.getMessage());
          e.printStackTrace();
-
-         return false;
       }
    }
-
-   /**
-    * Removes the appropriate screen and its associated FXML from the hash map. Can be used in conjunction with loadScreen to reload and seamlessly reinitialize
-    * a screen.
-    * 
-    * @param screenName The name of the screen (screen ID) that the screen is known by.
-    * @return true if it was unloaded, false if the screen was never loaded.
-    */
-   public boolean unloadScreen(String screenName)
+   
+   public void goToGameBoardScreen()
    {
-      // Check if screen is loaded.
-      if (screens.remove(screenName) == null)
+      try
       {
-         System.out.println("Screen didn't exist");
-         return false;
+         GameBoardScreenController boardController = (GameBoardScreenController) loadScreen("/gameBoard/GameBoardScreen.fxml");
+         MainModel.getModel().currentControllerData().setCurrentController(GAME_BOARD);
+         MainModel.getModel().currentControllerData().setGameBoardScreenController(boardController);
       }
-      else
-         return true;
-   }
-
-   /**
-    * Reloads the screen by calling unloadScreen() and loadScreen() subsequently.
-    * 
-    * @param screenName The name of the screen (screen ID) that the screen is known by.
-    * @param screenLocation The location of the FXML file in the workspace.
-    * @return true if it was reloaded, false if there was an error.
-    */
-   public boolean reloadScreen(String screenName, String screenLocation)
-   {
-      if (unloadScreen(screenName) & loadScreen(screenName, screenLocation))
-         return true;
-
-      // Implied else.
-      return false;
-   }
-
-   /**
-    * Display the screen with a predefined name by adding it to the root of the StackPane.
-    * 
-    * @param stringName The name of the screen (screen ID) that the screen is known by.
-    * @return true is the screen is being displayed, false if hasn't been loaded yet.
-    */
-   public boolean displayScreen(final String screenName)
-   {
-      // Check if screen is loaded.
-      if (screens.get(screenName) != null)
+      catch (Exception e)
       {
-         final DoubleProperty opacity = opacityProperty(); // For transition effects.
-
-         // Check if a screen is being displayed.
-         if (!getChildren().isEmpty())
+         // DEBUG
+         System.out.println("Error trying to load the game controller.");
+         e.printStackTrace();
+      }
+   }
+   
+   /**
+    * Make sure the current page gets to destroy its elements if it has something to destroy.
+    * This will be called by the main application Stage.
+    */
+   public void closeApplication()
+   {
+      if (destroyableController != null)
+         destroyableController.onDestroy();
+   }
+   
+   /**
+    * Replaces the page.
+    * We will override this when we extend this class because we are fancy and want style (animations).
+    * 
+    * @param loadScreen The page that you wish to display.
+    */
+   @Override
+   protected void displayPage(final Parent screen)
+   {
+      // For transition effects.
+      final DoubleProperty opacity = opacityProperty();
+      
+      // Check if a screen is being displayed.
+      if (!getChildren().isEmpty())
+      {
+         Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(Duration.millis(500), action ->
          {
-            Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                                         new KeyFrame(Duration.millis(500), action ->
-                                         {
-                                            // Remove the displayed screen.
-                                                      getChildren().remove(0);
+            // Remove the displayed screen.
+            getChildren().remove(0);
 
-                                                      // Display the screenName.
-                                                      getChildren().add(0, screens.get(screenName));
-
-                                                      Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                                                                     new KeyFrame(Duration.millis(400), new KeyValue(opacity, 1.0)));
-
-                                                      fadeIn.play();
-                                                   }, new KeyValue(opacity, 0.0)));
-
-            fade.play();
-
-         }
-         else
-         {
-            setOpacity(0.0);
-
-            // There is nothing being displayed, just show screenName.
-            getChildren().add(screens.get(screenName));
-
-            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1250), new KeyValue(opacity,
-                                                                                                                                                     1.0)));
-
+            // Display the passed screen.
+            getChildren().add(0, screen);
+            
+            Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(400), new KeyValue(opacity, 1.0)));
+            
             fadeIn.play();
-         }
-
-         return true;
+         }, new KeyValue(opacity, 0.0))); 
+         
+         fade.play();
+         
       }
       else
       {
-         System.out.println("The screen hasn't been loaded yet!");
-
-         return false;
+         setOpacity(0.0);
+         
+         // There is nothing being displayed, just show the passed screen.
+         getChildren().add(screen);
+         
+         Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1250), new KeyValue(opacity, 1.0)));
+         
+         fadeIn.play();
       }
    }
 }
-
-/*
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * /** This is the controller of controllers. Its job is to seamlessly manage handoffs between deifferent FXML pages and their respective controllers.
- * 
- * We create this by simply implementing the AbstractScreenController we created earlier (easy enough).
- * 
- * 
- * package view;
- * 
- * import javafx.animation.KeyFrame; import javafx.animation.KeyValue; import javafx.animation.Timeline; import javafx.beans.property.DoubleProperty; import
- * javafx.scene.Parent; import javafx.util.Duration; import login.LoginScreenController; import framework.AbstractScreenController; import
- * gameBoard.GameBoardScreenController;
- * 
- * public class MainController extends AbstractScreenController { /** Method so that we can dynamically load screens and go them at run time. A similar method
- * will need to be created for each screen we create.
- * 
- * public void goToLoginScreen() { try { LoginScreenController loginController = (LoginScreenController) loadScreen("/login/LoginScreen.fxml"); } catch
- * (Exception e) { // DEBUG System.out.println("Epic fail trying to load login.\n" + e.getMessage()); e.printStackTrace(); } }
- * 
- * /** Replaces the page. We will override this when we extend this class because we are fancy and want style (animations).
- * 
- * @param loadScreen The page that you wish to display.
- * 
- * @Override protected void displayPage(final Parent screen) { // For transition effects. final DoubleProperty opacity = opacityProperty();
- * 
- * // Check if a screen is being displayed. if (!getChildren().isEmpty()) { Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity,
- * 1.0)), new KeyFrame(Duration.millis(500), action -> { // Remove the displayed screen. getChildren().remove(0);
- * 
- * // Display the passed screen. getChildren().add(0, screen);
- * 
- * Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(400), new KeyValue(opacity, 1.0)));
- * 
- * fadeIn.play(); }, new KeyValue(opacity, 0.0)));
- * 
- * fade.play();
- * 
- * } else { setOpacity(0.0);
- * 
- * // There is nothing being displayed, just show the passed screen. getChildren().add(screen);
- * 
- * Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(Duration.millis(1250), new KeyValue(opacity, 1.0)));
- * 
- * fadeIn.play(); } } }
- */
