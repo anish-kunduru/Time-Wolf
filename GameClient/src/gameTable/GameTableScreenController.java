@@ -21,7 +21,7 @@ import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
-import GameServer.GameEngine.GameEngine;
+import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -143,7 +143,7 @@ public class GameTableScreenController implements ControlledScreen, Client
    private int counter;
 
    private String remoteString;
-   private GameEngine gameEngine;
+   private GameEngineRemote gameEngine;
 
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -172,15 +172,14 @@ public class GameTableScreenController implements ControlledScreen, Client
       }
       
       // Objects used for testing, will be provided by server in the future.
-      /*
-       * Deck starterDeck = new Deck(); starterDeck = Deck.getStarterDeck();
-       * 
-       * Deck mainDeck = new Deck(); mainDeck = Deck.getMainDeck();
-       * 
-       * Hand playerHand = new Hand(5); Hand tableHand = new Hand(5);
-       * 
-       * starterDeck.draw(playerHand); mainDeck.draw(tableHand); String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
-       */
+     
+     Deck starterDeck = new Deck(); starterDeck = Deck.getStarterDeck();
+      
+      Deck mainDeck = new Deck(); mainDeck = Deck.getMainDeck();
+      
+      Hand playerHand = new Hand(5); Hand tableHand = new Hand(5);
+      
+      starterDeck.draw(playerHand); mainDeck.draw(tableHand); String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
       attack = 5;
       stealth = 5;
       isTurn = true;
@@ -200,16 +199,16 @@ public class GameTableScreenController implements ControlledScreen, Client
       // Initializes the game table when page is opened. This includes
       // adding effects as well as populating fields.
       // Temp disable due to implementing things
-      // initializeTable(playerHand, tableHand, playerNames);
+      initializeTable(playerHand, tableHand, playerNames);
 
       // Handles ending the turn on button clicked
       endTurn();
 
       // Handles action when a main table card is clicked
-      // onTableCardClicked(mainDeck, stealth, attack);
+      onTableCardClicked(mainDeck, stealth, attack);
 
       // Handles actions when a player's hand card is clicked
-      // onPlayerCardClicked();
+      onPlayerCardClicked();
 
       // Demo for discard state
       /*
@@ -755,8 +754,9 @@ public class GameTableScreenController implements ControlledScreen, Client
       {
          try
          {
-            //this.gameEngine = (GameEngine) Naming.lookup(ge);
-        	 System.out.println(((Naming.lookup(ge))).getClass().toString());
+        	 System.out.println("GameEngine Registry Name: " + ge);
+            this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
+        	System.out.println(((Naming.lookup(ge))).getClass().toString());
             break;
          }
          catch (MalformedURLException | RemoteException | NotBoundException e)

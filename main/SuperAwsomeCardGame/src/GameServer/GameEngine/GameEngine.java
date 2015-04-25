@@ -15,7 +15,7 @@ import java.util.Iterator;
 import GameServer.Users.User;
 
 
-public class GameEngine extends UnicastRemoteObject implements Runnable, Remote {
+public class GameEngine extends UnicastRemoteObject implements Runnable, GameEngineRemote {
 	
 	
 	private ArrayList<Player> players;
@@ -41,7 +41,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	
 
 	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck) throws RemoteException {
-		super();
+
 		
 		//Create the array of players and initialize info about the number of players.
 		this.totalNumOfPlayers = numOfPlayers;
@@ -122,10 +122,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	}
 
 	
-	/**
-	 * Get the name of the game.
-	 * @return the name of the game
-	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -152,35 +149,35 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	}
 
 	
-	/**
-	 * Is the game full?
-	 * @return true if full
+	/* (non-Javadoc)
+	 * @see GameServer.GameEngine.GameEngineRemote#isFull()
 	 */
+	@Override
 	public boolean isFull() {
 		return this.currentNumOfPlayers == this.totalNumOfPlayers;
 	}
 	
 	
-	/**
-	 * Is the game running?
-	 * @return true if game is running
+	/* (non-Javadoc)
+	 * @see GameServer.GameEngine.GameEngineRemote#isRunning()
 	 */
+	@Override
 	public boolean isRunning() {
 		return isRunning;
 	}
 
-	/**
-	 * Is the game finished?
-	 * @return true if the game is finished
+	/* (non-Javadoc)
+	 * @see GameServer.GameEngine.GameEngineRemote#isFinished()
 	 */
+	@Override
 	public boolean isFinished() {
 		return isFinished;
 	}
 
-	/**
-	 * Has the game started?
-	 * @return true if the game started
+	/* (non-Javadoc)
+	 * @see GameServer.GameEngine.GameEngineRemote#hasStarted()
 	 */
+	@Override
 	public boolean hasStarted() {
 		return isRunning || isFinished;
 	}
