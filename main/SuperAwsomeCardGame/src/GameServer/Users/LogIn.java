@@ -634,13 +634,16 @@ public class LogIn implements Remote, Serializable {
 		
 		ArrayList<User> users = new ArrayList<User>();
 		DBHelper dbh = new DBHelper();
-		String query = "SELECT ID FROM Statistics ORDER BY TotalPoints desc";
+		String query = "SELECT UserID FROM Statistics ORDER BY TotalPoints desc";
 		ResultSet rs = dbh.executeQuery(query);
 		ArrayList<Integer> userIDs = new ArrayList<Integer>();
 
 		while (rs.next()) {
-			userIDs.add(rs.getInt("ID"));
+			userIDs.add(rs.getInt("UserID"));
 		}
+		
+		System.out.println(userIDs.get(0));
+		System.out.println(userIDs.get(1));
 		
 		for(int i = 0; i < userIDs.size(); i++){
 			String username = getUsername(userIDs.get(i));
