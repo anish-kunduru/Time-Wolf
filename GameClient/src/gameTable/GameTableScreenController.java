@@ -172,23 +172,12 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
    {
       initRemoteObject();
       
-      try { 
-    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
-    	  gameManagement.addUserToGame(1,
-    			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
-    			  this.remoteString); 
-    	  System.out.println("GO THROUGH THE JOIN."); 
-      }
-      catch (Exception e) { 
-    	  // DEBUG System.out.println("Error initializing remote game management object."); 
-    	  e.printStackTrace(); 
-      }
+      
 
       // Create a new Chat.
       String currentPlayer = MainModel.getModel().currentLoginData().getUsername();
       int chatRoomID = 2; // WE NEED TO GET THE UNIQUE ID FROM THE SERVER...
-      chat = new Chat(false, currentPlayer, chatRoomID);
+      //chat = new Chat(false, currentPlayer, chatRoomID);
       
       chatMessageTextField.setOnKeyReleased(new EventHandler<KeyEvent>()
       {
@@ -245,6 +234,20 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
        * Card c = new Card("Overhaul"); Hand h = new Hand(3); h.addCard(starterDeck.draw()); h.addCard(starterDeck.draw()); h.addCard(starterDeck.draw());
        * Action a = new Action(7, 1, c, h); determineAction(a);
        */
+      
+       
+      try { 
+    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
+    	  gameManagement.addUserToGame(1,
+    			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
+    			  this.remoteString); 
+    	  System.out.println("GO THROUGH THE JOIN."); 
+      }
+      catch (Exception e) { 
+    	  // DEBUG System.out.println("Error initializing remote game management object."); 
+    	  e.printStackTrace(); 
+      }
    }
 
    private void initRemoteObject()
