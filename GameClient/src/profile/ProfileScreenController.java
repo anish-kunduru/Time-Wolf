@@ -167,6 +167,7 @@ public class ProfileScreenController implements ControlledScreen {
 			passwordLabel.setVisible(false);
 			checkPasswordLabel.setVisible(false);
 			removeImage.setVisible(false);
+			browseButton.setVisible(false);
 
 			try {
 				user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
