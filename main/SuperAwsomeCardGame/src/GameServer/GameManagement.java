@@ -50,7 +50,6 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	 */
 	public ArrayList<GameInfo> listJoinableGames()
 	{
-		System.out.println("GameManagment Internal Count: " + this.games.size());
 		
 		ArrayList<GameInfo> available = new ArrayList<GameInfo>();
 		

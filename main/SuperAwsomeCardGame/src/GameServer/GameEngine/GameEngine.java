@@ -65,7 +65,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 	 * @throws SQLException 
 	 */
 	public boolean addPlayer(User u, String clientRegistryName) {
-		
+		System.out.println("GameENgine: Add Player: " + u.getEmail() + " Reg: " + clientRegistryName);
 		
 		//We can only have so many players in a game, and we can't add null players
 		if(this.currentNumOfPlayers == this.totalNumOfPlayers || u == null) return false;
@@ -75,16 +75,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, Remote 
 		Player p = null;
 		try {
 			p = new Player(u, (Deck)this.startingDeck.clone(), clientRegistryName);
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		
 		//Tell the game client how to talk to me
 		p.setGameEngine(this.rmiRegistryName);

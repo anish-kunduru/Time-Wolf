@@ -14,6 +14,7 @@ import java.util.Random;
 import singleton.MainModel;
 import view.ControlledScreen;
 import view.MainController;
+import GameServer.IGameManagement;
 import GameServer.GameEngine.Action;
 import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
@@ -153,8 +154,20 @@ public class GameTableScreenController implements ControlledScreen, Client {
 	 */
 	@FXML
 	public void initialize() throws SQLException {
-		// initRemoteObject();
-
+		//initRemoteObject();
+		/*
+		try {
+			IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+			//gameManagement.addUserToGame(1, 
+			//		MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
+			//		this.remoteString);
+			System.out.println("GO THROUGH THE JOIN.");
+		} catch (Exception e) {
+			// DEBUG
+			System.out.println("Error initializing remote game management object.");
+			e.printStackTrace();
+		}
+*/
 		// Objects used for testing, will be provided by server in the future.
 		/*
 		Deck starterDeck = new Deck();
@@ -221,7 +234,8 @@ public class GameTableScreenController implements ControlledScreen, Client {
 		boolean flag = true;
 		while (flag) {
 			int id = rnd.nextInt();
-			FacadeClient thing = new FacadeClient((Client) this);
+			FacadeClient thing = new FacadeClient();
+			thing.c = (Client) this;
 			String path = "//localhost/client" + id;
 			try {
 				Naming.rebind(path, thing);
