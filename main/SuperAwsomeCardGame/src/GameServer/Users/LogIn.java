@@ -401,6 +401,13 @@ public class LogIn implements Remote, Serializable {
 		dbh.executeUpdate(query);
 	}
 
+	public ArrayList<Report> getReports()
+	{
+		ArrayList<Report> report = new ArrayList<Report>();
+		
+		return report;
+	}
+	
 	/**
 	 * Returns an ArrayList of all users in the database
 	 * 
