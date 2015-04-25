@@ -71,10 +71,13 @@ public class LeaderboardsScreenController implements ControlledScreen {
 		
 		try {
 			users = MainModel.getModel().currentLoginData().getLogInConnection().getLeaderboard();
+			int count = 0;
 			
-			for (int i = 0; i < users.size(); i++) {
+			for (int i = users.size() - 1; i >= 0; i--) {
 				User user = users.get(i);
 				LeaderboardRow currentRow = new LeaderboardRow();
+				currentRow.rank.set(count++);
+				currentRow.username.set(user.getUsername());
 				currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
 				currentRow.gamesWon.set(user.Statistics.getGamesWon());
 				currentRow.ratio.set(user.Statistics.getWinLossRatio());
