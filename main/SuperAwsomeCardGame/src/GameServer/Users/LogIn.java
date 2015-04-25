@@ -456,11 +456,11 @@ public class LogIn implements Remote, Serializable {
 	 * @throws Exception 
 	 */
 	public void save(User u) throws Exception {
+		
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
 		query += ",Email='" + u.getEmail() + "'";
-		query += ",Password='" + u.getPassword() + "'";
 		query += ",ImagePath='" + u.getImagePath() + "'";
 		int bit = 0;
 		if (u.isBanned())
