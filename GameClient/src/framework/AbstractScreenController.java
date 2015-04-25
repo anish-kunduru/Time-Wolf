@@ -17,8 +17,7 @@ import javafx.scene.layout.StackPane;
 
 public abstract class AbstractScreenController extends StackPane
 {
-   // Destroyable will allow us to dynamically remove a custom window element from memory.
-   // Memory constraints are very important in a large scale multi-page GUI!
+   // Destroyable will allow us to gracefully shut down dependencies and threading operations a screen may need to create.
    private Destroyable destroyableController;
 
    /**
@@ -27,7 +26,7 @@ public abstract class AbstractScreenController extends StackPane
     * @param fxmlLocation The location of the FXML file in the workspace.
     * @return a ControlledScreen type (the controller of the FXML as defined in the fx.controller link).
     */
-   protected ControlledScreen2 loadScreen(String fxmlLocation)
+   protected ControlledScreen loadScreen(String fxmlLocation)
    {
       // Get the FXML loader and attempt to load it.
       FXMLLoader fxmlLoader = new FXMLLoader(AbstractScreenController.class.getResource(fxmlLocation));
@@ -52,10 +51,9 @@ public abstract class AbstractScreenController extends StackPane
       }
 
       // Get our controller from the FXML.
-      ControlledScreen2 controller = (ControlledScreen2) fxmlLoader.getController();
+      ControlledScreen controller = (ControlledScreen) fxmlLoader.getController();
 
       // Only attempt to destroy a page if it has implemented destroyable.
-      // Otherwise there might be a reason why the calling class kept it in memory!
       if (controller instanceof Destroyable)
          destroyableController = (Destroyable) controller;
       else
@@ -75,8 +73,8 @@ public abstract class AbstractScreenController extends StackPane
    protected void loadScreen(Parent loadScreen)
    {
       // Make sure the calling class knows what's up.
-      if (loadScreen instanceof ControlledScreen2)
-         ((ControlledScreen2) loadScreen).setScreenParent(this);
+      if (loadScreen instanceof ControlledScreen)
+         ((ControlledScreen) loadScreen).setScreenParent(this);
       else
          throw new ClassCastException("You need to implement ControlledScreen!");
 
