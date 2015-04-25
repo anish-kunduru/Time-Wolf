@@ -7,10 +7,7 @@
 package userListing;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -23,7 +20,6 @@ import GameServer.Users.LogIn;
 import GameServer.Users.User;
 import singleton.MainModel;
 import view.MainController;
-import view.MainView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

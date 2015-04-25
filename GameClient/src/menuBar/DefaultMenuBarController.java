@@ -7,7 +7,6 @@
 package menuBar;
 
 import singleton.MainModel;
-import view.MainView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

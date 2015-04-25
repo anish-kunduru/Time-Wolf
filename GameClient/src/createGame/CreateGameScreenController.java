@@ -9,7 +9,6 @@ package createGame;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import view.MainController;
-import view.MainView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

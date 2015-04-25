@@ -9,7 +9,6 @@ package profile;
 import profile.KarmaRow;
 import profile.RecentGameStatsRow;
 
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,14 +16,11 @@ import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.Users.Feedback;
 import GameServer.Users.User;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -36,7 +32,6 @@ import javafx.scene.text.Text;
 import singleton.MainModel;
 import userListing.UserRow;
 import view.MainController;
-import view.MainView;
 
 public class ProfileScreenController implements ControlledScreen
 {

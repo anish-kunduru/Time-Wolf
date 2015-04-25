@@ -19,7 +19,6 @@ import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
 import view.MainController;
-import view.MainView;
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
 

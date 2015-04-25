@@ -12,7 +12,6 @@ import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
 import view.MainController;
-import view.MainView;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;

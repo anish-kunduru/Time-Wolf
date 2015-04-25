@@ -13,9 +13,7 @@ import java.util.Random;
 
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
-import singleton.MainModel;
 import view.MainController;
-import GameServer.IGameManagement;
 import GameServer.GameEngine.Action;
 import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
