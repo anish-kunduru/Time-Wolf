@@ -95,6 +95,8 @@ public class ProfileScreenController implements ControlledScreen {
 	private Button changePasswordButton;
 	@FXML
 	private Button removeImage;
+	@FXML
+	private Button browseButton;
 
 	@FXML
 	private TextField usernameTextField;
@@ -229,6 +231,10 @@ public class ProfileScreenController implements ControlledScreen {
 					removeImage.setOnAction(event ->{
 						login.removeAvatar(username);
 						profileImage.setImage(null);
+					});
+					
+					browseButton.setOnAction(event ->{
+						
 					});
 
 					changeSettingsButton.setOnAction(event -> {
