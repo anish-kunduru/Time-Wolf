@@ -11,8 +11,10 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Random;
 
+import chat.Chat;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
+import framework.Destroyable;
 import singleton.MainModel;
 import view.MainController;
 import GameServer.IGameManagement;
@@ -23,16 +25,21 @@ import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-public class GameTableScreenController implements ControlledScreen, Client
+
+public class GameTableScreenController implements ControlledScreen, Destroyable, Client
 {
 
    // IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
@@ -41,6 +48,10 @@ public class GameTableScreenController implements ControlledScreen, Client
    // EXCEPTION TO THE CONSOLE...
 
    // FXML Components
+   @FXML
+   private TextArea chatBoxTextArea;
+   @FXML
+   private TextField chatMessageTextField;
 
    @FXML
    private Button endTurnButton;
@@ -144,6 +155,9 @@ public class GameTableScreenController implements ControlledScreen, Client
 
    private String remoteString;
    private GameEngineRemote gameEngine;
+   
+   // So that we can access it from different methods (end the chat).
+   Chat chat;
 
    // So we can set the screen's parent later on.
    MainController parentController;
@@ -159,7 +173,8 @@ public class GameTableScreenController implements ControlledScreen, Client
       initRemoteObject();
       
       try { 
-    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game"); 
+    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
     	  gameManagement.addUserToGame(1,
     			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
     			  this.remoteString); 
@@ -168,8 +183,23 @@ public class GameTableScreenController implements ControlledScreen, Client
       catch (Exception e) { 
     	  // DEBUG System.out.println("Error initializing remote game management object."); 
     	  e.printStackTrace(); 
-    	  
       }
+
+      // Create a new Chat.
+      String currentPlayer = MainModel.getModel().currentLoginData().getUsername();
+      int chatRoomID = 2; // WE NEED TO GET THE UNIQUE ID FROM THE SERVER...
+      chat = new Chat(false, currentPlayer, chatRoomID);
+      
+      chatMessageTextField.setOnKeyReleased(new EventHandler<KeyEvent>()
+      {
+         public void handle(KeyEvent t)
+         {
+            if (t.getCode() == KeyCode.ENTER)
+            {
+               sendMessage();
+            }
+         }
+      });
       
       // Objects used for testing, will be provided by server in the future.
      
@@ -780,6 +810,34 @@ public class GameTableScreenController implements ControlledScreen, Client
    }
    
    /**
+    * To be called by the chat's "Send message" button (or enter event handler).
+    */
+   public void sendMessage()
+   {
+      String outgoingMsg = chatMessageTextField.getText();
+      
+      // Make sure the user didn't just press the button without anything in the text field.
+      if (!outgoingMsg.equals(""))
+         chat.bufferMessage(outgoingMsg);
+
+      chatMessageTextField.clear();
+
+      // DEBUG
+      System.out.println("Outgoing: " + outgoingMsg);
+   }
+   
+   /**
+    * Append a message to the chatBoxTextArea that is visible to the user.
+    * 
+    * @param message The message that you wish appended to the chat box.
+    */
+   public void appendToChatBox(String message)
+   {
+      String append = message + "\n";
+      chatBoxTextArea.appendText(append);
+   }
+   
+   /**
     * This method will allow for the injection of each screen's parent.
     */
    @Override
@@ -787,4 +845,16 @@ public class GameTableScreenController implements ControlledScreen, Client
    {
       parentController = (MainController) screenParent;
    }
+   
+   /**
+    * This method will be called immediately before the screen in destroyed.
+    */
+   @Override
+   public void onDestroy()
+   {
+      // TODO Auto-generated method stub
+      // This is where we will end the chat and send whatever information the server might need.
+      chat.end();
+   }
+
 }

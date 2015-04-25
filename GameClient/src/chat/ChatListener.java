@@ -7,6 +7,7 @@
 package chat;
 
 import gameLobby.GameLobbyScreenController;
+import gameTable.GameTableScreenController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -57,9 +58,19 @@ public class ChatListener extends Thread
                // DEBUG
                System.out.println("Incoming: " + message);
             }
-
-            // else
-            // GameTableScreenController.appendChatMessage(message);
+            else
+            {
+               GameTableScreenController tableController = MainModel.getModel().currentControllerData().getGameTableScreenController();
+               
+               // For JavaFX thread safety:
+               Platform.runLater(() ->
+               {
+                  tableController.appendToChatBox(message);
+               });
+               
+               // DEBUG
+               System.out.println("Incoming: " + message);
+            }
          }
          catch (IOException | ClassNotFoundException e)
          {
