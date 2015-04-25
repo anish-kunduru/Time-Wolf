@@ -82,7 +82,10 @@ public class UserStats implements Serializable {
 	 * @return (# of games won) / ( # of games lost)
 	 */
 	public double getWinLossRatio() {
-		return (double)gamesWon / ((double)gamesPlayed - (double)gamesWon);
+		if((double)gamesPlayed - (double)gamesWon == 0)
+			return (double)gamesWon;
+		else
+			return (double)gamesWon / ((double)gamesPlayed - (double)gamesWon);
 	}
 
 	/**
