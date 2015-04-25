@@ -167,6 +167,22 @@ public class ProfileScreenController implements ControlledScreen
             setInformation();
             loadKarmaTable();
             loadStatTable();
+            
+            try {
+
+				byte[] imgBytes = user.getImageBytes();
+				if (imgBytes != null) {
+					InputStream is = new ByteArrayInputStream(imgBytes);
+					Image img = new Image(is);
+					profileImage.setImage(img);
+				} else {
+					profileImage.setImage(null);
+				}
+			} catch (Exception e) {
+				System.out
+						.println("Image could not be loaded for selected user.");
+				e.printStackTrace();
+			}
 
          }
          catch (Exception e)
