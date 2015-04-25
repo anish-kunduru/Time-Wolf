@@ -8,6 +8,7 @@ package registration;
 
 import java.io.File;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
 import view.MainController;
@@ -208,7 +209,7 @@ public class RegistrationScreenController implements ControlledScreen
       // Send the user back to the login screen.
       cancelButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.LOGIN_SCREEN);
+         parentController.goToLoginScreen();
       });
 
       // Check if all fields valid and register if okay.
@@ -255,7 +256,7 @@ public class RegistrationScreenController implements ControlledScreen
 
                Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), action ->
                {
-                  parentController.displayScreen(MainView.LOGIN_SCREEN);
+                  parentController.goToLoginScreen();
                }));
 
                timeline.play();
@@ -320,8 +321,9 @@ public class RegistrationScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

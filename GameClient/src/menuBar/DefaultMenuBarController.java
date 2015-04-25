@@ -58,27 +58,27 @@ public class DefaultMenuBarController
 
       fileLeaderboard.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LEADERBOARDS_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToLeaderboardsScreen();
       });
 
       fileNewGame.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.CREATE_GAME_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToCreateGameScreen();
       });
 
       fileGameLobby.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_LOBBY_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToGameLobbyScreen();
       });
 
       fileSearchGames.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.SEARCH_GAME_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToSearchGameScreen();
       });
 
       fileLogOut.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.LOGIN_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToLoginScreen();
       });
 
       // Exits and terminates the application.
@@ -90,23 +90,22 @@ public class DefaultMenuBarController
       editProfile.setOnAction(event ->
       {
          MainModel.getModel().profileData().setRedirectToClicked(false);
-         MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.PROFILE_SCREEN, MainView.PROFILE_SCREEN_FXML);
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.PROFILE_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToProfileScreen();
       });
 
       helpAbout.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.AFTER_GAME_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToAfterGameScreen(); // TODO TEMP ASSIGNMENT FOR TESTING.
       });
 
       helpGameRules.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_RULES_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToGameRulesScreen();
       });
 
       adminUserListing.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.USER_LISTING_SCREEN);
+         MainModel.getModel().currentMainData().getMainController().goToUserListingScreen();
       });
 
       menuBar.setOnMouseEntered(event ->

@@ -25,6 +25,7 @@ import login.LoginScreenController;
 import forgotPassword.ForgotPasswordScreenController;
 import framework.AbstractScreenController;
 import gameLobby.GameLobbyScreenController;
+import gameRules.GameRulesScreenController;
 import gameTable.GameTableScreenController;
 
 public class MainController extends AbstractScreenController
@@ -87,6 +88,25 @@ public class MainController extends AbstractScreenController
    }
    
    /**
+    * Method so that we can dynamically access the game rules screen at runtime.
+    */
+   public void goToGameRulesScreen()
+   {
+      try
+      {
+         GameRulesScreenController controller = (GameRulesScreenController) loadScreen(GAME_RULES_SCREEN_FXML);
+         MainModel.getModel().currentControllerData().setCurrentController(GAME_RULES_SCREEN);
+         MainModel.getModel().currentControllerData().setGameRulesScreenController(controller);
+      }
+      catch (Exception e)
+      {
+         // DEBUG
+         System.out.println("Error trying to load the game rules screen. This is likely an issue with its controller AND/OR FXML dependencies.\n" + e.getMessage());
+         e.printStackTrace();
+      }
+   }
+   
+   /**
     * Method so that we can dynamically access the after game screen at runtime.
     */
    public void goToAfterGameScreen()
@@ -108,7 +128,7 @@ public class MainController extends AbstractScreenController
    /**
     * Method so that we can dynamically access the create game screen at runtime.
     */
-   public void goCreateGameScreen()
+   public void goToCreateGameScreen()
    {
       try
       {
@@ -127,7 +147,7 @@ public class MainController extends AbstractScreenController
    /**
     * Method so that we can dynamically access the forgot password screen at runtime.
     */
-   public void goToForgotPasswordGameScreen()
+   public void goToForgotPasswordScreen()
    {
       try
       {
@@ -146,7 +166,7 @@ public class MainController extends AbstractScreenController
    /**
     * Method so that we can dynamically access the game lobby screen at runtime.
     */
-   public void goToGameLobbyScreenScreen()
+   public void goToGameLobbyScreen()
    {
       try
       {

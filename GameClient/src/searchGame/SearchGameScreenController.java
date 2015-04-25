@@ -6,6 +6,7 @@
 
 package searchGame;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainData;
 import singleton.MainModel;
@@ -58,17 +59,17 @@ public class SearchGameScreenController implements ControlledScreen
 
          // TO-DO: SET SEARCH CRITERA IN GAME LOBBY SINGLETON.
 
-         // Reload and display the lobby screen.
-         MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.GAME_LOBBY_SCREEN, MainView.GAME_LOBBY_SCREEN_FXML);
-         parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
+         // Display the lobby screen.
+         parentController.goToGameLobbyScreen();
       });
    }
 
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

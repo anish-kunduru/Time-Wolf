@@ -9,6 +9,7 @@ package leaderboards;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.Users.User;
 import profile.KarmaRow;
@@ -25,7 +26,6 @@ import view.MainController;
 
 public class LeaderboardsScreenController implements ControlledScreen
 {
-
    private ObservableList<LeaderboardRow> tableData;
    @FXML
    private TableView<LeaderboardRow> leaderboard;
@@ -101,8 +101,9 @@ public class LeaderboardsScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

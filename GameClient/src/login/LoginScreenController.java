@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 
 import java.rmi.Naming;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
 import view.MainController;
@@ -84,7 +85,7 @@ public class LoginScreenController implements ControlledScreen
             MainModel.getModel().currentLoginData().setIsAdmin(user.isAdmin());
 
             // Go to the next screen.
-            parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);
+            parentController.goToGameLobbyScreen();
          }
          catch (Exception e)
          {
@@ -101,21 +102,22 @@ public class LoginScreenController implements ControlledScreen
       // Go to registration screen.
       registerButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.REGISTRATION_SCREEN);
+         parentController.gotToRegistrationScreen();
       });
 
       // Go to forgot password screen.
       forgotUsernamePasswordHyperlink.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.FORGOT_PASSWORD_SCREEN);
+         parentController.goToForgotPasswordScreen();
       });
    }
 
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

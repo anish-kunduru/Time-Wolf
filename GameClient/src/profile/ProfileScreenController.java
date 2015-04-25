@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.Users.Feedback;
 import GameServer.Users.User;
@@ -386,8 +387,9 @@ public class ProfileScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

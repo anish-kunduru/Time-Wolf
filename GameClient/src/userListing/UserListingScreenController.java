@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.Users.LogIn;
 import GameServer.Users.User;
@@ -270,7 +271,7 @@ public class UserListingScreenController implements ControlledScreen
       // Send to game lobby screen.
       cancelButton.setOnAction(event ->
       {
-         MainModel.getModel().currentMainData().getMainController().displayScreen(MainView.GAME_LOBBY_SCREEN);
+         parentController.goToGameLobbyScreen();
       });
 
       // Save changes.
@@ -329,8 +330,9 @@ public class UserListingScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

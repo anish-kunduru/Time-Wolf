@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import chat.Chat;
 import chat.ChatLogBinding;
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
@@ -150,17 +151,17 @@ public class GameLobbyScreenController implements ControlledScreen
 
       joinButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+         parentController.goToGameTableScreen();
       });
 
       searchButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.SEARCH_GAME_SCREEN);
+         parentController.goToSearchGameScreen();
       });
 
       createButton.setOnAction(event ->
       {
-         parentController.displayScreen(MainView.CREATE_GAME_SCREEN);
+         parentController.goToCreateGameScreen();
       });
 
       searchUsersButton.setOnAction(event ->
@@ -172,8 +173,7 @@ public class GameLobbyScreenController implements ControlledScreen
             User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
             MainModel.getModel().profileData().setRedirectToClicked(true);
             MainModel.getModel().profileData().setClickedUsername(username);
-            MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.PROFILE_SCREEN, MainView.PROFILE_SCREEN_FXML);
-            parentController.displayScreen(MainView.PROFILE_SCREEN);
+            parentController.goToProfileScreen();
          }
          catch (Exception e)
          {
@@ -270,8 +270,9 @@ public class GameLobbyScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

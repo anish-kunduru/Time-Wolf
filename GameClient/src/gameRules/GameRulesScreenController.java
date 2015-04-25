@@ -6,6 +6,7 @@
 
 package gameRules;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import view.MainController;
 import javafx.fxml.FXML;
@@ -26,8 +27,9 @@ public class GameRulesScreenController implements ControlledScreen
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }

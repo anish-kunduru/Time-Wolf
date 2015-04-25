@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Random;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
 import view.MainController;
@@ -153,7 +154,7 @@ public class GameTableScreenController implements ControlledScreen, Client
     * @throws SQLException
     */
    @FXML
-   public void initialize() throws SQLException
+   public void initialize() throws SQLException // NOTE FROM ANISH: YOU SHOULD HANDLE THE SQL EX RIGHT HERE, OTHERWISE IT'LL CRASH THE ENTIRE APP IF IT IS THROWN SINCE THIS IS CALLED VIA DI.
    {
       // initRemoteObject();
       /*
@@ -283,14 +284,6 @@ public class GameTableScreenController implements ControlledScreen, Client
       {
          imageToUnhighlight.setEffect(null);
       });
-   }
-
-   /**
-    * This method will allow for the injection of each screen's parent.
-    */
-   public void setScreenParent(MainController screenParent)
-   {
-      parentController = screenParent;
    }
 
    /**
@@ -767,5 +760,13 @@ public class GameTableScreenController implements ControlledScreen, Client
       attack += at;
       Attack.setText("" + attack + "");
    }
-
+   
+   /**
+    * This method will allow for the injection of each screen's parent.
+    */
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
+   {
+      parentController = (MainController) screenParent;
+   }
 }

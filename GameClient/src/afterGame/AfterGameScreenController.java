@@ -8,6 +8,7 @@ package afterGame;
 
 import java.rmi.RemoteException;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import GameServer.GameEngine.AfterGameInfo;
 import GameServer.Users.User;
@@ -417,12 +418,11 @@ public class AfterGameScreenController implements ControlledScreen
    }
 
    /**
-    * This method will allow the injection of the Parent.
+    * This method will allow for the injection of each screen's parent.
     */
    @Override
-   public void setScreenParent(MainController screenParent)
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
-
 }

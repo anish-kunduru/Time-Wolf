@@ -6,6 +6,7 @@
 
 package createGame;
 
+import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import view.MainController;
 import view.MainView;
@@ -59,15 +60,16 @@ public class CreateGameScreenController implements ControlledScreen
          // TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
          // TO-DO: CREATE THE GAME.
 
-         parentController.displayScreen(MainView.GAME_TABLE_SCREEN);
+         parentController.goToGameTableScreen();
       });
    }
 
    /**
     * This method will allow for the injection of each screen's parent.
     */
-   public void setScreenParent(MainController screenParent)
+   @Override
+   public void setScreenParent(AbstractScreenController screenParent)
    {
-      parentController = screenParent;
+      parentController = (MainController) screenParent;
    }
 }
