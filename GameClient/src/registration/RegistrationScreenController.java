@@ -7,7 +7,12 @@
 package registration;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
+import GameServer.Users.LogIn;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import singleton.MainModel;
@@ -87,6 +92,7 @@ public class RegistrationScreenController implements ControlledScreen
    @FXML
    public void initialize()
    {
+	   
       // Open file chooser so that user can select a photo to upload.
       browseButton.setOnAction(event ->
       {
