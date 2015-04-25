@@ -106,13 +106,11 @@ public class DefaultMenuBarController
       {
          MainModel.getModel().currentMainData().getMainController().goToUserListingScreen();
       });
-
-      menuBar.setOnMouseEntered(event ->
-      {
-         if (MainModel.getModel().currentLoginData().getIsAdmin())
-            administratorMenu.setVisible(true);
-         else
-            administratorMenu.setVisible(false);
-      });
+      
+      // Only make the administrator page viewable if an admin is logged in.
+      if (MainModel.getModel().currentLoginData().getIsAdmin())
+         administratorMenu.setVisible(true);
+      else
+         administratorMenu.setVisible(false);
    }
 }

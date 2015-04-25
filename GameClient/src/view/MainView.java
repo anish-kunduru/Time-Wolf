@@ -40,8 +40,10 @@ public class MainView extends Application
          mainController.closeApplication();
       });
 
-      // Set the title of the application.
+      // Set the title and make the application a fixed size.
       primaryStage.setTitle("Time Wolf");
+      primaryStage.setResizable(false);
+      primaryStage.sizeToScene();
 
       // Add the stage to the singleton.
       MainModel.getModel().currentMainData().setMainStage(primaryStage);
