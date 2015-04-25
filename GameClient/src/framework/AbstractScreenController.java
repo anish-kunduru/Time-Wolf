@@ -36,7 +36,7 @@ public abstract class AbstractScreenController extends StackPane
       try
       {
          Parent loadScreen = (Parent) fxmlLoader.load();
-         
+
          // Set on destroy.
          if (destroyableController != null)
             destroyableController.onDestroy();

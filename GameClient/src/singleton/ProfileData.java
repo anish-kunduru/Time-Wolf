@@ -11,24 +11,25 @@ public class ProfileData
    // So we know which profile page to load.
    private boolean redirectToClicked;
    private String clickedUsername;
-   
+
    /**
     * Default constructor to use in singleton.
     */
    public ProfileData()
    {
    }
-   
+
    /**
     * Lets the profile screen screen know that the page should be redirect to the username stored in clickedUsername.
     * 
-    * @param redirect True if we should redirect, false if we should go to the logged in (stored in the LoginData singleton) user's profile page (personal profile page).
+    * @param redirect True if we should redirect, false if we should go to the logged in (stored in the LoginData singleton) user's profile page (personal
+    *        profile page).
     */
    public void setRedirectToClicked(boolean redirect)
    {
       redirectToClicked = redirect;
    }
-   
+
    /**
     * @return The boolean to redirect or not.
     */
@@ -36,7 +37,7 @@ public class ProfileData
    {
       return redirectToClicked;
    }
-   
+
    /**
     * Set the user name that the user should be redirected to. Must make sure redirectToClicked is set to true.
     * 
@@ -46,7 +47,7 @@ public class ProfileData
    {
       clickedUsername = username;
    }
-   
+
    /**
     * @return The username of the player that the profile page is set to redirect to if redirectToClicked is true.
     */
@@ -54,7 +55,7 @@ public class ProfileData
    {
       return clickedUsername;
    }
-   
+
    /**
     * Set the boolean redirect and username that the profile page should redirect to in one fell swoop.
     * 

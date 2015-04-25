@@ -14,7 +14,7 @@ public class MainData
 
    // Store reference to our mainController for GUI logic.
    private MainController mainController;
-   
+
    // Store a reference to our primaryStage for dialogs.
    private Stage primaryStage;
 
@@ -44,7 +44,7 @@ public class MainData
    {
       return mainController;
    }
-   
+
    /**
     * Sets the primary Stage.
     * 
@@ -54,7 +54,7 @@ public class MainData
    {
       this.primaryStage = primaryStage;
    }
-   
+
    /**
     * Gets the primaryStage.
     * 

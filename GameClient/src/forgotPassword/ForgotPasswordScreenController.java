@@ -130,12 +130,12 @@ public class ForgotPasswordScreenController implements ControlledScreen
             errorLabel.setText("Not a valid e-mail address.");
          else if (!validPassword)
             errorLabel.setText("Passwords do not match.");
-         else if (!checkIfSecurityAnswerMatch(usernameTextField.getText(), securityAnswerTextField.getText()))          
+         else if (!checkIfSecurityAnswerMatch(usernameTextField.getText(), securityAnswerTextField.getText()))
             errorLabel.setText("Your answer does not match the answer on file.");
          else
          {
             try
-            {              
+            {
                MainModel.getModel().currentLoginData().getLogInConnection().resetPassword(usernameTextField.getText(), verifyPasswordField.getText());
 
                // Timeline action event.
@@ -145,7 +145,7 @@ public class ForgotPasswordScreenController implements ControlledScreen
                {
                   parentController.displayScreen(MainView.LOGIN_SCREEN);
                }));
-               
+
                timeline.play();
             }
             catch (Exception e)
@@ -166,7 +166,7 @@ public class ForgotPasswordScreenController implements ControlledScreen
    private boolean checkIfSecurityAnswerMatch(String username, String securityAnswer)
    {
       boolean check = false;
-      
+
       try
       {
          check = MainModel.getModel().currentLoginData().getLogInConnection().checkSecurityQuestionAnswer(username, securityAnswer);

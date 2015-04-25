@@ -105,7 +105,6 @@ public class RegistrationScreenController implements ControlledScreen
             {
                // Set the image.
                profilePictureImage = new Image("file:/" + profilePictureFile.getAbsolutePath());
-           
 
                // Display the image.
                profilePictureTextField.setText(profilePictureFile.getAbsolutePath());
@@ -201,7 +200,7 @@ public class RegistrationScreenController implements ControlledScreen
             validPassword = false;
          }
       });
-      
+
       // Check to make sure user sets something to the security question fields (changes something) in these fields.
       securityQuestionTextField.setOnKeyReleased(event -> setSecurityQuestion = true);
       securityAnswerTextField.setOnKeyReleased(event -> setSecurityAnswer = true);

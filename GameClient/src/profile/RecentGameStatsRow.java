@@ -38,31 +38,34 @@ public class RecentGameStatsRow
    }
 
    /**
-    * @return the win/loss ratio 
+    * @return the win/loss ratio
     */
    public double getWinLossRatio()
    {
       return winLossRatio.get();
    }
-   
+
    /**
     * @return total points won
     */
-   public double getTotalPoints(){
-	   return totalPoints.get();
+   public double getTotalPoints()
+   {
+      return totalPoints.get();
    }
-   
+
    /**
     * @return avg points won per game
     */
-   public double getAvgPoints(){
-	   return avgPoints.get();
+   public double getAvgPoints()
+   {
+      return avgPoints.get();
    }
-   
+
    /**
     * @return user's karma score
     */
-   public double getKarma(){
-	   return karma.get();
+   public double getKarma()
+   {
+      return karma.get();
    }
 }

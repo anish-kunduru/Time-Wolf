@@ -14,10 +14,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class ChatListener extends Thread
 {
    private ObjectInputStream input;
-   
+
    private boolean gameLobby; // If true, thread is to output to gameLobby. If false, thread is to output to gameTable.
    private boolean run; // To start and stop thread.
-   
+
    ChatLogBinding chatLog;
    String chatStr;
 
@@ -32,7 +32,7 @@ public class ChatListener extends Thread
       // Initialize private state vars.
       this.gameLobby = gameLobby;
       this.input = input;
-      
+
       this.chatLog = chatLog;
       chatStr = "";
    }
@@ -40,25 +40,24 @@ public class ChatListener extends Thread
    public void run()
    {
       run = true;
-      
+
       while (run)
       {
          try
          {
             String message = (String) input.readObject();
-            
+
             if (gameLobby)
             {
                chatStr += ("> " + message + "\n");
                chatLog.chatLog.setValue(chatStr);
-               
+
                // DEBUG
                System.out.println("Incoming: " + message);
             }
-               
-               
-            //else
-               //GameTableScreenController.appendChatMessage(message);
+
+            // else
+            // GameTableScreenController.appendChatMessage(message);
          }
          catch (IOException | ClassNotFoundException e)
          {
@@ -67,7 +66,7 @@ public class ChatListener extends Thread
          }
       }
    }
-   
+
    public void end()
    {
       run = false;

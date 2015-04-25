@@ -17,10 +17,10 @@ public class UserRow
    public SimpleBooleanProperty isBanned = new SimpleBooleanProperty();
    public SimpleStringProperty bannedReason = new SimpleStringProperty();
    public SimpleStringProperty role = new SimpleStringProperty();
-   
+
    // The following getters are called automatically when the table is loaded.
    // Even though we are using properties, these are required for the FXML to work automatically (unless you wan to bind each and every column).
-   
+
    /**
     * @return The user's username.
     */
@@ -28,7 +28,7 @@ public class UserRow
    {
       return username.get();
    }
-   
+
    /**
     * @return The e-mail address of a user.
     */
@@ -36,7 +36,7 @@ public class UserRow
    {
       return email.get();
    }
-   
+
    /**
     * @return The boolean representation of a user's ban status (true for banned, false for not banned).
     */
@@ -44,7 +44,7 @@ public class UserRow
    {
       return isBanned.get();
    }
-   
+
    /**
     * @return The reason why the user was banned.
     */
@@ -52,7 +52,7 @@ public class UserRow
    {
       return bannedReason.get();
    }
-   
+
    /**
     * @return The String representation of a user's role (administrator, moderator, user).
     */
@@ -60,5 +60,5 @@ public class UserRow
    {
       return role.get();
    }
-   
+
 }

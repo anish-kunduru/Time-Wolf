@@ -27,31 +27,31 @@ public class MainView extends Application
 
    public static final String GAME_LOBBY_SCREEN = "gameLobby";
    public static final String GAME_LOBBY_SCREEN_FXML = "/gameLobby/GameLobbyScreen.fxml";
-   
+
    public static final String GAME_TABLE_SCREEN = "gameTable";
    public static final String GAME_TABLE_SCREEN_FXML = "/gameTable/GameTableScreen.fxml";
-   
+
    public static final String CREATE_GAME_SCREEN = "createGame";
    public static final String CREATE_GAME_SCREEN_FXML = "/createGame/CreateGameScreen.fxml";
-   
+
    public static final String SEARCH_GAME_SCREEN = "searchGame";
    public static final String SEARCH_GAME_SCREEN_FXML = "/searchGame/SearchGameScreen.fxml";
-   
+
    public static final String GAME_RULES_SCREEN = "gameRules";
    public static final String GAME_RULES_SCREEN_FXML = "/gameRules/GameRulesScreen.fxml";
-   
+
    public static final String USER_LISTING_SCREEN = "userListing";
    public static final String USER_LISTING_SCREEN_FXML = "/userListing/UserListingScreen.fxml";
-   
+
    public static final String PROFILE_SCREEN = "profileScreen";
    public static final String PROFILE_SCREEN_FXML = "/profile/ProfileScreen.fxml";
-   
+
    public static final String AFTER_GAME_SCREEN = "afterGameScreen";
    public static final String AFTER_GAME_SCREEN_FXML = "/afterGame/AfterGameScreen.fxml";
-   
+
    public static final String LEADERBOARDS_SCREEN = "leaderboards";
    public static final String LEADERBOARDS_SCREEN_FXML = "/leaderboards/LeaderboardsScreen.fxml";
-   
+
    @Override
    public void start(Stage primaryStage)
    {
@@ -70,7 +70,7 @@ public class MainView extends Application
       mainController.loadScreen(AFTER_GAME_SCREEN, AFTER_GAME_SCREEN_FXML);
       mainController.loadScreen(GAME_LOBBY_SCREEN, GAME_LOBBY_SCREEN_FXML);
       mainController.loadScreen(LEADERBOARDS_SCREEN, LEADERBOARDS_SCREEN_FXML);
-      
+
       // Add the controller to the singleton.
       MainModel.getModel().currentMainData().setMainController(mainController);
 
@@ -83,7 +83,7 @@ public class MainView extends Application
 
       // Add mainController.
       root.getChildren().addAll(mainController);
-      
+
       // Since our menuBar is a fixed size for now.
       primaryStage.setResizable(false);
       primaryStage.sizeToScene();
@@ -91,10 +91,10 @@ public class MainView extends Application
       // Pin the root to scene and display it.
       primaryStage.setScene(scene);
       primaryStage.show();
-      
+
       // Set the title of the application.
       primaryStage.setTitle("Time Wolf");
-      
+
       // Add the stage to the singleton.
       MainModel.getModel().currentMainData().setMainStage(primaryStage);
    }

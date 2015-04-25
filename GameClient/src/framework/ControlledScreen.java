@@ -7,7 +7,7 @@
 package framework;
 
 public interface ControlledScreen
-{   
+{
    /**
     * This method will allow us to pull the parent screen. (Allow injection of the Parent type).
     * 

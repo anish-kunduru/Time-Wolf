@@ -16,9 +16,9 @@ public class LobbyRow
    public SimpleStringProperty numberPlayers = new SimpleStringProperty(); // Players in game / maxPlayers
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
    public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
-   
+
    // Auto load getters for "automagic" initialization of rows.
-   
+
    /**
     * @return The name of the game as declared by the user at game creation.
     */
@@ -26,7 +26,7 @@ public class LobbyRow
    {
       return name.get();
    }
-   
+
    /**
     * @return Get the maximum number of allowed players for this game.
     */
@@ -34,7 +34,7 @@ public class LobbyRow
    {
       return numberPlayers.get();
    }
-   
+
    /**
     * @return true if chat is enabled for this game, false if it has been disabled.
     */
@@ -42,7 +42,7 @@ public class LobbyRow
    {
       return chat.get();
    }
-   
+
    /**
     * @return true if a private lobby, false if a public lobby.
     */

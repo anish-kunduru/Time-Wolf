@@ -42,7 +42,7 @@ public class MainModel
    {
       return mainData;
    }
-   
+
    /**
     * @return The current instance of GameLobbyData.
     */
@@ -50,7 +50,7 @@ public class MainModel
    {
       return gameLobbyData;
    }
-   
+
    /**
     * @return The current instance of ProfileData.
     */

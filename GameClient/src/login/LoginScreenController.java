@@ -91,19 +91,19 @@ public class LoginScreenController implements ControlledScreen
             errorMessage.setText(e.getMessage());
          }
       });
-      
+
       // Attempt login upon hitting return register in passwordField.
       passwordField.setOnAction(event ->
       {
          loginButton.fire(); // Fire off a loginButton event.
       });
-      
+
       // Go to registration screen.
       registerButton.setOnAction(event ->
       {
          parentController.displayScreen(MainView.REGISTRATION_SCREEN);
       });
-      
+
       // Go to forgot password screen.
       forgotUsernamePasswordHyperlink.setOnAction(event ->
       {

@@ -15,7 +15,7 @@ public class LoginData
    private String usernameString;
    private int userID;
    private boolean isAdmin;
-   
+
    // Login connection.
    private LogIn logInConnection;
 
@@ -45,7 +45,7 @@ public class LoginData
    {
       this.userID = userID;
    }
-   
+
    /**
     * Sets if the user is an admin or not.
     * 
@@ -55,7 +55,7 @@ public class LoginData
    {
       this.isAdmin = isAdmin;
    }
-   
+
    /**
     * Sets the loginConnection.
     * 
@@ -81,15 +81,15 @@ public class LoginData
    {
       return userID;
    }
-   
-   /** 
+
+   /**
     * @return True if the user is an administrator, false if he isn't.
     */
    public boolean getIsAdmin()
    {
       return isAdmin;
    }
-   
+
    /**
     * @return The LogIn object created when the application was launched.
     */

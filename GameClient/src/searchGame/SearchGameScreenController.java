@@ -55,9 +55,9 @@ public class SearchGameScreenController implements ControlledScreen
       searchButton.setOnAction(event ->
       {
          // TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
-         
+
          // TO-DO: SET SEARCH CRITERA IN GAME LOBBY SINGLETON.
-         
+
          // Reload and display the lobby screen.
          MainModel.getModel().currentMainData().getMainController().reloadScreen(MainView.GAME_LOBBY_SCREEN, MainView.GAME_LOBBY_SCREEN_FXML);
          parentController.displayScreen(MainView.GAME_LOBBY_SCREEN);

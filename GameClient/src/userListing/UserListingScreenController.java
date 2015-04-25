@@ -185,16 +185,19 @@ public class UserListingScreenController implements ControlledScreen
              * User now has byte[] of image (must be stored this way to be serializable) getImageBytes() Get file by doing the following: FileOutputStream fos =
              * new FileOutputStream("pathname"); fos.write(myByteArray); fos.close(); Then convert file to image and display
              */
-            try {
-				User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
-				byte[] imgBytes = u.getImageBytes();
-				InputStream is = new ByteArrayInputStream(imgBytes);
-				Image img = new Image(is);
-				profilePictureImageView.setImage(img);
-			} catch (Exception e) {
-				System.out.println("Image could not be loaded for selected user.");
-				
-			}
+            try
+            {
+               User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
+               byte[] imgBytes = u.getImageBytes();
+               InputStream is = new ByteArrayInputStream(imgBytes);
+               Image img = new Image(is);
+               profilePictureImageView.setImage(img);
+            }
+            catch (Exception e)
+            {
+               System.out.println("Image could not be loaded for selected user.");
+
+            }
          }
       });
 
@@ -227,12 +230,15 @@ public class UserListingScreenController implements ControlledScreen
          {
             String username = userTable.getSelectionModel().getSelectedItem().username.get();
             Random rnd = new Random();
-            try {
-				login.resetPassword(username, Integer.toString(rnd.nextInt()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            try
+            {
+               login.resetPassword(username, Integer.toString(rnd.nextInt()));
+            }
+            catch (Exception e)
+            {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
          }
       });
 

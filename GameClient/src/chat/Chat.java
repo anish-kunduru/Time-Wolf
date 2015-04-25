@@ -20,13 +20,13 @@ public class Chat
    // For our ChatMessage objects.
    private ObjectInputStream input;
    private ObjectOutputStream output;
-   
+
    private ChatListener listener; // Listening thread waits for server message.
 
    // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
    public final String SERVER_ADDRESS = "localhost";
    public final int SERVER_PORT = 1444;
-   
+
    /**
     * Constructor creates a new Chat object.
     * 
@@ -45,7 +45,7 @@ public class Chat
       {
          System.out.println("There was an error connecting to the server: " + ioe);
       }
-      
+
       // Initialize streams.
       try
       {
@@ -56,11 +56,11 @@ public class Chat
       {
          System.out.println("Exception creating I/O streams: " + ioe);
       }
-      
+
       // Initialize the thread to listen from the server and start it.
       listener = new ChatListener(gameLobby, input, chatLog);
       listener.start();
-      
+
       // Initialize server side calls to set username and chatroomID.
       try
       {
@@ -73,7 +73,7 @@ public class Chat
          close(); // Shut it down, there is nothing else we can do. This will also shut down the chat listener thread.
       }
    }
-   
+
    /**
     * Closes out the I/O streams and sets the ChatListener run boolean to false by calling its end() method.
     */
@@ -88,10 +88,10 @@ public class Chat
       {
          System.out.println("Error closing I/O streams: " + ioe);
       }
-      
+
       listener.end();
    }
-   
+
    /**
     * Write a message to the object buffer (socket stream).
     * 
@@ -111,7 +111,7 @@ public class Chat
       try
       {
          ChatMessage chatMessage = new ChatMessage(ChatMessage.Type.MESSAGE, message);
-         
+
          output.writeObject(chatMessage);
       }
       catch (IOException ioe)
@@ -122,7 +122,7 @@ public class Chat
       // Implied else.
       return true;
    }
-   
+
    /**
     * Send a logout type ChatMessage to the buffer, close out the streams, and end the listener thread.
     */
@@ -137,7 +137,7 @@ public class Chat
       {
          System.out.println("I/O error while sending logout request to server: " + ioe);
       }
-      
+
       close();
    }
 }
