@@ -273,7 +273,12 @@ public class Player implements Client {
 			String[] playerNames) {
 		if(this.client == null) throw new IllegalStateException();
 		System.out.println("initialize game table: Player.");
-		//this.client.initializeTable(playerHand, gameTableHand, playerNames);
+		try {
+			this.client.initializeTable(playerHand, gameTableHand, playerNames);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

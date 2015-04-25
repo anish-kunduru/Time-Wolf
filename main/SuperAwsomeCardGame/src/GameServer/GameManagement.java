@@ -11,6 +11,7 @@ import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngine;
+import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Player;
 import GameServer.Users.User;
 
@@ -136,7 +137,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 			
 			String path = "//localhost/GameEngine-" + this.gameID;
 			ge.setRmiRegistryName(path);
-			Naming.rebind(path, ge);
+			Naming.rebind(path, (GameEngineRemote) ge);
 			
 			this.games.add(ge);
 			this.gameID++;

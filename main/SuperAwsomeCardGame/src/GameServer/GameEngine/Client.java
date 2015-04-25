@@ -13,7 +13,7 @@ public interface Client extends Remote {
 	 * 
 	 * @param a
 	 */
-	//public void determineAction(Action a) throws RemoteException;
+	public void determineAction(Action a) throws RemoteException;
 	
 	/**
 	 * Set the game engine on the client. The registry name of the game engine to attach to is being passed.
@@ -29,7 +29,7 @@ public interface Client extends Remote {
 	 * @param gameTableHand
 	 * @param playerNames
 	 */
-	//public void initializeTable(Hand playerHand, Hand gameTableHand,
-	//		String[] playerNames) throws RemoteException;
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames) throws RemoteException;
 	
 }

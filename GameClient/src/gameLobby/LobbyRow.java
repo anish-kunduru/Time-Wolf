@@ -7,6 +7,7 @@
 package gameLobby;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class LobbyRow
@@ -16,8 +17,16 @@ public class LobbyRow
    public SimpleStringProperty numberPlayers = new SimpleStringProperty(); // Players in game / maxPlayers
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
    public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
+   public SimpleIntegerProperty id = new SimpleIntegerProperty();
 
    // Auto load getters for "automagic" initialization of rows.
+   
+   /**
+    * @return id of the game
+    */
+   public int getID(){
+	   return id.get();
+   }
 
    /**
     * @return The name of the game as declared by the user at game creation.

@@ -23,7 +23,7 @@ import GameServer.GameEngine.Card;
 import GameServer.GameEngine.Client;
 import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
-import GameServer.GameEngine.GameEngine;
+import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,7 +34,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;import javafx.scene.input.KeyCode;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
@@ -153,7 +154,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
    private int counter;
 
    private String remoteString;
-   private GameEngine gameEngine;
+   private GameEngineRemote gameEngine;
    
    // So that we can access it from different methods (end the chat).
    Chat chat;
@@ -171,23 +172,12 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
    {
       initRemoteObject();
       
-      try { 
-    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
-    	  gameManagement.addUserToGame(1,
-    			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
-    			  this.remoteString); 
-    	  System.out.println("GO THROUGH THE JOIN."); 
-      }
-      catch (Exception e) { 
-    	  // DEBUG System.out.println("Error initializing remote game management object."); 
-    	  e.printStackTrace(); 
-      }
       
+
       // Create a new Chat.
       String currentPlayer = MainModel.getModel().currentLoginData().getUsername();
       int chatRoomID = 2; // WE NEED TO GET THE UNIQUE ID FROM THE SERVER...
-      chat = new Chat(false, currentPlayer, chatRoomID);
+      //chat = new Chat(false, currentPlayer, chatRoomID);
       
       chatMessageTextField.setOnKeyReleased(new EventHandler<KeyEvent>()
       {
@@ -201,15 +191,14 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
       });
       
       // Objects used for testing, will be provided by server in the future.
-      /*
-       * Deck starterDeck = new Deck(); starterDeck = Deck.getStarterDeck();
-       * 
-       * Deck mainDeck = new Deck(); mainDeck = Deck.getMainDeck();
-       * 
-       * Hand playerHand = new Hand(5); Hand tableHand = new Hand(5);
-       * 
-       * starterDeck.draw(playerHand); mainDeck.draw(tableHand); String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
-       */
+     
+     Deck starterDeck = new Deck(); starterDeck = Deck.getStarterDeck();
+      
+      Deck mainDeck = new Deck(); mainDeck = Deck.getMainDeck();
+      
+      Hand playerHand = new Hand(5); Hand tableHand = new Hand(5);
+      
+      starterDeck.draw(playerHand); mainDeck.draw(tableHand); String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
       attack = 5;
       stealth = 5;
       isTurn = true;
@@ -229,22 +218,36 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
       // Initializes the game table when page is opened. This includes
       // adding effects as well as populating fields.
       // Temp disable due to implementing things
-      // initializeTable(playerHand, tableHand, playerNames);
+      initializeTable(playerHand, tableHand, playerNames);
 
       // Handles ending the turn on button clicked
       endTurn();
 
       // Handles action when a main table card is clicked
-      // onTableCardClicked(mainDeck, stealth, attack);
+      onTableCardClicked(mainDeck, stealth, attack);
 
       // Handles actions when a player's hand card is clicked
-      // onPlayerCardClicked();
+      onPlayerCardClicked();
 
       // Demo for discard state
       /*
        * Card c = new Card("Overhaul"); Hand h = new Hand(3); h.addCard(starterDeck.draw()); h.addCard(starterDeck.draw()); h.addCard(starterDeck.draw());
        * Action a = new Action(7, 1, c, h); determineAction(a);
        */
+      
+       
+      try { 
+    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
+    	  gameManagement.addUserToGame(1,
+    			  MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
+    			  this.remoteString); 
+    	  System.out.println("GO THROUGH THE JOIN."); 
+      }
+      catch (Exception e) { 
+    	  // DEBUG System.out.println("Error initializing remote game management object."); 
+    	  e.printStackTrace(); 
+      }
    }
 
    private void initRemoteObject()
@@ -255,12 +258,12 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
       {
          int id = rnd.nextInt();
          Client thing = null;
-      try {
-         thing = (Client) new FacadeClient();
-      } catch (RemoteException e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
-      }
+		try {
+			thing = (Client) new FacadeClient();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
          ((FacadeClient)thing).c = (Client) this;
          String path = "//localhost/client" + id;
          this.remoteString = path;
@@ -784,13 +787,15 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
       {
          try
          {
-            this.gameEngine = (GameEngine) Naming.lookup(ge);
+        	 System.out.println("GameEngine Registry Name: " + ge);
+            this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
+        	System.out.println(((Naming.lookup(ge))).getClass().toString());
             break;
          }
          catch (MalformedURLException | RemoteException | NotBoundException e)
          {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace();	
          }
       }
    }
@@ -854,4 +859,5 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
       // This is where we will end the chat and send whatever information the server might need.
       chat.end();
    }
+
 }
