@@ -34,10 +34,14 @@ public class DefaultMenuBarController
    @FXML
    private MenuItem adminUserListing;
    @FXML
+   private MenuItem moderatorChatReports;
+   @FXML
    private MenuItem fileLeaderboard;
 
    @FXML
    private Menu administratorMenu;
+   @FXML
+   private Menu moderatorMenu;
 
    @FXML
    private MenuBar menuBar;
@@ -101,13 +105,24 @@ public class DefaultMenuBarController
       {
          MainModel.getModel().currentMainData().getMainController().goToGameRulesScreen();
       });
+      
+      moderatorChatReports.setOnAction(event ->
+      {
+         MainModel.getModel().currentMainData().getMainController().goToModeratorReportsScreen();
+      });
+      
+      // Only make the moderator menu viewable if a moderator is logged in.
+      if (MainModel.getModel().currentLoginData().getIsModerator())
+         moderatorMenu.setVisible(true);
+      else
+         moderatorMenu.setVisible(false);
 
       adminUserListing.setOnAction(event ->
       {
          MainModel.getModel().currentMainData().getMainController().goToUserListingScreen();
       });
       
-      // Only make the administrator page viewable if an admin is logged in.
+      // Only make the administrator menu viewable if an admin is logged in.
       if (MainModel.getModel().currentLoginData().getIsAdmin())
          administratorMenu.setVisible(true);
       else

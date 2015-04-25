@@ -17,6 +17,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import framework.AbstractScreenController;
@@ -415,13 +416,13 @@ public class ProfileScreenController implements ControlledScreen {
 		// Bind the table values.
 		tableData2 = FXCollections.observableArrayList();
 		statTable.setItems(tableData2);
-
+		DecimalFormat DF = new DecimalFormat("#0.00");
 		RecentGameStatsRow currentRow = new RecentGameStatsRow();
 		currentRow.gamesPlayed.set(user.Statistics.getGamesPlayed());
 		currentRow.gamesWon.set(user.Statistics.getGamesWon());
-		currentRow.winLossRatio.set(user.Statistics.getWinLossRatio());
-		currentRow.totalPoints.set(user.Statistics.getTotalPoints());
-		currentRow.avgPoints.set(user.Statistics.getAveragePoints());
+		currentRow.winLossRatio.set(DF.format(user.Statistics.getWinLossRatio()));
+		currentRow.totalPoints.set((int)user.Statistics.getTotalPoints());
+		currentRow.avgPoints.set((int)user.Statistics.getAveragePoints());
 		currentRow.karma.set(user.Statistics.getKarma());
 
 		tableData2.add(currentRow);

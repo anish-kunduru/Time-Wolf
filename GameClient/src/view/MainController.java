@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.util.Duration;
 import leaderboards.LeaderboardsScreenController;
 import login.LoginScreenController;
+import moderatorReports.ModeratorReportsScreenController;
 import forgotPassword.ForgotPasswordScreenController;
 import framework.AbstractScreenController;
 import gameLobby.GameLobbyScreenController;
@@ -66,7 +67,25 @@ public class MainController extends AbstractScreenController
 
    public static final String LEADERBOARDS_SCREEN = "leaderboards";
    public static final String LEADERBOARDS_SCREEN_FXML = "/leaderboards/LeaderboardsScreen.fxml";
-
+   
+   public static final String MODERATOR_REPORTS_SCREEN = "moderatorReports";
+   public static final String MODERATOR_REPORTS_SCREEN_FXML = "/moderatorReports/ModeratorReportsScreen.fxml";
+   
+   public void goToModeratorReportsScreen()
+   {
+      try
+      {
+         ModeratorReportsScreenController controller = (ModeratorReportsScreenController) loadScreen(MODERATOR_REPORTS_SCREEN_FXML);
+         MainModel.getModel().currentControllerData().setCurrentController(MODERATOR_REPORTS_SCREEN);
+         MainModel.getModel().currentControllerData().setModeratorReportsScreenController(controller);
+      }
+      catch (Exception e)
+      {
+         // DEBUG
+         System.out.println("Error trying to load the moderator screen. This is likely an issue with its controller AND/OR FXML dependencies.\n" + e.getMessage());
+         e.printStackTrace();
+      }
+   }
    
    /**
     * Method so that we can dynamically access the login screen at runtime.

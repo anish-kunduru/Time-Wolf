@@ -19,6 +19,7 @@ import userListing.UserListingScreenController;
 import view.MainController;
 import leaderboards.LeaderboardsScreenController;
 import login.LoginScreenController;
+import moderatorReports.ModeratorReportsScreenController;
 
 public class ControllerData
 {
@@ -38,6 +39,7 @@ public class ControllerData
    RegistrationScreenController registrationScreenController;
    SearchGameScreenController searchGameScreenController;
    UserListingScreenController userListingScreenController;
+   ModeratorReportsScreenController moderatorReportsScreenController;
    
    /**
     * Default constructor to use in singleton.
@@ -410,6 +412,35 @@ public class ControllerData
    {
       if (currentController.equals(MainController.USER_LISTING_SCREEN))
          return userListingScreenController;
+      else
+         return null;
+   }
+
+   /**
+    * Allows you to set a ModeratorReportsScreenController.
+    * 
+    * @param controller The controller that you want to assign.
+    * @return True if the passed controller was set; false if it was determined not to be a ModeratorReportsScreenController.
+    */
+   public boolean setModeratorReportsScreenController(ModeratorReportsScreenController controller)
+   {
+      if (controller instanceof ModeratorReportsScreenController)
+      {
+         moderatorReportsScreenController = controller;
+         return true;
+      }
+      
+      // Implied else.
+      return false;
+   }
+   
+   /**
+    * @return ModeratorReportsScreenController if it is the currently active screen. Otherwise you will get a null.
+    */
+   public ModeratorReportsScreenController getModeratorReportsScreenController()
+   {
+      if (currentController.equals(MainController.MODERATOR_REPORTS_SCREEN))
+         return moderatorReportsScreenController;
       else
          return null;
    }
