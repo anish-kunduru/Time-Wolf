@@ -13,41 +13,41 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainView extends Application
-{
-
-   
+{   
    @Override
    public void start(Stage primaryStage)
    {
-      // Instantiate MainController and load the screens.
+      // Initialize mainController.
       MainController mainController = new MainController();
 
       // Add the controller to the singleton.
       MainModel.getModel().currentMainData().setMainController(mainController);
 
-      // Display the first screen.
-      mainController.displayScreen(LOGIN_SCREEN);
-
       // Initialize display components.
       Group root = new Group();
-      Scene scene = new Scene(root);
+      Scene scene = new Scene(root, 1280, 720);
 
       // Add mainController.
       root.getChildren().addAll(mainController);
 
-      // Since our menuBar is a fixed size for now.
-      primaryStage.setResizable(false);
-      primaryStage.sizeToScene();
-
       // Pin the root to scene and display it.
       primaryStage.setScene(scene);
       primaryStage.show();
+      
+      // Properly terminate the application if the user presses the "X" window button.
+      primaryStage.setOnCloseRequest(event ->
+      {
+         mainController.closeApplication();
+      });
 
       // Set the title of the application.
       primaryStage.setTitle("Time Wolf");
 
       // Add the stage to the singleton.
       MainModel.getModel().currentMainData().setMainStage(primaryStage);
+      
+      // Go to the first screen.
+      mainController.goToLoginScreen();
    }
 
    /**

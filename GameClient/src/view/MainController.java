@@ -24,7 +24,6 @@ import leaderboards.LeaderboardsScreenController;
 import login.LoginScreenController;
 import forgotPassword.ForgotPasswordScreenController;
 import framework.AbstractScreenController;
-import framework.ControlledScreen;
 import gameLobby.GameLobbyScreenController;
 import gameTable.GameTableScreenController;
 
