@@ -103,6 +103,9 @@ public class UserStats implements Serializable {
 	 * @return totalPoints/gamesPlayed
 	 */
 	public double getAveragePoints() {
+		if(gamesPlayed == 0)
+			return 0;
+		
 		return totalPoints / gamesPlayed;
 	}
 

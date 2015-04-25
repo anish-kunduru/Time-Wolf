@@ -132,5 +132,6 @@
             <CheckBox fx:id="paranoiaChoiceBox" mnemonicParsing="false" text="Off" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Button fx:id="removeImage" layoutX="318.0" layoutY="100.0" mnemonicParsing="false" text="Remove Photo" AnchorPane.topAnchor="105.0" />
 	</children>
 </AnchorPane>

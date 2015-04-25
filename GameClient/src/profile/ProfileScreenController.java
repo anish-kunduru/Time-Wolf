@@ -93,6 +93,8 @@ public class ProfileScreenController implements ControlledScreen {
 	private Button changeSettingsButton;
 	@FXML
 	private Button changePasswordButton;
+	@FXML
+	private Button removeImage;
 
 	@FXML
 	private TextField usernameTextField;
