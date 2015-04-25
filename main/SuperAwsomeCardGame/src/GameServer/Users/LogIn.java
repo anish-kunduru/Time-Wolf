@@ -644,12 +644,16 @@ public class LogIn implements Remote, Serializable {
 		
 		for(int i = 0; i < userIDs.size(); i++){
 			String username = getUsername(userIDs.get(i));
+			int count = 0;
 			try {
 				User user = getUser(username);
 				users.add(user);
 			} catch (Exception e) {
 			}
 		}
+		
+		System.out.println(users.get(0).getID());
+		System.out.println(users.get(1).getID());
 
 		return users;
 		

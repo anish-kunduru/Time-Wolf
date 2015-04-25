@@ -71,7 +71,7 @@ public class LeaderboardsScreenController implements ControlledScreen {
 		
 		try {
 			users = MainModel.getModel().currentLoginData().getLogInConnection().getLeaderboard();
-			int count = 0;
+			int count = 1;
 			
 			for (int i = users.size() - 1; i >= 0; i--) {
 				User user = users.get(i);
