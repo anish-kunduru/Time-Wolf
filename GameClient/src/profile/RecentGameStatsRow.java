@@ -16,7 +16,7 @@ public class RecentGameStatsRow
    public SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
    public SimpleIntegerProperty gamesWon = new SimpleIntegerProperty();
    public SimpleStringProperty winLossRatio = new SimpleStringProperty();
-   public SimpleDoubleProperty totalPoints = new SimpleDoubleProperty();
+   public SimpleIntegerProperty totalPoints = new SimpleIntegerProperty();
    public SimpleIntegerProperty avgPoints = new SimpleIntegerProperty();
    public SimpleDoubleProperty karma = new SimpleDoubleProperty();
 
@@ -49,7 +49,7 @@ public class RecentGameStatsRow
    /**
     * @return total points won
     */
-   public double getTotalPoints()
+   public int getTotalPoints()
    {
       return totalPoints.get();
    }
