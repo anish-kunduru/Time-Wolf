@@ -122,7 +122,7 @@ public class Player implements Client {
 		this.attack = 0;
 		this.stealth = 0;
 		this.VP = 0;
-		
+		System.out.println(clientRegistryName);
 		this.client = (Client) Naming.lookup(clientRegistryName);
 		
 	}

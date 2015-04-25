@@ -232,8 +232,9 @@ public class GameTableScreenController implements ControlledScreen, Client
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-         //thing.c = (Client) this;
+         ((FacadeClient)thing).c = (Client) this;
          String path = "//localhost/client" + id;
+         this.remoteString = path;
          try
          {
             Naming.rebind(path, thing);
@@ -754,13 +755,14 @@ public class GameTableScreenController implements ControlledScreen, Client
       {
          try
          {
-            this.gameEngine = (GameEngine) Naming.lookup(ge);
+            //this.gameEngine = (GameEngine) Naming.lookup(ge);
+        	 System.out.println(((Naming.lookup(ge))).getClass().toString());
             break;
          }
          catch (MalformedURLException | RemoteException | NotBoundException e)
          {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace();	
          }
       }
    }
