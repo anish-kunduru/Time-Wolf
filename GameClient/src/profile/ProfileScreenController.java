@@ -227,7 +227,8 @@ public class ProfileScreenController implements ControlledScreen {
 					});
 					
 					removeImage.setOnAction(event ->{
-						
+						login.removeAvatar(username);
+						profileImage.setImage(null);
 					});
 
 					changeSettingsButton.setOnAction(event -> {
@@ -263,6 +264,7 @@ public class ProfileScreenController implements ControlledScreen {
 
 						try {
 							MainModel.getModel().currentLoginData().getLogInConnection().updateSettings(user);
+							
 							errorLabel.setText("Settings update was successful.");
 						} catch (Exception e) {
 							errorLabel.setText("Settings update was unsuccessful.");
