@@ -368,23 +368,7 @@ public class LogIn implements Remote, Serializable {
 			query = " SELECT * FROM User WHERE Username='" + username + "'";
 			ResultSet rs = dbh.executeQuery(query);
 			if (rs.first()) {
-				if (picture != null) {
-					try {
-						Connection conn = dbh.getConnection();
-						conn.setAutoCommit(false);
-						String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
-						FileInputStream fis = new FileInputStream(picture);
-						java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
-						ps.setBinaryStream(1, fis, (int)picture.length());
-						ps.setString(2, username);
-						ps.executeUpdate();
-						conn.commit();
-						
-						
-					} catch (Exception ex) {
-						throw new Exception("Image save failed!");
-					}
-				}
+				updateImage(username, picture);
 				u.setID(rs.getInt("ID"));
 				u.setUsername(username);
 				u.setEmail(rs.getString("Email"));
