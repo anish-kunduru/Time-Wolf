@@ -1,9 +1,13 @@
 package GameServer.GameEngine;
 
+
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import javafx.application.Platform;
+
 
 public class FacadeClient extends UnicastRemoteObject implements Client {
 	
@@ -19,12 +23,30 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 
 	@Override
 	public void determineAction(Action a) throws RemoteException {
-		this.c.determineAction(a);
+		//This is used to handle FX threading
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.determineAction(a);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	@Override
 	public void setGameEngine(String ge) throws RemoteException {
-		this.c.setGameEngine(ge);
+		//This is used to handle FX threading
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.setGameEngine(ge);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 	@Override
@@ -42,7 +64,18 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 			System.out.println("\t" + playerNames[i]);
 		System.out.println("Game Table Cards Complete.");
 		
-		this.c.initializeTable(playerHand, gameTableHand, playerNames);
+		//This is used to handle FX threading
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.initializeTable(playerHand, gameTableHand, playerNames);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
+		
 		
 	}
 
