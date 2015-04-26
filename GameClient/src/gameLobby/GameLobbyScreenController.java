@@ -6,7 +6,9 @@
 
 package gameLobby;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -89,7 +91,13 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	 */
 	@FXML
 	public void initialize() {
-
+		try {
+			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+			MainModel.getModel().gameLobbyData().setGameManager(gameManagement);
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		// Hide error Label for now
 		userNotFoundLabel.setVisible(false);
 		// Initialize gameManagement.
@@ -266,6 +274,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 		System.out.println("Destroying the game lobby screen...");
 
 		// Close out chat.
-		chat.end();
+		//chat.end();
 	}
 }

@@ -128,7 +128,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	}
 	
 	
-	public void createGame(int numberOfPlayers, String gameName) {
+	public int createGame(int numberOfPlayers, String gameName) {
 		GameEngine ge;
 		try {
 			
@@ -148,6 +148,8 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return gameID-1;
 		
 	}
 	
