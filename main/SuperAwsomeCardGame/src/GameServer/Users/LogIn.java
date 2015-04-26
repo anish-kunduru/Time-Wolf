@@ -41,7 +41,12 @@ public class LogIn implements Remote, Serializable {
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
 
-
+			int flagBit = rs.getInt("Flagged");
+			if(flagBit > 0)
+			{
+				u.setFlag(true);
+			}
+			
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
 			u.setEmail(rs.getString("Email"));
@@ -85,6 +90,12 @@ public class LogIn implements Remote, Serializable {
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
 
+			int flagBit = rs.getInt("Flagged");
+			if(flagBit > 0)
+			{
+				u.setFlag(true);
+			}
+			
 			if (u.isBanned())
 				throw new Exception("This user is banned.");
 
@@ -129,6 +140,11 @@ public class LogIn implements Remote, Serializable {
 			if (bannedBit > 0)
 				u.setBannedStatus(true);
 
+			int flagBit = rs.getInt("Flagged");
+			if(flagBit > 0)
+			{
+				u.setFlag(true);
+			}
 			u.setID(rs.getInt("ID"));
 			u.setUsername(username);
 			u.setEmail(rs.getString("Email"));
@@ -339,6 +355,21 @@ public class LogIn implements Remote, Serializable {
 	}
 	
 	/**
+	 * sets the flag on the specified users account
+	 * @param username
+	 * @param flag
+	 */
+	public void controlFlag(String username, boolean flag)
+	{
+		DBHelper dbh = new DBHelper();
+		int bit = 0;
+		if(flag)
+			bit = 1;
+		String query = "UPDATE User SET Flagged=" + bit + " WHERE Username='" + username +"'";
+		dbh.executeUpdate(query);
+	}
+	
+	/**
 	 * Registers the current user by username, email, and password
 	 * 
 	 * @param username
@@ -369,6 +400,11 @@ public class LogIn implements Remote, Serializable {
 				u.setEmail(rs.getString("Email"));
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
+				int flagBit = rs.getInt("Flagged");
+				if(flagBit > 0)
+				{
+					u.setFlag(true);
+				}
 				u.setBannedReason(rs.getString("BannedReason"));
 				Blob blob = rs.getBlob("Avatar");
 				if(blob != null)

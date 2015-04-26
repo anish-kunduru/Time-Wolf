@@ -35,7 +35,7 @@ public class User implements Serializable {
    private byte[] imageBytes;
    private String location;
    private boolean paranoia;
-   
+   private boolean isFlagged;
 
    /**
     * Creates a new user object with empty fields
@@ -54,7 +54,18 @@ public class User implements Serializable {
       this.imageBytes = null;
       this.location = "";
       this.paranoia = true;
+      this.isFlagged = false;
       //this.Feedback = new ArrayList<Feedback>();
+   }
+   
+   public boolean isFlagged()
+   {
+	   return isFlagged;
+   }
+   
+   public void setFlag(boolean raised)
+   {
+	   isFlagged = raised;
    }
    
    public boolean isParanoid()
