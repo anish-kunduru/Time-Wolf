@@ -308,7 +308,7 @@ public class UserListingScreenController implements ControlledScreen {
 				u.setBannedReason(bannedReason);
 				login.save(u);
 				if(banned) //if they are banned, lower the flag since they are being punished
-					login.controlFlag(username, false);
+					login.controlFlag(username, bannedReason, false);
 			} catch (Exception e) {
 				System.out.println("Could not retrieve remote object.");
 				e.printStackTrace();

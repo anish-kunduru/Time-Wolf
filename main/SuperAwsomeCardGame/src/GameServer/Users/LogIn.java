@@ -354,18 +354,20 @@ public class LogIn implements Remote, Serializable {
 		}
 	}
 	
+	
 	/**
 	 * sets the flag on the specified users account
 	 * @param username
 	 * @param flag
 	 */
-	public void controlFlag(String username, boolean flag)
+	public void controlFlag(String username, String reason, boolean flag)
 	{
+		
 		DBHelper dbh = new DBHelper();
 		int bit = 0;
 		if(flag)
 			bit = 1;
-		String query = "UPDATE User SET Flagged=" + bit + " WHERE Username='" + username +"'";
+		String query = "UPDATE User SET Flagged=" + bit + ",BannedReason='" + reason + "' WHERE Username='" + username +"'";
 		dbh.executeUpdate(query);
 	}
 	
@@ -754,6 +756,15 @@ public class LogIn implements Remote, Serializable {
 		query += "(UserID, isGood, Comment, ByUserID)";
 		query += "VALUES ('" + userID + "','" + bool + "','" + comment + "','"
 				+ byUserID + "')";
+		DBHelper dbh = new DBHelper();
+		dbh.executeUpdate(query);
+	}
+	
+	public void insertReport(String text)
+	{
+		String query = "INSERT INTO Reports";
+		query += "(LogText)";
+		query += "VALUES('" + text + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
