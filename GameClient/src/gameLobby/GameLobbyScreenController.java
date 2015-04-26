@@ -79,6 +79,9 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	private Button reportButton;
 
 	private int id;
+	
+	@FXML
+	private Label reportLabel;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
