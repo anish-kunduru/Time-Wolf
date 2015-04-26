@@ -757,5 +757,14 @@ public class LogIn implements Remote, Serializable {
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
 	}
+	
+	public void insertReport(String text)
+	{
+		String query = "INSERT INTO Reports";
+		query += "(LogText)";
+		query += "VALUES('" + text + "')";
+		DBHelper dbh = new DBHelper();
+		dbh.executeUpdate(query);
+	}
 
 }
