@@ -74,6 +74,9 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	private TextField searchUsersTextField;
 	@FXML
 	private Label userNotFoundLabel;
+	
+	@FXML
+	private Button reportButton;
 
 	private int id;
 

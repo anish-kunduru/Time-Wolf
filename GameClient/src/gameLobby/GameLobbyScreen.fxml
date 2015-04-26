@@ -36,5 +36,6 @@
       <Button fx:id="searchUsersButton" layoutX="209.0" layoutY="681.0" mnemonicParsing="false" text="Search Users" />
       <TextField fx:id="searchUsersTextField" layoutX="8.0" layoutY="681.0" prefHeight="31.0" prefWidth="193.0" />
       <Label fx:id="userNotFoundLabel" layoutX="325.0" layoutY="686.0" text="User couldn't be found" textFill="RED" />
+      <Button fx:id="reportButton" layoutX="1084.0" layoutY="680.0" mnemonicParsing="false" text="Report" />
 	</children>
 </AnchorPane>
