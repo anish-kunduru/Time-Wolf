@@ -872,7 +872,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
    {
       // TODO Auto-generated method stub
       // This is where we will end the chat and send whatever information the server might need.
-      chat.end();
+      //chat.end();
    }
 
 }

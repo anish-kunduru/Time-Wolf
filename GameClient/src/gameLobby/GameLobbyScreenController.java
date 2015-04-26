@@ -274,6 +274,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 		System.out.println("Destroying the game lobby screen...");
 
 		// Close out chat.
-		//chat.end();
+		chat.end();
 	}
 }
