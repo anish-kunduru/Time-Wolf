@@ -250,6 +250,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
     	  // DEBUG System.out.println("Error initializing remote game management object."); 
     	  e.printStackTrace(); 
       }
+      
+      this.isTurn = false;
    }
 
    private void initRemoteObject()

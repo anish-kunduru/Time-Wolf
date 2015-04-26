@@ -176,6 +176,8 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 		
 		ge.addPlayer(u, clientRegistryName);
 		
+		//Start the game once full
+		if(ge.isFull()) ge.start();
 		
 		return true;
 		

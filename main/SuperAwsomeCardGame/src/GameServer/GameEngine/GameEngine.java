@@ -681,14 +681,22 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		// TODO Initialize the state of the game on the clients
 		
-		
+		/*
 		// TODO Main Game Loop
 		while(true) {
-			
+			*/
 			//set the current player
 			currentPlayer = this.players.get(this.currentPlayerIndex);
 			
+			try {
+				currentPlayer.startTurn();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			//Stay true during turn
+			/*
 			while(true) {
 				
 				Action action = this.promptUserForAction();
@@ -702,7 +710,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				}
 				
 			}
-			
+			*/
 			
 			
 			
@@ -712,21 +720,21 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			 * the intial correct state.
 			 */
 			
-
+			/*
 			this.currentPlayerIndex++; //Choose the next player to take a turn
 			if(this.currentPlayerIndex == this.totalNumOfPlayers) {
 				this.currentPlayerIndex = 0;
 			}
-
+			*/
 			
 			
 			//Now that we're done with the turn, reset the player
-			currentPlayer.resetPlayer();
+			//currentPlayer.resetPlayer();
 			
 			// TODO Update the current player's display and the other player's display.
 			
 			
-		}
+		//}
 		
 		
 		
@@ -741,6 +749,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	 */
 	public void setRmiRegistryName(String rmiRegistryName) {
 		this.rmiRegistryName = rmiRegistryName;
+	}
+	
+	public void endTurn() {
+		
 	}
 
 }
