@@ -20,10 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import profile.KarmaRow;
-import profile.RecentGameStatsRow;
 import singleton.MainModel;
-import userListing.UserRow;
 import view.MainController;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
@@ -57,10 +54,11 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	}
 
 	private void populateTable() {
-
-		idColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+		// Bind column to table.
+		idColumn.setCellValueFactory(new PropertyValueFactory<ReportRow, Integer>(
 				"id"));
-
+		
+		// Bind table elements.
 		tableData = FXCollections.observableArrayList();
 		reportTable.setItems(tableData);
 
@@ -72,6 +70,10 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 			for(Report r : reports)
 			{
 				ReportRow currentRow = new ReportRow();
+				
+				// DEBUG
+				System.out.println(r.getID());
+				
 				currentRow.id.set(r.getID());
 				tableData.add(currentRow);
 			}

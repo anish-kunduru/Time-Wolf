@@ -6,7 +6,7 @@ public class ReportRow {
 	
 	public SimpleIntegerProperty id = new SimpleIntegerProperty();
 	
-	public int getID(){
+	public int getId(){
 		return id.get();
 	}
 
