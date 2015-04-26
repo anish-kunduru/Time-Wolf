@@ -54,6 +54,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	@FXML
 	private TableColumn privateColumn;
 
+	
 	@FXML
 	private Button reloadTableButton;
 	@FXML

@@ -15,6 +15,7 @@ public class UserRow
    public SimpleStringProperty username = new SimpleStringProperty();
    public SimpleStringProperty email = new SimpleStringProperty();
    public SimpleBooleanProperty isBanned = new SimpleBooleanProperty();
+   public SimpleBooleanProperty isFlagged = new SimpleBooleanProperty();
    public SimpleStringProperty bannedReason = new SimpleStringProperty();
    public SimpleStringProperty role = new SimpleStringProperty();
 
@@ -35,6 +36,13 @@ public class UserRow
    public String getEmail()
    {
       return email.get();
+   }
+   
+   /**
+    * @return the boolean representation of a user's flagged status (true for flagged, false for not banned).
+    */
+   public boolean getIsFlagged(){
+	   return isFlagged.get();
    }
 
    /**

@@ -55,6 +55,8 @@ public class UserListingScreenController implements ControlledScreen {
 	private TableColumn bannedColumn;
 	@FXML
 	private TableColumn roleColumn;
+	@FXML
+	private TableColumn flaggedColumn;
 
 	// User components.
 	@FXML
@@ -101,8 +103,7 @@ public class UserListingScreenController implements ControlledScreen {
 		// NOTE: THIS CODE ISN'T VERY EFFICIENT AND USES A TON OF MEMORY.
 		// WE KNOW THIS, BUT THIS SHOULD SUFFICE FOR THE PURPOSES OF THIS DEMO.
 		try {
-			users = MainModel.getModel().currentLoginData()
-					.getLogInConnection().getUserList();
+			users = MainModel.getModel().currentLoginData().getLogInConnection().getUserList();
 
 			login = (LogIn) Naming.lookup("//localhost/auth");
 		} catch (RemoteException | SQLException e) {
@@ -116,19 +117,11 @@ public class UserListingScreenController implements ControlledScreen {
 		}
 
 		// Bind table elements to their appropriate values.
-		usernameColumn
-				.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
-						"username"));
-		emailColumn
-				.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
-						"email"));
-		bannedColumn
-				.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
-						"isBanned"));
-		roleColumn
-				.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
-						"role"));
-		
+		usernameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("username"));
+		emailColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("email"));
+		bannedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("isBanned"));
+		roleColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("role"));
+		flaggedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("isFlagged"));
 
 		// Bind the table values.
 		tableData = FXCollections.observableArrayList();
@@ -139,11 +132,12 @@ public class UserListingScreenController implements ControlledScreen {
 			UserRow currentEntry = new UserRow(); // new row.
 
 			User currentUser = users.get(i); // Get index in ArrayList.
-			
+
 			currentEntry.username.set(currentUser.getUsername()); // Set
 																	// username.
 			currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
 			currentEntry.isBanned.set(currentUser.isBanned()); // Set banned.
+			currentEntry.isFlagged.set(currentUser.isFlagged());
 
 			currentEntry.bannedReason.set(currentUser.getBannedReason());
 
@@ -163,20 +157,15 @@ public class UserListingScreenController implements ControlledScreen {
 		userTable.setOnMouseClicked(event -> {
 			// Check to make sure something is selected.
 				if (userTable.getSelectionModel().getSelectedIndex() != -1) {
-					usernameTextField.setText(userTable.getSelectionModel()
-							.getSelectedItem().username.get());
-					emailTextField.setText(userTable.getSelectionModel()
-							.getSelectedItem().email.get());
+					usernameTextField.setText(userTable.getSelectionModel().getSelectedItem().username.get());
+					emailTextField.setText(userTable.getSelectionModel().getSelectedItem().email.get());
 
-					bannedCheckBox.setSelected(userTable.getSelectionModel()
-							.getSelectedItem().isBanned.get());
+					bannedCheckBox.setSelected(userTable.getSelectionModel().getSelectedItem().isBanned.get());
 					checkBannedCheckBoxText();
 
-					bannedReasonTextArea.setText(userTable.getSelectionModel()
-							.getSelectedItem().bannedReason.get());
+					bannedReasonTextArea.setText(userTable.getSelectionModel().getSelectedItem().bannedReason.get());
 
-					String role = userTable.getSelectionModel()
-							.getSelectedItem().role.get();
+					String role = userTable.getSelectionModel().getSelectedItem().role.get();
 					if (role.equals("Administrator")) {
 						administratorRoleCheckBox.setSelected(true);
 						moderatorRoleCheckBox.setSelected(false);
@@ -192,41 +181,38 @@ public class UserListingScreenController implements ControlledScreen {
 					}
 
 					// TO-DO: SET PROFILE IMAGE.
-				/*
-				 * User now has byte[] of image (must be stored this way to be
-				 * serializable) getImageBytes() Get file by doing the
-				 * following: FileOutputStream fos = new
-				 * FileOutputStream("pathname"); fos.write(myByteArray);
-				 * fos.close(); Then convert file to image and display
-				 */
-				try {
-					if (login == null) {
-						login = (LogIn) Naming.lookup("//localhost/auth");
+					/*
+					 * User now has byte[] of image (must be stored this way to
+					 * be serializable) getImageBytes() Get file by doing the
+					 * following: FileOutputStream fos = new
+					 * FileOutputStream("pathname"); fos.write(myByteArray);
+					 * fos.close(); Then convert file to image and display
+					 */
+					try {
+						if (login == null) {
+							login = (LogIn) Naming.lookup("//localhost/auth");
+						}
+						User u = login.getUser(userTable.getSelectionModel().getSelectedItem().username.get());
+						byte[] imgBytes = u.getImageBytes();
+						if (imgBytes != null) {
+							InputStream is = new ByteArrayInputStream(imgBytes);
+							Image img = new Image(is);
+							profilePictureImageView.setImage(img);
+						} else {
+							profilePictureImageView.setImage(null);
+						}
+					} catch (Exception e) {
+						System.out.println("Image could not be loaded for selected user.");
+						e.printStackTrace();
 					}
-					User u = login.getUser(userTable.getSelectionModel()
-							.getSelectedItem().username.get());
-					byte[] imgBytes = u.getImageBytes();
-					if (imgBytes != null) {
-						InputStream is = new ByteArrayInputStream(imgBytes);
-						Image img = new Image(is);
-						profilePictureImageView.setImage(img);
-					} else {
-						profilePictureImageView.setImage(null);
-					}
-				} catch (Exception e) {
-					System.out
-							.println("Image could not be loaded for selected user.");
-					e.printStackTrace();
 				}
-			}
-		});
+			});
 
 		// Remove profile picture.
 		removePhotoButton.setOnAction(event -> {
 			// Check if a user is selected.
 				if (userTable.getSelectionModel().getSelectedIndex() != -1) {
-					String username = userTable.getSelectionModel()
-							.getSelectedItem().username.get();
+					String username = userTable.getSelectionModel().getSelectedItem().username.get();
 
 					try {
 						login.removeAvatar(username);
@@ -234,27 +220,25 @@ public class UserListingScreenController implements ControlledScreen {
 
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	})	;
+						e.printStackTrace();
+					}
+				}
+			});
 
 		// Remove password.
 		resetPasswordButton.setOnAction(event -> {
 			// Check if a user is selected.
 				if (userTable.getSelectionModel().getSelectedIndex() != -1) {
-					String username = userTable.getSelectionModel()
-							.getSelectedItem().username.get();
+					String username = userTable.getSelectionModel().getSelectedItem().username.get();
 					Random rnd = new Random();
 					try {
-						login.resetPassword(username,
-								Integer.toString(rnd.nextInt()));
+						login.resetPassword(username, Integer.toString(rnd.nextInt()));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	})	;
+						e.printStackTrace();
+					}
+				}
+			});
 
 		// Call helper method when user toggles this switch.
 		bannedCheckBox.setOnAction(event -> {
@@ -307,7 +291,7 @@ public class UserListingScreenController implements ControlledScreen {
 				u.setBannedStatus(banned);
 				u.setBannedReason(bannedReason);
 				login.save(u);
-				if(banned) //if they are banned, lower the flag since they are being punished
+				if (banned) //if they are banned, lower the flag since they are being punished
 					login.controlFlag(username, bannedReason, false);
 			} catch (Exception e) {
 				System.out.println("Could not retrieve remote object.");
@@ -316,9 +300,9 @@ public class UserListingScreenController implements ControlledScreen {
 			// Since the table isn't bound to the database (for now), we will
 			// need to re-initialize the page for the settings to be visible to
 			// the user.
-				errorLabel.setText("Changes saved.");
-				initialize();
-			});
+			errorLabel.setText("Changes saved.");
+			initialize();
+		});
 	}
 
 	/**

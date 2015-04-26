@@ -51,6 +51,7 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	@FXML
 	private Label successLabel;
 
+
 	private Report currentReport;
 	private ArrayList<Report> reports;
 	private ReportRow currentRow;
