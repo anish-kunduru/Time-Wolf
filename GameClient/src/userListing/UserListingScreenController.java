@@ -303,8 +303,12 @@ public class UserListingScreenController implements ControlledScreen {
 				if(!flaggedCheckBox.isSelected()){
 					login.controlFlag(username, "", false);
 				}
+				else{
+					login.controlFlag(username, bannedReasonTextArea.getText(), true);
+				}
 				if (banned) //if they are banned, lower the flag since they are being punished
 					login.controlFlag(username, bannedReason, false);
+					bannedReasonTextArea.clear();
 			} catch (Exception e) {
 				System.out.println("Could not retrieve remote object.");
 				e.printStackTrace();
