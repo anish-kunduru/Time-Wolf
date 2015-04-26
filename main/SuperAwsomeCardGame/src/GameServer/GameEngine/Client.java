@@ -32,4 +32,6 @@ public interface Client extends Remote {
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
 			String[] playerNames) throws RemoteException;
 	
+	public void startTurn() throws RemoteException;
+	
 }

@@ -12,7 +12,7 @@ import javafx.application.Platform;
 public class FacadeClient extends UnicastRemoteObject implements Client {
 	
 	public FacadeClient() throws RemoteException {
-		super();
+		
 		
 	}
 
@@ -77,6 +77,20 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		
 		
 		
+	}
+
+	@Override
+	public void startTurn() throws RemoteException {
+		//This is used to handle FX threading
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.startTurn();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 }
