@@ -115,6 +115,15 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			e.printStackTrace();
 		}
 
+		reportButton.setOnMouseClicked(event -> {
+			String log = chatBoxTextArea.getText();
+			if(!log.equals(""))
+			{
+				MainModel.getModel().currentLoginData().getLogInConnection().insertReport(log);
+				reportLabel.setText("Report sent.");
+			}
+		});
+		
 		// Initialize table
 		loadGameTable();
 

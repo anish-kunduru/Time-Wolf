@@ -50,49 +50,63 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	private Button deleteButton;
 	@FXML
 	private Label successLabel;
-	
+
 	private Report currentReport;
 	private ArrayList<Report> reports;
-
+	private ReportRow currentRow;
 	@FXML
 	public void initialize() {
 		populateTable();
-		
-		reportTable.setOnMouseClicked(event ->
-		{
-			if (reportTable.getSelectionModel().getSelectedIndex() != -1){
-				int id = reportTable.getSelectionModel().getSelectedItem().getId();
+
+		reportTable.setOnMouseClicked(event -> {
+			if (reportTable.getSelectionModel().getSelectedIndex() != -1) {
 				
-				//find Report object for the ID
-				for(Report r : reports)
-				{
-					if(id == r.getID())
-					{
+				currentRow =reportTable.getSelectionModel().getSelectedItem();
+				int id = currentRow.getId();
+				// find Report object for the ID
+				for (Report r : reports) {
+					if (id == r.getID()) {
 						currentReport = r;
+						
 						break;
 					}
 				}
-				
+
 				chatText.setText(currentReport.getLog());
 			}
 		});
-		
+
 		flagButton.setOnMouseClicked(event -> {
-			if(currentReport != null)
-			{
+			if (currentReport != null) {
 				String user = username.getText();
 				String reason = reasonText.getText();
-				MainModel.getModel().currentLoginData().getLogInConnection().controlFlag(user, reason, true);
+				try {
+					MainModel.getModel().currentLoginData()
+							.getLogInConnection()
+							.controlFlag(user, reason, true);
+					successLabel.setText("User has been flagged");
+					username.clear();
+					reasonText.clear();
+				} catch (Exception ex) {
+					successLabel.setText("Flag failed, please try again.");
+				}
 			}
 		});
-		
+
 		deleteButton.setOnMouseClicked(event -> {
-			if(currentReport != null)
-			{
+			if (currentReport != null) {
 				try {
-					MainModel.getModel().currentLoginData().getLogInConnection().deleteReport(currentReport.getID());
+					MainModel.getModel().currentLoginData()
+							.getLogInConnection()
+							.deleteReport(currentReport.getID());
+							successLabel.setText("Report has been deleted");
+							username.clear();
+							reasonText.clear();
+							chatText.clear();
+							tableData.remove(currentRow);
+							successLabel.setText("Error log has been deleted.");
 				} catch (Exception e) {
-					System.out.println("Error log could not be deleted.");
+					successLabel.setText("Error log could not be deleted.");
 					e.printStackTrace();
 				}
 			}
@@ -103,7 +117,7 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 		// Bind column to table.
 		idColumn.setCellValueFactory(new PropertyValueFactory<ReportRow, Integer>(
 				"id"));
-		
+
 		// Bind table elements.
 		tableData = FXCollections.observableArrayList();
 		reportTable.setItems(tableData);
@@ -112,18 +126,17 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 				.getLogInConnection();
 		try {
 			reports = login.getReports();
-			
-			for(Report r : reports)
-			{
+
+			for (Report r : reports) {
 				ReportRow currentRow = new ReportRow();
-				
+
 				// DEBUG
 				System.out.println(r.getID());
-				
+
 				currentRow.id.set(r.getID());
 				tableData.add(currentRow);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
