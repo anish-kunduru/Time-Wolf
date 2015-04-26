@@ -128,6 +128,7 @@ public class UserListingScreenController implements ControlledScreen {
 		roleColumn
 				.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
 						"role"));
+		
 
 		// Bind the table values.
 		tableData = FXCollections.observableArrayList();
@@ -138,7 +139,7 @@ public class UserListingScreenController implements ControlledScreen {
 			UserRow currentEntry = new UserRow(); // new row.
 
 			User currentUser = users.get(i); // Get index in ArrayList.
-
+			
 			currentEntry.username.set(currentUser.getUsername()); // Set
 																	// username.
 			currentEntry.email.set(currentUser.getEmail()); // Set e-mail.
