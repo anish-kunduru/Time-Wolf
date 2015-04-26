@@ -10,7 +10,7 @@
    <children>
       <TableView fx:id="reportTable" layoutX="80.0" layoutY="69.0" prefHeight="591.0" prefWidth="175.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="60.0">
         <columns>
-          <TableColumn fx:id="idColumn" prefWidth="174.0" text="User ID" />
+          <TableColumn fx:id="idColumn" prefWidth="173.0" text="Report ID" />
         </columns>
       </TableView>
       <TextArea fx:id="chatText" layoutX="346.0" layoutY="66.0" prefHeight="591.0" prefWidth="447.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="60.0" />
