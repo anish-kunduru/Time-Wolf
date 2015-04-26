@@ -168,7 +168,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 
 			String username = searchUsersTextField.getText();
 			try {
-				User user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
 				MainModel.getModel().profileData().setRedirectToClicked(true);
 				MainModel.getModel().profileData().setClickedUsername(username);
 				parentController.goToProfileScreen();
