@@ -40,7 +40,7 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	@FXML
 	private TextArea chatText;
 	@FXML
-	private TextField reasonText;
+	private TextArea reasonText;
 	@FXML
 	private TextField username;
 	@FXML
