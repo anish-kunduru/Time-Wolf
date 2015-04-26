@@ -47,10 +47,53 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	private Button flagButton;
 	@FXML
 	private Button deleteButton;
+	
+	private Report currentReport;
+	private ArrayList<Report> reports;
 
 	@FXML
 	public void initialize() {
 		populateTable();
+		
+		reportTable.setOnMouseClicked(event ->
+		{
+			if (reportTable.getSelectionModel().getSelectedIndex() != -1){
+				int id = reportTable.getSelectionModel().getSelectedItem().getId();
+				
+				//find Report object for the ID
+				for(Report r : reports)
+				{
+					if(id == r.getID())
+					{
+						currentReport = r;
+						break;
+					}
+				}
+				
+				chatText.setText(currentReport.getLog());
+			}
+		});
+		
+		flagButton.setOnMouseClicked(event -> {
+			if(currentReport != null)
+			{
+				String user = username.getText();
+				String reason = reasonText.getText();
+				MainModel.getModel().currentLoginData().getLogInConnection().controlFlag(user, reason, true);
+			}
+		});
+		
+		deleteButton.setOnMouseClicked(event -> {
+			if(currentReport != null)
+			{
+				try {
+					MainModel.getModel().currentLoginData().getLogInConnection().deleteReport(currentReport.getID());
+				} catch (Exception e) {
+					System.out.println("Error log could not be deleted.");
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private void populateTable() {
@@ -65,7 +108,7 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 		LogIn login = MainModel.getModel().currentLoginData()
 				.getLogInConnection();
 		try {
-			ArrayList<Report> reports = login.getReports();
+			reports = login.getReports();
 			
 			for(Report r : reports)
 			{

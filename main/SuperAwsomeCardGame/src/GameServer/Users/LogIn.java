@@ -354,18 +354,20 @@ public class LogIn implements Remote, Serializable {
 		}
 	}
 	
+	
 	/**
 	 * sets the flag on the specified users account
 	 * @param username
 	 * @param flag
 	 */
-	public void controlFlag(String username, boolean flag)
+	public void controlFlag(String username, String reason, boolean flag)
 	{
+		
 		DBHelper dbh = new DBHelper();
 		int bit = 0;
 		if(flag)
 			bit = 1;
-		String query = "UPDATE User SET Flagged=" + bit + " WHERE Username='" + username +"'";
+		String query = "UPDATE User SET Flagged=" + bit + ",BannedReason='" + reason + "' WHERE Username='" + username +"'";
 		dbh.executeUpdate(query);
 	}
 	
