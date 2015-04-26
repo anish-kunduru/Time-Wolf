@@ -13,10 +13,11 @@
 		<fx:include source="../menuBar/DefaultMenuBar.fxml" />
 		<TableView fx:id="userTable" layoutY="32.0" prefHeight="688.0" prefWidth="429.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
 			<columns>
-				<TableColumn fx:id="usernameColumn" editable="false" prefWidth="139.0" text="Username" />
-				<TableColumn fx:id="emailColumn" editable="false" prefWidth="154.0" text="E-mail" />
-				<TableColumn fx:id="bannedColumn" editable="false" prefWidth="66.0" text="Banned?" />
-				<TableColumn fx:id="roleColumn" editable="false" prefWidth="68.0" text="Role" />
+				<TableColumn fx:id="usernameColumn" editable="false" prefWidth="131.0" text="Username" />
+				<TableColumn fx:id="emailColumn" editable="false" prefWidth="122.0" text="E-mail" />
+				<TableColumn fx:id="bannedColumn" editable="false" prefWidth="67.0" text="Banned?" />
+				<TableColumn fx:id="roleColumn" editable="false" prefWidth="48.0" text="Role" />
+            <TableColumn prefWidth="101.0" text="Column X" />
 			</columns>
 		</TableView>
 		<Button fx:id="saveChangesButton" layoutX="1085.0" layoutY="651.0" mnemonicParsing="false" text="Save Changes" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="105.0" />
