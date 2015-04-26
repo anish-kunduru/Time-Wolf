@@ -6,6 +6,11 @@
 
 package moderatorReports;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import GameServer.Users.LogIn;
+import GameServer.Users.Report;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,59 +22,72 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import profile.KarmaRow;
 import profile.RecentGameStatsRow;
+import singleton.MainModel;
 import userListing.UserRow;
 import view.MainController;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 
-public class ModeratorReportsScreenController implements ControlledScreen
-{
-   // So we can set the screen's parent later on.
-   MainController parentController;
-   
-   @FXML
-   private ObservableList<ReportRow> tableData;  
-   
-   @FXML
+public class ModeratorReportsScreenController implements ControlledScreen {
+	// So we can set the screen's parent later on.
+	MainController parentController;
+
+	@FXML
+	private ObservableList<ReportRow> tableData;
+
+	@FXML
 	private TableView<ReportRow> reportTable;
-   @FXML
-   private TableColumn idColumn;
-   
-   @FXML
-   private TextArea chatText;
-   @FXML
-   private TextField reasonText;
-   @FXML
-   private TextField username;
-   @FXML
-   private Button flagButton;
-   @FXML
-   private Button deleteButton;
-   
-   @FXML
-   public void initialize(){
-	   
-   }
-   
-   private void populateTable(){
-	   
-	   idColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("id"));
-	   
-	   tableData = FXCollections.observableArrayList();
-	   reportTable.setItems(tableData);
-	   
-	   ReportRow currentRow = new ReportRow();
-	   currentRow.id.set(1);
-	   
-	   tableData.add(currentRow);
-   }
-   
-   /**
-    * This method will allow for the injection of each screen's parent.
-    */
-   @Override
-   public void setScreenParent(AbstractScreenController screenParent)
-   {
-      parentController = (MainController) screenParent;
-   }
+	@FXML
+	private TableColumn idColumn;
+
+	@FXML
+	private TextArea chatText;
+	@FXML
+	private TextField reasonText;
+	@FXML
+	private TextField username;
+	@FXML
+	private Button flagButton;
+	@FXML
+	private Button deleteButton;
+
+	@FXML
+	public void initialize() {
+		populateTable();
+	}
+
+	private void populateTable() {
+
+		idColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+				"id"));
+
+		tableData = FXCollections.observableArrayList();
+		reportTable.setItems(tableData);
+
+		LogIn login = MainModel.getModel().currentLoginData()
+				.getLogInConnection();
+		try {
+			ArrayList<Report> reports = login.getReports();
+			
+			for(Report r : reports)
+			{
+				ReportRow currentRow = new ReportRow();
+				currentRow.id.set(r.getID());
+				tableData.add(currentRow);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * This method will allow for the injection of each screen's parent.
+	 */
+	@Override
+	public void setScreenParent(AbstractScreenController screenParent) {
+		parentController = (MainController) screenParent;
+	}
 }
