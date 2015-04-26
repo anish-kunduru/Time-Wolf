@@ -25,7 +25,7 @@ public interface IGameManagement extends Remote {
 	public ArrayList<String> SearchGames(String name, int players) throws RemoteException;
 	
 	
-	public void createGame(int numberOfPlayers, String gameName) throws RemoteException;
+	public int createGame(int numberOfPlayers, String gameName) throws RemoteException;
 	
 	public boolean addUserToGame(int game, User u, String clientRegistryName) throws RemoteException;
 
