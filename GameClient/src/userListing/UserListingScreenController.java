@@ -66,6 +66,8 @@ public class UserListingScreenController implements ControlledScreen {
 	@FXML
 	private CheckBox bannedCheckBox;
 	@FXML
+	private CheckBox flaggedCheckBox;
+	@FXML
 	private TextArea bannedReasonTextArea;
 	@FXML
 	private CheckBox administratorRoleCheckBox;
@@ -161,7 +163,10 @@ public class UserListingScreenController implements ControlledScreen {
 					emailTextField.setText(userTable.getSelectionModel().getSelectedItem().email.get());
 
 					bannedCheckBox.setSelected(userTable.getSelectionModel().getSelectedItem().isBanned.get());
+					flaggedCheckBox.setSelected(userTable.getSelectionModel().getSelectedItem().isFlagged.get());
+					checkFlaggedCheckBoxText();
 					checkBannedCheckBoxText();
+					
 
 					bannedReasonTextArea.setText(userTable.getSelectionModel().getSelectedItem().bannedReason.get());
 
@@ -244,6 +249,10 @@ public class UserListingScreenController implements ControlledScreen {
 		bannedCheckBox.setOnAction(event -> {
 			checkBannedCheckBoxText();
 		});
+		
+		flaggedCheckBox.setOnAction(event -> {
+			checkFlaggedCheckBoxText();
+		});
 
 		// Check roles switching logic handling by calling helper method.
 		administratorRoleCheckBox.setOnAction(event -> {
@@ -291,6 +300,9 @@ public class UserListingScreenController implements ControlledScreen {
 				u.setBannedStatus(banned);
 				u.setBannedReason(bannedReason);
 				login.save(u);
+				if(!flaggedCheckBox.isSelected()){
+					login.controlFlag(username, "", false);
+				}
 				if (banned) //if they are banned, lower the flag since they are being punished
 					login.controlFlag(username, bannedReason, false);
 			} catch (Exception e) {
@@ -313,6 +325,16 @@ public class UserListingScreenController implements ControlledScreen {
 			bannedCheckBox.setText("Yes");
 		else
 			bannedCheckBox.setText("No");
+	}
+	
+	/**
+	 * Private helper method to set the text value of flaggedCheckBox.
+	 */
+	private void checkFlaggedCheckBoxText() {
+		if (flaggedCheckBox.isSelected())
+			flaggedCheckBox.setText("Yes");
+		else
+			flaggedCheckBox.setText("No");
 	}
 
 	/**
