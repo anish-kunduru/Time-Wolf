@@ -248,19 +248,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	}
 
 	/**
-	 * For testing to show it works.
-	 */
-
-	@FXML
-	private void testAlert() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Information Dialog");
-		alert.setHeaderText("You must have JDK 8u40 or newer!");
-
-		alert.showAndWait();
-	}
-
-	/**
 	 * Append a message to the chatBoxTextArea that is visible to the user.
 	 * 
 	 * @param message
