@@ -249,18 +249,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
     	  e.printStackTrace(); 
       }
       
-      try { 
-    	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-    	  String playerUsername = MainModel.getModel().currentLoginData().getUsername();
-    	  gameManagement.addUserToGame(1,
-    			 MainModel.getModel().currentLoginData().getLogInConnection().getUser("jheinig"), 
-    			  this.remoteString); 
-    	  System.out.println("GO THROUGH THE JOIN."); 
-      }
-      catch (Exception e) { 
-    	  // DEBUG System.out.println("Error initializing remote game management object."); 
-    	  e.printStackTrace(); 
-      }
       
       try { 
     	  IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
