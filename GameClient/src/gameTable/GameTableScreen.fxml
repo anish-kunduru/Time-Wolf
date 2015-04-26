@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameTable.GameTableScreenController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameTable.GameTableScreenController">
 	<children>
 		<AnchorPane prefHeight="720.0" prefWidth="1280.0">
 			<children>
@@ -194,8 +194,10 @@
 							</children>
 						</AnchorPane>
 						<TextArea fx:id="playLog" editable="false" layoutX="3.0" layoutY="6.0" prefHeight="687.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0" />
-                  <TextArea fx:id="chatBoxTextArea" layoutX="1080.0" layoutY="7.0" prefHeight="637.0" prefWidth="200.0" />
-                  <TextField fx:id="chatMessageTextField" layoutX="1080.0" layoutY="653.0" prefHeight="36.0" prefWidth="200.0" />
+                  <TextArea fx:id="chatBoxTextArea" layoutX="1080.0" layoutY="7.0" prefHeight="610.0" prefWidth="200.0" />
+                  <TextField fx:id="chatMessageTextField" layoutX="1080.0" layoutY="631.0" prefHeight="36.0" prefWidth="200.0" AnchorPane.leftAnchor="1082.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="620.0" />
+                  <Button fx:id="reportButton" layoutX="1203.0" layoutY="647.0" mnemonicParsing="false" text="Report" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+                  <Button fx:id="sendButton" layoutX="1148.0" layoutY="662.0" mnemonicParsing="false" text="Send" AnchorPane.rightAnchor="70.0" />
 					</children>
 				</AnchorPane>
 			</children>
