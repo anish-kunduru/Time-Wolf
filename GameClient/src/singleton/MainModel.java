@@ -52,7 +52,7 @@ public class MainModel
    /**
     * @return The current instance of GameLobbyData.
     */
-   public GameLobbyData gameLobbyData()
+   public GameLobbyData currentGameLobbyData()
    {
       return gameLobbyData;
    }

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 public class MainData
 {
-
    // Store reference to our mainController for GUI logic.
    private MainController mainController;
 

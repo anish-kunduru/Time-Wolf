@@ -60,13 +60,13 @@ public class CreateGameScreenController implements ControlledScreen {
 
 			int id = 0;
 			try {
-				id = MainModel.getModel().gameLobbyData().getGameManager()
+				id = MainModel.getModel().currentGameLobbyData().getGameManager()
 						.createGame(players, name);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			MainModel.getModel().gameLobbyData().setID(id);
+			MainModel.getModel().currentGameLobbyData().setID(id);
 			parentController.goToGameTableScreen();
 		});
 	}

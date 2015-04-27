@@ -100,7 +100,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	public void initialize() {
 		try {
 			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-			MainModel.getModel().gameLobbyData().setGameManager(gameManagement);
+			MainModel.getModel().currentGameLobbyData().setGameManager(gameManagement);
 		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -152,7 +152,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			});
 
 		joinButton.setOnAction(event -> {
-			MainModel.getModel().gameLobbyData().setID(id);
+			MainModel.getModel().currentGameLobbyData().setID(id);
 			parentController.goToGameTableScreen();
 		});
 

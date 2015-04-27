@@ -242,7 +242,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		try {
 			IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-			int id = MainModel.getModel().gameLobbyData().getID();
+			int id = MainModel.getModel().currentGameLobbyData().getID();
 			String playerUsername = MainModel.getModel().currentLoginData().getUsername();
 			gameManagement.addUserToGame(id, MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername), this.remoteString);
 			System.out.println("GO THROUGH THE JOIN.");
