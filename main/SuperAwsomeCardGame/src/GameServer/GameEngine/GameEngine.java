@@ -695,6 +695,12 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				e.printStackTrace();
 			}
 			
+			for(int i =0; i < this.players.size(); i++) {
+				if(i != this.currentPlayerIndex) {
+					this.players.get(i).setOtherPlayerTurn(currentPlayer.getUser().getUsername());
+				}
+			}
+			
 			//Stay true during turn
 			/*
 			while(true) {
@@ -776,7 +782,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			e.printStackTrace();
 		}
 		
-		for(int i =0; i < this.players.size(); i++) {
+		for(int i = 0; i < this.players.size(); i++) {
 			if(i != this.currentPlayerIndex) {
 				this.players.get(i).setOtherPlayerTurn(currentPlayer.getUser().getUsername());
 			}
