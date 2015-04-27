@@ -15,11 +15,20 @@ public class GameLobbyData
 
 	private IGameManagement gm;
 	private int id;
+	private int numPlayers;
    /**
     * Default constructor to use in singleton.
     */
    public GameLobbyData()
    {
+   }
+   
+   public int getNumPlayers(){
+	   return this.numPlayers;
+   }
+   
+   public void setNumPlayers(int numPlayers){
+	   this.numPlayers = numPlayers;
    }
    
    public int getID(){

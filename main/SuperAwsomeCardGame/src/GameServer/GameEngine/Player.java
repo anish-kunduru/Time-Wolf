@@ -305,7 +305,11 @@ public class Player implements Client {
 	
 	public void setOtherPlayerTurn(String player){
 		if(this.client == null) throw new IllegalStateException();
-		this.client.setOtherPlayerTurn(player);
+		try {
+			this.client.setOtherPlayerTurn(player);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	};
 
 	

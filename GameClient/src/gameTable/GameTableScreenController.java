@@ -217,6 +217,20 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		for (int i = 0; i < playerHandImages.length; i++) {
 			playerHandImages[i].setId(null);
 		}
+		
+		//Show appropriate number of labels for number of players
+		int numPlayers = MainModel.getModel().currentGameLobbyData().getNumPlayers();
+		
+		if(numPlayers == 2){
+			playerTwoVP.setVisible(false);
+			playerThreeVP.setVisible(false);
+		}
+		else if(numPlayers == 3){
+			playerThreeVP.setVisible(false);
+		}
+		else{
+			
+		}
 
 		// Initializes the game table when page is opened. This includes
 		// adding effects as well as populating fields.

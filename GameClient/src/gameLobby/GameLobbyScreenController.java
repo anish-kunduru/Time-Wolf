@@ -80,6 +80,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	private Button reportButton;
 
 	private int id;
+	private int numPlayers;
 	
 	@FXML
 	private Label reportLabel;
@@ -141,6 +142,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			// Check to make sure something is selected.
 				if (gamesTable.getSelectionModel().getSelectedIndex() != -1) {
 					id = gamesTable.getSelectionModel().getSelectedItem().id.get();
+					numPlayers = gamesTable.getSelectionModel().getSelectedItem().getNumPlayers();
 				}
 			});
 
@@ -153,6 +155,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 
 		joinButton.setOnAction(event -> {
 			MainModel.getModel().currentGameLobbyData().setID(id);
+			MainModel.getModel().currentGameLobbyData().setNumPlayers(numPlayers);
 			parentController.goToGameTableScreen();
 		});
 

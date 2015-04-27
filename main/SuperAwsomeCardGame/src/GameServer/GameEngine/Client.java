@@ -34,6 +34,6 @@ public interface Client extends Remote {
 	
 	public void startTurn() throws RemoteException;
 
-	void setOtherPlayerTurn(String player);
+	public void setOtherPlayerTurn(String player) throws RemoteException;
 	
 }
