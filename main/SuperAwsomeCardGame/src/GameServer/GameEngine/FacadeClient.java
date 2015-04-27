@@ -92,5 +92,17 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 			}
 		});
 	}
+	
+	@Override
+	public void setOtherPlayerTurn(String player){
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.setOtherPlayerTurn(player);
+			} catch (Exception e) {
+				e.printStackTrace();;
+			}
+		});
+	};
 
 }

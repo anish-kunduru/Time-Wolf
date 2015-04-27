@@ -33,5 +33,7 @@ public interface Client extends Remote {
 			String[] playerNames) throws RemoteException;
 	
 	public void startTurn() throws RemoteException;
+
+	void setOtherPlayerTurn(String player);
 	
 }

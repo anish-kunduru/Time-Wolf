@@ -781,5 +781,13 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		// This is where we will end the chat and send whatever information the server might need.
 		//chat.end();
 	}
+	
+	public void setOtherPlayerTurn(String player){
+		//turns off ability to click on things
+		isTurn = false;
+		
+		//Sets the player turn label to the given player's username
+		playerTurnLabel.setText("Player Turn: " + player);
+	}
 
 }

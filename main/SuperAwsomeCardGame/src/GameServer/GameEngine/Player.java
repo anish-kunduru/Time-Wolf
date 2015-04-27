@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 
 
+
+import javafx.application.Platform;
 //import view.GameTableScreenController;
 import GameServer.Users.User;
 
@@ -301,9 +303,10 @@ public class Player implements Client {
 		
 	}
 	
-	
-	
-
+	public void setOtherPlayerTurn(String player){
+		if(this.client == null) throw new IllegalStateException();
+		this.client.setOtherPlayerTurn(player);
+	};
 
 	
 }
