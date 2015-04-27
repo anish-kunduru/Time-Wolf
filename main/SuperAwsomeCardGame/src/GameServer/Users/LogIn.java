@@ -26,6 +26,14 @@ import GameServer.DBHelper;
 public class LogIn implements Remote, Serializable {
 
 	/**
+	 * Private method to help fix sql problems
+	 */
+	private String fixString(String s)
+	{
+		return s.replace("'", "''");
+	}
+	
+	/**
 	 * Updates a user object in case of new updates
 	 */
 	private static final long serialVersionUID = 1L;
@@ -362,7 +370,7 @@ public class LogIn implements Remote, Serializable {
 	 */
 	public void controlFlag(String username, String reason, boolean flag)
 	{
-		
+		reason = fixString(reason);
 		DBHelper dbh = new DBHelper();
 		int bit = 0;
 		if(flag)
@@ -383,6 +391,8 @@ public class LogIn implements Remote, Serializable {
 	public User register(String username, String email, String password,
 			String question, String answer, File picture)
 			throws RemoteException, Exception {
+		question = fixString(question);
+		answer = fixString(answer);
 		User u = new User();
 		DBHelper dbh = new DBHelper();
 
@@ -540,10 +550,10 @@ public class LogIn implements Remote, Serializable {
 			bit = 1;
 		query += ",IsBanned=" + bit;
 		query += ",Role=" + u.getRole();
-		query += ",SecurityQuestion='" + u.getSecurityQuestion() + "'";
-		query += ",SecurityAnswer='" + u.getSecurityAnswer() + "'";
-		query += ",BannedReason='" + u.getBannedReason() + "'";
-		query += ",Location='" + u.getLocation() +"'";
+		query += ",SecurityQuestion='" + fixString(u.getSecurityQuestion()) + "'";
+		query += ",SecurityAnswer='" + fixString(u.getSecurityAnswer()) + "'";
+		query += ",BannedReason='" + fixString(u.getBannedReason()) + "'";
+		query += ",Location='" + fixString(u.getLocation()) +"'";
 		int pBit = 0;
 		if(u.isParanoid())
 			pBit = 1;
@@ -581,7 +591,7 @@ public class LogIn implements Remote, Serializable {
 		query += "Username='" + u.getUsername() + "'";
 		query += ",Email='" + u.getEmail() + "'";
 		query += ",ImagePath='" + u.getImagePath() + "'";
-		query += ",Location='" + u.getLocation() +"'";
+		query += ",Location='" + fixString(u.getLocation()) +"'";
 		int pBit = 0;
 		if(u.isParanoid())
 			pBit = 1;
@@ -660,9 +670,10 @@ public class LogIn implements Remote, Serializable {
 	 */
 	public boolean checkSecurityQuestionAnswer(String username, String answer)
 			throws SQLException {
+		
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Username='" + username
-				+ "' AND SecurityAnswer='" + answer + "'";
+				+ "' AND SecurityAnswer='" + fixString(answer) + "'";
 		ResultSet rs = dbh.executeQuery(query);
 
 		if (rs.first())
@@ -763,6 +774,7 @@ public class LogIn implements Remote, Serializable {
 	
 	public void insertReport(String text)
 	{
+		text = fixString(text);
 		String query = "INSERT INTO Reports";
 		query += "(LogText)";
 		query += "VALUES('" + text + "')";
