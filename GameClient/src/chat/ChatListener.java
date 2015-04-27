@@ -38,6 +38,18 @@ public class ChatListener extends Thread
    public void run()
    {
       run = true;
+      
+      // The following may or may not be necessary. I think it depends on how heavy the page we are to call is. TODO is there a better way to do this?
+      // Put this thread to sleep to make sure we that MainController has enough time to update the current controller.
+      try
+      {
+         Thread.sleep(1000);
+      }
+      catch (InterruptedException e)
+      {
+         // DEBUG
+         System.out.println("There was an issue putting the thread to sleep.");
+      }
 
       while (run)
       {

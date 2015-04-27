@@ -58,10 +58,6 @@ public class Chat
          System.out.println("Exception creating I/O streams: " + ioe);
       }
       
-      // The following may or may not be necessary. I think it depends on how heavy the page we are to call is.
-      // Put this thread to sleep to make sure we that MainController has enough time to update the current controller.
-      // Thread.sleep(1000);
-
       // Initialize the thread to listen from the server and start it.
       listener = new ChatListener(gameLobby, input);
       listener.start();
@@ -71,6 +67,9 @@ public class Chat
       {
          output.writeObject(username);
          output.writeInt(chatroomID);
+         
+         // Let everyone know that you have connected.
+         bufferMessage("has joined the room.");
       }
       catch (IOException ioe)
       {
