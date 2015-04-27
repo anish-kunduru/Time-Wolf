@@ -36,4 +36,10 @@ public interface GameEngineRemote extends Remote {
 	 */
 	public abstract boolean hasStarted() throws RemoteException;
 
+	
+	/**
+	 * The current player ends their turn. 
+	 * @throws RemoteException
+	 */
+	public void endTurn() throws RemoteException;
 }

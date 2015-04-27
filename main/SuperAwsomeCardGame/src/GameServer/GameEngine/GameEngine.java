@@ -751,7 +751,38 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		this.rmiRegistryName = rmiRegistryName;
 	}
 	
+	@Override
 	public void endTurn() {
+		
+		Player currentPlayer = this.players.get(this.currentPlayerIndex);
+		
+		currentPlayer.resetPlayer();
+		
+		
+		this.currentPlayerIndex++; //Choose the next player to take a turn
+		if(this.currentPlayerIndex == this.totalNumOfPlayers) {
+			this.currentPlayerIndex = 0;
+		}
+		
+		//New current player
+		currentPlayer = this.players.get(this.currentPlayerIndex);
+		
+		currentPlayer.isTurn(true); 
+		
+		try {
+			currentPlayer.startTurn();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int i =0; i < this.players.size(); i++) {
+			if(i != this.currentPlayerIndex) {
+				this.players.get(i).setOtherPlayerTurn(currentPlayer.getUser().getUsername());
+			}
+		}
+		
+		
 		
 	}
 

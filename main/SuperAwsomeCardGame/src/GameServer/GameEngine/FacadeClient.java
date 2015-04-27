@@ -85,7 +85,9 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		Platform.runLater(() ->
 		{
 			try {
+				System.out.println("Before start turn.");
 				this.c.startTurn();
+				System.out.println("After start turn.");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
