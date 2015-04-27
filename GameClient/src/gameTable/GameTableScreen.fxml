@@ -160,22 +160,22 @@
 										</AnchorPane>
 									</children>
 								</HBox>
-								<Label fx:id="playerOneVP" layoutX="140.0" layoutY="95.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+								<Label fx:id="playerTwoVP" layoutX="137.0" layoutY="77.0" text="Player One: Year 1985" AnchorPane.leftAnchor="137.0">
 									<font>
 										<Font size="18.0" />
 									</font>
 								</Label>
-								<Label fx:id="yourVP" layoutX="144.0" layoutY="50.0" text="You Are In Year 1985" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="50.0">
+								<Label fx:id="playerOneVP" layoutX="144.0" layoutY="50.0" text="You Are In Year 1985" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="50.0">
 									<font>
 										<Font size="18.0" />
 									</font>
 								</Label>
-								<Label fx:id="playerTwoVP" layoutX="140.0" layoutY="122.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+								<Label fx:id="playerThreeVP" layoutX="137.0" layoutY="109.0" text="Player One: Year 1985" AnchorPane.leftAnchor="137.0">
 									<font>
 										<Font size="18.0" />
 									</font>
 								</Label>
-								<Label fx:id="playerThreeVP" layoutX="140.0" layoutY="148.0" text="Player One: Year 1985" AnchorPane.leftAnchor="140.0">
+								<Label fx:id="playerFourVP" layoutX="137.0" layoutY="136.0" text="Player One: Year 1985" AnchorPane.leftAnchor="137.0">
 									<font>
 										<Font size="18.0" />
 									</font>

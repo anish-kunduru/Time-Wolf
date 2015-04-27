@@ -77,7 +77,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	@FXML
 	private Label playerThreeVP;
 	@FXML
-	private Label yourVP;
+	private Label playerFourVP;
 
 	// Labels to show current values of stealth and attack
 	@FXML
@@ -418,21 +418,33 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		// Set player VP labels
 		if (playerNames.length == 1) {
 			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
-			yourVP.setText("You are in year 1,000 BCE");
 		}
 
 		if (playerNames.length == 2) {
 			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
 			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			yourVP.setText("You are in year 1,000 BCE");
 		}
 
 		if (playerNames.length == 3) {
 			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
 			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
 			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
-			yourVP.setText("You are in year 1,000 BCE");
 		}
+		
+		if (playerNames.length == 3) {
+			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE"); 
+		}
+		
+		if (playerNames.length == 4) {
+			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE"); 
+			playerFourVP.setText(playerNames[3] + ": 1,000 BCE");
+		}
+		
+		
 
 		// Populate hand image fields for player and main table
 		for (int i = 0; i < gameTableHand.size(); i++) {
