@@ -609,6 +609,7 @@ public class GameTableScreenController implements ControlledScreen,
 		return action;
 	}
 
+	@Override
 	public void setNewTableCards(Hand hand){
 		for (int i = 0; i < hand.size(); i++) {
 			gameTableImages[i].setImage(new Image(hand.get(i)
@@ -1053,5 +1054,7 @@ public class GameTableScreenController implements ControlledScreen,
 		
 		parentController.goToAfterGameScreen();
 	}
+	
+	
 
 }

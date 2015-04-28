@@ -376,6 +376,12 @@ public class Player implements Client {
 	@Override
 	public void discardCard(Action a) throws RemoteException {
 		this.client.discardCard(a);
+	}
+
+
+	@Override
+	public void setNewTableCards(Hand hand) throws RemoteException {
+		this.client.setNewTableCards(hand);
 	};
 	
 	

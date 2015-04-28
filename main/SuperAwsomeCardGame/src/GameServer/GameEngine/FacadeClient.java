@@ -164,4 +164,16 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});		
 	}
 
+	@Override
+	public void setNewTableCards(Hand hand) throws RemoteException {
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.setNewTableCards(hand);
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});	
+	}
+
 }
