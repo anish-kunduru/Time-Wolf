@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import view.MainController;
 import GameServer.ChatMessage;
 
 public class Chat
@@ -18,6 +19,11 @@ public class Chat
    // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
    public final String SERVER_ADDRESS = "localhost";
    public final int SERVER_PORT = 1444;
+   
+   // PUBLIC CONSTANTS THE REPRESENT THE LOBBIES THAT CHAT CAN BE DEPLOYED IN.
+   public static final String GAME_LOBBY_SCREEN = MainController.GAME_LOBBY_SCREEN;
+   public static final String GAME_TABLE_SCREEN = MainController.GAME_TABLE_SCREEN;
+   public static final String AFTER_GAME_SCREEN = MainController.AFTER_GAME_SCREEN;
    
    // What we will listen on.
    private Socket socket;
@@ -31,11 +37,11 @@ public class Chat
    /**
     * Constructor creates a new Chat object.
     * 
-    * @param gameLobby If true, the linked ChatListener will output to the gameLobby. If false, it will output to the gameTable.
+    * @param screen String that represents the lobbies that chat can be deployed in (check the constants at the top of this file).
     * @param username The username of the player that will be chatting.
     * @param chatroomID The chatroomID (as given to the client by the server as the gameID).
     */
-   public Chat(boolean gameLobby, String username, int chatroomID)
+   public Chat(String screen, String username, int chatroomID)
    {
       // Try and connect to the server.
       try
@@ -59,7 +65,7 @@ public class Chat
       }
       
       // Initialize the thread to listen from the server and start it.
-      listener = new ChatListener(gameLobby, input);
+      listener = new ChatListener(screen, input);
       listener.start();
 
       // Initialize server side calls to set username and chatroomID.

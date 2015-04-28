@@ -147,7 +147,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			});
 
 		// Initialize chat.
-		chat = new Chat(true, MainModel.getModel().currentLoginData().getUsername(), -1);
+		chat = new Chat(MainController.GAME_LOBBY_SCREEN, MainModel.getModel().currentLoginData().getUsername(), -1);
 
 		reloadTableButton.setOnAction(event -> {
 			loadGameTable(); // Reload game table.
