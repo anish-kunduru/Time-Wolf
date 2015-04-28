@@ -649,7 +649,18 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 		}
 		
-		
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		/*
+		p.updatePlayerStats(playerList);
+		/*
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		*/
 		return true;
 	}
 

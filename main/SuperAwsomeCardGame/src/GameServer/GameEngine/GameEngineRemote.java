@@ -49,5 +49,5 @@ public interface GameEngineRemote extends Remote {
 	 * @param a the action the user's running
 	 * @return true if successful
 	 */
-	public boolean aquireCard(Action a);
+	public boolean aquireCard(Action a) throws RemoteException;
 }

@@ -683,11 +683,27 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 */
 	private void acquireCard(Action a) {
 		Card c = a.getCard();
-		if (c.getCardType().equals("Action")) {
-			playLog.appendText(a.getPlayerName() + " stole card " + c.getName() + ". " + c.getDescription() + "\n");
-		} else {
-			playLog.appendText("Player defeated " + c.getName() + ". " + c.getDescription() + "\n");
+		
+		try {
+			if(this.gameEngine.aquireCard(a)) {
+				
+				
+				
+				if (c.getCardType().equals("Action")) {
+					playLog.appendText(a.getPlayerName() + " stole card " + c.getName() + ". " + c.getDescription() + "\n");
+				} else {
+					playLog.appendText("Player defeated " + c.getName() + ". " + c.getDescription() + "\n");
+				}
+				
+			} else {
+				//TODO Alert on error
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 
 	}
 
