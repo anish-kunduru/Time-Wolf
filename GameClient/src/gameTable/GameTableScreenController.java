@@ -775,11 +775,9 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 */
 
 	public void updatePlayerStats(int st, int at, int vp, String players[]) {
-		stealth += st;
-		Stealth.setText("Stealth: " + stealth);
+		Stealth.setText("Stealth: " + st);
 		
-		attack += at;
-		Attack.setText("Attack: " + attack);
+		Attack.setText("Attack: " + at);
 		
 		String username = MainModel.getModel().currentLoginData().getUsername();
 	
