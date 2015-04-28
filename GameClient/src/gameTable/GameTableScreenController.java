@@ -191,8 +191,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		//starterDeck.draw(playerHand);
 		//mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "jkhaynes", "Player Two", "Player Three" };
-		attack = 5;
-		stealth = 5;
 		//isTurn = true;
 
 		// KEEP. Puts imageviews into arrays.
@@ -227,7 +225,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		endTurn();
 
 		// Handles action when a main table card is clicked
-		onTableCardClicked(mainDeck, stealth, attack);
+		onTableCardClicked(mainDeck);
 
 		// Handles actions when a player's hand card is clicked
 		onPlayerCardClicked();
@@ -477,7 +475,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param attack
 	 * @return
 	 */
-	private Action onTableCardClickedEvent(ImageView image, Deck deck, int stealth, int attack) {
+	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
 		image.setOnMouseClicked(event -> {
 			if (isTurn) {
 				// Check to see if player can afford card first.
@@ -557,14 +555,14 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @throws SQLException
 	 */
 
-	private void onTableCardClicked(Deck deck, int stealth, int attack) throws SQLException {
+	private void onTableCardClicked(Deck deck) throws SQLException {
 
-		onTableCardClickedEvent(biteDeckImage, deck, stealth, attack);
-		onTableCardClickedEvent(lurkDeckImage, deck, stealth, attack);
-		onTableCardClickedEvent(notSoImportantHistoricalFigureImage, deck, stealth, attack);
+		onTableCardClickedEvent(biteDeckImage, deck);
+		onTableCardClickedEvent(lurkDeckImage, deck);
+		onTableCardClickedEvent(notSoImportantHistoricalFigureImage, deck);
 
 		for (int i = 0; i < 5; i++) {
-			onTableCardClickedEvent(gameTableImages[i], deck, stealth, attack);
+			onTableCardClickedEvent(gameTableImages[i], deck);
 		}
 	}
 
@@ -837,8 +835,9 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 	public void updatePlayerStats(int st, int at, int vp, String players[]) {
 		Stealth.setText("Stealth: " + st);
-
+		stealth = st;
 		Attack.setText("Attack: " + at);
+		attack = st;
 
 		String username = MainModel.getModel().currentLoginData().getUsername();
 
