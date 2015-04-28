@@ -942,9 +942,17 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	}
 
 	public void setPlayerHand(Hand hand) {
+		
+		for (int i = 0; i < playerHandImages.length; i++) {
+			playerHandImages[i].setImage(null);
+			playerHandImages[i].setId(null);
+			System.out.println("hand updated");
+		}
+		
 		for (int i = 0; i < hand.size(); i++) {
 			playerHandImages[i].setImage(new Image(hand.get(i).getImagePath()));
 			playerHandImages[i].setId(hand.get(i).getName());
+			System.out.println("hand updated");
 		}
 	}
 
