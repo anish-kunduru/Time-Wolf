@@ -331,6 +331,15 @@ public class Player implements Client {
 		}
 	};
 	
+	public void setPlayerHand(Hand hand){
+		if(this.client == null) throw new IllegalStateException();
+		try {
+			this.client.setPlayerHand(hand);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	};
+	
 	
 	
 

@@ -893,6 +893,13 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		//Sets the player turn label to the given player's username
 		playerTurnLabel.setText("Player Turn: " + player);
 	}
+	
+	public void setPlayerHand(Hand hand){
+		for (int i = 0; i < hand.size(); i++) {
+			playerHandImages[i].setImage(new Image(hand.get(i).getImagePath()));
+			playerHandImages[i].setId(hand.get(i).getName());
+		}
+	}
 
 
 }

@@ -39,5 +39,7 @@ public interface Client extends Remote {
 	public void updatePlayerStats(int st, int at, int vp, String[] players) throws RemoteException;
 
 	public void updateOtherPlayersStats(int vp, String[] players, String username) throws RemoteException;
+
+	public void setPlayerHand(Hand hand) throws RemoteException;
 	
 }
