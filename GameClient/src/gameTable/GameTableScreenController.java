@@ -260,14 +260,30 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			e.printStackTrace();
 		}
 		
-      // Create a new Chat.
-      chat = new Chat(Chat.GAME_TABLE_SCREEN, playerUsername, gameID);
-		
-      // Attempt to send message upon hitting return register in chatMessageTextField.
-      chatMessageTextField.setOnAction(event ->
-      {
-         sendMessage();
-      });
+		// Enable chat if the game has chat enabled.
+		if (MainModel.getModel().currentGameLobbyData().getChatEnabled())
+		{
+		   // Create a new Chat.
+	      chat = new Chat(Chat.GAME_TABLE_SCREEN, playerUsername, gameID);
+	      
+	      // Attempt to send message upon hitting return register in chatMessageTextField.
+	      chatMessageTextField.setOnAction(event ->
+	      {
+	         sendMessage();
+	      });
+	      
+	      // Update singleton for after game screen.
+	      MainModel.getModel().currentGameTableData().setChatEnabled(true);
+		}
+		else
+		{
+		   chatBoxTextArea.setVisible(false);
+		   chatMessageTextField.setVisible(false);
+		   sendButton.setVisible(false);
+		   
+		   // Update singleton for after game screen.
+	      MainModel.getModel().currentGameTableData().setChatEnabled(false);
+		}      
 
 		this.isTurn = false;
 		
@@ -938,7 +954,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		// This is where we will end the chat and send whatever information the server might need.
-		chat.end();
+		if (MainModel.getModel().currentGameLobbyData().getChatEnabled())
+		   chat.end();
 	}
 
 	public void setOtherPlayerTurn(String player) {
