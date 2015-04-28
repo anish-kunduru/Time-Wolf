@@ -534,8 +534,6 @@ public class GameTableScreenController implements ControlledScreen,
 				try {
 					oldCard = new Card(image.getId());
 
-					System.out.println("Attack : " + oldCard.getCostAttack() + " " + attack);
-					System.out.println("Stealth: " + oldCard.getCostStealth() + " " + stealth);
 					if (oldCard.getCostAttack() > attack
 							|| oldCard.getCostStealth() > stealth) {
 
