@@ -196,7 +196,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		//starterDeck = Deck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
-		//mainDeck = Deck.getMainDeck();
+		mainDeck = Deck.getMainDeck();
 
 		Hand playerHand = new Hand(5);
 		Hand tableHand = new Hand(5);
@@ -204,8 +204,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		//starterDeck.draw(playerHand);
 		//mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "jkhaynes", "Player Two", "Player Three" };
-		//attack = 5;
-		//stealth = 5;
+		attack = 5;
+		stealth = 5;
 		//isTurn = true;
 
 		// KEEP. Puts imageviews into arrays.
@@ -416,31 +416,31 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		// Set player VP labels
 		if (playerNames.length == 1) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
+			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
 		}
 
 		if (playerNames.length == 2) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
+			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
+			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
+			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
 		}
 
 		if (playerNames.length == 4) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
-			playerFourVP.setText(playerNames[3] + ": 1,000 BCE");
+			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerFourVP.setText(playerNames[3] + ": 1,000 CE");
 		}
 
 		// Populate hand image fields for player and main table
@@ -799,13 +799,13 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		if (count == -1) {
 			System.out.println("Player's username could not be found in array of players");
 		} else if (count == 0) {
-			playerOneVP.setText(username + ": " + vp + " BCE");
+			playerOneVP.setText(username + ": " + vp + " CE");
 		} else if (count == 1) {
-			playerTwoVP.setText(username + ": " + vp + " BCE");
+			playerTwoVP.setText(username + ": " + vp + " CE");
 		} else if (count == 2) {
-			playerThreeVP.setText(username + ": " + vp + " BCE");
+			playerThreeVP.setText(username + ": " + vp + " CE");
 		} else if (count == 3) {
-			playerFourVP.setText(username + ": " + vp + " BCE");
+			playerFourVP.setText(username + ": " + vp + " CE");
 		}
 	}
 
@@ -833,13 +833,13 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		if (count == -1) {
 			System.out.println("Player's username could not be found in array of players");
 		} else if (count == 0) {
-			playerOneVP.setText(username + ": " + vp + " BCE");
+			playerOneVP.setText(username + ": " + vp + " CE");
 		} else if (count == 1) {
-			playerTwoVP.setText(username + ": " + vp + " BCE");
+			playerTwoVP.setText(username + ": " + vp + " CE");
 		} else if (count == 2) {
-			playerThreeVP.setText(username + ": " + vp + " BCE");
+			playerThreeVP.setText(username + ": " + vp + " CE");
 		} else if (count == 3) {
-			playerFourVP.setText(username + ": " + vp + " BCE");
+			playerFourVP.setText(username + ": " + vp + " CE");
 		}
 	}
 
