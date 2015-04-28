@@ -280,6 +280,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		   chatBoxTextArea.setVisible(false);
 		   chatMessageTextField.setVisible(false);
 		   sendButton.setVisible(false);
+		   reportButton.setVisible(false);
 		   
 		   // Update singleton for after game screen.
 	      MainModel.getModel().currentGameTableData().setChatEnabled(false);
