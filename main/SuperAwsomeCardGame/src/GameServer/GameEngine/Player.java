@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 
 
+
 import javafx.application.Platform;
 //import view.GameTableScreenController;
 import GameServer.Users.User;
@@ -355,10 +356,21 @@ public class Player implements Client {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	@Override
+	public void drawCards(Action a) throws RemoteException {
+		this.client.drawCards(a);		
 	};
 	
+	/**
+	 * Passes the draw cards perogative to the client.
+	 * @throws RemoteException
+	 */
+	public void drawCards() throws RemoteException {
+		this.client.drawCards(new Action(Action.DRAW, this.hand));		
+	};
 	
-	
-
 	
 }
