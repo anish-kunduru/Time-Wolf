@@ -202,9 +202,49 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Player p = this.players.get(this.currentPlayerIndex);
 		
 		//if(!this.isDiscardingPre) {
-		this.ruleDiscard(p, c, true, a);
+		//this.ruleDiscard(p, c, true, a);
+		
+		
+		this.ruleAttack(p, c);
+		this.ruleStealth(p, c);
+		this.ruleDrawCards(p, c);
+		//this.ruleTakeAnotherTurn(p, c);
+		//this.ruleDiscard(p, c, false, a);
+		
+		//Discard card
+		//p.getDiscardPile().discard(c);
+		//p.getHand().remove(a.getCardIndex());
+		
+		//When we find the card played, discard it.
+		for(int i = 0; i < p.getHand().size(); i++) {
+			if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
+				p.getDiscardPile().discard(c);
+				p.getHand().remove(i);
+				break;
+			}
+		}
+		
+		//p.setPlayerHand();
+		
+		System.out.println("Player: " + p.getUser().getUsername() + 
+				" Attack: " + p.getAttack() + " Stealth: " + p.getStealth());
+		
+		//Update player stats for everyone.
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		
+		p.updatePlayerStats(playerList);
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.currentPlayerIndex != i) {
+				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
+			}
+		}
 		
 		return true;
+
 	}
 	
 	private boolean playCardPt2(Action a) {
@@ -215,7 +255,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		this.ruleStealth(p, c);
 		this.ruleDrawCards(p, c);
 		//this.ruleTakeAnotherTurn(p, c);
-		this.ruleDiscard(p, c, false, a);
+		//this.ruleDiscard(p, c, false, a);
 		
 		//Discard card
 		//p.getDiscardPile().discard(c);
@@ -768,9 +808,19 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		for(int i = 0; i < this.players.size(); i++) {
 			if(this.currentPlayerIndex != i) {
+				
 				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
+				try {
+					this.players.get(i).setNewTableCards(this.mainPlayAreaCards);
+					
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		
+
 		
 		return true;
 	}
