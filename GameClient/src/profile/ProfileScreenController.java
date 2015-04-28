@@ -84,6 +84,8 @@ public class ProfileScreenController implements ControlledScreen {
 	private File profileImageFile;
 	
 	@FXML
+	private Label personalInfoLabel;
+	@FXML
 	private Label usernameLabel;
 	@FXML
 	private Label emailLabel;
@@ -102,6 +104,7 @@ public class ProfileScreenController implements ControlledScreen {
 	private Button removeImage;
 	@FXML
 	private Button browseButton;
+
 
 	@FXML
 	private TextField usernameTextField;
@@ -176,6 +179,15 @@ public class ProfileScreenController implements ControlledScreen {
 				setInformation();
 				loadKarmaTable();
 				loadStatTable();
+				
+				if(user.isParanoid()){
+					usernameLabel.setVisible(false);
+					emailLabel.setVisible(false);
+					locationLabel.setVisible(false);
+					paranoiaLabel.setVisible(false);
+					userTypeLabel.setVisible(false);
+					personalInfoLabel.setVisible(false);
+				}
 
 				try {
 

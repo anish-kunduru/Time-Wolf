@@ -79,7 +79,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-				<Label text="Personal Info:">
+				<Label fx:id="personalInfoLabel" text="Personal Info:">
 					<font>
 						<Font name="System Bold" size="20.0" />
 					</font>
