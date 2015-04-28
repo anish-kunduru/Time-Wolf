@@ -714,7 +714,15 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void playCard(Action a) {
-		playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+		
+		try {
+			if(this.gameEngine.playCard(a)) {
+				playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

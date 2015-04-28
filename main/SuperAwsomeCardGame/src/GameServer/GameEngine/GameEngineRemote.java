@@ -50,4 +50,11 @@ public interface GameEngineRemote extends Remote {
 	 * @return true if successful
 	 */
 	public boolean aquireCard(Action a) throws RemoteException;
+	
+	/**
+	 * 
+	 * @param a
+	 * @return
+	 */
+	public boolean playCard(Action a) throws RemoteException;
 }

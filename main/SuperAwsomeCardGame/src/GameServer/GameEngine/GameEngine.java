@@ -196,22 +196,38 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		return isRunning || isFinished;
 	}
 
-	
-	private boolean playCard(Action a) {
+	@Override
+	public boolean playCard(Action a) {
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
-		this.ruleDiscard(p, c, true);
+		//this.ruleDiscard(p, c, true);
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
-		this.ruleDrawCards(p, c);
-		this.ruleTakeAnotherTurn(p, c);
-		this.ruleDiscard(p, c, false);
+		//this.ruleDrawCards(p, c);
+		//this.ruleTakeAnotherTurn(p, c);
+		//this.ruleDiscard(p, c, false);
 		
 		//Discard card
-		p.getDiscardPile().discard(c);
-		p.getHand().remove(a.getCardIndex());
+		//p.getDiscardPile().discard(c);
+		//p.getHand().remove(a.getCardIndex());
 		
+		System.out.println("Player: " + p.getUser().getUsername() + 
+				" Attack: " + p.getAttack() + " Stealth: " + p.getStealth());
+		
+		//Update player stats for everyone.
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		
+		p.updatePlayerStats(playerList);
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.currentPlayerIndex != i) {
+				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
+			}
+		}
 		
 		return true;
 	}
@@ -649,18 +665,20 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 		}
 		
+		//Update player stats for everyone.
 		String[] playerList = new String[this.players.size()];
 		for(int i = 0; i < this.players.size(); i++) {
 				playerList[i] = this.players.get(i).getUser().getUsername();
 		}
-		/*
+		
 		p.updatePlayerStats(playerList);
-		/*
-		String[] playerList = new String[this.players.size()];
+		
 		for(int i = 0; i < this.players.size(); i++) {
-				playerList[i] = this.players.get(i).getUser().getUsername();
+			if(this.currentPlayerIndex != i) {
+				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
+			}
 		}
-		*/
+		
 		return true;
 	}
 
