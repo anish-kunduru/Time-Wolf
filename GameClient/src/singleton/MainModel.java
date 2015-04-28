@@ -27,6 +27,15 @@ public class MainModel
    private GameLobbyData gameLobbyData = new GameLobbyData();
    private ProfileData profileData = new ProfileData();
    private ControllerData controllerData = new ControllerData();
+   private GameTableData gameTableData = new GameTableData();
+   
+   /**
+    * @return The current instance of GameTableData.
+    */
+   public GameTableData currentGameTableData()
+   {
+      return gameTableData;
+   }
    
    /**
     * @return The current instance of LoginData.
@@ -36,6 +45,9 @@ public class MainModel
       return loginData;
    }
    
+   /**
+    * @return the current instance of ControllerData.
+    */
    public ControllerData currentControllerData()
    {
       return controllerData;
