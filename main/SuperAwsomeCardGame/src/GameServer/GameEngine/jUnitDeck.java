@@ -53,19 +53,19 @@ public class jUnitDeck {
 	
 	@Test
 	public void testDeckSizeAfterDraw() {
-		deckOne.draw();
+		deckOne.draw(null);
 		assertEquals(15, deckOne.size());
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void testDrawWithNoCards() {
-		deckTwo.draw();
+		deckTwo.draw(null);
 	}
 	
 	@Test
 	public void testDeckSizeDrawWithOneCard() {
 		deckTwo.addCard(beginStealth);
-		deckTwo.draw();
+		deckTwo.draw(null);
 		assertEquals(0, deckTwo.size());
 	}
 

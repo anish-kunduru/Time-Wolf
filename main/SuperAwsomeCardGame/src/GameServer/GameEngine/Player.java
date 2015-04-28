@@ -55,7 +55,7 @@ public class Player implements Client {
 
 		//Initialize hand
 		this.hand = new Hand(5);
-		this.deck.draw(this.hand);
+		this.deck.draw(this.hand, this.discard);
 		
 		//Initialize int values to 0
 		this.attack = 0;
@@ -85,12 +85,12 @@ public class Player implements Client {
 
 		//Initialize hand
 		this.hand = new Hand(5);
-		this.deck.draw(this.hand);
+		this.deck.draw(this.hand, this.discard);
 		
 		//Initialize int values to 0
 		this.attack = 0;
 		this.stealth = 0;
-		this.VP = 0;
+		this.VP = 1000;
 		
 	}
 	
@@ -119,12 +119,12 @@ public class Player implements Client {
 
 		//Initialize hand
 		this.hand = new Hand(5);
-		this.deck.draw(this.hand);
+		this.deck.draw(this.hand, this.discard);
 		
 		//Initialize int values to 0
 		this.attack = 0;
 		this.stealth = 0;
-		this.VP = 0;
+		this.VP = 1000;
 		System.out.println(clientRegistryName);
 		this.client = (Client) Naming.lookup(clientRegistryName);
 		
@@ -145,7 +145,7 @@ public class Player implements Client {
 			if(this.deck.size() == 0){
 				this.discard.addToDeck(this.deck);
 			}
-			this.deck.draw(this.hand);
+			this.deck.draw(this.hand, this.discard);
 		}
 		
 	}
@@ -324,7 +324,8 @@ public class Player implements Client {
 	
 	public void updatePlayerStats(String players[]){
 		if(this.client == null) throw new IllegalStateException();
-		this.updatePlayerStats(this.stealth, this.attack, this.VP, players);
+		System.out.println("Update Player VP: " + this.getVP());
+		this.updatePlayerStats(this.getStealth(), this.getAttack(), this.getVP(), players);
 	};
 	
 	public void updateOtherPlayersStats(int vp, String players[], String username){

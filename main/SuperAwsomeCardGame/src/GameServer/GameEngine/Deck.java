@@ -43,7 +43,7 @@ public class Deck {
 	 * Draw a card from the deck.
 	 * @return the card drawn
 	 */
-	public Card draw() {
+	public Card draw(DiscardPile pile) {
 		int index;
 		
 		if(this.cards.size() == 0) throw new IllegalStateException();
@@ -59,6 +59,10 @@ public class Deck {
 		Card c = this.cards.get(index);
 		this.cards.remove(index);
 		
+		//Draw deck back up if we run out of cards
+		if(this.cards.size() == 0) {
+			pile.addToDeck(this);
+		}
 		
 		return(c);
 		
@@ -69,10 +73,10 @@ public class Deck {
 	 * @param hand
 	 * @return Hand with 5 cards
 	 */
-	public void draw(Hand hand){
+	public void draw(Hand hand, DiscardPile pile){
 		
 		for(int i = 0; i < 5; i++){
-			hand.addCard(this.draw());
+			hand.addCard(this.draw(pile));
 		}
 
 	}
@@ -83,10 +87,10 @@ public class Deck {
 	 * @param toAdd
 	 * @return Hand with given number of cards
 	 */
-	public Hand draw(Hand hand, int toAdd){
+	public Hand draw(Hand hand, int toAdd, DiscardPile pile){
 		
 		for(int i = 0; i < toAdd; i++){
-			hand.addCard(this.draw());
+			hand.addCard(this.draw(pile));
 		}
 		
 		return hand;

@@ -56,7 +56,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		this.name = name;
 		
 		//Initialize the main play area cards.
-		for(int i = 0; i < 5; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+		for(int i = 0; i < 5; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
 		
 		
 	}
@@ -204,13 +204,24 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		//this.ruleDiscard(p, c, true);
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
-		//this.ruleDrawCards(p, c);
+		this.ruleDrawCards(p, c);
 		//this.ruleTakeAnotherTurn(p, c);
 		//this.ruleDiscard(p, c, false);
 		
 		//Discard card
 		//p.getDiscardPile().discard(c);
 		//p.getHand().remove(a.getCardIndex());
+		
+		//When we find the card played, discard it.
+		for(int i = 0; i < p.getHand().size(); i++) {
+			if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
+				p.getDiscardPile().discard(c);
+				p.getHand().remove(i);
+				break;
+			}
+		}
+		
+		p.setPlayerHand();
 		
 		System.out.println("Player: " + p.getUser().getUsername() + 
 				" Attack: " + p.getAttack() + " Stealth: " + p.getStealth());
@@ -299,7 +310,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	 * @param c the card
 	 */
 	private void ruleDrawCards(Player current, Card c) {
-		current.getDeck().draw(current.getHand(), c.getDrawCards());
+		current.getDeck().draw(current.getHand(), c.getDrawCards(), current.getDiscardPile());
 	}
 	
 	
@@ -337,18 +348,18 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Hand playerHand = new Hand(5);
 		DiscardPile discard = new DiscardPile();
 		
-		playerHand.addCard(playerDeck.draw());
-		playerHand.addCard(playerDeck.draw());
-		playerHand.addCard(playerDeck.draw());
-		playerHand.addCard(playerDeck.draw());
-		playerHand.addCard(playerDeck.draw());
+		playerHand.addCard(playerDeck.draw(discard));
+		playerHand.addCard(playerDeck.draw(discard));
+		playerHand.addCard(playerDeck.draw(discard));
+		playerHand.addCard(playerDeck.draw(discard));
+		playerHand.addCard(playerDeck.draw(discard));
 		
 		
 		//Initialize the first four cards in main game area
-		playArea.addCard(maingame.draw());
-		playArea.addCard(maingame.draw());
-		playArea.addCard(maingame.draw());
-		playArea.addCard(maingame.draw());
+		playArea.addCard(maingame.draw(null));
+		playArea.addCard(maingame.draw(null));
+		playArea.addCard(maingame.draw(null));
+		playArea.addCard(maingame.draw(null));
 		
 		
 		System.out.println("Welcome to the Super Awsome Card Game Demo v1.0!!!!!!");
@@ -395,7 +406,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 						//Draw X cards
 						for(int i = 0; i < c.getDrawCards(); i++) {
 							
-							playerHand.addCard(playerDeck.draw());
+							playerHand.addCard(playerDeck.draw(null));
 							
 							//If necessary reshuffle the discard pile into the deck
 							if(playerDeck.size() == 0) {
@@ -437,7 +448,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 						attack -= c.getCostAttack();
 						
 						playArea.remove(Integer.parseInt(input) - 1);
-						playArea.addCard(maingame.draw());
+						playArea.addCard(maingame.draw(null));
 					} else {
 						System.out.println("Sorry, but you cannot afford to buy or attack this card.");
 					}
@@ -460,7 +471,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 					//Draw 5 cards
 					for(int i = 0; i < 5; i++) {
 						
-						playerHand.addCard(playerDeck.draw());
+						playerHand.addCard(playerDeck.draw(null));
 						
 						//If necessary reshuffle the discard pile into the deck
 						if(playerDeck.size() == 0) {
@@ -633,7 +644,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 			if(a.getCardIndex() != -1) {
 				this.mainPlayAreaCards.remove(a.getCardIndex());
-				this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+				this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
 				
 				//If this was the last card in the main deck, reshuffle the discard
 				//pile back in to the main play area deck.
@@ -653,7 +664,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			p.addVP(c.getVp());
 			if(a.getCardIndex() != -1) {
 				this.mainPlayAreaCards.remove(a.getCardIndex());
-				this.mainPlayAreaCards.addCard(this.mainDeck.draw());
+				this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
 				
 				//If this was the last card in the main deck, reshuffle the discard
 				//pile back in to the main play area deck.

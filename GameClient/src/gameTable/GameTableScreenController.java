@@ -485,6 +485,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 						// Append action to the play log.
 
 						// System.out.println(oldCard.getCardType());
+						System.out.println("Starting Play action.");
+						
 						if (oldCard.getCardType().equals("Action")) {
 							playLog.appendText("You stole card " + oldCard.getName() + ". " + oldCard.getDescription() + "\n");
 						} else {
@@ -497,8 +499,22 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						action = new Action(1, cardForAction);
+						action = new Action(Action.AQUIRE_CARD, cardForAction);
 						// System.out.println(action.getCard().getName());
+						
+						try {
+							if (this.gameEngine.aquireCard(action)) {
+
+								
+							} else {
+								//TODO Alert on error
+							}
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						
 
 						// Change image to a new card's image, reset id to new
 						// card's
@@ -507,7 +523,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 						if (oldCard.getName().equals("Bite") || oldCard.getName().equals("Not So Important Historical Figure")
 								|| oldCard.getName().equals("Lurk")) {
 						} else {
-							Card card = deck.draw();
+							Card card = deck.draw(null);
 							image.setImage(new Image(card.getImagePath()));
 							image.setId(card.getName());
 						}
@@ -630,6 +646,20 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 						lastDiscardImage.setImage(image.getImage());
 						image.setImage(null);
 						image.setId(null);
+						
+						try {
+							
+							Action a = new Action(Action.PLAY_CARD, oldCard);
+							if(this.gameEngine.playCard(a)) {
+								System.out.println("Play action: Succeeded.");
+								playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+							} else {
+								System.out.println("Play action: Failed.");
+							}
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -677,6 +707,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void acquireCard(Action a) {
+		
+		//THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		Card c = a.getCard();
 
 		try {
@@ -705,6 +737,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void playCard(Action a) {
+		//THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		System.out.println("Starting Play action.");
 		try {
 			if(this.gameEngine.playCard(a)) {
