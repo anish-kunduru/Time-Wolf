@@ -370,7 +370,14 @@ public class Player implements Client {
 	 */
 	public void drawCards() throws RemoteException {
 		this.client.drawCards(new Action(Action.DRAW, this.hand));		
+	}
+
+
+	@Override
+	public void discardCard(Action a) throws RemoteException {
+		this.client.discardCard(a);
 	};
+	
 	
 	
 }

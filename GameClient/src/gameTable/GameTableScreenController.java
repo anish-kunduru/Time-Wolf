@@ -736,6 +736,7 @@ public class GameTableScreenController implements ControlledScreen,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 						lastDiscardImage.setImage(image.getImage());
 						image.setImage(null);
 						image.setId(null);
@@ -837,7 +838,7 @@ public class GameTableScreenController implements ControlledScreen,
 	 * 
 	 * @param a
 	 */
-	private void discardCard(Action a) {
+	public void discardCard(Action a) {
 		Card c = a.getCard();
 		int discard = 0;
 
