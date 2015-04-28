@@ -201,12 +201,14 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
-		//this.ruleDiscard(p, c, true);
+		//if(!this.isDiscardingPre) {
+		this.ruleDiscard(p, c, true, a);
+		
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
 		this.ruleDrawCards(p, c);
 		//this.ruleTakeAnotherTurn(p, c);
-		//this.ruleDiscard(p, c, false);
+		this.ruleDiscard(p, c, false, a);
 		
 		//Discard card
 		//p.getDiscardPile().discard(c);
@@ -261,13 +263,46 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		current.addAttack(c.getAttack());
 	}
 	
+	private boolean isDiscarding = false;
+	private int discardCount;
+	private int discardMax;
+	private Action inProgressAction;
 	
-	private void ruleDiscard(Player current, Card c, boolean isBefore) {
+	public void discardCard(Action a) {
+		if(a == null || a.getCard() == null) throw new NullPointerException();
+		if(this.isDiscarding == false) throw new IllegalStateException();
+		
+		Player p = this.players.get(this.currentPlayerIndex);
+		boolean hasDiscarded = false;
+		
+		for(int i = 0; i < p.getHand().size(); i++) {
+			if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
+				p.getDiscardPile().discard(p.getHand().get(i));
+				p.getHand().remove(i);
+				hasDiscarded = true;
+				break; //exit early so we don't discard a second copy of the same card
+			}
+		}
+		
+		//If they pass a card that isn't in the hand is invalid. 
+		//Otherwise we've discarded one more card.
+		if(hasDiscarded)  {
+			this.discardCount++;
+		} else {
+			throw new IllegalStateException();
+		}
+		
+		
+		if(this.discardCount == this.discardMax) {
+			this.playCard(this.inProgressAction);
+		}
+		
+		
+	}
+	
+	private void ruleDiscard(Player current, Card c, boolean isBefore, Action a) {
 		
 		int numOfCards;
-		//  open up standard input
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String input; //place to put input from command line.
 		
 		
 		//We can either discard before or after
@@ -277,7 +312,21 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			numOfCards = c.getPostturnDiscard();
 		}
 		
+		if(numOfCards > 0) {
+			this.discardMax = numOfCards;
+			this.discardCount = 0;
+			this.isDiscarding = true;
+			this.inProgressAction = a;
+			
+			//TODO Need to call client discard function here
+			
+		}
 		
+		
+		
+		
+		
+		/* Old text based game
 		for(int i = 0; i < numOfCards; i++) {
 			
 			GameEngine.printHand(current.getHand());
@@ -301,6 +350,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				continue;
 			}
 		}
+		*/
 		
 	}
 	
