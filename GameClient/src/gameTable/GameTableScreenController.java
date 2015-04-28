@@ -594,9 +594,8 @@ public class GameTableScreenController implements ControlledScreen,
 										"Not So Important Historical Figure")
 								|| oldCard.getName().equals("Lurk")) {
 						} else {
-							Card card = deck.draw(null);
-							image.setImage(new Image(card.getImagePath()));
-							image.setId(card.getName());
+							image.setImage(null);
+							image.setId(null);
 						}
 					}
 				} catch (Exception e1) {
@@ -610,6 +609,14 @@ public class GameTableScreenController implements ControlledScreen,
 		return action;
 	}
 
+	public void setNewTableCards(Hand hand){
+		for (int i = 0; i < hand.size(); i++) {
+			gameTableImages[i].setImage(new Image(hand.get(i)
+					.getImagePath()));
+			gameTableImages[i].setId(hand.get(i).getName());
+		}
+	}
+	
 	/**
 	 * This method applies the tableCardClickedEvent to all the table cards.
 	 * 
