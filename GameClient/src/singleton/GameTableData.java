@@ -10,12 +10,39 @@ public class GameTableData
 {
    private int gameID; // The unique gameID as given by the game server.
    private boolean chatEnabled; // Should chat be enabled?
+   private int VP[];
+   private int cardsInDeck[];
+   private String playerNames[];
    
    /**
     * Default constructor to use in singleton.
     */
    public GameTableData()
    {
+   }
+   
+   public void setVP(int vp[]){
+	   this.VP = vp;
+   }
+   
+   public int[] getVP(){
+	   return this.VP;
+   }
+   
+   public void setCardsInDeck(int[] cards){
+	   this.cardsInDeck = cards;
+   }
+   
+   public int[] getCardsInDeck(){
+	   return this.cardsInDeck;
+   }
+   
+   public void setPlayerNames(String[] players){
+	   this.playerNames = players;
+   }
+   
+   public String[] getPlayerNames(){
+	   return this.playerNames;
    }
    
    /**

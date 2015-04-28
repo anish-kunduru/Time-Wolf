@@ -24,6 +24,10 @@ import GameServer.Users.User;
 
 public class LoginScreenController implements ControlledScreen
 {
+   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+   public final String SERVER_ADDRESS = "localhost";
+   //public final String SERVER_ADDRESS = "10.25.68.24";
+   
    // Functional components.
    @FXML
    private Button loginButton;
@@ -56,7 +60,7 @@ public class LoginScreenController implements ControlledScreen
       // Initialize login and store in singleton.
       try
       {
-         login = (LogIn) Naming.lookup("//localhost/auth");
+         login = (LogIn) Naming.lookup("//" + SERVER_ADDRESS + "/auth");
 
          MainModel.getModel().currentLoginData().setLogInConnection(login);
       }

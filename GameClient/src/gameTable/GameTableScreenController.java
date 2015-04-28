@@ -38,14 +38,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameTableScreenController implements ControlledScreen,
-		Destroyable, Client {
-
-	// IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
-	// YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
-	// OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN
-	// EXCEPTION TO THE CONSOLE...
-
-	// FXML Components
+		Destroyable, Client
+{
+   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+   public final String SERVER_ADDRESS = "localhost";
+   //public final String SERVER_ADDRESS = "10.25.68.24";
 
 	@FXML
 	private Button reportButton;
@@ -263,7 +260,7 @@ public class GameTableScreenController implements ControlledScreen,
 
 		try {
 			IGameManagement gameManagement = (IGameManagement) Naming
-					.lookup("//localhost/game");
+					.lookup("//" + SERVER_ADDRESS + "/game");
 			gameManagement.addUserToGame(gameID,
 					MainModel.getModel().currentLoginData()
 							.getLogInConnection().getUser(playerUsername),
@@ -319,6 +316,10 @@ public class GameTableScreenController implements ControlledScreen,
 		this.isTurn = false;
 
 	} // End #initialize
+	
+	/**
+	 * TODO
+	 */
 
 	private void initRemoteObject() {
 		Random rnd = new Random();
@@ -333,7 +334,7 @@ public class GameTableScreenController implements ControlledScreen,
 				e1.printStackTrace();
 			}
 			((FacadeClient) thing).c = (Client) this;
-			String path = "//localhost/client" + id;
+			String path = "//" + SERVER_ADDRESS + "/client" + id;
 			this.remoteString = path;
 			try {
 				Naming.rebind(path, thing);
@@ -438,6 +439,13 @@ public class GameTableScreenController implements ControlledScreen,
 		}
 
 	}
+	/**
+	 * Helper method to initialize the game table. It adds special effects and sets the appropriate images for the cards 
+	 * and the correct text for the labels.
+	 * @param playerHand
+	 * @param gameTableHand
+	 * @param playerNames
+	 */
 
 	// @Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
@@ -472,31 +480,31 @@ public class GameTableScreenController implements ControlledScreen,
 
 		// Set player VP labels
 		if (playerNames.length == 1) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 2) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 4) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
-			playerFourVP.setText(playerNames[3] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
+			playerFourVP.setText(playerNames[3] + ": 1000 CE");
 		}
 
 		// Populate hand image fields for player and main table
@@ -533,6 +541,7 @@ public class GameTableScreenController implements ControlledScreen,
 				Card oldCard;
 				try {
 					oldCard = new Card(image.getId());
+
 					if (oldCard.getCostAttack() > attack
 							|| oldCard.getCostStealth() > stealth) {
 						playLog.appendText("Can't afford that card. \n");
@@ -585,9 +594,8 @@ public class GameTableScreenController implements ControlledScreen,
 										"Not So Important Historical Figure")
 								|| oldCard.getName().equals("Lurk")) {
 						} else {
-							Card card = deck.draw(null);
-							image.setImage(new Image(card.getImagePath()));
-							image.setId(card.getName());
+							image.setImage(null);
+							image.setId(null);
 						}
 					}
 				} catch (Exception e1) {
@@ -601,6 +609,14 @@ public class GameTableScreenController implements ControlledScreen,
 		return action;
 	}
 
+	public void setNewTableCards(Hand hand){
+		for (int i = 0; i < hand.size(); i++) {
+			gameTableImages[i].setImage(new Image(hand.get(i)
+					.getImagePath()));
+			gameTableImages[i].setId(hand.get(i).getName());
+		}
+	}
+	
 	/**
 	 * This method applies the tableCardClickedEvent to all the table cards.
 	 * 
@@ -706,26 +722,13 @@ public class GameTableScreenController implements ControlledScreen,
 				} else if (isTurn) {
 					try {
 						Card oldCard = new Card(image.getId());
-						playLog.appendText("You played card "
-								+ oldCard.getName() + ". "
-								+ oldCard.getDescription() + "\n");
-						lastDiscardImage.setImage(image.getImage());
-						image.setImage(null);
-						image.setId(null);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else if (!isTurn) {
-					try {
-						Card oldCard = new Card(image.getId());
 						try {
 							Action a = new Action(Action.PLAY_CARD, oldCard);
 							if (this.gameEngine.playCard(a)) {
-								System.out.println("Play action: Succeeded.");
-								playLog.appendText(a.getPlayerName()
-										+ " played card "
-										+ a.getCard().getName() + ". "
-										+ a.getCard().getDescription() + "\n");
+
+								playLog.appendText("You played card "
+										+ oldCard.getName() + ". "
+										+ oldCard.getDescription() + "\n");
 							} else {
 								System.out.println("Play action: Failed.");
 							}
@@ -733,9 +736,14 @@ public class GameTableScreenController implements ControlledScreen,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					} catch (Exception ex) {
-						
+
+						lastDiscardImage.setImage(image.getImage());
+						image.setImage(null);
+						image.setId(null);
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
+
 				}
 			}
 		});
@@ -905,7 +913,7 @@ public class GameTableScreenController implements ControlledScreen,
 		Stealth.setText("Stealth: " + st);
 		stealth = st;
 		Attack.setText("Attack: " + at);
-		attack = st;
+		attack = at;
 
 		String username = MainModel.getModel().currentLoginData().getUsername();
 
@@ -1036,6 +1044,14 @@ public class GameTableScreenController implements ControlledScreen,
 			playerHandImages[i].setId(hand.get(i).getName());
 			System.out.println("hand updated");
 		}
+	}
+	
+	public void endGame(int vp[], int cardsInDeck[], String playerNames[]){
+		MainModel.getModel().currentGameTableData().setVP(vp);
+		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
+		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
+		
+		parentController.goToAfterGameScreen();
 	}
 
 }
