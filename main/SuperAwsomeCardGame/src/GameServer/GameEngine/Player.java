@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 
 
+
 import javafx.application.Platform;
 //import view.GameTableScreenController;
 import GameServer.Users.User;
@@ -307,6 +308,15 @@ public class Player implements Client {
 		if(this.client == null) throw new IllegalStateException();
 		try {
 			this.client.setOtherPlayerTurn(player);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	};
+	
+	public void updatePlayerStats(int st, int at, int vp, String players[]){
+		if(this.client == null) throw new IllegalStateException();
+		try {
+			this.client.updatePlayerStats(st, at, vp, players);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

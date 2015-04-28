@@ -203,7 +203,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		//starterDeck.draw(playerHand);
 		//mainDeck.draw(tableHand);
-		String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
+		String[] playerNames = new String[] { "jkhaynes", "ssimmons", "Player Three" };
 		//attack = 5;
 		//stealth = 5;
 		//isTurn = true;
@@ -766,16 +766,38 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		}
 	}
 
-	public void updatePlayerStats(int st, int at, int vp) {
+	public void updatePlayerStats(int st, int at, int vp, String players[]) {
 		stealth += st;
-		Stealth.setText("" + stealth + "");
+		Stealth.setText("Stealth: " + stealth);
 		
 		attack += at;
-		Attack.setText("" + attack + "");
+		Attack.setText("Attack: " + attack);
+		
+		String username = MainModel.getModel().currentLoginData().getUsername();
 		
 		this.vp += vp;
-		
-		
+		int count = -1;
+		for(int i = 0; i < players.length; i++){
+			if(players[i].equals(username)){
+				count = i;
+				break;
+			}
+		}
+		if(count == -1){
+			System.out.println("Player's username could not be found in array of players");
+		}
+		else if(count == 0){
+			playerOneVP.setText(username + ": " + this.vp + " BCE");
+		}
+		else if(count == 1){
+			playerTwoVP.setText(username + ": " + this.vp + " BCE");
+		}
+		else if(count == 2){
+			playerThreeVP.setText(username + ": " + this.vp + " BCE");
+		}
+		else {
+			playerFourVP.setText(username + ": " + this.vp + " BCE");
+		}	
 	}
 
 
