@@ -765,17 +765,22 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			}
 		}
 	}
+	
+	/**
+	 * Update the player stats of the logged in player
+	 * @param st
+	 * @param at
+	 * @param vp
+	 * @param players
+	 */
 
 	public void updatePlayerStats(int st, int at, int vp, String players[]) {
-		stealth += st;
-		Stealth.setText("Stealth: " + stealth);
+		Stealth.setText("Stealth: " + st);
 		
-		attack += at;
-		Attack.setText("Attack: " + attack);
+		Attack.setText("Attack: " + at);
 		
 		String username = MainModel.getModel().currentLoginData().getUsername();
-		
-		this.vp += vp;
+	
 		int count = -1;
 		for(int i = 0; i < players.length; i++){
 			if(players[i].equals(username)){
@@ -787,17 +792,51 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			System.out.println("Player's username could not be found in array of players");
 		}
 		else if(count == 0){
-			playerOneVP.setText(username + ": " + this.vp + " BCE");
+			playerOneVP.setText(username + ": " + vp + " BCE");
 		}
 		else if(count == 1){
-			playerTwoVP.setText(username + ": " + this.vp + " BCE");
+			playerTwoVP.setText(username + ": " + vp + " BCE");
 		}
 		else if(count == 2){
-			playerThreeVP.setText(username + ": " + this.vp + " BCE");
+			playerThreeVP.setText(username + ": " + vp + " BCE");
 		}
 		else {
-			playerFourVP.setText(username + ": " + this.vp + " BCE");
+			playerFourVP.setText(username + ": " + vp + " BCE");
 		}	
+	}
+	
+	/**
+	 * Updates other players stats not including the client's logged in player. 
+	 * @param vp players total vp
+	 * @param players string of players
+	 * @param username username of player that you want to change data for
+	 */
+	
+	public void updateOtherPlayersStats(int vp, String players[], String username){
+		
+		int count = -1;
+		
+		for(int i = 0; i < players.length; i++){
+			if(players[i].equals(username)){
+				count = i;
+				break;
+			}
+		}
+		if(count == -1){
+			System.out.println("Player's username could not be found in array of players");
+		}
+		else if(count == 0){
+			playerOneVP.setText(username + ": " + vp + " BCE");
+		}
+		else if(count == 1){
+			playerTwoVP.setText(username + ": " + vp + " BCE");
+		}
+		else if(count == 2){
+			playerThreeVP.setText(username + ": " + vp + " BCE");
+		}
+		else {
+			playerFourVP.setText(username + ": " + vp + " BCE");
+		}
 	}
 
 
@@ -854,5 +893,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		//Sets the player turn label to the given player's username
 		playerTurnLabel.setText("Player Turn: " + player);
 	}
+
 
 }
