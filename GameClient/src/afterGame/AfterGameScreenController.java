@@ -198,15 +198,27 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       {
          e.printStackTrace();
       }
-
-      // Initialize chat.
-      chat = new Chat(Chat.AFTER_GAME_SCREEN, playerUsername, MainModel.getModel().currentGameTableData().getGameID());
       
-      // Attempt to send message upon hitting return register in chatMessageTextField.
-      chatMessageTextField.setOnAction(event ->
+      // Enable chat if the game has chat enabled.
+      if (MainModel.getModel().currentGameTableData().getChatEnabled())
       {
-         sendMessage();
-      });
+         // Initialize chat.
+         chat = new Chat(Chat.AFTER_GAME_SCREEN, playerUsername, MainModel.getModel().currentGameTableData().getGameID());
+         
+         // Attempt to send message upon hitting return register in chatMessageTextField.
+         chatMessageTextField.setOnAction(event ->
+         {
+            sendMessage();
+         });
+      }
+      else
+      {
+         chatBoxTextArea.setVisible(false);
+         chatMessageTextField.setVisible(false);
+         sendMessageButton.setVisible(false);
+         //reportButton.setVisible(false);
+      }
+      
    }
 
    public void setAfterGameInfo(AfterGameInfo[] afterGameInfo)
