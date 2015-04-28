@@ -37,7 +37,8 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GameTableScreenController implements ControlledScreen, Destroyable, Client {
+public class GameTableScreenController implements ControlledScreen,
+		Destroyable, Client {
 
 	// IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
 	// YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
@@ -172,14 +173,19 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @throws SQLException
 	 */
 	@FXML
-	public void initialize() throws SQLException // NOTE FROM ANISH: YOU SHOULD HANDLE THE SQL EX RIGHT HERE, OTHERWISE IT'LL CRASH THE ENTIRE APP IF IT IS THROWN SINCE THIS IS CALLED VIA DI.
+	public void initialize() throws SQLException // NOTE FROM ANISH: YOU SHOULD
+													// HANDLE THE SQL EX RIGHT
+													// HERE, OTHERWISE IT'LL
+													// CRASH THE ENTIRE APP IF
+													// IT IS THROWN SINCE THIS
+													// IS CALLED VIA DI.
 	{
 		initRemoteObject();
 
 		// Objects used for testing, will be provided by server in the future.
 
-		//Deck starterDeck = new Deck();
-		//starterDeck = Deck.getStarterDeck();
+		// Deck starterDeck = new Deck();
+		// starterDeck = Deck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
 		mainDeck = Deck.getMainDeck();
@@ -187,24 +193,30 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		Hand playerHand = new Hand(5);
 		Hand tableHand = new Hand(5);
 
-		//starterDeck.draw(playerHand);
-		//mainDeck.draw(tableHand);
-		String[] playerNames = new String[] { "jkhaynes", "Player Two", "Player Three" };
-		//isTurn = true;
+		// starterDeck.draw(playerHand);
+		// mainDeck.draw(tableHand);
+		String[] playerNames = new String[] { "jkhaynes", "Player Two",
+				"Player Three" };
+		// isTurn = true;
 
 		// KEEP. Puts imageviews into arrays.
 
-		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo, gameTableCardThree, gameTableCardFour, gameTableCardFive };
+		gameTableImages = new ImageView[] { gameTableCardOne, gameTableCardTwo,
+				gameTableCardThree, gameTableCardFour, gameTableCardFive };
 
-		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo, playerHandThree, playerHandFour, playerHandFive, playerHandSix, playerHandSeven,
-				playerHandEight, playerHandNine, playerHandTen, playerHandEleven, playerHandTwelve, playerHandThirteen };
+		playerHandImages = new ImageView[] { playerHandOne, playerHandTwo,
+				playerHandThree, playerHandFour, playerHandFive, playerHandSix,
+				playerHandSeven, playerHandEight, playerHandNine,
+				playerHandTen, playerHandEleven, playerHandTwelve,
+				playerHandThirteen };
 
 		for (int i = 0; i < playerHandImages.length; i++) {
 			playerHandImages[i].setId(null);
 		}
 
-		//Show appropriate number of labels for number of players
-		int numPlayers = MainModel.getModel().currentGameLobbyData().getNumPlayers();
+		// Show appropriate number of labels for number of players
+		int numPlayers = MainModel.getModel().currentGameLobbyData()
+				.getNumPlayers();
 
 		if (numPlayers == 2) {
 			playerThreeVP.setVisible(false);
@@ -236,74 +248,76 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		 * h.addCard(starterDeck.draw()); Action a = new Action(7, 1, c, h);
 		 * determineAction(a);
 		 */
-		
+
 		// Get the gameID of the game the user needs to join.
 		int gameID = MainModel.getModel().currentGameLobbyData().getID();
 		// DEBUG
 		System.out.println(gameID);
-		
+
 		// Set id so that it can be called by chat in after game screen.
 		MainModel.getModel().currentGameTableData().setGameID(gameID);
-		
+
 		// Get the username of the current player.
-		String playerUsername = MainModel.getModel().currentLoginData().getUsername();
-		
+		String playerUsername = MainModel.getModel().currentLoginData()
+				.getUsername();
+
 		try {
-			IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-			gameManagement.addUserToGame(gameID, MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername), this.remoteString);
-			
+			IGameManagement gameManagement = (IGameManagement) Naming
+					.lookup("//localhost/game");
+			gameManagement.addUserToGame(gameID,
+					MainModel.getModel().currentLoginData()
+							.getLogInConnection().getUser(playerUsername),
+					this.remoteString);
+
 			// DEBUG
 			System.out.println("Joined game.");
 		} catch (Exception e) {
-			// DEBUG System.out.println("Error initializing remote game management object."); 
+			// DEBUG
+			// System.out.println("Error initializing remote game management object.");
 			e.printStackTrace();
 		}
-		
-		// Enable chat if the game has chat enabled.
-		if (MainModel.getModel().currentGameLobbyData().getChatEnabled())
-		{
-		   // Create a new Chat.
-	      chat = new Chat(Chat.GAME_TABLE_SCREEN, playerUsername, gameID);
-	      
-	      // Attempt to send message upon hitting return register in chatMessageTextField.
-	      chatMessageTextField.setOnAction(event ->
-	      {
-	         sendMessage();
-	      });
 
-         reportButton.setOnAction(event ->
-         {
-            String log = chatBoxTextArea.getText();
-            if (!log.equals(""))
-            {
-               MainModel.getModel().currentLoginData().getLogInConnection().insertReport(log);
-               
-               Alert alert = new Alert(AlertType.CONFIRMATION);
-               alert.setTitle("Confirmation Dialog");
-               alert.setHeaderText("Report sent.");
-               alert.setContentText("A staff member will view your report shortly.");
-               
-               alert.showAndWait();
-            }
-         });
-	      
-	      // Update singleton for after game screen.
-	      MainModel.getModel().currentGameTableData().setChatEnabled(true);
+		// Enable chat if the game has chat enabled.
+		if (MainModel.getModel().currentGameLobbyData().getChatEnabled()) {
+			// Create a new Chat.
+			chat = new Chat(Chat.GAME_TABLE_SCREEN, playerUsername, gameID);
+
+			// Attempt to send message upon hitting return register in
+			// chatMessageTextField.
+			chatMessageTextField.setOnAction(event -> {
+				sendMessage();
+			});
+
+			reportButton
+					.setOnAction(event -> {
+						String log = chatBoxTextArea.getText();
+						if (!log.equals("")) {
+							MainModel.getModel().currentLoginData()
+									.getLogInConnection().insertReport(log);
+
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setTitle("Confirmation Dialog");
+							alert.setHeaderText("Report sent.");
+							alert.setContentText("A staff member will view your report shortly.");
+
+							alert.showAndWait();
+						}
+					});
+
+			// Update singleton for after game screen.
+			MainModel.getModel().currentGameTableData().setChatEnabled(true);
+		} else {
+			chatBoxTextArea.setVisible(false);
+			chatMessageTextField.setVisible(false);
+			sendButton.setVisible(false);
+			reportButton.setVisible(false);
+
+			// Update singleton for after game screen.
+			MainModel.getModel().currentGameTableData().setChatEnabled(false);
 		}
-		else
-		{
-		   chatBoxTextArea.setVisible(false);
-		   chatMessageTextField.setVisible(false);
-		   sendButton.setVisible(false);
-		   reportButton.setVisible(false);
-		   
-		   // Update singleton for after game screen.
-	      MainModel.getModel().currentGameTableData().setChatEnabled(false);
-		}      
 
 		this.isTurn = false;
-		
-		
+
 	} // End #initialize
 
 	private void initRemoteObject() {
@@ -425,8 +439,9 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 	}
 
-	//@Override
-	public void initializeTable(Hand playerHand, Hand gameTableHand, String[] playerNames) {
+	// @Override
+	public void initializeTable(Hand playerHand, Hand gameTableHand,
+			String[] playerNames) {
 
 		System.out.println("Initialize table happened.");
 
@@ -441,8 +456,10 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		biteDeckImage.setId("Bite");
 		lurkDeckImage.setImage(new Image("cards/lurk.png"));
 		lurkDeckImage.setId("Lurk");
-		notSoImportantHistoricalFigureImage.setImage(new Image("cards/notSoImportantHistoricalFigure.png"));
-		notSoImportantHistoricalFigureImage.setId("Not So Important Historical Figure");
+		notSoImportantHistoricalFigureImage.setImage(new Image(
+				"cards/notSoImportantHistoricalFigure.png"));
+		notSoImportantHistoricalFigureImage
+				.setId("Not So Important Historical Figure");
 
 		// Set the face down card image.
 		playerDeckImage.setImage(new Image("cards/faceDownCard.png"));
@@ -484,12 +501,14 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		// Populate hand image fields for player and main table
 		for (int i = 0; i < gameTableHand.size(); i++) {
-			gameTableImages[i].setImage(new Image(gameTableHand.get(i).getImagePath()));
+			gameTableImages[i].setImage(new Image(gameTableHand.get(i)
+					.getImagePath()));
 			gameTableImages[i].setId(gameTableHand.get(i).getName());
 		}
 
 		for (int i = 0; i < playerHand.size(); i++) {
-			playerHandImages[i].setImage(new Image(playerHand.get(i).getImagePath()));
+			playerHandImages[i].setImage(new Image(playerHand.get(i)
+					.getImagePath()));
 			playerHandImages[i].setId(playerHand.get(i).getName());
 		}
 
@@ -514,7 +533,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 				Card oldCard;
 				try {
 					oldCard = new Card(image.getId());
-					if (oldCard.getCostAttack() > attack || oldCard.getCostStealth() > stealth) {
+					if (oldCard.getCostAttack() > attack
+							|| oldCard.getCostStealth() > stealth) {
 						playLog.appendText("Can't afford that card. \n");
 						action = null;
 					}
@@ -525,11 +545,15 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 						// System.out.println(oldCard.getCardType());
 						System.out.println("Starting Play action.");
-						
+
 						if (oldCard.getCardType().equals("Action")) {
-							playLog.appendText("You stole card " + oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+							playLog.appendText("You stole card "
+									+ oldCard.getName() + ". "
+									+ oldCard.getDescription() + "\n");
 						} else {
-							playLog.appendText("You defeated " + oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+							playLog.appendText("You defeated "
+									+ oldCard.getName() + ". "
+									+ oldCard.getDescription() + "\n");
 						}
 
 						// Create action with old card
@@ -540,26 +564,25 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 						}
 						action = new Action(Action.AQUIRE_CARD, cardForAction);
 						// System.out.println(action.getCard().getName());
-						
+
 						try {
 							if (this.gameEngine.aquireCard(action)) {
 
-								
 							} else {
-								//TODO Alert on error
+								// TODO Alert on error
 							}
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
-						
-
 						// Change image to a new card's image, reset id to new
 						// card's
 						// name,
 
-						if (oldCard.getName().equals("Bite") || oldCard.getName().equals("Not So Important Historical Figure")
+						if (oldCard.getName().equals("Bite")
+								|| oldCard.getName().equals(
+										"Not So Important Historical Figure")
 								|| oldCard.getName().equals("Lurk")) {
 						} else {
 							Card card = deck.draw(null);
@@ -645,7 +668,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 				if (isTurn && isDiscard && counter > 0) {
 					try {
 						Card c = new Card(image.getId());
-						playLog.appendText("You discarded card " + c.getName() + ". " + c.getDescription() + "\n");
+						playLog.appendText("You discarded card " + c.getName()
+								+ ". " + c.getDescription() + "\n");
 
 						lastDiscardImage.setImage(image.getImage());
 						image.setImage(null);
@@ -664,7 +688,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 				if (isTurn && isTrash && counter > 0) {
 					try {
 						Card c = new Card(image.getId());
-						playLog.appendText("You trashed card " + c.getName() + ". " + c.getDescription() + "\n");
+						playLog.appendText("You trashed card " + c.getName()
+								+ ". " + c.getDescription() + "\n");
 
 						image.setImage(null);
 						image.setId(null);
@@ -681,17 +706,26 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 				} else if (isTurn) {
 					try {
 						Card oldCard = new Card(image.getId());
-						playLog.appendText("You played card " + oldCard.getName() + ". " + oldCard.getDescription() + "\n");
+						playLog.appendText("You played card "
+								+ oldCard.getName() + ". "
+								+ oldCard.getDescription() + "\n");
 						lastDiscardImage.setImage(image.getImage());
 						image.setImage(null);
 						image.setId(null);
-						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else if (!isTurn) {
+					try {
+						Card oldCard = new Card(image.getId());
 						try {
-							
 							Action a = new Action(Action.PLAY_CARD, oldCard);
-							if(this.gameEngine.playCard(a)) {
+							if (this.gameEngine.playCard(a)) {
 								System.out.println("Play action: Succeeded.");
-								playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+								playLog.appendText(a.getPlayerName()
+										+ " played card "
+										+ a.getCard().getName() + ". "
+										+ a.getCard().getDescription() + "\n");
 							} else {
 								System.out.println("Play action: Failed.");
 							}
@@ -699,13 +733,10 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
 					}
-				}
 
-				else {
-					action = null;
+					catch (Exception ex) {
+					}
 				}
 			}
 		});
@@ -724,7 +755,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		}
 	}
 
-	//@Override
+	// @Override
 	public void determineAction(Action a) {
 		if (a.getAction() == action.PLAY_CARD) {
 			playCard(a);
@@ -746,21 +777,23 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void acquireCard(Action a) {
-		
-		//THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
+
+		// THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		Card c = a.getCard();
 
 		try {
 			if (this.gameEngine.aquireCard(a)) {
 
 				if (c.getCardType().equals("Action")) {
-					playLog.appendText(a.getPlayerName() + " stole card " + c.getName() + ". " + c.getDescription() + "\n");
+					playLog.appendText(a.getPlayerName() + " stole card "
+							+ c.getName() + ". " + c.getDescription() + "\n");
 				} else {
-					playLog.appendText("Player defeated " + c.getName() + ". " + c.getDescription() + "\n");
+					playLog.appendText("Player defeated " + c.getName() + ". "
+							+ c.getDescription() + "\n");
 				}
 
 			} else {
-				//TODO Alert on error
+				// TODO Alert on error
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -776,12 +809,14 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void playCard(Action a) {
-		//THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
+		// THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		System.out.println("Starting Play action.");
 		try {
-			if(this.gameEngine.playCard(a)) {
+			if (this.gameEngine.playCard(a)) {
 				System.out.println("Play action: Succeeded.");
-				playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+				playLog.appendText(a.getPlayerName() + " played card "
+						+ a.getCard().getName() + ". "
+						+ a.getCard().getDescription() + "\n");
 			} else {
 				System.out.println("Play action: Failed.");
 			}
@@ -832,7 +867,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			while (playerHandImages[j].getImage() != null) {
 				j++;
 			}
-			playerHandImages[j].setImage(new Image(a.getHand().get(i).getImagePath()));
+			playerHandImages[j].setImage(new Image(a.getHand().get(i)
+					.getImagePath()));
 			playerHandImages[j].setId(a.getHand().get(i).getName());
 		}
 
@@ -849,7 +885,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 				this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
 				System.out.println(((Naming.lookup(ge))).getClass().toString());
 				break;
-			} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -881,7 +918,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			}
 		}
 		if (count == -1) {
-			System.out.println("Player's username could not be found in array of players");
+			System.out
+					.println("Player's username could not be found in array of players");
 		} else if (count == 0) {
 			playerOneVP.setText(username + ": " + vp + " CE");
 		} else if (count == 1) {
@@ -904,7 +942,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 *            username of player that you want to change data for
 	 */
 
-	public void updateOtherPlayersStats(int vp, String players[], String username) {
+	public void updateOtherPlayersStats(int vp, String players[],
+			String username) {
 
 		int count = -1;
 
@@ -915,7 +954,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			}
 		}
 		if (count == -1) {
-			System.out.println("Player's username could not be found in array of players");
+			System.out
+					.println("Player's username could not be found in array of players");
 		} else if (count == 0) {
 			playerOneVP.setText(username + ": " + vp + " CE");
 		} else if (count == 1) {
@@ -934,7 +974,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	public void sendMessage() {
 		String outgoingMsg = chatMessageTextField.getText();
 
-		// Make sure the user didn't just press the button without anything in the text field.
+		// Make sure the user didn't just press the button without anything in
+		// the text field.
 		if (!outgoingMsg.equals(""))
 			chat.bufferMessage(outgoingMsg);
 
@@ -969,27 +1010,28 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-		// This is where we will end the chat and send whatever information the server might need.
+		// This is where we will end the chat and send whatever information the
+		// server might need.
 		if (MainModel.getModel().currentGameLobbyData().getChatEnabled())
-		   chat.end();
+			chat.end();
 	}
 
 	public void setOtherPlayerTurn(String player) {
-		//turns off ability to click on things
+		// turns off ability to click on things
 		isTurn = false;
 
-		//Sets the player turn label to the given player's username
+		// Sets the player turn label to the given player's username
 		playerTurnLabel.setText("Player Turn: " + player);
 	}
 
 	public void setPlayerHand(Hand hand) {
-		
+
 		for (int i = 0; i < playerHandImages.length; i++) {
 			playerHandImages[i].setImage(null);
 			playerHandImages[i].setId(null);
 			System.out.println("hand updated");
 		}
-		
+
 		for (int i = 0; i < hand.size(); i++) {
 			playerHandImages[i].setImage(new Image(hand.get(i).getImagePath()));
 			playerHandImages[i].setId(hand.get(i).getName());
