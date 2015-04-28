@@ -203,7 +203,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		//starterDeck.draw(playerHand);
 		//mainDeck.draw(tableHand);
-		String[] playerNames = new String[] { "jkhaynes", "ssimmons", "Player Three" };
+		String[] playerNames = new String[] { "jkhaynes", "Player Two", "Player Three" };
 		//attack = 5;
 		//stealth = 5;
 		//isTurn = true;
@@ -218,19 +218,17 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		for (int i = 0; i < playerHandImages.length; i++) {
 			playerHandImages[i].setId(null);
 		}
-		
+
 		//Show appropriate number of labels for number of players
 		int numPlayers = MainModel.getModel().currentGameLobbyData().getNumPlayers();
-		
-		if(numPlayers == 2){
+
+		if (numPlayers == 2) {
 			playerThreeVP.setVisible(false);
 			playerFourVP.setVisible(false);
-		}
-		else if(numPlayers == 3){
+		} else if (numPlayers == 3) {
 			playerFourVP.setVisible(false);
-		}
-		else{
-			
+		} else {
+
 		}
 
 		// Initializes the game table when page is opened. This includes
@@ -395,8 +393,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		// Add highlight effects
 		highlightEffect();
-		
-		
 
 		// Add bring to front effects
 		showCard();
@@ -433,21 +429,19 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
 			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
 		}
-		
+
 		if (playerNames.length == 3) {
 			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
 			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE"); 
+			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
 		}
-		
+
 		if (playerNames.length == 4) {
 			playerOneVP.setText(playerNames[0] + ": 1,000 BCE");
 			playerTwoVP.setText(playerNames[1] + ": 1,000 BCE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE"); 
+			playerThreeVP.setText(playerNames[2] + ": 1,000 BCE");
 			playerFourVP.setText(playerNames[3] + ": 1,000 BCE");
 		}
-		
-		
 
 		// Populate hand image fields for player and main table
 		for (int i = 0; i < gameTableHand.size(); i++) {
@@ -554,22 +548,23 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 */
 	private void endTurn() {
 		endTurnButton.setOnMouseClicked(event -> {
-			System.out.println("Ending turn.");
-			isTurn = false;
-			Attack.setText("Attack: 0");
-			Stealth.setText("Stealth: 0");
-			attack = 0;
-			stealth = 0;
-			
-			try {
-				this.gameEngine.endTurn();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
+			if (isTurn) {
+				System.out.println("Ending turn.");
+				isTurn = false;
+				Attack.setText("Attack: 0");
+				Stealth.setText("Stealth: 0");
+				attack = 0;
+				stealth = 0;
+
+				try {
+					this.gameEngine.endTurn();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		});
-		
-		
+		}
+	})	;
+
 	}
 
 	public void startTurn() {
@@ -683,18 +678,16 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 */
 	private void acquireCard(Action a) {
 		Card c = a.getCard();
-		
+
 		try {
-			if(this.gameEngine.aquireCard(a)) {
-				
-				
-				
+			if (this.gameEngine.aquireCard(a)) {
+
 				if (c.getCardType().equals("Action")) {
 					playLog.appendText(a.getPlayerName() + " stole card " + c.getName() + ". " + c.getDescription() + "\n");
 				} else {
 					playLog.appendText("Player defeated " + c.getName() + ". " + c.getDescription() + "\n");
 				}
-				
+
 			} else {
 				//TODO Alert on error
 			}
@@ -702,8 +695,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 
 	}
 
@@ -781,9 +772,10 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 			}
 		}
 	}
-	
+
 	/**
 	 * Update the player stats of the logged in player
+	 * 
 	 * @param st
 	 * @param at
 	 * @param vp
@@ -792,69 +784,64 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 	public void updatePlayerStats(int st, int at, int vp, String players[]) {
 		Stealth.setText("Stealth: " + st);
-		
+
 		Attack.setText("Attack: " + at);
-		
+
 		String username = MainModel.getModel().currentLoginData().getUsername();
-	
+
 		int count = -1;
-		for(int i = 0; i < players.length; i++){
-			if(players[i].equals(username)){
+		for (int i = 0; i < players.length; i++) {
+			if (players[i].equals(username)) {
 				count = i;
 				break;
 			}
 		}
-		if(count == -1){
+		if (count == -1) {
 			System.out.println("Player's username could not be found in array of players");
-		}
-		else if(count == 0){
+		} else if (count == 0) {
 			playerOneVP.setText(username + ": " + vp + " BCE");
-		}
-		else if(count == 1){
+		} else if (count == 1) {
 			playerTwoVP.setText(username + ": " + vp + " BCE");
-		}
-		else if(count == 2){
+		} else if (count == 2) {
 			playerThreeVP.setText(username + ": " + vp + " BCE");
-		}
-		else {
-			playerFourVP.setText(username + ": " + vp + " BCE");
-		}	
-	}
-	
-	/**
-	 * Updates other players stats not including the client's logged in player. 
-	 * @param vp players total vp
-	 * @param players string of players
-	 * @param username username of player that you want to change data for
-	 */
-	
-	public void updateOtherPlayersStats(int vp, String players[], String username){
-		
-		int count = -1;
-		
-		for(int i = 0; i < players.length; i++){
-			if(players[i].equals(username)){
-				count = i;
-				break;
-			}
-		}
-		if(count == -1){
-			System.out.println("Player's username could not be found in array of players");
-		}
-		else if(count == 0){
-			playerOneVP.setText(username + ": " + vp + " BCE");
-		}
-		else if(count == 1){
-			playerTwoVP.setText(username + ": " + vp + " BCE");
-		}
-		else if(count == 2){
-			playerThreeVP.setText(username + ": " + vp + " BCE");
-		}
-		else {
+		} else if (count == 3) {
 			playerFourVP.setText(username + ": " + vp + " BCE");
 		}
 	}
 
+	/**
+	 * Updates other players stats not including the client's logged in player.
+	 * 
+	 * @param vp
+	 *            players total vp
+	 * @param players
+	 *            string of players
+	 * @param username
+	 *            username of player that you want to change data for
+	 */
+
+	public void updateOtherPlayersStats(int vp, String players[], String username) {
+
+		int count = -1;
+
+		for (int i = 0; i < players.length; i++) {
+			if (players[i].equals(username)) {
+				count = i;
+				break;
+			}
+		}
+		if (count == -1) {
+			System.out.println("Player's username could not be found in array of players");
+		} else if (count == 0) {
+			playerOneVP.setText(username + ": " + vp + " BCE");
+		} else if (count == 1) {
+			playerTwoVP.setText(username + ": " + vp + " BCE");
+		} else if (count == 2) {
+			playerThreeVP.setText(username + ": " + vp + " BCE");
+		} else if (count == 3) {
+			playerFourVP.setText(username + ": " + vp + " BCE");
+		}
+	}
 
 	/**
 	 * To be called by the chat's "Send message" button (or enter event
@@ -901,21 +888,20 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		// This is where we will end the chat and send whatever information the server might need.
 		//chat.end();
 	}
-	
-	public void setOtherPlayerTurn(String player){
+
+	public void setOtherPlayerTurn(String player) {
 		//turns off ability to click on things
 		isTurn = false;
-		
+
 		//Sets the player turn label to the given player's username
 		playerTurnLabel.setText("Player Turn: " + player);
 	}
-	
-	public void setPlayerHand(Hand hand){
+
+	public void setPlayerHand(Hand hand) {
 		for (int i = 0; i < hand.size(); i++) {
 			playerHandImages[i].setImage(new Image(hand.get(i).getImagePath()));
 			playerHandImages[i].setId(hand.get(i).getName());
 		}
 	}
-
 
 }
