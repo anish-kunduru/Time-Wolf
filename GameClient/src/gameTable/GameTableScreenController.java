@@ -706,26 +706,13 @@ public class GameTableScreenController implements ControlledScreen,
 				} else if (isTurn) {
 					try {
 						Card oldCard = new Card(image.getId());
-						playLog.appendText("You played card "
-								+ oldCard.getName() + ". "
-								+ oldCard.getDescription() + "\n");
-						lastDiscardImage.setImage(image.getImage());
-						image.setImage(null);
-						image.setId(null);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else if (!isTurn) {
-					try {
-						Card oldCard = new Card(image.getId());
 						try {
 							Action a = new Action(Action.PLAY_CARD, oldCard);
 							if (this.gameEngine.playCard(a)) {
-								System.out.println("Play action: Succeeded.");
-								playLog.appendText(a.getPlayerName()
-										+ " played card "
-										+ a.getCard().getName() + ". "
-										+ a.getCard().getDescription() + "\n");
+
+								playLog.appendText("You played card "
+										+ oldCard.getName() + ". "
+										+ oldCard.getDescription() + "\n");
 							} else {
 								System.out.println("Play action: Failed.");
 							}
@@ -733,10 +720,13 @@ public class GameTableScreenController implements ControlledScreen,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						lastDiscardImage.setImage(image.getImage());
+						image.setImage(null);
+						image.setId(null);
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 
-					catch (Exception ex) {
-					}
 				}
 			}
 		});
