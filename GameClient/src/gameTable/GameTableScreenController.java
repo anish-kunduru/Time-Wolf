@@ -25,8 +25,6 @@ import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
-import GameServer.Users.LogIn;
-import GameServer.Users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -318,6 +316,10 @@ public class GameTableScreenController implements ControlledScreen,
 		this.isTurn = false;
 
 	} // End #initialize
+	
+	/**
+	 * TODO
+	 */
 
 	private void initRemoteObject() {
 		Random rnd = new Random();
@@ -437,6 +439,13 @@ public class GameTableScreenController implements ControlledScreen,
 		}
 
 	}
+	/**
+	 * Helper method to initialize the game table. It adds special effects and sets the appropriate images for the cards 
+	 * and the correct text for the labels.
+	 * @param playerHand
+	 * @param gameTableHand
+	 * @param playerNames
+	 */
 
 	// @Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
@@ -471,31 +480,31 @@ public class GameTableScreenController implements ControlledScreen,
 
 		// Set player VP labels
 		if (playerNames.length == 1) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 2) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 4) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
-			playerFourVP.setText(playerNames[3] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
+			playerFourVP.setText(playerNames[3] + ": 1000 CE");
 		}
 
 		// Populate hand image fields for player and main table
@@ -535,8 +544,6 @@ public class GameTableScreenController implements ControlledScreen,
 
 					if (oldCard.getCostAttack() > attack
 							|| oldCard.getCostStealth() > stealth) {
-						System.out.println("test: " + attack + " " + stealth);
-						System.out.println("testcard: " + oldCard.getCostAttack() + "  " + oldCard.getCostStealth());
 						playLog.appendText("Can't afford that card. \n");
 						action = null;
 					}
@@ -1035,47 +1042,6 @@ public class GameTableScreenController implements ControlledScreen,
 		MainModel.getModel().currentGameTableData().setVP(vp);
 		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
 		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
-		String username = MainModel.getModel().currentLoginData().getUsername();
-		
-		try {
-			boolean wonGame = true;
-			int ind = -1;
-			for(int i = 0; i < playerNames.length; i++)
-			{
-				if(playerNames[i].equals(username))
-					ind = i;
-			}
-			
-			if(ind == -1)
-			{
-				throw new Exception("There was a problem contacting user data.");
-			}
-			
-			for(int i = 0; i < vp.length; i++)
-			{
-				if(i != ind)
-				{
-					if(vp[i] > vp[ind])
-					{
-						wonGame = false;
-					}
-				}
-			}
-			
-			
-			User u = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
-			u.Statistics.incrementGamesPlayed(wonGame, vp[ind]);
-			MainModel.getModel().currentLoginData().getLogInConnection().UpdateStats(u);
-			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 		
 		parentController.goToAfterGameScreen();
 	}
