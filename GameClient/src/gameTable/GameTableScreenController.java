@@ -321,33 +321,43 @@ public class GameTableScreenController implements ControlledScreen,
 	 * TODO
 	 */
 
-	private void initRemoteObject() {
-		Random rnd = new Random();
-		boolean flag = true;
-		while (flag) {
-			int id = rnd.nextInt();
-			Client thing = null;
-			try {
-				thing = (Client) new FacadeClient();
-			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			((FacadeClient) thing).c = (Client) this;
-			String path = "//" + SERVER_ADDRESS + "/client" + id;
-			this.remoteString = path;
-			try {
-				Naming.rebind(path, thing);
-				flag = false;
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+   private void initRemoteObject()
+   {
+      Random rnd = new Random();
+      boolean flag = true;
+      while (flag) // Keep trying until we make a connection.
+      {
+         int id = rnd.nextInt();
+         Client thing = null;
+         try
+         {
+            thing = (Client) new FacadeClient();
+         }
+         catch (RemoteException e1)
+         {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+         }
+         ((FacadeClient) thing).c = (Client) this;
+         String path = "//" + SERVER_ADDRESS + "/client" + id;
+         this.remoteString = path;
+         try
+         {
+            Naming.rebind(path, thing);
+            flag = false;
+         }
+         catch (RemoteException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+         catch (MalformedURLException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+   }
 
 	/**
 	 * Helper method pulls a card to the front of the display. Intended to be
@@ -883,22 +893,26 @@ public class GameTableScreenController implements ControlledScreen,
 
 	}
 
-	public void setGameEngine(String ge) {
-
-		// connect to the game engine
-		while (true) {
-			try {
-				System.out.println("GameEngine Registry Name: " + ge);
-				this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
-				System.out.println(((Naming.lookup(ge))).getClass().toString());
-				break;
-			} catch (MalformedURLException | RemoteException
-					| NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+   public void setGameEngine(String ge)
+   {
+      // connect to the game engine
+      // Keep trying until we connect.
+      while (true)
+      {
+         try
+         {
+            System.out.println("GameEngine Registry Name: " + ge);
+            this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
+            System.out.println(((Naming.lookup(ge))).getClass().toString());
+            break;
+         }
+         catch (MalformedURLException | RemoteException | NotBoundException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+   }
 
 	/**
 	 * Update the player stats of the logged in player
