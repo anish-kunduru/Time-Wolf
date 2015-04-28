@@ -18,10 +18,8 @@ public class Chat
 {
    // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
    public final String SERVER_ADDRESS = "localhost";
-   public final int SERVER_PORT = 1444;
-   
    //public final String SERVER_ADDRESS = "10.25.68.24";
-   //public final int SERVER_PORT = 1444;
+   public final int SERVER_PORT = 1444;
    
    // PUBLIC CONSTANTS THE REPRESENT THE LOBBIES THAT CHAT CAN BE DEPLOYED IN.
    public static final String GAME_LOBBY_SCREEN = MainController.GAME_LOBBY_SCREEN;

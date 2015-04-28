@@ -38,14 +38,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameTableScreenController implements ControlledScreen,
-		Destroyable, Client {
-
-	// IMPORTANT NOTE: IF YOU RENAME ANYTHING WITH AN FXML TAG IN FRONT OF IT,
-	// YOU WILL NEED TO RE-LINK IT IN THE GAME TABLE SCREEN.
-	// OTHERWISE, IT SIMPLY WON'T WORK AND/OR THE MAIN CONTROLLER WILL THROW AN
-	// EXCEPTION TO THE CONSOLE...
-
-	// FXML Components
+		Destroyable, Client
+{
+   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+   public final String SERVER_ADDRESS = "localhost";
+   //public final String SERVER_ADDRESS = "10.25.68.24";
 
 	@FXML
 	private Button reportButton;
@@ -263,7 +260,7 @@ public class GameTableScreenController implements ControlledScreen,
 
 		try {
 			IGameManagement gameManagement = (IGameManagement) Naming
-					.lookup("//localhost/game");
+					.lookup("//" + SERVER_ADDRESS + "/game");
 			gameManagement.addUserToGame(gameID,
 					MainModel.getModel().currentLoginData()
 							.getLogInConnection().getUser(playerUsername),
@@ -333,7 +330,7 @@ public class GameTableScreenController implements ControlledScreen,
 				e1.printStackTrace();
 			}
 			((FacadeClient) thing).c = (Client) this;
-			String path = "//localhost/client" + id;
+			String path = "//" + SERVER_ADDRESS + "/client" + id;
 			this.remoteString = path;
 			try {
 				Naming.rebind(path, thing);

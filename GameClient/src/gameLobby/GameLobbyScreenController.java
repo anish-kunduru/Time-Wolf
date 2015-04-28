@@ -34,8 +34,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GameLobbyScreenController implements ControlledScreen, Destroyable {
-	// FXML Components
+public class GameLobbyScreenController implements ControlledScreen, Destroyable
+{
+   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+   public final String SERVER_ADDRESS = "localhost";
+   //public final String SERVER_ADDRESS = "10.25.68.24";
 
 	// Table components.
 	private ArrayList<GameInfo> games;
@@ -104,7 +107,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 		
 		// Initialize gameManagement.
 		try {
-			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
+			gameManagement = (IGameManagement) Naming.lookup("//" + SERVER_ADDRESS + "/game");
 		} catch (Exception e) {
 			// DEBUG
 			System.out.println("Error initializing remote game management object.");

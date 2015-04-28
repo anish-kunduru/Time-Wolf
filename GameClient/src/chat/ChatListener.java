@@ -18,7 +18,7 @@ import view.MainController;
 import javafx.application.Platform;
 
 public class ChatListener extends Thread
-{
+{   
    private ObjectInputStream input;
 
    private String screen; // The screen to output chat to.
