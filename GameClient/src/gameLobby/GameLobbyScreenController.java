@@ -78,9 +78,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	
 	@FXML
 	private Button reportButton;
-
-	private int id;
-	private int numPlayers;
 	
 	@FXML
 	private Label reportLabel;
@@ -91,6 +88,11 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	// So that we can call it from different event listeners.
 	private Chat chat;
 	private IGameManagement gameManagement;
+	
+	// Join game logic.
+	private int gameID;
+   private int numPlayers;
+   private int chatEnabled;
 
 	/**
 	 * Initializes the controller class. Automatically called after the FXML
@@ -141,7 +143,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 		gamesTable.setOnMouseClicked(event -> {
 			// Check to make sure something is selected.
 				if (gamesTable.getSelectionModel().getSelectedIndex() != -1) {
-					id = gamesTable.getSelectionModel().getSelectedItem().id.get();
+					gameID = gamesTable.getSelectionModel().getSelectedItem().id.get();
 					numPlayers = gamesTable.getSelectionModel().getSelectedItem().getNumPlayers();
 				}
 			});
@@ -153,11 +155,36 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			loadGameTable(); // Reload game table.
 			});
 
-		joinButton.setOnAction(event -> {
-			MainModel.getModel().currentGameLobbyData().setID(id);
-			MainModel.getModel().currentGameLobbyData().setNumPlayers(numPlayers);
-			parentController.goToGameTableScreen();
-		});
+      joinButton.setOnAction(event ->
+      {
+         // Check to make sure the user has clicked on a game in the table.
+         if (numPlayers == 0)
+         {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Joining Game");
+            alert.setHeaderText("You didn't join a valid game!");
+            alert.setContentText("Select a game in the game table.");
+
+            alert.showAndWait();
+         }
+         // TODO: Else if logic if the game is now full...
+         /*{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Joining Game");
+            alert.setHeaderText("The game is now full.");
+            alert.setContentText("Select a different game in the game table.");
+            
+            loadGameTable(); // Reload the table.
+
+            alert.showAndWait();
+         }*/
+         else
+         {
+            MainModel.getModel().currentGameLobbyData().setID(gameID);
+            MainModel.getModel().currentGameLobbyData().setNumPlayers(numPlayers);
+            parentController.goToGameTableScreen();
+         }
+      });
 
 		searchButton.setOnAction(event -> {
 			parentController.goToSearchGameScreen();
