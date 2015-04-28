@@ -129,6 +129,17 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	};
 	
+	public void setPlayerHand(Hand hand){
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.setPlayerHand(hand);
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});
+	};
+	
 
 
 }
