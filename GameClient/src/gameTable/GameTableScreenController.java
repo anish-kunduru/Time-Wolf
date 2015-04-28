@@ -531,9 +531,10 @@ public class GameTableScreenController implements ControlledScreen,
 				try {
 					oldCard = new Card(image.getId());
 
-					if (oldCard.getCostAttack() >= attack
-							|| oldCard.getCostStealth() >= stealth) {
-
+					if (oldCard.getCostAttack() > attack
+							|| oldCard.getCostStealth() > stealth) {
+						System.out.println("test: " + attack + " " + stealth);
+						System.out.println("testcard: " + oldCard.getCostAttack() + "  " + oldCard.getCostStealth());
 						playLog.appendText("Can't afford that card. \n");
 						action = null;
 					}
