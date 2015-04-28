@@ -15,6 +15,7 @@ public class GameLobbyData
    private IGameManagement gm;
    private int id;
    private int numPlayers;
+   private boolean chatEnabled;
 
    /**
     * Default constructor to use in singleton.
@@ -75,5 +76,22 @@ public class GameLobbyData
       if (gm instanceof IGameManagement)
          this.gm = gm;
    }
-
+   
+   /**
+    * Lets the game table know if chat is enabled.
+    * 
+    * @param isEnabled True if chat should be enabled, false if it shouldn't be enabled.
+    */
+   public void setChatEnabled(boolean isEnabled)
+   {
+      chatEnabled = isEnabled;
+   }
+   
+   /**
+    * @return True if GameTableScreenController should have chat enabled; false if it shouldn't.
+    */
+   public boolean getChatEnabled()
+   {
+      return chatEnabled;
+   }
 }
