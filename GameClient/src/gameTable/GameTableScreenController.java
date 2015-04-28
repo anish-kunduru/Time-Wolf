@@ -316,6 +316,10 @@ public class GameTableScreenController implements ControlledScreen,
 		this.isTurn = false;
 
 	} // End #initialize
+	
+	/**
+	 * TODO
+	 */
 
 	private void initRemoteObject() {
 		Random rnd = new Random();
@@ -435,6 +439,13 @@ public class GameTableScreenController implements ControlledScreen,
 		}
 
 	}
+	/**
+	 * Helper method to initialize the game table. It adds special effects and sets the appropriate images for the cards 
+	 * and the correct text for the labels.
+	 * @param playerHand
+	 * @param gameTableHand
+	 * @param playerNames
+	 */
 
 	// @Override
 	public void initializeTable(Hand playerHand, Hand gameTableHand,
@@ -469,31 +480,31 @@ public class GameTableScreenController implements ControlledScreen,
 
 		// Set player VP labels
 		if (playerNames.length == 1) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 2) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 3) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
 		}
 
 		if (playerNames.length == 4) {
-			playerOneVP.setText(playerNames[0] + ": 1,000 CE");
-			playerTwoVP.setText(playerNames[1] + ": 1,000 CE");
-			playerThreeVP.setText(playerNames[2] + ": 1,000 CE");
-			playerFourVP.setText(playerNames[3] + ": 1,000 CE");
+			playerOneVP.setText(playerNames[0] + ": 1000 CE");
+			playerTwoVP.setText(playerNames[1] + ": 1000 CE");
+			playerThreeVP.setText(playerNames[2] + ": 1000 CE");
+			playerFourVP.setText(playerNames[3] + ": 1000 CE");
 		}
 
 		// Populate hand image fields for player and main table
@@ -531,9 +542,8 @@ public class GameTableScreenController implements ControlledScreen,
 				try {
 					oldCard = new Card(image.getId());
 
-					if (oldCard.getCostAttack() >= attack
-							|| oldCard.getCostStealth() >= stealth) {
-
+					if (oldCard.getCostAttack() > attack
+							|| oldCard.getCostStealth() > stealth) {
 						playLog.appendText("Can't afford that card. \n");
 						action = null;
 					}
@@ -584,9 +594,8 @@ public class GameTableScreenController implements ControlledScreen,
 										"Not So Important Historical Figure")
 								|| oldCard.getName().equals("Lurk")) {
 						} else {
-							Card card = deck.draw(null);
-							image.setImage(new Image(card.getImagePath()));
-							image.setId(card.getName());
+							image.setImage(null);
+							image.setId(null);
 						}
 					}
 				} catch (Exception e1) {
@@ -600,6 +609,14 @@ public class GameTableScreenController implements ControlledScreen,
 		return action;
 	}
 
+	public void setNewTableCards(Hand hand){
+		for (int i = 0; i < hand.size(); i++) {
+			gameTableImages[i].setImage(new Image(hand.get(i)
+					.getImagePath()));
+			gameTableImages[i].setId(hand.get(i).getName());
+		}
+	}
+	
 	/**
 	 * This method applies the tableCardClickedEvent to all the table cards.
 	 * 
@@ -719,6 +736,7 @@ public class GameTableScreenController implements ControlledScreen,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 						lastDiscardImage.setImage(image.getImage());
 						image.setImage(null);
 						image.setId(null);
@@ -820,7 +838,7 @@ public class GameTableScreenController implements ControlledScreen,
 	 * 
 	 * @param a
 	 */
-	private void discardCard(Action a) {
+	public void discardCard(Action a) {
 		Card c = a.getCard();
 		int discard = 0;
 
@@ -1026,6 +1044,14 @@ public class GameTableScreenController implements ControlledScreen,
 			playerHandImages[i].setId(hand.get(i).getName());
 			System.out.println("hand updated");
 		}
+	}
+	
+	public void endGame(int vp[], int cardsInDeck[], String playerNames[]){
+		MainModel.getModel().currentGameTableData().setVP(vp);
+		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
+		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
+		
+		parentController.goToAfterGameScreen();
 	}
 
 }
