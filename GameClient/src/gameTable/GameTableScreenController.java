@@ -533,8 +533,12 @@ public class GameTableScreenController implements ControlledScreen,
 				Card oldCard;
 				try {
 					oldCard = new Card(image.getId());
+
+					System.out.println("Attack : " + oldCard.getCostAttack() + " " + attack);
+					System.out.println("Stealth: " + oldCard.getCostStealth() + " " + stealth);
 					if (oldCard.getCostAttack() > attack
 							|| oldCard.getCostStealth() > stealth) {
+
 						playLog.appendText("Can't afford that card. \n");
 						action = null;
 					}
@@ -896,7 +900,7 @@ public class GameTableScreenController implements ControlledScreen,
 		Stealth.setText("Stealth: " + st);
 		stealth = st;
 		Attack.setText("Attack: " + at);
-		attack = st;
+		attack = at;
 
 		String username = MainModel.getModel().currentLoginData().getUsername();
 
