@@ -154,6 +154,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	private boolean Update;
 	private int stealth;
 	private int attack;
+	private int vp;
 	private int counter;
 
 	private String remoteString;
@@ -191,21 +192,21 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		// Objects used for testing, will be provided by server in the future.
 
-		Deck starterDeck = new Deck();
-		starterDeck = Deck.getStarterDeck();
+		//Deck starterDeck = new Deck();
+		//starterDeck = Deck.getStarterDeck();
 
 		Deck mainDeck = new Deck();
-		mainDeck = Deck.getMainDeck();
+		//mainDeck = Deck.getMainDeck();
 
 		Hand playerHand = new Hand(5);
 		Hand tableHand = new Hand(5);
 
-		starterDeck.draw(playerHand);
-		mainDeck.draw(tableHand);
+		//starterDeck.draw(playerHand);
+		//mainDeck.draw(tableHand);
 		String[] playerNames = new String[] { "Player One", "Player Two", "Player Three" };
-		attack = 5;
-		stealth = 5;
-		isTurn = true;
+		//attack = 5;
+		//stealth = 5;
+		//isTurn = true;
 
 		// KEEP. Puts imageviews into arrays.
 
@@ -222,11 +223,11 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		int numPlayers = MainModel.getModel().currentGameLobbyData().getNumPlayers();
 		
 		if(numPlayers == 2){
-			playerTwoVP.setVisible(false);
 			playerThreeVP.setVisible(false);
+			playerFourVP.setVisible(false);
 		}
 		else if(numPlayers == 3){
-			playerThreeVP.setVisible(false);
+			playerFourVP.setVisible(false);
 		}
 		else{
 			
@@ -552,8 +553,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	private void endTurn() {
 		endTurnButton.setOnMouseClicked(event -> {
 			isTurn = false;
-			Attack.setText("0");
-			Stealth.setText("0");
+			Attack.setText("Attack: 0");
+			Stealth.setText("Stealth: 0");
 			attack = 0;
 			stealth = 0;
 		});
@@ -752,15 +753,18 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		}
 	}
 
-	public void addStealth(int st) {
+	public void updatePlayerStats(int st, int at, int vp) {
 		stealth += st;
 		Stealth.setText("" + stealth + "");
-	}
-
-	public void addAttack(int at) {
+		
 		attack += at;
 		Attack.setText("" + attack + "");
+		
+		this.vp += vp;
+		
+		
 	}
+
 
 	/**
 	 * To be called by the chat's "Send message" button (or enter event
