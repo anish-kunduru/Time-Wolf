@@ -177,19 +177,6 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	{
 		initRemoteObject();
 
-		// Create a new Chat.
-		String currentPlayer = MainModel.getModel().currentLoginData().getUsername();
-		int chatRoomID = 2; // WE NEED TO GET THE UNIQUE ID FROM THE SERVER...
-		//chat = new Chat(false, currentPlayer, chatRoomID);
-
-		chatMessageTextField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent t) {
-				if (t.getCode() == KeyCode.ENTER) {
-					sendMessage();
-				}
-			}
-		});
-
 		// Objects used for testing, will be provided by server in the future.
 
 		//Deck starterDeck = new Deck();
@@ -252,21 +239,42 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 		 * h.addCard(starterDeck.draw()); Action a = new Action(7, 1, c, h);
 		 * determineAction(a);
 		 */
-
+		
+		// Get the gameID of the game the user needs to join.
+		int gameID = MainModel.getModel().currentGameLobbyData().getID();
+		// DEBUG
+		System.out.println(gameID);
+		
+		// Set id so that it can be called by chat in after game screen.
+		MainModel.getModel().currentGameTableData().setGameID(gameID);
+		
+		// Get the username of the current player.
+		String playerUsername = MainModel.getModel().currentLoginData().getUsername();
+		
 		try {
 			IGameManagement gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-			int id = MainModel.getModel().currentGameLobbyData().getID();
-			System.out.println(id);
-			String playerUsername = MainModel.getModel().currentLoginData().getUsername();
-			gameManagement.addUserToGame(id, MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername), this.remoteString);
-			System.out.println("GO THROUGH THE JOIN.");
+			gameManagement.addUserToGame(gameID, MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername), this.remoteString);
+			
+			// DEBUG
+			System.out.println("Joined game.");
 		} catch (Exception e) {
 			// DEBUG System.out.println("Error initializing remote game management object."); 
 			e.printStackTrace();
 		}
+		
+      // Create a new Chat.
+      chat = new Chat(Chat.GAME_TABLE_SCREEN, playerUsername, gameID);
+		
+      // Attempt to send message upon hitting return register in chatMessageTextField.
+      chatMessageTextField.setOnAction(event ->
+      {
+         sendMessage();
+      });
 
 		this.isTurn = false;
-	}
+		
+		
+	} // End #initialize
 
 	private void initRemoteObject() {
 		Random rnd = new Random();
@@ -931,7 +939,7 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		// This is where we will end the chat and send whatever information the server might need.
-		//chat.end();
+		chat.end();
 	}
 
 	public void setOtherPlayerTurn(String player) {

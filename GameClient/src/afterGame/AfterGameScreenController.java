@@ -184,11 +184,11 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
 
       // End of test code
 
-      String username = MainModel.getModel().currentLoginData().getUsername();
+      String playerUsername = MainModel.getModel().currentLoginData().getUsername();
       User user;
       try
       {
-         user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+         user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername);
          setAfterGameInfo(playerArray);
          likeFeedbackEvent(playerArray, user);
          disLikeFeedbackEvent(playerArray, user);
@@ -200,8 +200,7 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       }
 
       // Initialize chat.
-      int chatroomID = -2; // TODO: TEMP SET, MUST PULL ID FROM SINGLETON -- SAME AS GAME...
-      chat = new Chat(Chat.AFTER_GAME_SCREEN, MainModel.getModel().currentLoginData().getUsername(), chatroomID);
+      chat = new Chat(Chat.AFTER_GAME_SCREEN, playerUsername, MainModel.getModel().currentGameTableData().getGameID());
       
       // Attempt to send message upon hitting return register in chatMessageTextField.
       chatMessageTextField.setOnAction(event ->
