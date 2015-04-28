@@ -321,6 +321,18 @@ public class Player implements Client {
 			e.printStackTrace();
 		}
 	};
+	
+	public void updateOtherPlayersStats(int vp, String players[], String username){
+		if(this.client == null) throw new IllegalStateException();
+		try {
+			this.client.updateOtherPlayersStats(vp, players,  username);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	};
+	
+	
+	
 
 	
 }
