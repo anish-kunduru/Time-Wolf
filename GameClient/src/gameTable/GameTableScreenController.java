@@ -1028,5 +1028,13 @@ public class GameTableScreenController implements ControlledScreen,
 			System.out.println("hand updated");
 		}
 	}
+	
+	public void endGame(int vp[], int cardsInDeck[], String playerNames[]){
+		MainModel.getModel().currentGameTableData().setVP(vp);
+		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
+		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
+		
+		parentController.goToAfterGameScreen();
+	}
 
 }
