@@ -20,6 +20,9 @@ public class Chat
    public final String SERVER_ADDRESS = "localhost";
    public final int SERVER_PORT = 1444;
    
+   //public final String SERVER_ADDRESS = "10.25.68.24";
+   //public final int SERVER_PORT = 1444;
+   
    // PUBLIC CONSTANTS THE REPRESENT THE LOBBIES THAT CHAT CAN BE DEPLOYED IN.
    public static final String GAME_LOBBY_SCREEN = MainController.GAME_LOBBY_SCREEN;
    public static final String GAME_TABLE_SCREEN = MainController.GAME_TABLE_SCREEN;

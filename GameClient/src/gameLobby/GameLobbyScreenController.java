@@ -99,15 +99,9 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	 */
 	@FXML
 	public void initialize() {
-		try {
-			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
-			MainModel.getModel().currentGameLobbyData().setGameManager(gameManagement);
-		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		// Hide error Label for now
 		userNotFoundLabel.setVisible(false);
+		
 		// Initialize gameManagement.
 		try {
 			gameManagement = (IGameManagement) Naming.lookup("//localhost/game");
