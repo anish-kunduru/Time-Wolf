@@ -60,7 +60,7 @@ public class Player implements Client {
 		//Initialize int values to 0
 		this.attack = 0;
 		this.stealth = 0;
-		this.VP = 0;
+		this.VP = 1000;
 		
 	}
 	

@@ -705,10 +705,13 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 * @param a
 	 */
 	private void playCard(Action a) {
-		
+		System.out.println("Starting Play action.");
 		try {
 			if(this.gameEngine.playCard(a)) {
+				System.out.println("Play action: Succeeded.");
 				playLog.appendText(a.getPlayerName() + " played card " + a.getCard().getName() + ". " + a.getCard().getDescription() + "\n");
+			} else {
+				System.out.println("Play action: Failed.");
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
