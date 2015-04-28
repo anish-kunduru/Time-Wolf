@@ -92,7 +92,7 @@ public class ChatListener extends Thread
                // For JavaFX thread safety:
                Platform.runLater(() ->
                {
-                  //afterController.appendToChatBox(message);
+                  afterController.appendToChatBox(message);
                });
 
                // DEBUG
