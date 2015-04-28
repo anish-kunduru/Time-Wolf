@@ -25,8 +25,9 @@ import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -35,8 +36,6 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class GameTableScreenController implements ControlledScreen, Destroyable, Client {
 
@@ -271,6 +270,22 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	      {
 	         sendMessage();
 	      });
+
+         reportButton.setOnAction(event ->
+         {
+            String log = chatBoxTextArea.getText();
+            if (!log.equals(""))
+            {
+               MainModel.getModel().currentLoginData().getLogInConnection().insertReport(log);
+               
+               Alert alert = new Alert(AlertType.CONFIRMATION);
+               alert.setTitle("Confirmation Dialog");
+               alert.setHeaderText("Report sent.");
+               alert.setContentText("A staff member will view your report shortly.");
+               
+               alert.showAndWait();
+            }
+         });
 	      
 	      // Update singleton for after game screen.
 	      MainModel.getModel().currentGameTableData().setChatEnabled(true);

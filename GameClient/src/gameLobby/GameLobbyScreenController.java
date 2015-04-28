@@ -18,8 +18,6 @@ import framework.ControlledScreen;
 import framework.Destroyable;
 import GameServer.GameInfo;
 import GameServer.IGameManagement;
-import GameServer.Users.User;
-import singleton.GameLobbyData;
 import singleton.MainModel;
 import userListing.UserRow;
 import view.MainController;
@@ -119,7 +117,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			e.printStackTrace();
 		}
 
-		reportButton.setOnMouseClicked(event -> {
+		reportButton.setOnAction(event -> {
 			String log = chatBoxTextArea.getText();
 			if(!log.equals(""))
 			{
