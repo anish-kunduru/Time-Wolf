@@ -92,7 +92,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 	// Join game logic.
 	private int gameID;
    private int numPlayers;
-   private int chatEnabled;
+   private boolean chatEnabled;
 
 	/**
 	 * Initializes the controller class. Automatically called after the FXML
@@ -145,6 +145,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 				if (gamesTable.getSelectionModel().getSelectedIndex() != -1) {
 					gameID = gamesTable.getSelectionModel().getSelectedItem().id.get();
 					numPlayers = gamesTable.getSelectionModel().getSelectedItem().getNumPlayers();
+					chatEnabled = gamesTable.getSelectionModel().getSelectedItem().getChat();
 				}
 			});
 
@@ -182,6 +183,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
          {
             MainModel.getModel().currentGameLobbyData().setID(gameID);
             MainModel.getModel().currentGameLobbyData().setNumPlayers(numPlayers);
+            MainModel.getModel().currentGameLobbyData().setChatEnabled(chatEnabled);
             parentController.goToGameTableScreen();
          }
       });
