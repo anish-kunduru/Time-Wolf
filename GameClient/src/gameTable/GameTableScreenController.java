@@ -395,6 +395,8 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 
 		// Add highlight effects
 		highlightEffect();
+		
+		
 
 		// Add bring to front effects
 		showCard();
@@ -552,15 +554,26 @@ public class GameTableScreenController implements ControlledScreen, Destroyable,
 	 */
 	private void endTurn() {
 		endTurnButton.setOnMouseClicked(event -> {
+			System.out.println("Ending turn.");
 			isTurn = false;
 			Attack.setText("Attack: 0");
 			Stealth.setText("Stealth: 0");
 			attack = 0;
 			stealth = 0;
+			
+			try {
+				this.gameEngine.endTurn();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
+		
+		
 	}
 
 	public void startTurn() {
+		System.out.println("Starting turn...");
 		isTurn = true;
 		playerTurnLabel.setText("Your turn");
 	}

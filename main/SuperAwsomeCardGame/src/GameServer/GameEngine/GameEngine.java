@@ -760,9 +760,12 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	@Override
 	public void endTurn() {
 		
+		System.out.println("Ending turn.");
+		
 		Player currentPlayer = this.players.get(this.currentPlayerIndex);
 		
 		currentPlayer.resetPlayer();
+		
 		
 		
 		this.currentPlayerIndex++; //Choose the next player to take a turn
