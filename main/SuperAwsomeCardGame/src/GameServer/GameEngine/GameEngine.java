@@ -221,7 +221,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			}
 		}
 		
-		p.setPlayerHand();
+		//p.setPlayerHand();
 		
 		System.out.println("Player: " + p.getUser().getUsername() + 
 				" Attack: " + p.getAttack() + " Stealth: " + p.getStealth());
@@ -310,7 +310,23 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	 * @param c the card
 	 */
 	private void ruleDrawCards(Player current, Card c) {
+		
+		Hand newCards = new Hand(0);
+		
+		for(int i = 0; i < c.getDrawCards(); i++) {
+			Card temp = current.getDeck().draw(current.getDiscardPile());
+			newCards.addCard(temp);
+			current.getDeck().addCard(temp);
+		}
 		current.getDeck().draw(current.getHand(), c.getDrawCards(), current.getDiscardPile());
+		
+		try {
+			current.drawCards(new Action(Action.DRAW, newCards));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

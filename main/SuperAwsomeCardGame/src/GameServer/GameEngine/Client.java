@@ -42,4 +42,6 @@ public interface Client extends Remote {
 
 	public void setPlayerHand(Hand hand) throws RemoteException;
 	
+	public void drawCards(Action a) throws RemoteException;
+	
 }

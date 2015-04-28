@@ -141,5 +141,15 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 	};
 	
 
+	public void drawCards(Action a) {
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.drawCards(a);
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});
+	}
 
 }

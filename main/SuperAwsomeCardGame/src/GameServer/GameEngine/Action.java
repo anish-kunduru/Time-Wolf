@@ -87,6 +87,13 @@ public class Action implements Serializable {
 		this.c = c;
 		this.h = h;
 	}
+
+	public Action(int action, Hand h)
+	{
+
+		this.action = action;
+		this.h = h;
+	}
 	
 	public String getPlayerName()
 	{
