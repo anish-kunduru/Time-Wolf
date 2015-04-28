@@ -322,6 +322,11 @@ public class Player implements Client {
 		}
 	};
 	
+	public void updatePlayerStats(String players[]){
+		if(this.client == null) throw new IllegalStateException();
+		this.updatePlayerStats(this.stealth, this.attack, this.VP, players);
+	};
+	
 	public void updateOtherPlayersStats(int vp, String players[], String username){
 		if(this.client == null) throw new IllegalStateException();
 		try {
@@ -331,7 +336,18 @@ public class Player implements Client {
 		}
 	};
 	
-	public void setPlayerHand(Hand hand){
+	public void setPlayerHand(){
+		if(this.client == null) throw new IllegalStateException();
+		try {
+			this.client.setPlayerHand(this.hand);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	@Override
+	public void setPlayerHand(Hand hand) throws RemoteException {
 		if(this.client == null) throw new IllegalStateException();
 		try {
 			this.client.setPlayerHand(hand);

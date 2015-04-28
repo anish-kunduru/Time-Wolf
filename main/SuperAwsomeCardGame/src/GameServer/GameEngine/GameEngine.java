@@ -598,12 +598,8 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	}
 	
 	
-	/**
-	 * Aquire a card
-	 * @param a the action the user's running
-	 * @return true if successful
-	 */
-	private boolean aquireCard(Action a) {
+	@Override
+	public boolean aquireCard(Action a) {
 		
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
@@ -688,6 +684,17 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			//set the current player
 			currentPlayer = this.players.get(this.currentPlayerIndex);
 			
+			String[] playerList = new String[this.players.size()];
+			for(int i = 0; i < this.players.size(); i++) {
+					playerList[i] = this.players.get(i).getUser().getUsername();
+			}
+			
+			
+			for(int i = 0; i < this.players.size(); i++) {
+				this.players.get(i).updatePlayerStats(playerList);
+			}
+			
+			
 			try {
 				currentPlayer.startTurn();
 			} catch (RemoteException e) {
@@ -760,13 +767,17 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	@Override
 	public void endTurn() {
 		
-		System.out.println("Ending turn.");
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		
 		
 		Player currentPlayer = this.players.get(this.currentPlayerIndex);
 		
 		currentPlayer.resetPlayer();
-		
-		
+		currentPlayer.setPlayerHand();
+		currentPlayer.updatePlayerStats(playerList);
 		
 		this.currentPlayerIndex++; //Choose the next player to take a turn
 		if(this.currentPlayerIndex == this.totalNumOfPlayers) {

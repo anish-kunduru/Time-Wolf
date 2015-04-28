@@ -42,4 +42,12 @@ public interface GameEngineRemote extends Remote {
 	 * @throws RemoteException
 	 */
 	public void endTurn() throws RemoteException;
+	
+	
+	/**
+	 * Aquire a card
+	 * @param a the action the user's running
+	 * @return true if successful
+	 */
+	public boolean aquireCard(Action a);
 }
