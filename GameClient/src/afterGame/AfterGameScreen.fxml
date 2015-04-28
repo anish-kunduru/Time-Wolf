@@ -186,7 +186,8 @@
          </font>
       </Button>
       <TextArea fx:id="chatBoxTextArea" editable="false" layoutX="45.0" layoutY="395.0" prefHeight="259.0" prefWidth="604.0" wrapText="true" />
-      <TextField fx:id="chatMessageTextField" layoutX="45.0" layoutY="676.0" onAction="#initialize" prefHeight="25.0" prefWidth="493.0" />
-      <Button fx:id="sendMessageButton" layoutX="556.0" layoutY="676.0" mnemonicParsing="false" onAction="#sendMessage" text="Send Message" />
+      <TextField fx:id="chatMessageTextField" layoutX="45.0" layoutY="676.0" onAction="#initialize" prefHeight="25.0" prefWidth="427.0" />
+      <Button fx:id="sendMessageButton" layoutX="486.0" layoutY="676.0" mnemonicParsing="false" onAction="#sendMessage" text="Send Message" />
+      <Button fx:id="reportButton" layoutX="597.0" layoutY="676.0" mnemonicParsing="false" onAction="#initialize" text="Report" />
    </children>
 </AnchorPane>

@@ -15,11 +15,13 @@ import framework.Destroyable;
 import GameServer.GameEngine.AfterGameInfo;
 import GameServer.Users.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import singleton.MainModel;
 import view.MainController;
 
@@ -118,6 +120,8 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
    @FXML
    private Button sendMessageButton;
    @FXML
+   private Button reportButton;
+   @FXML
    private TextArea chatBoxTextArea;
    @FXML
    private TextField chatMessageTextField;
@@ -209,6 +213,22 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
          chatMessageTextField.setOnAction(event ->
          {
             sendMessage();
+         });
+         
+         reportButton.setOnAction(event ->
+         {
+            String log = chatBoxTextArea.getText();
+            if (!log.equals(""))
+            {
+               MainModel.getModel().currentLoginData().getLogInConnection().insertReport(log);
+               
+               Alert alert = new Alert(AlertType.CONFIRMATION);
+               alert.setTitle("Confirmation Dialog");
+               alert.setHeaderText("Report sent.");
+               alert.setContentText("A staff member will view your report shortly.");
+               
+               alert.showAndWait();
+            }
          });
       }
       else
@@ -545,8 +565,11 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
    {
       // DEBUG
       System.out.println("Destroying the after game screen...");
-
-      // Close out chat.
-      chat.end();
+      
+      if (MainModel.getModel().currentGameTableData().getChatEnabled())
+      {
+         // Close out chat.
+         chat.end();
+      }
    }
 }
