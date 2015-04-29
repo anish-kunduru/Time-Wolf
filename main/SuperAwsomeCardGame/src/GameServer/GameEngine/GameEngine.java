@@ -964,7 +964,61 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 		//}
 		
-		
+		while(true)
+		{
+			try {
+				Thread.sleep(30000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(Player p : players)
+			{
+				try {
+					p.checkOnline();
+				} catch (RemoteException e) {
+					Player[] endGame = new Player[this.players.size()];
+					for(int i = 0; i < this.players.size(); i++) {
+						endGame[i] = this.players.get(i);
+					}
+					
+					Player temp;
+					
+					//Do a stupid sort to sort players by ranking
+					for(int i = 0; i < endGame.length - 1; i++) {
+						for(int j = endGame.length - 1; j != i; j--) {
+							if(endGame[j].getVP() > endGame[j - 1].getVP()) {
+								temp = endGame[j-1];
+								endGame[j-1] = endGame[j];
+								endGame[j] = temp;
+							}
+						}
+					}
+					
+					int vp[] = new int[endGame.length];
+					int cardsInDeck[] = new int[endGame.length];
+					String playerNames[] = new String[endGame.length];
+					
+					for(int i = 0; i < endGame.length; i++) {
+						vp[i] = endGame[i].getVP();
+						cardsInDeck[i] = endGame[i].getDeck().size() + endGame[i].getHand().size() + endGame[i].getDiscardPile().size();
+						playerNames[i] = endGame[i].getUser().getUsername();
+					}
+					
+					for(Player ending : this.players) {
+						try {
+							ending.endGame(vp, cardsInDeck, playerNames);
+						} catch (RemoteException ex) {
+							// TODO Auto-generated catch block
+							ex.printStackTrace();
+						}
+					}
+					
+					this.isFinished = true;
+				}
+				
+			}
+		}
 		
 		
 	}

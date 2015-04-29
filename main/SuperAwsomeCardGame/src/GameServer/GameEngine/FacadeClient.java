@@ -190,5 +190,18 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		
 	}
 
+	@Override
+	public void checkOnline() throws RemoteException {
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.checkOnline();
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});
+		
+	}
+
 
 }
