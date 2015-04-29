@@ -176,4 +176,19 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});	
 	}
 
+	@Override
+	public void endGame(int[] vp, int[] cardsInDeck, String[] playerNames)
+			throws RemoteException {
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.endGame(vp, cardsInDeck, playerNames);
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});
+		
+	}
+
+
 }
