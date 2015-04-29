@@ -213,7 +213,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
-		System.out.println("Play card action.");
+		System.out.println("Playing Card: " + c.getName() );
 		this.ruleDiscard(p, c, true, a);
 		
 		
@@ -405,7 +405,6 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		int numOfCards;
 		
-		System.out.println("Entering discard.");
 		//We can either discard before or after
 		if(isBefore) {
 			numOfCards = c.getPreturnDiscard();
@@ -500,9 +499,8 @@ public void trashCard(Action a) {
 private void ruleTrash(Player current, Card c, Action a) {
 		
 		
-		System.out.println("Entering discard.");
-		
 		this.trashCount = 0;
+		this.trashMax = 0;
 		
 		if(c.getTrashForAttack() > 0) {
 			this.isTrashForStealth = false;
@@ -528,9 +526,9 @@ private void ruleTrash(Player current, Card c, Action a) {
 			this.isTrashing = true;
 				
 			try {
-				System.out.println("Calling client for discard");
+				System.out.println("Calling client for Trash - before - Trash Max: " + this.trashMax);
 				current.trashCard(new Action(Action.TRASH, c));
-				System.out.println("Calling client for discard");
+				System.out.println("Calling client for Trash - after");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
