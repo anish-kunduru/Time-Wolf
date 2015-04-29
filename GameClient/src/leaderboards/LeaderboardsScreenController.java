@@ -93,7 +93,7 @@ public class LeaderboardsScreenController implements ControlledScreen {
 					currentRow.ratio.set(df.format(user.Statistics.getWinLossRatio()));
 					currentRow.totalPoints.set((int) user.Statistics.getTotalPoints());
 					currentRow.avgPoints.set((int) user.Statistics.getAveragePoints());
-					currentRow.karma.set(user.Statistics.getKarma());
+					currentRow.karma.set(df.format(user.Statistics.getKarma()));
 
 					tableData.add(currentRow);
 				}
