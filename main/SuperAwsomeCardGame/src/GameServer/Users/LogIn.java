@@ -67,7 +67,6 @@ public class LogIn implements Remote, Serializable {
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
-			dbh.closeConnection();
 		} else {
 			throw new Exception("There was an error updating the user!");
 		}
@@ -120,7 +119,6 @@ public class LogIn implements Remote, Serializable {
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
 
-			dbh.closeConnection();
 			return u;
 		} else {
 			throw new Exception("Username or password was incorrect!");
@@ -166,7 +164,6 @@ public class LogIn implements Remote, Serializable {
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
 
-			dbh.closeConnection();
 			return u;
 		} else {
 			throw new Exception("Username or password was incorrect!");
@@ -189,7 +186,6 @@ public class LogIn implements Remote, Serializable {
 			e.printStackTrace();
 		}
 
-		dbh.closeConnection();
 		return userName;
 	}
 
@@ -222,7 +218,6 @@ public class LogIn implements Remote, Serializable {
 			fl.add(new Feedback(ID, uID, desc, isPos, byID));
 		}
 
-		dbh.closeConnection();
 		return fl;
 	}
 
@@ -266,13 +261,11 @@ public class LogIn implements Remote, Serializable {
 			UserStats us = new UserStats(id, uID, karma, totalPoints, gamesWon,
 					gamesPlayed);
 
-			dbh.closeConnection();
 			return us;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		dbh.closeConnection();
 		return null;
 	}
 
@@ -299,7 +292,6 @@ public class LogIn implements Remote, Serializable {
 			e.printStackTrace();
 		}
 
-		dbh.closeConnection();
 		return karma;
 
 	}
@@ -315,7 +307,6 @@ public class LogIn implements Remote, Serializable {
 				+ u.Statistics.getTotalPoints();
 		query = query + " WHERE UserID=" + u.getID();
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	/**
@@ -333,10 +324,8 @@ public class LogIn implements Remote, Serializable {
 		ResultSet rs = dbh.executeQuery(query);
 		if (rs.first()) {
 
-			dbh.closeConnection();
 			return true;
 		} else {
-			dbh.closeConnection();
 			return false;
 		}
 	}
@@ -388,7 +377,6 @@ public class LogIn implements Remote, Serializable {
 		String query = "UPDATE User SET Flagged=" + bit + ",BannedReason='"
 				+ reason + "' WHERE Username='" + username + "'";
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	/**
@@ -446,7 +434,6 @@ public class LogIn implements Remote, Serializable {
 			throw new Exception("Insert of new user failed!");
 		}
 
-		dbh.closeConnection();
 		return u;
 
 	}
@@ -459,7 +446,6 @@ public class LogIn implements Remote, Serializable {
 		query += "VALUES ('" + userID + "','" + isPositive + "','" + desc
 				+ "','" + byUserID + "')";
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	/**
@@ -477,7 +463,6 @@ public class LogIn implements Remote, Serializable {
 		prepStmt.setInt(1, id);
 		prepStmt.execute();
 		conn.close();
-		dbh.closeConnection();
 	}
 
 	/**
@@ -498,7 +483,6 @@ public class LogIn implements Remote, Serializable {
 			report.add(new Report(id, log));
 		}
 
-		dbh.closeConnection();
 		return report;
 	}
 
@@ -535,7 +519,6 @@ public class LogIn implements Remote, Serializable {
 			users.add(u);
 		}
 
-		dbh.closeConnection();
 		return users;
 	}
 
@@ -544,7 +527,6 @@ public class LogIn implements Remote, Serializable {
 		String query = "UPDATE User SET Avatar=" + null + " WHERE Username='"
 				+ username + "'";
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	/**
@@ -603,7 +585,6 @@ public class LogIn implements Remote, Serializable {
 			dbh.executeUpdate(query);
 		}
 
-		dbh.closeConnection();
 	}
 
 	public void updateSettings(User u) throws Exception {
@@ -645,7 +626,6 @@ public class LogIn implements Remote, Serializable {
 			dbh.executeUpdate(query);
 		}
 
-		dbh.closeConnection();
 	}
 
 	/**
@@ -665,7 +645,6 @@ public class LogIn implements Remote, Serializable {
 
 		dbh.executeUpdate(query);
 
-		dbh.closeConnection();
 		// if ID == 0 then no user is selected
 	}
 
@@ -684,7 +663,6 @@ public class LogIn implements Remote, Serializable {
 				+ "' WHERE Username='" + username + "'";
 
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	/**
@@ -705,13 +683,11 @@ public class LogIn implements Remote, Serializable {
 
 		if (rs.first())
 		{
-			dbh.closeConnection();
 			return true;
 			
 		}
 		else
 		{
-			dbh.closeConnection();
 			return false;
 		}
 		
@@ -734,12 +710,9 @@ public class LogIn implements Remote, Serializable {
 			username = rs.getString("Username");
 		else
 		{
-			dbh.closeConnection();
 			throw new SQLException(); // Throw an exception if we are passed an
 										// e-mail not in the table.
 		}
-
-		dbh.closeConnection();
 		return username;
 	}
 
@@ -760,7 +733,6 @@ public class LogIn implements Remote, Serializable {
 			sq = rs.getString("SecurityQuestion");
 		}
 
-		dbh.closeConnection();
 		return sq;
 	}
 
@@ -792,7 +764,6 @@ public class LogIn implements Remote, Serializable {
 		System.out.println(users.get(0).getID());
 		System.out.println(users.get(1).getID());
 
-		dbh.closeConnection();
 		return users;
 
 	}
@@ -811,7 +782,6 @@ public class LogIn implements Remote, Serializable {
 				+ byUserID + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 	public void insertReport(String text) {
@@ -821,7 +791,6 @@ public class LogIn implements Remote, Serializable {
 		query += "VALUES('" + text + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
-		dbh.closeConnection();
 	}
 
 }

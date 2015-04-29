@@ -1107,7 +1107,7 @@ private void ruleTrash(Player current, Card c, Action a) {
 			
 		//}
 		
-		while(true)
+		while(!isFinished)
 		{
 			try {
 				Thread.sleep(30000);
