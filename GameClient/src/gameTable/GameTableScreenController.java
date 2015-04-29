@@ -835,8 +835,7 @@ public class GameTableScreenController implements ControlledScreen,
     * 
     * @param a
     */
-   private void playCard(Action a) {
-      // THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
+   public void playCard(Action a) {
       System.out.println("Starting Play action.");
       
       System.out.println("Play action: Succeeded.");

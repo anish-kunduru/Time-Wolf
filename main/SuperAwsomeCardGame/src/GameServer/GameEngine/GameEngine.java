@@ -228,14 +228,19 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
-		this.ruleDrawCards(p, c);
-		//this.ruleLoseVP(p, c);
-		//this.ruleTakeAnotherTurn(p, c);
-		//this.ruleDiscard(p, c, false, a);
 		
-		//Discard card
-		//p.getDiscardPile().discard(c);
-		//p.getHand().remove(a.getCardIndex());
+		this.ruleDrawCards(p, c);
+		this.ruleLoseVP(p, c);
+		//this.ruleTakeAnotherTurn(p, c);
+		this.ruleDiscard(p, c, false, a);
+		
+		return true;
+	}
+	
+	private boolean playCardPt3(Action a) {
+		
+		Card c = a.getCard();
+		Player p = this.players.get(this.currentPlayerIndex);
 		
 		//When we find the card played, discard it.
 		for(int i = 0; i < p.getHand().size(); i++) {
@@ -265,6 +270,20 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
 			}
 		}
+		
+		
+		Action forUpdate = new Action(0, 0, c, p.getUser().getUsername());
+		
+		for(Player toUpdate: this.players) {
+			if(p != toUpdate) {
+				try {
+					toUpdate.playCard(forUpdate);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
 		
 		return true;
@@ -277,14 +296,23 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		for(int i = 0; i < this.players.size(); i++) {
 			if(this.currentPlayerIndex != i) {
-				this.players.get(i).addVP(c.getOthersLoseVP() * -25);
+				this.players.get(i).addVP(c.getOthersLoseVP() * -1);
 			}
 		}
 		
 		//Update player stats for everyone.
 		String[] playerList = new String[this.players.size()];
 		for(int i = 0; i < this.players.size(); i++) {
-				playerList[i] = this.players.get(i).getUser().getUsername();
+				boolean wormhole = false;
+				
+				for(Card cardFromHand : this.players.get(i).getHand()) {
+					if(cardFromHand.getName().equals("Wormhole")) {
+						wormhole = true;
+					}
+				}
+				if(!wormhole) {
+					playerList[i] = this.players.get(i).getUser().getUsername();
+				}
 		}
 		
 		current.updatePlayerStats(playerList);
@@ -354,7 +382,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			if(this.isDiscardingPre) {
 				this.playCardPt2(this.inProgressAction);
 			} else if(this.isDiscardingPost) {
-				
+				this.playCardPt3(this.inProgressAction);
 			}
 		}
 		
@@ -398,22 +426,64 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			}
 		
 		} else {
-			this.playCardPt2(this.inProgressAction);
+			if(isBefore) {
+				this.playCardPt2(this.inProgressAction);
+			} else {
+				this.playCardPt3(this.inProgressAction);
+			}
+			
 		}
 		
+	}
+	
+	
+	
+	
+private void ruleTrash(Player current, Card c, boolean isBefore, Action a) {
+		//c.getTrashCardsMandatory() c.
+		int numOfCards;
 		
+		System.out.println("Entering discard.");
 		//We can either discard before or after
-		/*
 		if(isBefore) {
-			this.playCardPt2(a);
+			numOfCards = c.getPreturnDiscard();
 		} else {
 			numOfCards = c.getPostturnDiscard();
 		}
 		
-		*/
 		
+		//If there aren't enough cards left for a full discard.
+		if(numOfCards > current.getHand().size()) {
+			numOfCards = current.getHand().size();
+		}
+		
+		if(numOfCards > 0) {
+			this.discardMax = numOfCards;
+			this.discardCount = 0;
+			this.isDiscardingPre = true;
+			this.inProgressAction = a;
+			
+				
+			try {
+				System.out.println("Calling client for discard");
+				current.discardCard(new Action(Action.DISCARD, c));
+				System.out.println("Calling client for discard");
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		} else {
+			if(isBefore) {
+				this.playCardPt2(this.inProgressAction);
+			} else {
+				this.playCardPt3(this.inProgressAction);
+			}
+			
+		}
 		
 	}
+	
 	
 	/**
 	 * Parse the card for its draw card value
@@ -1091,6 +1161,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		
 		
+	}
+	
+	public String getRMIRegistryName() {
+		return this.rmiRegistryName;
 	}
 
 }

@@ -1,6 +1,7 @@
 package GameServer;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -201,7 +202,30 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		/*
+		while(true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(int i = 0; i < this.games.size(); i++) {
+				if(this.games.get(i).isFinished()) {
+					try {
+						Naming.unbind(this.games.get(i).getRMIRegistryName());
+					} catch (RemoteException | MalformedURLException
+							| NotBoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				this.games.remove(i);
+			}
+			
+		}
+		*/
+		
 		
 	}
 	

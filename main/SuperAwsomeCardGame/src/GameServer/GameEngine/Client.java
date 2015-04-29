@@ -54,4 +54,6 @@ public interface Client extends Remote {
 	
 	public void acquireCard(Action a) throws RemoteException;
 	
+	public void playCard(Action a) throws RemoteException;
+	
 }

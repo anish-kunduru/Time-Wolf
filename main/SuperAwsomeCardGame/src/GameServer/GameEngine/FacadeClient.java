@@ -215,5 +215,18 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	}
 
+	@Override
+	public void playCard(Action a) throws RemoteException {
+		Platform.runLater(() ->
+		{
+			try {
+				this.c.playCard(a);
+			} catch (Exception e){ 
+				e.printStackTrace();
+			}
+		});
+		
+	}
+
 
 }
