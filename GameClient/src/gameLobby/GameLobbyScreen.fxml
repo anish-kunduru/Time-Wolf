@@ -19,10 +19,9 @@
 		</Label>
 		<TableView fx:id="gamesTable" layoutX="8.0" layoutY="66.0" prefHeight="606.0" prefWidth="858.0">
 			<columns>
-				<TableColumn fx:id="nameColumn" prefWidth="430.33331298828125" text="Name" />
-				<TableColumn fx:id="numPlayersColumn" minWidth="4.0" prefWidth="149.0" text="No. Players" />
-				<TableColumn fx:id="chatColumn" prefWidth="145.0" text="Chat" />
-				<TableColumn fx:id="privateColumn" prefWidth="137.66668701171875" text="Private" />
+				<TableColumn fx:id="nameColumn" prefWidth="516.0" text="Name" />
+				<TableColumn fx:id="numPlayersColumn" minWidth="4.0" prefWidth="181.0" text="No. Players" />
+				<TableColumn fx:id="chatColumn" prefWidth="159.0" text="Chat" />
 			</columns>
 		</TableView>
 		<Button fx:id="joinButton" layoutX="827.0" layoutY="681.0" mnemonicParsing="false" onAction="#initialize" text="Join" AnchorPane.leftAnchor="820.0" />
