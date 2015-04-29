@@ -17,6 +17,24 @@ public class GameLobbyData
    private int numPlayers;
    private boolean chatEnabled;
    private boolean searching;
+   private boolean privateEnabled;
+   private String gameName;
+   
+   public String getGameName(){
+	   return this.gameName;
+   }
+   
+   public void setGameName(String gameName){
+	   this.gameName = gameName;
+   }
+   
+   public boolean isPrivate(){
+	   return privateEnabled;
+   }
+   
+   public void setPrivate(boolean set){
+	   this.privateEnabled = set;
+   }
 
    public boolean isSearching()
    {

@@ -26,6 +26,12 @@ public class SearchGameScreenController implements ControlledScreen {
 
 	@FXML
 	private CheckBox chatCheckBox;
+	
+	@FXML
+	private CheckBox privateCheckBox;
+	
+	@FXML 
+	private TextField gameNameTextField;
 
 	// So we can set the screen's parent later on.
 	MainController parentController;
@@ -49,11 +55,21 @@ public class SearchGameScreenController implements ControlledScreen {
 				chatCheckBox.setText("Off");
 		});
 
+		
+		privateCheckBox.setOnAction(event -> {
+			if (privateCheckBox.isSelected())
+				privateCheckBox.setText("On");
+			else
+				privateCheckBox.setText("Off");
+		});
+		
 		searchButton.setOnAction(event -> {
 			// TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
 
 				// TO-DO: SET SEARCH CRITERA IN GAME LOBBY SINGLETON.
+				MainModel.getModel().currentGameLobbyData().setGameName(gameNameTextField.getText());
 				MainModel.getModel().currentGameLobbyData().setChatEnabled(chatCheckBox.isSelected());
+				MainModel.getModel().currentGameLobbyData().setPrivate(privateCheckBox.isSelected());
 				MainModel.getModel().currentGameLobbyData().setNumPlayers(numberPlayersComboBox.getSelectionModel().getSelectedItem());
 				MainModel.getModel().currentGameLobbyData().setSearch(true);
 			
