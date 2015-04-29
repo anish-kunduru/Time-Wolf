@@ -32,7 +32,7 @@ public class DBHelper {
 
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			
+			conn.close();
 			return rs;
 		} catch (SQLException e) {
 			System.err.println("Error executing query!");
@@ -57,9 +57,10 @@ public class DBHelper {
 			Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
 			
-
 			Statement st = conn.createStatement();
 			st.executeUpdate(query);
+
+			conn.close();
 			
 		} catch (SQLException e) {
 			System.err.println("Error executing query!");
