@@ -16,7 +16,18 @@ public class GameLobbyData
    private int id;
    private int numPlayers;
    private boolean chatEnabled;
+   private boolean searching;
 
+   public boolean isSearching()
+   {
+	   return searching;
+   }
+   
+   public void setSearch(boolean isSearch)
+   {
+	   searching = isSearch;
+   }
+   
    /**
     * Default constructor to use in singleton.
     */

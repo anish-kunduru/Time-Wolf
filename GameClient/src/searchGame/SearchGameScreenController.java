@@ -8,6 +8,7 @@ package searchGame;
 
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
+import singleton.MainModel;
 import view.MainController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,7 +53,11 @@ public class SearchGameScreenController implements ControlledScreen {
 			// TO-DO: CHECK IF EVERYTHING WAS SELECTED PROPERLY. (VERIFY INPUT)
 
 				// TO-DO: SET SEARCH CRITERA IN GAME LOBBY SINGLETON.
-
+				MainModel.getModel().currentGameLobbyData().setChatEnabled(chatCheckBox.isSelected());
+				MainModel.getModel().currentGameLobbyData().setNumPlayers(numberPlayersComboBox.getSelectionModel().getSelectedItem());
+				MainModel.getModel().currentGameLobbyData().setSearch(true);
+			
+			
 				// Display the lobby screen.
 				parentController.goToGameLobbyScreen();
 			});

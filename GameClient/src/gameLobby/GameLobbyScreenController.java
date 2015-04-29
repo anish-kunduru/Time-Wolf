@@ -34,11 +34,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GameLobbyScreenController implements ControlledScreen, Destroyable
-{
-   // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
-   public final String SERVER_ADDRESS = "localhost";
-   //public final String SERVER_ADDRESS = "10.25.68.24";
+public class GameLobbyScreenController implements ControlledScreen, Destroyable {
+	// PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
+	public final String SERVER_ADDRESS = "localhost";
+	// public final String SERVER_ADDRESS = "10.25.68.24";
 
 	// Table components.
 	private ArrayList<GameInfo> games;
@@ -55,7 +54,6 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 	@FXML
 	private TableColumn privateColumn;
 
-	
 	@FXML
 	private Button reloadTableButton;
 	@FXML
@@ -76,10 +74,10 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 	private TextField searchUsersTextField;
 	@FXML
 	private Label userNotFoundLabel;
-	
+
 	@FXML
 	private Button reportButton;
-	
+
 	@FXML
 	private Label reportLabel;
 
@@ -89,11 +87,11 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 	// So that we can call it from different event listeners.
 	private Chat chat;
 	private IGameManagement gameManagement;
-	
+
 	// Join game logic.
 	private int gameID;
-   private int numPlayers;
-   private boolean chatEnabled;
+	private int numPlayers;
+	private boolean chatEnabled;
 
 	/**
 	 * Initializes the controller class. Automatically called after the FXML
@@ -104,25 +102,27 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 	public void initialize() {
 		// Hide error Label for now
 		userNotFoundLabel.setVisible(false);
-		
+
 		// Initialize gameManagement.
 		try {
-			gameManagement = (IGameManagement) Naming.lookup("//" + SERVER_ADDRESS + "/game");
+			gameManagement = (IGameManagement) Naming.lookup("//"
+					+ SERVER_ADDRESS + "/game");
 		} catch (Exception e) {
 			// DEBUG
-			System.out.println("Error initializing remote game management object.");
+			System.out
+					.println("Error initializing remote game management object.");
 			e.printStackTrace();
 		}
 
 		reportButton.setOnAction(event -> {
 			String log = chatBoxTextArea.getText();
-			if(!log.equals(""))
-			{
-				MainModel.getModel().currentLoginData().getLogInConnection().insertReport(log);
+			if (!log.equals("")) {
+				MainModel.getModel().currentLoginData().getLogInConnection()
+						.insertReport(log);
 				reportLabel.setText("Report sent.");
 			}
 		});
-		
+
 		// Initialize table
 		loadGameTable();
 
@@ -138,50 +138,54 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 		gamesTable.setOnMouseClicked(event -> {
 			// Check to make sure something is selected.
 				if (gamesTable.getSelectionModel().getSelectedIndex() != -1) {
-					gameID = gamesTable.getSelectionModel().getSelectedItem().id.get();
-					numPlayers = gamesTable.getSelectionModel().getSelectedItem().getNumPlayers();
-					chatEnabled = gamesTable.getSelectionModel().getSelectedItem().getChat();
+					gameID = gamesTable.getSelectionModel().getSelectedItem().id
+							.get();
+					numPlayers = gamesTable.getSelectionModel()
+							.getSelectedItem().getNumPlayers();
+					chatEnabled = gamesTable.getSelectionModel()
+							.getSelectedItem().getChat();
 				}
 			});
 
 		// Initialize chat.
-		chat = new Chat(Chat.GAME_LOBBY_SCREEN, MainModel.getModel().currentLoginData().getUsername(), -1);
+		chat = new Chat(Chat.GAME_LOBBY_SCREEN, MainModel.getModel()
+				.currentLoginData().getUsername(), -1);
 
 		reloadTableButton.setOnAction(event -> {
 			loadGameTable(); // Reload game table.
 			});
 
-      joinButton.setOnAction(event ->
-      {
-         // Check to make sure the user has clicked on a game in the table.
-         if (numPlayers == 0)
-         {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Joining Game");
-            alert.setHeaderText("You didn't join a valid game!");
-            alert.setContentText("Select a game in the game table.");
+		joinButton.setOnAction(event -> {
+			// Check to make sure the user has clicked on a game in the table.
+				if (numPlayers == 0) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error Joining Game");
+					alert.setHeaderText("You didn't join a valid game!");
+					alert.setContentText("Select a game in the game table.");
 
-            alert.showAndWait();
-         }
-         // TODO: Else if logic if the game is now full...
-         /*{
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Joining Game");
-            alert.setHeaderText("The game is now full.");
-            alert.setContentText("Select a different game in the game table.");
-            
-            loadGameTable(); // Reload the table.
-
-            alert.showAndWait();
-         }*/
-         else
-         {
-            MainModel.getModel().currentGameLobbyData().setID(gameID);
-            MainModel.getModel().currentGameLobbyData().setNumPlayers(numPlayers);
-            MainModel.getModel().currentGameLobbyData().setChatEnabled(chatEnabled);
-            parentController.goToGameTableScreen();
-         }
-      });
+					alert.showAndWait();
+				}
+				// TODO: Else if logic if the game is now full...
+				/*
+				 * { Alert alert = new Alert(AlertType.ERROR);
+				 * alert.setTitle("Error Joining Game");
+				 * alert.setHeaderText("The game is now full.");
+				 * alert.setContentText
+				 * ("Select a different game in the game table.");
+				 * 
+				 * loadGameTable(); // Reload the table.
+				 * 
+				 * alert.showAndWait(); }
+				 */
+				else {
+					MainModel.getModel().currentGameLobbyData().setID(gameID);
+					MainModel.getModel().currentGameLobbyData()
+							.setNumPlayers(numPlayers);
+					MainModel.getModel().currentGameLobbyData()
+							.setChatEnabled(chatEnabled);
+					parentController.goToGameTableScreen();
+				}
+			});
 
 		searchButton.setOnAction(event -> {
 			parentController.goToSearchGameScreen();
@@ -191,17 +195,20 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 			parentController.goToCreateGameScreen();
 		});
 
-		searchUsersButton.setOnAction(event -> {
+		searchUsersButton
+				.setOnAction(event -> {
 
-			String username = searchUsersTextField.getText();
-			try {
-				MainModel.getModel().profileData().setRedirectToClicked(true);
-				MainModel.getModel().profileData().setClickedUsername(username);
-				parentController.goToProfileScreen();
-			} catch (Exception e) {
-				userNotFoundLabel.setVisible(true);
-			}
-		});
+					String username = searchUsersTextField.getText();
+					try {
+						MainModel.getModel().profileData()
+								.setRedirectToClicked(true);
+						MainModel.getModel().profileData()
+								.setClickedUsername(username);
+						parentController.goToProfileScreen();
+					} catch (Exception e) {
+						userNotFoundLabel.setVisible(true);
+					}
+				});
 	}
 
 	/**
@@ -210,7 +217,8 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 	public void sendMessage() {
 		String outgoingMsg = chatMessageTextArea.getText();
 
-		// Make sure the user didn't just press the button without anything in the text field.
+		// Make sure the user didn't just press the button without anything in
+		// the text field.
 		if (!outgoingMsg.equals(""))
 			chat.bufferMessage(outgoingMsg);
 
@@ -229,16 +237,53 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 			games = gameManagement.listJoinableGames();
 
 			// Bind table elements to their appropriate values.
-			nameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("name"));
-			numPlayersColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("numberPlayers"));
-			chatColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("chat"));
-			privateColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("privateLobby"));
+			nameColumn
+					.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+							"name"));
+			numPlayersColumn
+					.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+							"numberPlayers"));
+			chatColumn
+					.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+							"chat"));
+			privateColumn
+					.setCellValueFactory(new PropertyValueFactory<UserRow, String>(
+							"privateLobby"));
 
 			// Bind the table values.
 			tableData = FXCollections.observableArrayList();
 			gamesTable.setItems(tableData);
 
-			if (games != null) {
+			if (MainModel.getModel().currentGameLobbyData().isSearching()) {
+				System.out.println("Games size: " + games.size());
+				boolean removed = false;
+				for (int i = 0; i < games.size(); i++) {
+					if (removed)
+						i--;
+					removed = false;
+					System.out.println(games.get(i).getName());
+					System.out.println(games.get(i).getChat()
+							+ " != "
+							+ MainModel.getModel().currentGameLobbyData()
+									.getChatEnabled());
+					System.out.println(games.get(i).getNumPlayers()
+							+ " != "
+							+ MainModel.getModel().currentGameLobbyData()
+									.getNumPlayers());
+					if (games.get(i).getChat() != MainModel.getModel()
+							.currentGameLobbyData().getChatEnabled()
+							|| games.get(i).getNumPlayers() != MainModel
+									.getModel().currentGameLobbyData()
+									.getNumPlayers()) {
+						games.remove(games.get(i));
+						removed = true;
+					}
+
+				}
+				MainModel.getModel().currentGameLobbyData().setSearch(false);
+			}
+
+			if (games != null && !games.isEmpty()) {
 				// Populate the table.
 				for (GameInfo currentGame : games) {
 					LobbyRow currentEntry = new LobbyRow(); // new row.
@@ -251,12 +296,23 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 					// Combine number of players.
 					String numberPlayers = curPlayers + "/" + maxPlayers;
 
-					currentEntry.name.set(currentGame.getName()); // Set game name.
-					currentEntry.numberPlayers.set(numberPlayers); // Set numberPlayers
+					currentEntry.name.set(currentGame.getName()); // Set
+																	// game
+																	// name.
+					currentEntry.numberPlayers.set(numberPlayers); // Set
+																	// numberPlayers
 
-					// The following are features we can add later if time permits:
-					currentEntry.chat.set(true); // Chat will be enabled for all games for now.
-					currentEntry.privateLobby.set(false); // All lobbies will be public for now.
+					// The following are features we can add later if time
+					// permits:
+					currentEntry.chat.set(currentGame.getChat()); // Chat will
+																	// be
+																	// enabled
+																	// for
+					// all games for now.
+					currentEntry.privateLobby.set(false); // All lobbies
+															// will be
+															// public for
+															// now.
 
 					currentEntry.id.set(currentGame.getID());
 					currentEntry.numPlayers.set(currentGame.getNumPlayers());
@@ -266,12 +322,17 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable
 				}
 
 			}
-			// Note that this won't work at initial launch because of the way the controller is created... This would be fixed with my revised controller.
+			// Note that this won't work at initial launch because of the
+			// way the controller is created... This would be fixed with my
+			// revised controller.
 			else
-				gamesTable.setPlaceholder(new Label("There are no games to join. Create one!"));
+				gamesTable.setPlaceholder(new Label(
+						"There are no games to join. Create one!"));
 		} catch (RemoteException e) {
-			System.out.println("There was an error in trying to create the table.");
+			System.out
+					.println("There was an error in trying to create the table.");
 		}
+
 	}
 
 	/**
