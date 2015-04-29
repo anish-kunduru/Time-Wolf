@@ -1032,7 +1032,8 @@ public class GameTableScreenController implements ControlledScreen,
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		// This is where we will end the chat and send whatever information the
-		// server might need.
+		// server might need.		
+		
 		if (MainModel.getModel().currentGameLobbyData().getChatEnabled())
 			chat.end();
 	}
@@ -1105,6 +1106,12 @@ public class GameTableScreenController implements ControlledScreen,
 		}
 		
 		parentController.goToAfterGameScreen();
+	}
+
+	@Override
+	public void checkOnline() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

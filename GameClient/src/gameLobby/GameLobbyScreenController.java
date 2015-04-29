@@ -106,6 +106,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 		// Initialize gameManagement.
 		try {
 			gameManagement = (IGameManagement) Naming.lookup("//" + SERVER_ADDRESS + "/game");
+			MainModel.getModel().currentGameLobbyData().setGameManager(gameManagement);
 		} catch (Exception e) {
 			// DEBUG
 			System.out.println("Error initializing remote game management object.");
@@ -242,9 +243,10 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 					System.out.println(games.get(i).getChat() + " != " + MainModel.getModel().currentGameLobbyData().getChatEnabled());
 					System.out.println(games.get(i).getNumPlayers() + " != " + MainModel.getModel().currentGameLobbyData().getNumPlayers());
 					if (games.get(i).getChat() != MainModel.getModel().currentGameLobbyData().getChatEnabled()
-							|| games.get(i).getNumPlayers() != MainModel.getModel().currentGameLobbyData().getNumPlayers() 
+							|| games.get(i).getNumPlayers() != MainModel.getModel().currentGameLobbyData().getNumPlayers()
 							|| games.get(i).getPrivacy() != MainModel.getModel().currentGameLobbyData().isPrivate()
-							|| ((games.get(i).getName() != MainModel.getModel().currentGameLobbyData().getGameName()) && !MainModel.getModel().currentGameLobbyData().getGameName().trim().equals("") ) ) {
+							|| ((!games.get(i).getName().equals(MainModel.getModel().currentGameLobbyData().getGameName())) && !MainModel.getModel()
+									.currentGameLobbyData().getGameName().trim().equals(""))) {
 						games.remove(games.get(i));
 						i--;
 					}
