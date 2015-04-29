@@ -4,10 +4,14 @@
 
 package gameTable;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.sql.SQLException;
 import java.util.Random;
 
@@ -42,8 +46,8 @@ public class GameTableScreenController implements ControlledScreen,
 		Destroyable, Client
 {
    // PUBLIC CONSTANTS THAT WILL NEED TO BE UPDATED WHEN SERVER FIELDS CHANGE.
-   public final String SERVER_ADDRESS = "localhost";
-   //public final String SERVER_ADDRESS = "10.25.68.24";
+   //public final String SERVER_ADDRESS = "localhost";
+   public final String SERVER_ADDRESS = "10.25.68.24";
 
 	@FXML
 	private Button reportButton;
@@ -262,6 +266,7 @@ public class GameTableScreenController implements ControlledScreen,
 		try {
 			IGameManagement gameManagement = (IGameManagement) Naming
 					.lookup("//" + SERVER_ADDRESS + "/game");
+			
 			gameManagement.addUserToGame(gameID,
 					MainModel.getModel().currentLoginData()
 							.getLogInConnection().getUser(playerUsername),
@@ -340,19 +345,28 @@ public class GameTableScreenController implements ControlledScreen,
             e1.printStackTrace();
          }
          ((FacadeClient) thing).c = (Client) this;
-         String path = "//" + SERVER_ADDRESS + "/client" + id;
+         String path = "";
+		try {
+			path = "//" + InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1) + "/client" + id;
+
+			System.out.println(path);
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
          this.remoteString = path;
          try
          {
-            Naming.rebind(path, thing);
+        	Registry r = LocateRegistry.createRegistry(1099);
+        	try {
+				Naming.rebind(path, thing);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             flag = false;
          }
          catch (RemoteException e)
-         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-         }
-         catch (MalformedURLException e)
          {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -661,9 +675,6 @@ public class GameTableScreenController implements ControlledScreen,
 				Stealth.setText("Stealth: 0");
 				attack = 0;
 				stealth = 0;
-				counter = 0;
-				isDiscard = false;
-				isTrash = false;
 
 				try {
 					this.gameEngine.endTurn();
@@ -710,23 +721,10 @@ public class GameTableScreenController implements ControlledScreen,
 						this.gameEngine.discardCard(action);
 						System.out.println("Discard counter: " + counter);
 						counter--;
-						
-						int notNull = -1;
-						for(int i = 0; i < playerHandImages.length; i++){
-							if(playerHandImages[i].getImage() != null){
-								notNull = i;
-							}
-						}
-						
-						if(notNull == -1){
-							counter = 0;
-							
-						}
-						System.out.println(counter);
-						
-						if (counter == 0){
+						if (counter == 0)
 							isDiscard = false;
-						}
+
+						
 
 					} catch (Exception e) {
 						e.printStackTrace();
