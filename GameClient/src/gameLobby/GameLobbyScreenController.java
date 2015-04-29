@@ -229,7 +229,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 			nameColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("name"));
 			numPlayersColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("numberPlayers"));
 			chatColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("chat"));
-			privateColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("privateLobby"));
+			//privateColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("privateLobby"));
 
 			// Bind the table values.
 			tableData = FXCollections.observableArrayList();
@@ -281,7 +281,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 																	// enabled
 																	// for
 					// all games for now.
-					currentEntry.privateLobby.set(false); // All lobbies
+					//currentEntry.privateLobby.set(false); // All lobbies
 															// will be
 															// public for
 															// now.

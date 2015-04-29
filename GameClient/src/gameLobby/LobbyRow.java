@@ -16,7 +16,7 @@ public class LobbyRow
    public SimpleStringProperty name = new SimpleStringProperty(); // Lobby name.
    public SimpleStringProperty numberPlayers = new SimpleStringProperty(); // Players in game / maxPlayers
    public SimpleBooleanProperty chat = new SimpleBooleanProperty(); // Chat enabled in game?
-   public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
+   //public SimpleBooleanProperty privateLobby = new SimpleBooleanProperty(); // Public lobby?
    public SimpleIntegerProperty id = new SimpleIntegerProperty();
    public SimpleIntegerProperty numPlayers = new SimpleIntegerProperty();
 
@@ -63,8 +63,8 @@ public class LobbyRow
    /**
     * @return true if a private lobby, false if a public lobby.
     */
-   public boolean getPrivateLobby()
-   {
-      return privateLobby.get();
-   }
+   //public boolean getPrivateLobby()
+   //{
+      //return privateLobby.get();
+   //}
 }

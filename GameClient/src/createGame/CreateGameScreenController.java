@@ -24,8 +24,7 @@ public class CreateGameScreenController implements ControlledScreen
 
    @FXML
    private TextField lobbyNameTextField;
-   @FXML
-   private TextField passwordTextField;
+
    @FXML
    private ComboBox<Integer> numberPlayersComboBox;
 
