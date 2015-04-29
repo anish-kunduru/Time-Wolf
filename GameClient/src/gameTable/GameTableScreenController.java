@@ -703,17 +703,19 @@ public class GameTableScreenController implements ControlledScreen,
 						image.setImage(null);
 						image.setId(null);
 
+						action = new Action(Action.DISCARD, c);
+						this.gameEngine.discardCard(action);
+						System.out.println("Discard counter: " + counter);
 						counter--;
 						if (counter == 0)
 							isDiscard = false;
 
-						action = null;
+						
 
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				}
-				if (isTurn && isTrash && counter > 0) {
+				} else if (isTurn && isTrash && counter > 0) {
 					try {
 						Card c = new Card(image.getId());
 						playLog.appendText("You trashed card " + c.getName()
@@ -736,6 +738,7 @@ public class GameTableScreenController implements ControlledScreen,
 						Card oldCard = new Card(image.getId());
 						try {
 							Action a = new Action(Action.PLAY_CARD, oldCard);
+							System.out.println("Playing Card.");
 							if (this.gameEngine.playCard(a)) {
 
 								playLog.appendText("You played card "
@@ -830,19 +833,12 @@ public class GameTableScreenController implements ControlledScreen,
 	private void playCard(Action a) {
 		// THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		System.out.println("Starting Play action.");
-		try {
-			if (this.gameEngine.playCard(a)) {
-				System.out.println("Play action: Succeeded.");
-				playLog.appendText(a.getPlayerName() + " played card "
-						+ a.getCard().getName() + ". "
-						+ a.getCard().getDescription() + "\n");
-			} else {
-				System.out.println("Play action: Failed.");
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		System.out.println("Play action: Succeeded.");
+		playLog.appendText(a.getPlayerName() + " played card "
+				+ a.getCard().getName() + ". "
+				+ a.getCard().getDescription() + "\n");
+			
 	}
 
 	/**
@@ -858,8 +854,10 @@ public class GameTableScreenController implements ControlledScreen,
 			discard = c.getPreturnDiscard();
 		else
 			discard = c.getPostturnDiscard();
+		
 		isDiscard = true;
 		counter = discard;
+		counter = 2;
 	}
 
 	/**
