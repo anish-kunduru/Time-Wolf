@@ -27,8 +27,7 @@ public class DefaultMenuBarController
    private MenuItem fileExit;
    @FXML
    private MenuItem editProfile;
-   @FXML
-   private MenuItem helpAbout;
+
    @FXML
    private MenuItem helpGameRules;
    @FXML
@@ -94,11 +93,6 @@ public class DefaultMenuBarController
       {
          MainModel.getModel().profileData().setRedirectToClicked(false);
          MainModel.getModel().currentMainData().getMainController().goToProfileScreen();
-      });
-
-      helpAbout.setOnAction(event ->
-      {
-         MainModel.getModel().currentMainData().getMainController().goToAfterGameScreen(); // TODO TEMP ASSIGNMENT FOR TESTING.
       });
 
       helpGameRules.setOnAction(event ->

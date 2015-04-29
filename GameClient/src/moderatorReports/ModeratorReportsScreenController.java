@@ -56,6 +56,11 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 	private ArrayList<Report> reports;
 	private ReportRow currentRow;
 	@FXML
+	
+	/**
+	 * Initializes the controller class. Automatically called after the FXML
+    * file has been loaded.
+	 */
 	public void initialize() {
 		populateTable();
 
@@ -113,6 +118,10 @@ public class ModeratorReportsScreenController implements ControlledScreen {
 			}
 		});
 	}
+	
+	/**
+	 * Populates the table that lists the current chat reports for mods to look at
+	 */
 
 	private void populateTable() {
 		// Bind column to table.

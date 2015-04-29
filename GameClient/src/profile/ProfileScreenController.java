@@ -332,6 +332,10 @@ public class ProfileScreenController implements ControlledScreen {
 				errorLabel.setText("Your new passwords do not match.");
 		});
 	}
+	
+	/**
+	 * sets the player's information to the correct labels
+	 */
 
 	private void setInformation() {
 		String email = "";
@@ -372,6 +376,10 @@ public class ProfileScreenController implements ControlledScreen {
 			paranoiaLabel.setText("Paranoia: off");
 		}
 	}
+	
+	/**
+	 * loads all of the player's karma feedback into the karma table
+	 */
 
 	private void loadKarmaTable() {
 
@@ -405,6 +413,10 @@ public class ProfileScreenController implements ControlledScreen {
 		}
 
 	}
+	
+	/**
+	 * load's the users stat information into the stat table
+	 */
 
 	private void loadStatTable() {
 		gamesPlayedColumn.setCellValueFactory(new PropertyValueFactory<UserRow, String>("gamesPlayed"));
@@ -436,6 +448,12 @@ public class ProfileScreenController implements ControlledScreen {
 	public void setScreenParent(AbstractScreenController screenParent) {
 		parentController = (MainController) screenParent;
 	}
+	
+	/**
+	 * Checks to see if the choosen file has a valid image extension
+	 * @param file
+	 * @return
+	 */
 	private boolean isValidImage(File file)
 	   {
 	      String fileName = file.getName();

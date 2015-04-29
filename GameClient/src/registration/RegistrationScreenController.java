@@ -89,6 +89,10 @@ public class RegistrationScreenController implements ControlledScreen
    private Image profilePictureImage;
    private File profilePictureFile;
 
+   /**
+    * Initializes the controller class. Automatically called after the FXML
+    * file has been loaded.
+    */
    @FXML
    public void initialize()
    {

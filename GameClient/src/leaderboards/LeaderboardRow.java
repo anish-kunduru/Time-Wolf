@@ -15,34 +15,58 @@ public class LeaderboardRow {
 	public SimpleStringProperty ratio = new SimpleStringProperty();
 	public SimpleStringProperty karma = new SimpleStringProperty();
 	
+	/**
+	 * @return rank
+	 */
 	public int getRank(){
 		return rank.get();
 	}
 	
+	/**
+	 * @return username
+	 */
 	public String getUsername(){
 		return username.get();
 	}
 	
+	/**
+	 * @return total points
+	 */
 	public Integer getTotalPoints(){
 		return totalPoints.get();
 	}
 	
+	/**
+	 * @return average points
+	 */
 	public Integer getAvgPoints(){
 		return avgPoints.get();
 	}
 	
+	/**
+	 * @return total number of games played
+	 */
 	public int getGamesPlayed(){
 		return gamesPlayed.get();
 	}
 	
+	/**
+	 * @return total number of games won
+	 */
 	public int getGamesWon(){
 		return gamesWon.get();
 	}
 	
+	/**
+	 * @return ratio of games won vs games loss
+	 */
 	public String getRatio(){
 		return ratio.get();
 	}
 	
+	/**
+	 * @return player's karma
+	 */
 	public String getKarma(){
 		return karma.get();
 	}
