@@ -547,7 +547,7 @@ public class GameTableScreenController implements ControlledScreen,
 	 */
 	private Action onTableCardClickedEvent(ImageView image, Deck deck) {
 		image.setOnMouseClicked(event -> {
-			if (isTurn) {
+			if (isTurn && !isDiscard && !isTrash) {
 				// Check to see if player can afford card first.
 				Card oldCard;
 				try {
