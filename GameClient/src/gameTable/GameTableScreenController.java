@@ -707,6 +707,18 @@ public class GameTableScreenController implements ControlledScreen,
 						this.gameEngine.discardCard(action);
 						System.out.println("Discard counter: " + counter);
 						counter--;
+						
+						int notNull = -1;
+						for(int i = 0; i < playerHandImages.length; i++){
+							if(playerHandImages[i] != null){
+								notNull = i;
+							}
+						}
+						
+						if(notNull != -1){
+							counter = 0;
+						}
+						
 						if (counter == 0)
 							isDiscard = false;
 
