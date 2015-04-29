@@ -256,11 +256,8 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 
 			if (MainModel.getModel().currentGameLobbyData().isSearching()) {
 				System.out.println("Games size: " + games.size());
-				boolean removed = false;
 				for (int i = 0; i < games.size(); i++) {
-					if (removed)
-						i--;
-					removed = false;
+					
 					System.out.println(games.get(i).getName());
 					System.out.println(games.get(i).getChat()
 							+ " != "
@@ -276,7 +273,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 									.getModel().currentGameLobbyData()
 									.getNumPlayers()) {
 						games.remove(games.get(i));
-						removed = true;
+						i--;
 					}
 
 				}
