@@ -28,11 +28,10 @@ public class LogIn implements Remote, Serializable {
 	/**
 	 * Private method to help fix sql problems
 	 */
-	private String fixString(String s)
-	{
+	private String fixString(String s) {
 		return s.replace("'", "''");
 	}
-	
+
 	/**
 	 * Updates a user object in case of new updates
 	 */
@@ -50,11 +49,10 @@ public class LogIn implements Remote, Serializable {
 				u.setBannedStatus(true);
 
 			int flagBit = rs.getInt("Flagged");
-			if(flagBit > 0)
-			{
+			if (flagBit > 0) {
 				u.setFlag(true);
 			}
-			
+
 			u.setID(rs.getInt("ID"));
 			u.setUsername("Username");
 			u.setEmail(rs.getString("Email"));
@@ -65,10 +63,11 @@ public class LogIn implements Remote, Serializable {
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
 			Blob blob = rs.getBlob("Avatar");
-			if(blob != null)
+			if (blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
+			dbh.closeConnection();
 		} else {
 			throw new Exception("There was an error updating the user!");
 		}
@@ -99,11 +98,10 @@ public class LogIn implements Remote, Serializable {
 				u.setBannedStatus(true);
 
 			int flagBit = rs.getInt("Flagged");
-			if(flagBit > 0)
-			{
+			if (flagBit > 0) {
 				u.setFlag(true);
 			}
-			
+
 			if (u.isBanned())
 				throw new Exception("This user is banned.");
 
@@ -117,11 +115,12 @@ public class LogIn implements Remote, Serializable {
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
 			Blob blob = rs.getBlob("Avatar");
-			if(blob != null)
+			if (blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
 
+			dbh.closeConnection();
 			return u;
 		} else {
 			throw new Exception("Username or password was incorrect!");
@@ -149,8 +148,7 @@ public class LogIn implements Remote, Serializable {
 				u.setBannedStatus(true);
 
 			int flagBit = rs.getInt("Flagged");
-			if(flagBit > 0)
-			{
+			if (flagBit > 0) {
 				u.setFlag(true);
 			}
 			u.setID(rs.getInt("ID"));
@@ -163,33 +161,35 @@ public class LogIn implements Remote, Serializable {
 			u.Statistics = initStats(u.getID());
 			u.Feedback = getFeedbackList(u.getID());
 			Blob blob = rs.getBlob("Avatar");
-			if(blob != null)
+			if (blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
 
+			dbh.closeConnection();
 			return u;
 		} else {
 			throw new Exception("Username or password was incorrect!");
 		}
 	}
-	
-	public String getUsername(int id){
-		
+
+	public String getUsername(int id) {
+
 		String userName = "";
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT Username FROM User WHERE ID='" + id + "'";
 		ResultSet rs = dbh.executeQuery(query);
-		
+
 		try {
-			if(rs.first()){
+			if (rs.first()) {
 				userName = rs.getString("Username");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		dbh.closeConnection();
 		return userName;
 	}
 
@@ -222,6 +222,7 @@ public class LogIn implements Remote, Serializable {
 			fl.add(new Feedback(ID, uID, desc, isPos, byID));
 		}
 
+		dbh.closeConnection();
 		return fl;
 	}
 
@@ -233,9 +234,9 @@ public class LogIn implements Remote, Serializable {
 	 * @return the UserStats object corresponding to the given UserID
 	 */
 	private UserStats initStats(int userID) {
+			DBHelper dbh = new DBHelper();
 		try {
 
-			DBHelper dbh = new DBHelper();
 			String query = "SELECT * FROM Statistics WHERE UserID=" + userID;
 			ResultSet rs = dbh.executeQuery(query);
 			int gamesPlayed = 0;
@@ -264,20 +265,23 @@ public class LogIn implements Remote, Serializable {
 			}
 			UserStats us = new UserStats(id, uID, karma, totalPoints, gamesWon,
 					gamesPlayed);
+
+			dbh.closeConnection();
 			return us;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
+		dbh.closeConnection();
 		return null;
 	}
 
 	private double GetKarma(int uID) {
 		double karma = 0;
 
+			DBHelper dbh = new DBHelper();
 		try {
 			String query = "SELECT * FROM Feedback WHERE UserID='" + uID + "'";
-			DBHelper dbh = new DBHelper();
 			ResultSet rs = dbh.executeQuery(query);
 			double pos = 0;
 			double total = 0;
@@ -295,6 +299,7 @@ public class LogIn implements Remote, Serializable {
 			e.printStackTrace();
 		}
 
+		dbh.closeConnection();
 		return karma;
 
 	}
@@ -310,6 +315,7 @@ public class LogIn implements Remote, Serializable {
 				+ u.Statistics.getTotalPoints();
 		query = query + " WHERE UserID=" + u.getID();
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
 
 	/**
@@ -325,10 +331,14 @@ public class LogIn implements Remote, Serializable {
 		String query = "SELECT 1 FROM User WHERE Username='" + username + "'";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.executeQuery(query);
-		if (rs.first())
+		if (rs.first()) {
+
+			dbh.closeConnection();
 			return true;
-		else
+		} else {
+			dbh.closeConnection();
 			return false;
+		}
 	}
 
 	public User register(String username, String email, String password,
@@ -338,10 +348,10 @@ public class LogIn implements Remote, Serializable {
 
 	/**
 	 * Update picture
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
-	public void updateImage(String username, File picture) throws Exception
-	{
+	public void updateImage(String username, File picture) throws Exception {
 		if (picture != null) {
 			try {
 				DBHelper dbh = new DBHelper();
@@ -349,36 +359,38 @@ public class LogIn implements Remote, Serializable {
 				conn.setAutoCommit(false);
 				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
 				FileInputStream fis = new FileInputStream(picture);
-				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
-				ps.setBinaryStream(1, fis, (int)picture.length());
+				java.sql.PreparedStatement ps = conn
+						.prepareStatement(upload_pic);
+				ps.setBinaryStream(1, fis, (int) picture.length());
 				ps.setString(2, username);
 				ps.executeUpdate();
 				conn.commit();
 				conn.close();
-				
+
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * sets the flag on the specified users account
+	 * 
 	 * @param username
 	 * @param flag
 	 */
-	public void controlFlag(String username, String reason, boolean flag)
-	{
+	public void controlFlag(String username, String reason, boolean flag) {
 		reason = fixString(reason);
 		DBHelper dbh = new DBHelper();
 		int bit = 0;
-		if(flag)
+		if (flag)
 			bit = 1;
-		String query = "UPDATE User SET Flagged=" + bit + ",BannedReason='" + reason + "' WHERE Username='" + username +"'";
+		String query = "UPDATE User SET Flagged=" + bit + ",BannedReason='"
+				+ reason + "' WHERE Username='" + username + "'";
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
-	
+
 	/**
 	 * Registers the current user by username, email, and password
 	 * 
@@ -413,13 +425,12 @@ public class LogIn implements Remote, Serializable {
 				u.setRole(rs.getInt("Role"));
 				u.setPassword(rs.getString("Password"));
 				int flagBit = rs.getInt("Flagged");
-				if(flagBit > 0)
-				{
+				if (flagBit > 0) {
 					u.setFlag(true);
 				}
 				u.setBannedReason(rs.getString("BannedReason"));
 				Blob blob = rs.getBlob("Avatar");
-				if(blob != null)
+				if (blob != null)
 					u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 				u.setLocation(rs.getString("Location"));
 				u.setParanoid(rs.getBoolean("Paranoia"));
@@ -435,6 +446,7 @@ public class LogIn implements Remote, Serializable {
 			throw new Exception("Insert of new user failed!");
 		}
 
+		dbh.closeConnection();
 		return u;
 
 	}
@@ -447,15 +459,17 @@ public class LogIn implements Remote, Serializable {
 		query += "VALUES ('" + userID + "','" + isPositive + "','" + desc
 				+ "','" + byUserID + "')";
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
 
 	/**
 	 * Deletes the report row from the database
-	 * @param id - report id to be deleted from database
+	 * 
+	 * @param id
+	 *            - report id to be deleted from database
 	 * @throws SQLException
 	 */
-	public void deleteReport(int id) throws SQLException
-	{
+	public void deleteReport(int id) throws SQLException {
 		DBHelper dbh = new DBHelper();
 		Connection conn = dbh.getConnection();
 		String query = "DELETE FROM Reports WHERE ID = ?";
@@ -463,31 +477,31 @@ public class LogIn implements Remote, Serializable {
 		prepStmt.setInt(1, id);
 		prepStmt.execute();
 		conn.close();
+		dbh.closeConnection();
 	}
-	
-	
+
 	/**
 	 * Creates a list of all reports in database
+	 * 
 	 * @return list of all reports
 	 * @throws SQLException
 	 */
-	public ArrayList<Report> getReports() throws SQLException
-	{
+	public ArrayList<Report> getReports() throws SQLException {
 		ArrayList<Report> report = new ArrayList<Report>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM Reports";
 		ResultSet rs = dbh.executeQuery(query);
-		
-		while(rs.next())
-		{
+
+		while (rs.next()) {
 			int id = rs.getInt("ID");
 			String log = rs.getString("LogText");
 			report.add(new Report(id, log));
 		}
-		
+
+		dbh.closeConnection();
 		return report;
 	}
-	
+
 	/**
 	 * Returns an ArrayList of all users in the database
 	 * 
@@ -514,32 +528,34 @@ public class LogIn implements Remote, Serializable {
 			u.setSecurityQuestion(rs.getString("SecurityQuestion"));
 			u.setSecurityAnswer(rs.getString("SecurityAnswer"));
 			Blob blob = rs.getBlob("Avatar");
-			if(blob != null)
+			if (blob != null)
 				u.setImageBytes(blob.getBytes(1, (int) blob.length()));
 			u.setLocation(rs.getString("Location"));
 			u.setParanoid(rs.getBoolean("Paranoia"));
 			users.add(u);
 		}
 
+		dbh.closeConnection();
 		return users;
 	}
 
-	public void removeAvatar(String username)
-	{
+	public void removeAvatar(String username) {
 		DBHelper dbh = new DBHelper();
-		String query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + username + "'";
+		String query = "UPDATE User SET Avatar=" + null + " WHERE Username='"
+				+ username + "'";
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
-	
+
 	/**
 	 * Saves all properties of the user passed via parameter
 	 * 
 	 * @param u
 	 *            - user to be saved
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void save(User u) throws Exception {
-		
+
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
@@ -550,14 +566,15 @@ public class LogIn implements Remote, Serializable {
 			bit = 1;
 		query += ",IsBanned=" + bit;
 		query += ",Role=" + u.getRole();
-		query += ",SecurityQuestion='" + fixString(u.getSecurityQuestion()) + "'";
+		query += ",SecurityQuestion='" + fixString(u.getSecurityQuestion())
+				+ "'";
 		query += ",SecurityAnswer='" + fixString(u.getSecurityAnswer()) + "'";
 		query += ",BannedReason='" + fixString(u.getBannedReason()) + "'";
-		query += ",Location='" + fixString(u.getLocation()) +"'";
+		query += ",Location='" + fixString(u.getLocation()) + "'";
 		int pBit = 0;
-		if(u.isParanoid())
+		if (u.isParanoid())
 			pBit = 1;
-		query+= ",Paranoia=" + pBit;
+		query += ",Paranoia=" + pBit;
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
@@ -566,36 +583,40 @@ public class LogIn implements Remote, Serializable {
 				Connection conn = dbh.getConnection();
 				conn.setAutoCommit(false);
 				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
-				
-				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
-				ps.setBinaryStream(1, new ByteArrayInputStream(u.getImageBytes()), u.getImageBytes().length);
+
+				java.sql.PreparedStatement ps = conn
+						.prepareStatement(upload_pic);
+				ps.setBinaryStream(1,
+						new ByteArrayInputStream(u.getImageBytes()),
+						u.getImageBytes().length);
 				ps.setString(2, u.getUsername());
 				ps.executeUpdate();
 				conn.commit();
 				conn.close();
-				
+
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
 			}
-		}
-		else{
-			query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + u.getUsername() + "'";
+		} else {
+			query = "UPDATE User SET Avatar=" + null + " WHERE Username='"
+					+ u.getUsername() + "'";
 			dbh.executeUpdate(query);
 		}
-		
+
+		dbh.closeConnection();
 	}
-	
+
 	public void updateSettings(User u) throws Exception {
 		DBHelper dbh = new DBHelper();
 		String query = "UPDATE User SET ";
 		query += "Username='" + u.getUsername() + "'";
 		query += ",Email='" + u.getEmail() + "'";
 		query += ",ImagePath='" + u.getImagePath() + "'";
-		query += ",Location='" + fixString(u.getLocation()) +"'";
+		query += ",Location='" + fixString(u.getLocation()) + "'";
 		int pBit = 0;
-		if(u.isParanoid())
+		if (u.isParanoid())
 			pBit = 1;
-		query+= ",Paranoia=" + pBit;
+		query += ",Paranoia=" + pBit;
 		query += " WHERE ID=" + u.getID();
 
 		dbh.executeUpdate(query);
@@ -604,23 +625,27 @@ public class LogIn implements Remote, Serializable {
 				Connection conn = dbh.getConnection();
 				conn.setAutoCommit(false);
 				String upload_pic = "Update User SET Avatar = ? WHERE Username = ?";
-				
-				java.sql.PreparedStatement ps = conn.prepareStatement(upload_pic);
-				ps.setBinaryStream(1, new ByteArrayInputStream(u.getImageBytes()), u.getImageBytes().length);
+
+				java.sql.PreparedStatement ps = conn
+						.prepareStatement(upload_pic);
+				ps.setBinaryStream(1,
+						new ByteArrayInputStream(u.getImageBytes()),
+						u.getImageBytes().length);
 				ps.setString(2, u.getUsername());
 				ps.executeUpdate();
 				conn.commit();
 				conn.close();
-				
+
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
 			}
-		}
-		else{
-			query = "UPDATE User SET Avatar=" + null + " WHERE Username='" + u.getUsername() + "'";
+		} else {
+			query = "UPDATE User SET Avatar=" + null + " WHERE Username='"
+					+ u.getUsername() + "'";
 			dbh.executeUpdate(query);
 		}
-		
+
+		dbh.closeConnection();
 	}
 
 	/**
@@ -640,6 +665,7 @@ public class LogIn implements Remote, Serializable {
 
 		dbh.executeUpdate(query);
 
+		dbh.closeConnection();
 		// if ID == 0 then no user is selected
 	}
 
@@ -658,6 +684,7 @@ public class LogIn implements Remote, Serializable {
 				+ "' WHERE Username='" + username + "'";
 
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
 
 	/**
@@ -670,16 +697,24 @@ public class LogIn implements Remote, Serializable {
 	 */
 	public boolean checkSecurityQuestionAnswer(String username, String answer)
 			throws SQLException {
-		
+
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM User WHERE Username='" + username
 				+ "' AND SecurityAnswer='" + fixString(answer) + "'";
 		ResultSet rs = dbh.executeQuery(query);
 
 		if (rs.first())
+		{
+			dbh.closeConnection();
 			return true;
+			
+		}
 		else
+		{
+			dbh.closeConnection();
 			return false;
+		}
+		
 	}
 
 	/**
@@ -698,9 +733,13 @@ public class LogIn implements Remote, Serializable {
 		if (rs.first())
 			username = rs.getString("Username");
 		else
+		{
+			dbh.closeConnection();
 			throw new SQLException(); // Throw an exception if we are passed an
 										// e-mail not in the table.
+		}
 
+		dbh.closeConnection();
 		return username;
 	}
 
@@ -721,11 +760,12 @@ public class LogIn implements Remote, Serializable {
 			sq = rs.getString("SecurityQuestion");
 		}
 
+		dbh.closeConnection();
 		return sq;
 	}
-	
+
 	public ArrayList<User> getLeaderboard() throws SQLException {
-		
+
 		ArrayList<User> users = new ArrayList<User>();
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT UserID FROM Statistics ORDER BY TotalPoints desc";
@@ -735,11 +775,11 @@ public class LogIn implements Remote, Serializable {
 		while (rs.next()) {
 			userIDs.add(rs.getInt("UserID"));
 		}
-		
+
 		System.out.println(userIDs.get(0));
 		System.out.println(userIDs.get(1));
-		
-		for(int i = 0; i < userIDs.size(); i++){
+
+		for (int i = 0; i < userIDs.size(); i++) {
 			String username = getUsername(userIDs.get(i));
 			int count = 0;
 			try {
@@ -748,12 +788,13 @@ public class LogIn implements Remote, Serializable {
 			} catch (Exception e) {
 			}
 		}
-		
+
 		System.out.println(users.get(0).getID());
 		System.out.println(users.get(1).getID());
 
+		dbh.closeConnection();
 		return users;
-		
+
 	}
 
 	/**
@@ -770,16 +811,17 @@ public class LogIn implements Remote, Serializable {
 				+ byUserID + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
-	
-	public void insertReport(String text)
-	{
+
+	public void insertReport(String text) {
 		text = fixString(text);
 		String query = "INSERT INTO Reports";
 		query += "(LogText)";
 		query += "VALUES('" + text + "')";
 		DBHelper dbh = new DBHelper();
 		dbh.executeUpdate(query);
+		dbh.closeConnection();
 	}
 
 }

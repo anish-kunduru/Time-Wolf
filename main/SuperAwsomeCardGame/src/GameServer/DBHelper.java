@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBHelper {
+	Connection conn;
+	
+	public DBHelper()
+	{
+		conn =  null;
+	}
 	
 	public Connection getConnection() throws SQLException
 	{
@@ -26,13 +32,12 @@ public class DBHelper {
 	      } 
 		
 		try {
-			Connection conn = DriverManager.getConnection(
+			conn = DriverManager.getConnection(
 					"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
 			
 
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			conn.close();
 			return rs;
 		} catch (SQLException e) {
 			System.err.println("Error executing query!");
@@ -54,19 +59,32 @@ public class DBHelper {
 	      } 
 		
 		try {
-			Connection conn = DriverManager.getConnection(
+			conn = DriverManager.getConnection(
 					"jdbc:mysql://mysql.cs.iastate.edu:3306/db30911", "u30911", "4rv2ucue78");
 			
 			Statement st = conn.createStatement();
 			st.executeUpdate(query);
 
-			conn.close();
 			
 		} catch (SQLException e) {
 			System.err.println("Error executing query!");
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void closeConnection()
+	{
+		if(conn != null)
+		{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		conn = null;
 	}
 
 }
