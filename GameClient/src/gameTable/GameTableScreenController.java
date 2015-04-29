@@ -661,6 +661,7 @@ public class GameTableScreenController implements ControlledScreen,
 				Stealth.setText("Stealth: 0");
 				attack = 0;
 				stealth = 0;
+				counter = 0;
 
 				try {
 					this.gameEngine.endTurn();
