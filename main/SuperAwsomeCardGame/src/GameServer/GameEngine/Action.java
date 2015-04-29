@@ -70,6 +70,14 @@ public class Action implements Serializable {
 		
 	}
 	
+	/**
+	 * Build a more complex action object. This action object passes a reference to the card, the card itself, and a username.
+	 * @param action
+	 * @param cardIndex
+	 * @param c
+	 * @param user
+	 */
+	
 	public Action(int action, int cardIndex, Card c, String user)
 	{
 		this.action = action;
@@ -79,6 +87,14 @@ public class Action implements Serializable {
 		
 	}
 	
+	/**
+	 * Builds a more complex action. This one passes a reference to the card, the card itself, and a hand object.
+	 * @param action
+	 * @param cardIndex
+	 * @param c
+	 * @param h
+	 */
+	
 	public Action(int action, int cardIndex, Card c, Hand h)
 	{
 
@@ -87,6 +103,12 @@ public class Action implements Serializable {
 		this.c = c;
 		this.h = h;
 	}
+	
+	/**
+	 * Builds an action. This one passes just a hand object.
+	 * @param action
+	 * @param h
+	 */
 
 	public Action(int action, Hand h)
 	{
@@ -94,6 +116,11 @@ public class Action implements Serializable {
 		this.action = action;
 		this.h = h;
 	}
+	
+	/**
+	 * Get the player that is taking the action
+	 * @return player's username
+	 */
 	
 	public String getPlayerName()
 	{
@@ -125,6 +152,11 @@ public class Action implements Serializable {
 	public Card getCard() {
 		return c;
 	}
+	
+	/**
+	 * Get the hand object involved with the action
+	 * @return hand object
+	 */
 	
 	public Hand getHand()
 	{

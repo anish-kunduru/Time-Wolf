@@ -205,6 +205,10 @@ public class Deck {
 
 		return starter;
 	}
+	
+	/**
+	 * Copies a deck into a new deck
+	 */
 
 	@Override
 	protected Object clone() {

@@ -15,6 +15,11 @@ public class DiscardPile {
 		cards.add(c);
 	}
 	
+	/**
+	 * Discard the given hand
+	 * @param hand
+	 */
+	
 	public void discard(Hand hand){
 		int i = 0;
 		while(hand.size() > 0){

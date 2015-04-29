@@ -27,6 +27,13 @@ public class Feedback implements Remote, Serializable {
 		byUserID = 0;
 	}
 	
+	/**
+	 * Constructs a feedback object
+	 * @param userid user's id
+	 * @param desc the description text of the feedback
+	 * @param isPositive true if positive feedback, false if negative
+	 * @param byUserID user id who left the feedback
+	 */
 	public Feedback(int userid, String desc, boolean isPositive, int byUserID)
 	{
 		this.ID = 0;
@@ -35,6 +42,15 @@ public class Feedback implements Remote, Serializable {
 		this.isPositive = isPositive;
 		this.byUserID = byUserID;
 	}
+	
+	/**
+	 * Constructs a feedback object
+	 * @param id feedback's id
+	 * @param userid user's id
+	 * @param desc the description text of the feedback
+	 * @param isPositive true if positive feedback, false if negative
+	 * @param byUserID user id who left the feedback
+	 */
 	
 	public Feedback(int id, int userid, String desc, boolean isPositive, int byUserID)
 	{

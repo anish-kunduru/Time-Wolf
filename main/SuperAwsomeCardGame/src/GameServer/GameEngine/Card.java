@@ -9,9 +9,6 @@ import com.mysql.jdbc.ResultSet;
 
 public final class Card implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	//Non mechanical properties
 	final private String name;
@@ -44,6 +41,7 @@ public final class Card implements Serializable {
 	
 	
 	/**
+	 * Creates a card object
 	 * @param name Name of the card
 	 * @param description Description of the card
 	 * @param costStealth Cost to buy with Stealth

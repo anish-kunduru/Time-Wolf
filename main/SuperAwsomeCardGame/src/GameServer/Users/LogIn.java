@@ -169,6 +169,12 @@ public class LogIn implements Remote, Serializable {
 			throw new Exception("Username or password was incorrect!");
 		}
 	}
+	
+	/**
+	 * Gets the username of a user given their id
+	 * @param id
+	 * @return username
+	 */
 
 	public String getUsername(int id) {
 
@@ -269,6 +275,11 @@ public class LogIn implements Remote, Serializable {
 		return null;
 	}
 
+	/**
+	 * Calculates the karma score of the user
+	 * @param uID user's id
+	 * @return karma score
+	 */
 	private double GetKarma(int uID) {
 		double karma = 0;
 
@@ -329,6 +340,18 @@ public class LogIn implements Remote, Serializable {
 			return false;
 		}
 	}
+	
+	/**
+	 * register's a user
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @param question security question
+	 * @param answer security answer
+	 * @return the user object created by parameters
+	 * @throws RemoteException
+	 * @throws Exception
+	 */
 
 	public User register(String username, String email, String password,
 			String question, String answer) throws RemoteException, Exception {
@@ -438,6 +461,13 @@ public class LogIn implements Remote, Serializable {
 
 	}
 
+	/**
+	 * Inserts feedback into the database
+	 * @param userID user's id feedback is left for
+	 * @param byUserID user's id feedback is left by
+	 * @param desc description text of feedback
+	 * @param isPositive true if positive feedback, false if negative feedback
+	 */
 	public void insertFeedback(int userID, int byUserID, String desc,
 			boolean isPositive) {
 		DBHelper dbh = new DBHelper();
@@ -521,6 +551,11 @@ public class LogIn implements Remote, Serializable {
 
 		return users;
 	}
+	
+	/**
+	 * Removes the avatar of the given player's
+	 * @param username 
+	 */
 
 	public void removeAvatar(String username) {
 		DBHelper dbh = new DBHelper();
@@ -586,6 +621,12 @@ public class LogIn implements Remote, Serializable {
 		}
 
 	}
+	
+	/**
+	 * Updates the settings of the given user
+	 * @param u
+	 * @throws Exception
+	 */
 
 	public void updateSettings(User u) throws Exception {
 		DBHelper dbh = new DBHelper();
@@ -736,6 +777,11 @@ public class LogIn implements Remote, Serializable {
 		return sq;
 	}
 
+	/**
+	 * creates an array list of users that are ranked to put on leaderboard table
+	 * @return array list of users
+	 * @throws SQLException
+	 */
 	public ArrayList<User> getLeaderboard() throws SQLException {
 
 		ArrayList<User> users = new ArrayList<User>();
@@ -784,6 +830,10 @@ public class LogIn implements Remote, Serializable {
 		dbh.executeUpdate(query);
 	}
 
+	/**
+	 * inserts a report into the database
+	 * @param text
+	 */
 	public void insertReport(String text) {
 		text = fixString(text);
 		String query = "INSERT INTO Reports";
