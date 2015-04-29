@@ -25,6 +25,7 @@ import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
+import GameServer.Users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -1065,6 +1066,46 @@ public class GameTableScreenController implements ControlledScreen,
 		MainModel.getModel().currentGameTableData().setVP(vp);
 		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
 		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
+		
+String username = MainModel.getModel().currentLoginData().getUsername();
+		
+		try {
+			boolean wonGame = true;
+			int ind = -1;
+			for(int i = 0; i < playerNames.length; i++)
+			{
+				if(playerNames[i].equals(username))
+					ind = i;
+			}
+			
+			if(ind == -1)
+			{
+				throw new Exception("There was a problem contacting user data.");
+			}
+			
+			for(int i = 0; i < vp.length; i++)
+			{
+				if(i != ind)
+				{
+					if(vp[i] > vp[ind])
+					{
+						wonGame = false;
+					}
+				}
+			}
+			
+			
+			User u = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+			u.Statistics.incrementGamesPlayed(wonGame, vp[ind]);
+			MainModel.getModel().currentLoginData().getLogInConnection().UpdateStats(u);
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		parentController.goToAfterGameScreen();
 	}
