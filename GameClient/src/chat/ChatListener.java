@@ -106,6 +106,9 @@ public class ChatListener extends Thread
          }
       }
    }
+   /**
+    * Handles ending the chat
+    */
 
    public void end()
    {
