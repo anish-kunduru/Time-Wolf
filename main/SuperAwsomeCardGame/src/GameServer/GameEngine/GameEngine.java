@@ -1052,7 +1052,7 @@ private void ruleTrash(Player current, Card c, boolean isBefore, Action a) {
 			
 		//}
 		
-		while(true)
+		while(!isFinished)
 		{
 			try {
 				Thread.sleep(30000);
