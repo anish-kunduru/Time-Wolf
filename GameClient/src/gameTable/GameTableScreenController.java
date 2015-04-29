@@ -319,7 +319,7 @@ public class GameTableScreenController implements ControlledScreen,
    } // End #initialize
    
    /**
-    * TODO
+    * Connects client and server
     */
 
    private void initRemoteObject()
@@ -619,6 +619,10 @@ public class GameTableScreenController implements ControlledScreen,
       });
       return action;
    }
+   
+   /**
+    * Updates the cards on the table so all player's see same cards after a card is stolen/attacked
+    */
 
    @Override
    public void setNewTableCards(Hand hand){
@@ -675,6 +679,9 @@ public class GameTableScreenController implements ControlledScreen,
    }) ;
 
    }
+   /**
+    * Starts this client's players turn
+    */
 
    public void startTurn() {
       System.out.println("Starting turn...");
@@ -900,6 +907,9 @@ public class GameTableScreenController implements ControlledScreen,
       counter = trash;
    }
 
+   /**
+    * Adds all cards to player's hands that were drawn
+    */
    public void drawCards(Action a) {
       int j = 0;
 
@@ -915,6 +925,10 @@ public class GameTableScreenController implements ControlledScreen,
       onPlayerCardClicked();
 
    }
+   
+   /**
+    * Connects to the game engine
+    */
 
    public void setGameEngine(String ge)
    {
@@ -1064,6 +1078,9 @@ public class GameTableScreenController implements ControlledScreen,
          chat.end();
    }
 
+   /**
+    * Set's the turn to a player other than this client's player
+    */
    public void setOtherPlayerTurn(String player) {
       // turns off ability to click on things
       isTurn = false;
@@ -1071,6 +1088,10 @@ public class GameTableScreenController implements ControlledScreen,
       // Sets the player turn label to the given player's username
       playerTurnLabel.setText("Player Turn: " + player);
    }
+   
+   /**
+    * Set's the current player's hand after end turn
+    */
 
    public void setPlayerHand(Hand hand) {
 
@@ -1085,6 +1106,9 @@ public class GameTableScreenController implements ControlledScreen,
       }
    }
    
+   /**
+    * ends the game, sends the player's to after game screen
+    */
    
    public void endGame(int vp[], int cardsInDeck[], String playerNames[]){
       MainModel.getModel().currentGameTableData().setVP(vp);
@@ -1133,6 +1157,10 @@ public class GameTableScreenController implements ControlledScreen,
       
       parentController.goToAfterGameScreen();
    }
+   
+   /**
+    * Used to see when a player has left the game
+    */
 
    @Override
    public void checkOnline() {

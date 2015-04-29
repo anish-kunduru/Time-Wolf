@@ -51,6 +51,10 @@ public class ForgotPasswordScreenController implements ControlledScreen
    // Validity check.
    private boolean validEmail = false;
    private boolean validPassword = false;
+   
+   /**
+    * Initializes the controller class. Automatically called after the FXML file has been loaded.
+    */
 
    @FXML
    public void initialize()
