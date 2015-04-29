@@ -209,6 +209,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 
 	@Override
 	public boolean playCard(Action a) {
+		this.inProgressAction = a;
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
@@ -228,7 +229,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
 		this.ruleDrawCards(p, c);
-		this.ruleLoseVP(p, c);
+		//this.ruleLoseVP(p, c);
 		//this.ruleTakeAnotherTurn(p, c);
 		//this.ruleDiscard(p, c, false, a);
 		
@@ -325,6 +326,8 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		if(a == null || a.getCard() == null) throw new NullPointerException();
 		if(!this.isDiscardingPre && !this.isDiscardingPost) throw new IllegalStateException();
 		
+		System.out.println("Discarding on server.");
+		
 		Player p = this.players.get(this.currentPlayerIndex);
 		boolean hasDiscarded = false;
 		
@@ -372,7 +375,6 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			numOfCards = c.getPostturnDiscard();
 		}
 		
-		numOfCards = 2;
 		
 		//If there aren't enough cards left for a full discard.
 		if(numOfCards > current.getHand().size()) {
@@ -395,6 +397,8 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				e.printStackTrace();
 			}
 		
+		} else {
+			this.playCardPt2(this.inProgressAction);
 		}
 		
 		

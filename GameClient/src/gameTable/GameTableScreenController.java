@@ -862,7 +862,7 @@ public class GameTableScreenController implements ControlledScreen,
 		
 		isDiscard = true;
 		counter = discard;
-		counter = 2;
+
 	}
 
 	/**
