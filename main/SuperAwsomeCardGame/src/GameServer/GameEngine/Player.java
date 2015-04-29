@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 
 
+
 import javafx.application.Platform;
 //import view.GameTableScreenController;
 import GameServer.Users.User;
@@ -394,9 +395,8 @@ public class Player implements Client {
 
 
 	@Override
-	public void checkOnline() {
-		// TODO Auto-generated method stub
-		
+	public void checkOnline() throws RemoteException {
+		this.client.checkOnline();
 	};
 	
 	
