@@ -376,7 +376,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		//If there aren't enough cards left for a full discard.
 		if(numOfCards > current.getHand().size()) {
-			numOfCards =  current.getHand().size();
+			numOfCards = current.getHand().size();
 		}
 		
 		if(numOfCards > 0) {

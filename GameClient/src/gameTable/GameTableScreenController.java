@@ -709,12 +709,15 @@ public class GameTableScreenController implements ControlledScreen,
 						System.out.println("Discard counter: " + counter);
 						counter--;
 						
+						int x = 0;
 						int notNull = -1;
 						for(int i = 0; i < playerHandImages.length; i++){
 							if(playerHandImages[i] != null){
 								notNull = i;
 							}
+							x++;
 						}
+						System.out.println("X Value: " + x);
 						
 						if(notNull == -1){
 							counter = 0;
