@@ -13,7 +13,7 @@ public class LeaderboardRow {
 	public SimpleIntegerProperty gamesPlayed = new SimpleIntegerProperty();
 	public SimpleIntegerProperty gamesWon = new SimpleIntegerProperty();
 	public SimpleStringProperty ratio = new SimpleStringProperty();
-	public SimpleDoubleProperty karma = new SimpleDoubleProperty();
+	public SimpleStringProperty karma = new SimpleStringProperty();
 	
 	public int getRank(){
 		return rank.get();
@@ -43,7 +43,7 @@ public class LeaderboardRow {
 		return ratio.get();
 	}
 	
-	public double getKarma(){
+	public String getKarma(){
 		return karma.get();
 	}
 }

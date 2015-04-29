@@ -798,29 +798,18 @@ public class GameTableScreenController implements ControlledScreen,
 	 * 
 	 * @param a
 	 */
-	private void acquireCard(Action a) {
+	public void acquireCard(Action a) {
 
-		// THIS CODE WAS NEVER INVOKED BY THE ACTUAL HANDLER
 		Card c = a.getCard();
 
-		try {
-			if (this.gameEngine.aquireCard(a)) {
-
-				if (c.getCardType().equals("Action")) {
-					playLog.appendText(a.getPlayerName() + " stole card "
-							+ c.getName() + ". " + c.getDescription() + "\n");
-				} else {
-					playLog.appendText("Player defeated " + c.getName() + ". "
-							+ c.getDescription() + "\n");
-				}
-
-			} else {
-				// TODO Alert on error
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (c.getCardType().equals("Action")) {
+			playLog.appendText(a.getPlayerName() + " stole card "
+					+ c.getName() + ". " + c.getDescription() + "\n");
+		} else {
+			playLog.appendText("Player defeated " + c.getName() + ". "
+					+ c.getDescription() + "\n");
 		}
+		
 
 	}
 

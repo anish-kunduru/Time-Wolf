@@ -18,7 +18,7 @@ public class RecentGameStatsRow
    public SimpleStringProperty winLossRatio = new SimpleStringProperty();
    public SimpleIntegerProperty totalPoints = new SimpleIntegerProperty();
    public SimpleIntegerProperty avgPoints = new SimpleIntegerProperty();
-   public SimpleDoubleProperty karma = new SimpleDoubleProperty();
+   public SimpleStringProperty karma = new SimpleStringProperty();
 
    // Define auto getters to populate table on initialize.
 
@@ -65,7 +65,7 @@ public class RecentGameStatsRow
    /**
     * @return user's karma score
     */
-   public double getKarma()
+   public String getKarma()
    {
       return karma.get();
    }

@@ -762,6 +762,19 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 		}
 		
+		Action forUpdate = new Action(0, 0, c, p.getUser().getUsername());
+		
+		for(Player toUpdate: this.players) {
+			if(p != toUpdate) {
+				try {
+					toUpdate.acquireCard(forUpdate);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		//Update player stats for everyone.
 		String[] playerList = new String[this.players.size()];
 		for(int i = 0; i < this.players.size(); i++) {

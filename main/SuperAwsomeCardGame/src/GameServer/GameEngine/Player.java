@@ -397,6 +397,12 @@ public class Player implements Client {
 	@Override
 	public void checkOnline() throws RemoteException {
 		this.client.checkOnline();
+	}
+
+
+	@Override
+	public void acquireCard(Action a) throws RemoteException {
+		this.client.acquireCard(a);		
 	};
 	
 	
