@@ -237,6 +237,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
+		this.ruleExtraTurn(p, c);
 		
 		this.ruleDrawCards(p, c);
 		this.ruleLoseVP(p, c);
@@ -351,6 +352,16 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	 */
 	private void ruleAttack(Player current, Card c) {
 		current.addAttack(c.getAttack());
+	}
+	
+	private void ruleExtraTurn(Player current, Card c) {
+		if(c.isTakeAnotherTurn()) {
+			System.out.println("Taking extra turn.");
+			current.setExtraTurn(true);
+		} else {
+			System.out.println("Not taking extra turn.");
+		}
+		
 	}
 	
 	private boolean isDiscardingPre = false;
@@ -1188,11 +1199,18 @@ private void ruleTrash(Player current, Card c, Action a) {
 		
 		Player currentPlayer = this.players.get(this.currentPlayerIndex);
 		
+		//If we are going to take an extra turn, set back the current player index.
+		if(currentPlayer.isExtraTurn()) {
+			System.out.println("Taking extra turn now.");
+			this.currentPlayerIndex--;
+		}
+		
 		currentPlayer.resetPlayer();
 		currentPlayer.setPlayerHand();
 		currentPlayer.updatePlayerStats(playerList);
 		
 		this.currentPlayerIndex++; //Choose the next player to take a turn
+		
 		if(this.currentPlayerIndex == this.totalNumOfPlayers) {
 			this.currentPlayerIndex = 0;
 		}
