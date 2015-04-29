@@ -39,14 +39,25 @@ public class UserStats implements Serializable {
 		ID = 0;
 	}
 	
+	/**
+	 * no longer in use
+	 * @param userID
+	 */
+	
 	public UserStats(int userID)
 	{
 		//this method is discontinued
-		//should not be used
-		
-		
+		//should not be used	
 	}
 	
+	/**
+	 * @param id id of stats
+	 * @param uID id of user
+	 * @param karma user's karma score
+	 * @param points user's total points
+	 * @param won user's total games won
+	 * @param played user's total games played
+	 */
 	public UserStats(int id, int uID, double karma, double points, int won, int played)
 	{
 		this.ID = id;
@@ -66,11 +77,19 @@ public class UserStats implements Serializable {
 	public int getGamesPlayed() {
 		return gamesPlayed;
 	}
-	
+	/**
+	 * Sets total number of games played
+	 * @param gamesPlayed
+	 */
 	public void setGamesPlayed(int gamesPlayed)
 	{
 		this.gamesPlayed = gamesPlayed;
 	}
+	
+	/**
+	 * Total number of games won
+	 * @return gamesWon
+	 */
 	
 	public int getGamesWon() {
 		return gamesWon;
