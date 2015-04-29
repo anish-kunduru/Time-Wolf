@@ -1068,7 +1068,7 @@ public class GameTableScreenController implements ControlledScreen,
 		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
 		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
 		
-String username = MainModel.getModel().currentLoginData().getUsername();
+		String username = MainModel.getModel().currentLoginData().getUsername();
 		
 		try {
 			boolean wonGame = true;
