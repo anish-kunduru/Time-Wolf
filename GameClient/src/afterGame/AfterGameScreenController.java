@@ -242,6 +242,13 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       }
       
    }
+   
+   /**
+    * Helper method to set the labels on the after game screen
+    * @param playerNames array of strings with player's usernames
+    * @param vp array of ints with player's total vp
+    * @param numDeck array of ints with player's number of cards in deck
+    */
 
    public void setAfterGameInfo(String playerNames[], int vp[], int numDeck[])
    {
@@ -264,6 +271,12 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
          i++;
       }
    }
+   
+   /**
+    * Helper method to handle functionality for leaving negative feedback.
+    * @param players an array of strings of player names
+    * @param user the current logged in user
+    */
 
    private void submitNegativeFeedbackEvent(String players[], User user)
    {
@@ -319,6 +332,12 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
          canPress[count] = false;
       });
    }
+   
+   /**
+    * A helper method that helps take care of actions needed to take place on dislike button click.
+    * @param players array of strings of player's usernames
+    * @param user current logged in user
+    */
 
    private void disLikeFeedbackEvent(String players[], User user)
    {
@@ -450,6 +469,12 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
 		}
       });
    }
+   
+   /**
+    * Helper method to handle what needs to happen when a like button is clicked.
+    * @param players array of strings of player's usernames
+    * @param user current logged in user
+    */
 
    private void likeFeedbackEvent(String players[], User user)
    {
