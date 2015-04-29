@@ -228,6 +228,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
 		this.ruleDrawCards(p, c);
+		this.ruleLoseVP(p, c);
 		//this.ruleTakeAnotherTurn(p, c);
 		//this.ruleDiscard(p, c, false, a);
 		
@@ -265,6 +266,34 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 
 		
 		return true;
+	}
+	
+	private void ruleLoseVP(Player current, Card c) {
+		if(c.getOthersLoseVP() == 0) return;
+		
+		
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.currentPlayerIndex != i) {
+				this.players.get(i).addVP(c.getOthersLoseVP() * -25);
+			}
+		}
+		
+		//Update player stats for everyone.
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		
+		current.updatePlayerStats(playerList);
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.currentPlayerIndex != i) {
+				this.players.get(i).updateOtherPlayersStats(current.getVP(), playerList, current.getUser().getUsername());
+			}
+		}
+		
+		//c.getOthersLoseVP()
 	}
 	
 	/**
@@ -343,6 +372,11 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		}
 		
 		numOfCards = 2;
+		
+		//If there aren't enough cards left for a full discard.
+		if(numOfCards > current.getHand().size()) {
+			numOfCards =  current.getHand().size();
+		}
 		
 		if(numOfCards > 0) {
 			this.discardMax = numOfCards;
