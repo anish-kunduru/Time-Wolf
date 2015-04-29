@@ -201,48 +201,11 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
-		//if(!this.isDiscardingPre) {
-		//this.ruleDiscard(p, c, true, a);
+		System.out.println("Play card action.");
+		this.ruleDiscard(p, c, true, a);
 		
 		
-		this.ruleAttack(p, c);
-		this.ruleStealth(p, c);
-		this.ruleDrawCards(p, c);
-		//this.ruleTakeAnotherTurn(p, c);
-		//this.ruleDiscard(p, c, false, a);
-		
-		//Discard card
-		//p.getDiscardPile().discard(c);
-		//p.getHand().remove(a.getCardIndex());
-		
-		//When we find the card played, discard it.
-		for(int i = 0; i < p.getHand().size(); i++) {
-			if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
-				p.getDiscardPile().discard(c);
-				p.getHand().remove(i);
-				break;
-			}
-		}
-		
-		//p.setPlayerHand();
-		
-		System.out.println("Player: " + p.getUser().getUsername() + 
-				" Attack: " + p.getAttack() + " Stealth: " + p.getStealth());
-		
-		//Update player stats for everyone.
-		String[] playerList = new String[this.players.size()];
-		for(int i = 0; i < this.players.size(); i++) {
-				playerList[i] = this.players.get(i).getUser().getUsername();
-		}
-		
-		p.updatePlayerStats(playerList);
-		
-		for(int i = 0; i < this.players.size(); i++) {
-			if(this.currentPlayerIndex != i) {
-				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
-			}
-		}
-		
+				
 		return true;
 
 	}
@@ -288,6 +251,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
 			}
 		}
+
 		
 		return true;
 	}
@@ -328,6 +292,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				p.getDiscardPile().discard(p.getHand().get(i));
 				p.getHand().remove(i);
 				hasDiscarded = true;
+				System.out.println("Found card for discard in hand.");
 				break; //exit early so we don't discard a second copy of the same card
 			}
 		}
@@ -352,11 +317,13 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 	}
 	
+	
+	
 	private void ruleDiscard(Player current, Card c, boolean isBefore, Action a) {
 		
 		int numOfCards;
 		
-		
+		System.out.println("Entering discard.");
 		//We can either discard before or after
 		if(isBefore) {
 			numOfCards = c.getPreturnDiscard();
@@ -364,49 +331,37 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			numOfCards = c.getPostturnDiscard();
 		}
 		
+		numOfCards = 2;
+		
 		if(numOfCards > 0) {
 			this.discardMax = numOfCards;
 			this.discardCount = 0;
 			this.isDiscardingPre = true;
 			this.inProgressAction = a;
 			
+				
 			try {
+				System.out.println("Calling client for discard");
 				current.discardCard(new Action(Action.DISCARD, c));
+				System.out.println("Calling client for discard");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
 		}
 		
 		
-		
-		
-		
-		/* Old text based game
-		for(int i = 0; i < numOfCards; i++) {
-			
-			GameEngine.printHand(current.getHand());
-			try {
-				input = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-				i--;
-				continue;
-			}
-			System.out.println("Choose card to discard: ");
-			
-			int cardIndex = Integer.parseInt(input) - 1;
-			
-			if(i < 0 || i >= current.getHand().size()) {
-				current.getDiscardPile().discard(current.getHand().get(cardIndex));
-				current.getHand().remove(cardIndex);
-			} else {
-				System.out.println("Invalid selection.");
-				i--;
-				continue;
-			}
+		//We can either discard before or after
+		/*
+		if(isBefore) {
+			this.playCardPt2(a);
+		} else {
+			numOfCards = c.getPostturnDiscard();
 		}
+		
 		*/
+		
 		
 	}
 	
