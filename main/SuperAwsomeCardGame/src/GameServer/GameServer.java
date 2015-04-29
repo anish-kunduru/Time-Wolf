@@ -38,8 +38,8 @@ public class GameServer
          Naming.rebind("//localhost/auth", login);
          Naming.rebind("//localhost/game", (IGameManagement) gm);
 
-         gm.createGame(2, "Default Game 1");
-         gm.createGame(2, "Default Game 2");
+        // gm.createGame(2, "Default Game 1");
+        // gm.createGame(2, "Default Game 2");
       }
       catch (RemoteException e)
       {
