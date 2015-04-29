@@ -255,7 +255,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		//When we find the card played, discard it.
 		for(int i = 0; i < p.getHand().size(); i++) {
 			if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
-				p.getDiscardPile().discard(c);
+				if(!c.isTrashAfterUse()) p.getDiscardPile().discard(c);
 				p.getHand().remove(i);
 				break;
 			}
