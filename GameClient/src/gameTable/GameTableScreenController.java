@@ -1109,6 +1109,12 @@ public class GameTableScreenController implements ControlledScreen,
 		
 		parentController.goToAfterGameScreen();
 	}
+
+	@Override
+	public void checkOnline() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

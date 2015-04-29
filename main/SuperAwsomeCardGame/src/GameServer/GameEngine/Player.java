@@ -390,6 +390,13 @@ public class Player implements Client {
 	public void endGame(int[] vp, int[] cardsInDeck, String[] playerNames)
 			throws RemoteException {
 		this.client.endGame(vp, cardsInDeck, playerNames);
+	}
+
+
+	@Override
+	public void checkOnline() {
+		// TODO Auto-generated method stub
+		
 	};
 	
 	

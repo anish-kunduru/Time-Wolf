@@ -190,5 +190,11 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		
 	}
 
+	@Override
+	public void checkOnline() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
