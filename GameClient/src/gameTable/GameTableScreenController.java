@@ -760,12 +760,10 @@ public class GameTableScreenController implements ControlledScreen,
                   if (counter == 0)
                      isTrash = false;
 
-                  action = null;
-
                } catch (Exception e) {
                   e.printStackTrace();
                }
-            } else if (isTurn) {
+            } else if (isTurn)  {
                try {
                   Card oldCard = new Card(image.getId());
                   try {
