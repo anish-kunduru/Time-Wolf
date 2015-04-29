@@ -21,25 +21,48 @@ public class GameTableData
    {
    }
    
+   /**
+    * @param vp array of player's vp
+    */
+   
    public void setVP(int vp[]){
 	   this.VP = vp;
    }
+   /**
+    * @return array of player's vp
+    */
    
    public int[] getVP(){
 	   return this.VP;
    }
    
+   /**
+    * @param cards array of ints for player's cards in deck
+    */
+   
    public void setCardsInDeck(int[] cards){
 	   this.cardsInDeck = cards;
    }
+   
+   /**
+    * @return array of ints for player's cards in deck
+    */
    
    public int[] getCardsInDeck(){
 	   return this.cardsInDeck;
    }
    
+   /**
+    * @param players array of strings for player's names
+    */
+   
    public void setPlayerNames(String[] players){
 	   this.playerNames = players;
    }
+   
+   /**
+    * @return players array of strings for player's names
+    */
    
    public String[] getPlayerNames(){
 	   return this.playerNames;

@@ -20,26 +20,47 @@ public class GameLobbyData
    private boolean privateEnabled;
    private String gameName;
    
+   /**
+    * @return the game name
+    */
+   
    public String getGameName(){
 	   return this.gameName;
    }
    
+   /**
+    * @param gameName the game name
+    */
    public void setGameName(String gameName){
 	   this.gameName = gameName;
    }
    
+   /**
+    * @return boolean true if game is private, false otherwise
+    */
    public boolean isPrivate(){
 	   return privateEnabled;
    }
+   /**
+    * @param boolean true if game is private, false otherwise
+    */
    
    public void setPrivate(boolean set){
 	   this.privateEnabled = set;
    }
+   
+   /**
+    * @return boolean true if a search has been enabled, false otherwise
+    */
 
    public boolean isSearching()
    {
 	   return searching;
    }
+   
+   /**
+    * @param isSearch boolean true if a search has been enabled, false otherwise
+    */
    
    public void setSearch(boolean isSearch)
    {
