@@ -23,6 +23,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	private int currentNumOfPlayers;
 	private int currentPlayerIndex = 0;
 	private int id = 0;
+	private boolean chatEnabled;
 	
 	private String rmiRegistryName;
 	private String name;
@@ -59,6 +60,16 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		for(int i = 0; i < 5; i++) this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
 		
 		
+	}
+	
+	public boolean getChatEnabled()
+	{
+		return chatEnabled;
+	}
+	
+	public void setChatEnabled(boolean enabled)
+	{
+		chatEnabled = enabled;
 	}
 	
 	public int getID(){

@@ -26,11 +26,11 @@ public class GameInfo implements Serializable
     * @param numPlayers The number of players in the game.
     * @param players An ArrayList<String> of the username of players in the game.
     */
-   public GameInfo(String name, int numPlayers, ArrayList<String> players, int id)
+   public GameInfo(String name, int numPlayers, ArrayList<String> players, int id, boolean isChatEnabled)
    {
       this.name = name;
       this.numPlayers = numPlayers;
-      // this.chat = chat;
+      this.chat = isChatEnabled;
       // this.privacy = privacy;
       this.players = players;
       this.id = id;
