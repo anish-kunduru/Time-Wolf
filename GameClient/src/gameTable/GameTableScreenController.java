@@ -723,6 +723,7 @@ public class GameTableScreenController implements ControlledScreen,
 						this.gameEngine.discardCard(action);
 						System.out.println("Discard counter: " + counter);
 						counter--;
+<<<<<<< HEAD
 						
 						int notNull = -1;
 						for(int i = 0; i < playerHandImages.length; i++){
@@ -734,6 +735,12 @@ public class GameTableScreenController implements ControlledScreen,
 						if(notNull == -1){
 							counter = 0;
 						}
+=======
+						if (counter == 0)
+							isDiscard = false;
+
+						
+>>>>>>> branch 'master' of https://git.linux.iastate.edu/yunfei/team-11.git
 
 						if (counter == 0)
 							isDiscard = false;
