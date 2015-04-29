@@ -83,7 +83,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 		      for (Player curPlayer : ge.getPlayers())
 		         playerNames.add(curPlayer.getUser().getUsername());
 		      // Create new game info.
-		      GameInfo gameInfo = new GameInfo(ge.getName(), ge.getTotalNumOfPlayers(), playerNames, ge.getID());
+		      GameInfo gameInfo = new GameInfo(ge.getName(), ge.getTotalNumOfPlayers(), playerNames, ge.getID(), ge.getChatEnabled());
 		      
 		      // Add to array.
 		      available.add(gameInfo);
@@ -128,12 +128,12 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 	}
 	
 	
-	public int createGame(int numberOfPlayers, String gameName) {
+	public int createGame(int numberOfPlayers, String gameName, boolean chatEnabled) {
 		GameEngine ge;
 		try {
 			
 			ge = new GameEngine(numberOfPlayers, gameName, this.startingDeck, this.mainDeck, gameID);
-			
+			ge.setChatEnabled(chatEnabled);
 			
 			String path = "//localhost/GameEngine-" + this.gameID;
 			ge.setRmiRegistryName(path);
@@ -221,7 +221,7 @@ public class GameManagement extends UnicastRemoteObject implements Runnable, IGa
 			u1.setUsername("Player 1");
 			u2.setUsername("Player 2");
 			
-			m.createGame(2, "The Game");
+			m.createGame(2, "The Game", false);
 			
 			m.addUserToGame(0, u1, "//Path/ToClient");
 			m.addUserToGame(0, u2, "//Path/ToClient");

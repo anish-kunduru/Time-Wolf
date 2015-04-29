@@ -144,18 +144,7 @@ public class ProfileScreenController implements ControlledScreen {
 	@FXML
 	public void initialize() {
 
-		try {
-			login = (LogIn) Naming.lookup("//localhost/auth");
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (NotBoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		login = MainModel.getModel().currentLoginData().getLogInConnection();
 		if (MainModel.getModel().profileData().getRedirectToClicked() == true) {
 			String username = MainModel.getModel().profileData().getClickedUsername();
 

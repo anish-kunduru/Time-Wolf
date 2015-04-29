@@ -64,7 +64,7 @@ public class CreateGameScreenController implements ControlledScreen
          
          try
          {
-            id = MainModel.getModel().currentGameLobbyData().getGameManager().createGame(players, name);
+            id = MainModel.getModel().currentGameLobbyData().getGameManager().createGame(players, name, chatEnabled);
          }
          catch (Exception e)
          {

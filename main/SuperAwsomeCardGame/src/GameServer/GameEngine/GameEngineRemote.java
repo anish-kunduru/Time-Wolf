@@ -57,4 +57,11 @@ public interface GameEngineRemote extends Remote {
 	 * @return
 	 */
 	public boolean playCard(Action a) throws RemoteException;
+	
+	/**
+	 * Discards a card from hand.
+	 * @param a
+	 * @throws RemoteException
+	 */
+	public void discardCard(Action a) throws RemoteException;
 }
