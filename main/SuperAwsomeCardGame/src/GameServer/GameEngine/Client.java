@@ -48,6 +48,6 @@ public interface Client extends Remote {
 	
 	public void setNewTableCards(Hand hand) throws RemoteException;
 	
-	
+	public void endGame(int vp[], int cardsInDeck[], String playerNames[]) throws RemoteException;
 	
 }

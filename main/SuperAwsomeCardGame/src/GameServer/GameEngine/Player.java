@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 
 
+
 import javafx.application.Platform;
 //import view.GameTableScreenController;
 import GameServer.Users.User;
@@ -382,6 +383,13 @@ public class Player implements Client {
 	@Override
 	public void setNewTableCards(Hand hand) throws RemoteException {
 		this.client.setNewTableCards(hand);
+	}
+
+
+	@Override
+	public void endGame(int[] vp, int[] cardsInDeck, String[] playerNames)
+			throws RemoteException {
+		this.client.endGame(vp, cardsInDeck, playerNames);
 	};
 	
 	

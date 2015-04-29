@@ -852,7 +852,14 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				playerNames[i] = endGame[i].getUser().getUsername();
 			}
 			
-			//endGame(int vp[], int cardsInDeck[], String playerNames[]){
+			for(Player ending : this.players) {
+				try {
+					ending.endGame(vp, cardsInDeck, playerNames);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 		
 		}
