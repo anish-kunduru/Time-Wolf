@@ -734,9 +734,10 @@ public class GameTableScreenController implements ControlledScreen,
 						if(notNull == -1){
 							counter = 0;
 						}
+
 						if (counter == 0)
 							isDiscard = false;
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
