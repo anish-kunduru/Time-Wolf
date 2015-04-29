@@ -12,7 +12,6 @@ import chat.Chat;
 import framework.AbstractScreenController;
 import framework.ControlledScreen;
 import framework.Destroyable;
-import GameServer.GameEngine.AfterGameInfo;
 import GameServer.Users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -181,11 +180,6 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
          e.printStackTrace();
       }
 
-      AfterGameInfo playerOne = new AfterGameInfo(userOne, 1, 50, 100);
-      AfterGameInfo playerTwo = new AfterGameInfo(userTwo, 2, 40, 80);
-
-      AfterGameInfo[] playerArray = new AfterGameInfo[] { playerOne, playerTwo };
-
       // End of test code
 
       String playerUsername = MainModel.getModel().currentLoginData().getUsername();
@@ -193,10 +187,18 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       try
       {
          user = MainModel.getModel().currentLoginData().getLogInConnection().getUser(playerUsername);
-         setAfterGameInfo(playerArray);
-         likeFeedbackEvent(playerArray, user);
-         disLikeFeedbackEvent(playerArray, user);
-         submitNegativeFeedbackEvent(playerArray, user);
+         String players[] = MainModel.getModel().currentGameTableData().getPlayerNames();
+         int vp[] = MainModel.getModel().currentGameTableData().getVP();
+         int numDeck[] = MainModel.getModel().currentGameTableData().getCardsInDeck();
+         
+         //players = new String[] {"jkhaynes", "ssimmons"};
+         //vp = new int[] {200, 100};
+         //numDeck = new int[] {50, 25};
+         
+         setAfterGameInfo(players, vp, numDeck);
+         likeFeedbackEvent(players, user);
+         disLikeFeedbackEvent(players, user);
+         submitNegativeFeedbackEvent(players, user);
       }
       catch (Exception e)
       {
@@ -241,17 +243,17 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       
    }
 
-   public void setAfterGameInfo(AfterGameInfo[] afterGameInfo)
+   public void setAfterGameInfo(String playerNames[], int vp[], int numDeck[])
    {
 
       int i = 0;
 
-      for (i = 0; i < afterGameInfo.length; i++)
+      for (i = 0; i < playerNames.length; i++)
       {
-         rankList[i].setText("" + afterGameInfo[i].getRank());
-         nameList[i].setText(afterGameInfo[i].getUser().getUsername());
-         vpList[i].setText("" + afterGameInfo[i].getVP());
-         deckList[i].setText("" + afterGameInfo[i].getNumDeck());
+         rankList[i].setText("" + i+1);
+         nameList[i].setText(playerNames[i]);
+         vpList[i].setText("" + vp[i]);
+         deckList[i].setText("" + numDeck[i]);
       }
 
       while (i < 4)
@@ -262,27 +264,47 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       }
    }
 
-   private void submitNegativeFeedbackEvent(AfterGameInfo[] agi, User user)
+   private void submitNegativeFeedbackEvent(String players[], User user)
    {
       submit.setOnMouseClicked(event ->
       {
          if (reasonOne.isSelected())
          {
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonOne.getText());
+            try {
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[count]).getID(), user.getID(), false, reasonOne.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
          }
          else if (reasonTwo.isSelected())
          {
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonTwo.getText());
+            try {
+				MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[count]).getID(), user.getID(), false, reasonTwo.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
          }
          else if (reasonThree.isSelected())
          {
-            MainModel.getModel().currentLoginData().getLogInConnection()
-                     .insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonThree.getText());
+            try {
+				MainModel.getModel().currentLoginData().getLogInConnection()
+				         .insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[count]).getID(), user.getID(), false, reasonThree.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
          }
          else if (reasonOne.isSelected())
          {
-            MainModel.getModel().currentLoginData().getLogInConnection()
-                     .insertFeedback(agi[count].getUser().getID(), user.getID(), false, reasonThree.getText());
+            try {
+				MainModel.getModel().currentLoginData().getLogInConnection()
+				         .insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[count]).getID(), user.getID(), false, reasonThree.getText());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
          }
          feedbackLabel.setText("Thank you for your feedback!");
 
@@ -297,226 +319,266 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
       });
    }
 
-   private void disLikeFeedbackEvent(AfterGameInfo[] agi, User user)
+   private void disLikeFeedbackEvent(String players[], User user)
    {
       dislikeButtons[0].setOnMouseClicked(event ->
       {
-         if (agi[0].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[0]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
 
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
 
-         }
-         else if (canPress[0])
-         {
-            reasonOne.setVisible(true);
-            reasonTwo.setVisible(true);
-            reasonThree.setVisible(true);
-            reasonFour.setVisible(true);
+			 }
+			 else if (canPress[0])
+			 {
+			    reasonOne.setVisible(true);
+			    reasonTwo.setVisible(true);
+			    reasonThree.setVisible(true);
+			    reasonFour.setVisible(true);
 
-            feedbackLabel.setVisible(true);
-            submit.setVisible(true);
-            feedbackLabel.setText("Please Select Your Reason For This Rating");
-            count = 0;
-         }
+			    feedbackLabel.setVisible(true);
+			    submit.setVisible(true);
+			    feedbackLabel.setText("Please Select Your Reason For This Rating");
+			    count = 0;
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       dislikeButtons[1].setOnMouseClicked(event ->
       {
-         if (agi[1].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[1])
-         {
-            reasonOne.setVisible(true);
-            reasonTwo.setVisible(true);
-            reasonThree.setVisible(true);
-            reasonFour.setVisible(true);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[1]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[1])
+			 {
+			    reasonOne.setVisible(true);
+			    reasonTwo.setVisible(true);
+			    reasonThree.setVisible(true);
+			    reasonFour.setVisible(true);
 
-            feedbackLabel.setVisible(true);
-            submit.setVisible(true);
-            feedbackLabel.setText("Please Select Your Reason For This Rating");
-            count = 1;
-         }
+			    feedbackLabel.setVisible(true);
+			    submit.setVisible(true);
+			    feedbackLabel.setText("Please Select Your Reason For This Rating");
+			    count = 1;
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       dislikeButtons[2].setOnMouseClicked(event ->
       {
-         if (agi[2].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[2])
-         {
-            reasonOne.setVisible(true);
-            reasonTwo.setVisible(true);
-            reasonThree.setVisible(true);
-            reasonFour.setVisible(true);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[2]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[2])
+			 {
+			    reasonOne.setVisible(true);
+			    reasonTwo.setVisible(true);
+			    reasonThree.setVisible(true);
+			    reasonFour.setVisible(true);
 
-            feedbackLabel.setVisible(true);
-            submit.setVisible(true);
-            feedbackLabel.setText("Please Select Your Reason For This Rating");
-            count = 2;
-         }
+			    feedbackLabel.setVisible(true);
+			    submit.setVisible(true);
+			    feedbackLabel.setText("Please Select Your Reason For This Rating");
+			    count = 2;
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       dislikeButtons[3].setOnMouseClicked(event ->
       {
-         if (agi[3].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[3]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
 
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
 
-            submit.setVisible(false);
-         }
-         else if (canPress[3])
-         {
-            reasonOne.setVisible(true);
-            reasonTwo.setVisible(true);
-            reasonThree.setVisible(true);
-            reasonFour.setVisible(true);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[3])
+			 {
+			    reasonOne.setVisible(true);
+			    reasonTwo.setVisible(true);
+			    reasonThree.setVisible(true);
+			    reasonFour.setVisible(true);
 
-            feedbackLabel.setVisible(true);
-            submit.setVisible(true);
-            feedbackLabel.setText("Please Select Your Reason For This Rating");
-            count = 3;
-         }
+			    feedbackLabel.setVisible(true);
+			    submit.setVisible(true);
+			    feedbackLabel.setText("Please Select Your Reason For This Rating");
+			    count = 3;
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
    }
 
-   private void likeFeedbackEvent(AfterGameInfo[] agi, User user)
+   private void likeFeedbackEvent(String players[], User user)
    {
       likeButtons[0].setOnMouseClicked(event ->
       {
-         if (agi[0].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[0])
-         {
-            feedbackLabel.setText("Thank You For Your Feedback");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[0]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[0])
+			 {
+			    feedbackLabel.setText("Thank You For Your Feedback");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
 
-            submit.setVisible(false);
-            canPress[0] = false;
+			    submit.setVisible(false);
+			    canPress[0] = false;
 
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[0].getUser().getID(), user.getID(), true, "");
-         }
+			    MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[0]).getID(), user.getID(), true, "");
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       likeButtons[1].setOnMouseClicked(event ->
       {
-         if (agi[1].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[1])
-         {
-            feedbackLabel.setText("Thank You For Your Feedback");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[1]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[1])
+			 {
+			    feedbackLabel.setText("Thank You For Your Feedback");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
 
-            submit.setVisible(false);
-            canPress[1] = false;
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[1].getUser().getID(), user.getID(), true, "");
-         }
+			    submit.setVisible(false);
+			    canPress[1] = false;
+			    MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[1]).getID(), user.getID(), true, "");
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       likeButtons[2].setOnMouseClicked(event ->
       {
-         if (agi[2].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[2])
-         {
-            feedbackLabel.setText("Thank You For Your Feedback");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[2]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[2])
+			 {
+			    feedbackLabel.setText("Thank You For Your Feedback");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
 
-            submit.setVisible(false);
-            canPress[2] = false;
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[2].getUser().getID(), user.getID(), true, "");
-         }
+			    submit.setVisible(false);
+			    canPress[2] = false;
+			    MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[2]).getID(), user.getID(), true, "");
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
 
       likeButtons[3].setOnMouseClicked(event ->
       {
-         if (agi[3].getUser().getID() == user.getID())
-         {
-            feedbackLabel.setText("You cannot rate yourself!");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
-            submit.setVisible(false);
-         }
-         else if (canPress[3])
-         {
-            feedbackLabel.setText("Thank You For Your Feedback");
-            feedbackLabel.setVisible(true);
-            reasonOne.setVisible(false);
-            reasonTwo.setVisible(false);
-            reasonThree.setVisible(false);
-            reasonFour.setVisible(false);
+         try {
+			if (MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[3]).getID() == user.getID())
+			 {
+			    feedbackLabel.setText("You cannot rate yourself!");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
+			    submit.setVisible(false);
+			 }
+			 else if (canPress[3])
+			 {
+			    feedbackLabel.setText("Thank You For Your Feedback");
+			    feedbackLabel.setVisible(true);
+			    reasonOne.setVisible(false);
+			    reasonTwo.setVisible(false);
+			    reasonThree.setVisible(false);
+			    reasonFour.setVisible(false);
 
-            submit.setVisible(false);
-            canPress[3] = false;
-            MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(agi[3].getUser().getID(), user.getID(), true, "");
-         }
+			    submit.setVisible(false);
+			    canPress[3] = false;
+			    MainModel.getModel().currentLoginData().getLogInConnection().insertFeedback(MainModel.getModel().currentLoginData().getLogInConnection().getUser(players[3]).getID(), user.getID(), true, "");
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       });
    }
 
