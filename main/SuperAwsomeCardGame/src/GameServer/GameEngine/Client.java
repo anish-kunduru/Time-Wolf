@@ -52,4 +52,6 @@ public interface Client extends Remote {
 	
 	public void checkOnline() throws RemoteException;
 	
+	public void acquireCard(Action a) throws RemoteException;
+	
 }
