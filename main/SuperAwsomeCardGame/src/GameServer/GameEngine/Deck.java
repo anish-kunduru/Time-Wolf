@@ -152,6 +152,7 @@ public class Deck {
 			
 			main.addCard(toAdd, NumInDeck);
 		}
+		dbh.closeConnection();
 		return main;
 	}	
 	
@@ -201,7 +202,8 @@ public class Deck {
 			
 			starter.addCard(toAdd, numInDeck);
 		}
-		
+
+		dbh.closeConnection();
 		return starter;
 	}
 

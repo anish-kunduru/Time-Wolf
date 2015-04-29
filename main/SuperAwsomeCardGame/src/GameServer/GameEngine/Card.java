@@ -111,6 +111,7 @@ public final class Card implements Serializable {
 		DBHelper dbh = new DBHelper();
 		String query = "SELECT * FROM Cards WHERE Name = '" + cardName + "'";
 		java.sql.ResultSet rs = dbh.executeQuery(query);
+		dbh.closeConnection();
 		
 		rs.next();
 		
