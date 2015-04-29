@@ -716,7 +716,7 @@ public class GameTableScreenController implements ControlledScreen,
 							}
 						}
 						
-						if(notNull != -1){
+						if(notNull == -1){
 							counter = 0;
 						}
 						
