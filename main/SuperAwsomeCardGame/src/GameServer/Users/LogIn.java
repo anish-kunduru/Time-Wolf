@@ -354,7 +354,7 @@ public class LogIn implements Remote, Serializable {
 				ps.setString(2, username);
 				ps.executeUpdate();
 				conn.commit();
-				
+				conn.close();
 				
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
@@ -572,7 +572,7 @@ public class LogIn implements Remote, Serializable {
 				ps.setString(2, u.getUsername());
 				ps.executeUpdate();
 				conn.commit();
-				
+				conn.close();
 				
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
@@ -610,7 +610,7 @@ public class LogIn implements Remote, Serializable {
 				ps.setString(2, u.getUsername());
 				ps.executeUpdate();
 				conn.commit();
-				
+				conn.close();
 				
 			} catch (Exception ex) {
 				throw new Exception("Image save failed!");
