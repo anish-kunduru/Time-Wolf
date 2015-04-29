@@ -928,11 +928,14 @@ public class GameTableScreenController implements ControlledScreen,
     * @param players
     */
 
-   public void updatePlayerStats(int st, int at, int vp, String players[]) {
+   public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]) {
       Stealth.setText("Stealth: " + st);
       stealth = st;
       Attack.setText("Attack: " + at);
       attack = at;
+      cardsInGameDeckLabel.setText("Cards In Deck: " + numDeck);
+      
+      
 
       String username = MainModel.getModel().currentLoginData().getUsername();
 
