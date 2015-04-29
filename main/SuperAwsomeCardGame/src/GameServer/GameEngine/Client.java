@@ -48,4 +48,6 @@ public interface Client extends Remote {
 	
 	public void setNewTableCards(Hand hand) throws RemoteException;
 	
+	
+	
 }

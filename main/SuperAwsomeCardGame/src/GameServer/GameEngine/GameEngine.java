@@ -821,6 +821,42 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		}
 		
 
+		//If the game is done.
+		if(p.getVP() >= 2000) {
+			
+			Player[] endGame = new Player[this.players.size()];
+			for(int i = 0; i < this.players.size(); i++) {
+				endGame[i] = this.players.get(i);
+			}
+			
+			Player temp;
+			
+			//Do a stupid sort to sort players by ranking
+			for(int i = 0; i < endGame.length - 1; i++) {
+				for(int j = endGame.length - 1; j != i; j--) {
+					if(endGame[j].getVP() > endGame[j - 1].getVP()) {
+						temp = endGame[j-1];
+						endGame[j-1] = endGame[j];
+						endGame[j] = temp;
+					}
+				}
+			}
+			
+			int vp[] = new int[endGame.length];
+			int cardsInDeck[] = new int[endGame.length];
+			String playerNames[] = new String[endGame.length];
+			
+			for(int i = 0; i < endGame.length; i++) {
+				vp[i] = endGame[i].getVP();
+				cardsInDeck[i] = endGame[i].getDeck().size() + endGame[i].getHand().size() + endGame[i].getDiscardPile().size();
+				playerNames[i] = endGame[i].getUser().getUsername();
+			}
+			
+			//endGame(int vp[], int cardsInDeck[], String playerNames[]){
+			
+		
+		}
+		
 		
 		return true;
 	}
