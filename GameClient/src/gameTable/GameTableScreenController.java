@@ -718,12 +718,14 @@ public class GameTableScreenController implements ControlledScreen,
 						
 						if(notNull == -1){
 							counter = 0;
+							
 						}
+						System.out.println(counter);
 						
-						if (counter == 0)
+						if (counter == 0){
 							isDiscard = false;
-
-						
+							System.out.println("isDiscard false");
+						}
 
 					} catch (Exception e) {
 						e.printStackTrace();
