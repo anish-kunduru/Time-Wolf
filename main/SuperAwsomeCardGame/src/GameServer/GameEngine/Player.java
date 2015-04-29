@@ -316,10 +316,10 @@ public class Player implements Client {
 		}
 	};
 	
-	public void updatePlayerStats(int st, int at, int vp, String players[]){
+	public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]){
 		if(this.client == null) throw new IllegalStateException();
 		try {
-			this.client.updatePlayerStats(st, at, vp, players);
+			this.client.updatePlayerStats(st, at, vp, numDeck, players);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -328,7 +328,8 @@ public class Player implements Client {
 	public void updatePlayerStats(String players[]){
 		if(this.client == null) throw new IllegalStateException();
 		System.out.println("Update Player VP: " + this.getVP());
-		this.updatePlayerStats(this.getStealth(), this.getAttack(), this.getVP(), players);
+		int numDeck = this.getDeck().size() + this.getDiscardPile().size() + this.getHand().size();
+		this.updatePlayerStats(this.getStealth(), this.getAttack(), this.getVP(), numDeck, players);
 	};
 	
 	public void updateOtherPlayersStats(int vp, String players[], String username){

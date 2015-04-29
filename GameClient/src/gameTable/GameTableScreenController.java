@@ -741,6 +741,18 @@ public class GameTableScreenController implements ControlledScreen,
                   image.setId(null);
 
                   counter--;
+                  
+                  int notNull = -1;
+                  for(int i = 0; i < playerHandImages.length; i++){
+                     if(playerHandImages[i].getImage() != null){
+                        notNull = i;
+                     }
+                  }
+                  
+                  if(notNull == -1){
+                     counter = 0;   
+                  }
+                  
                   if (counter == 0)
                      isTrash = false;
 
@@ -927,11 +939,14 @@ public class GameTableScreenController implements ControlledScreen,
     * @param players
     */
 
-   public void updatePlayerStats(int st, int at, int vp, String players[]) {
+   public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]) {
       Stealth.setText("Stealth: " + st);
       stealth = st;
       Attack.setText("Attack: " + at);
       attack = at;
+      cardsInGameDeckLabel.setText("Cards In Deck: " + numDeck);
+      
+      
 
       String username = MainModel.getModel().currentLoginData().getUsername();
 
