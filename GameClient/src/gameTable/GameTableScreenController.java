@@ -741,6 +741,18 @@ public class GameTableScreenController implements ControlledScreen,
                   image.setId(null);
 
                   counter--;
+                  
+                  int notNull = -1;
+                  for(int i = 0; i < playerHandImages.length; i++){
+                     if(playerHandImages[i].getImage() != null){
+                        notNull = i;
+                     }
+                  }
+                  
+                  if(notNull == -1){
+                     counter = 0;   
+                  }
+                  
                   if (counter == 0)
                      isTrash = false;
 
