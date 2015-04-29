@@ -764,16 +764,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			
 			p.getDiscardPile().discard(c);
 			
-			if(a.getCardIndex() != -1) {
-				this.mainPlayAreaCards.remove(a.getCardIndex());
-				this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
-				
-				//If this was the last card in the main deck, reshuffle the discard
-				//pile back in to the main play area deck.
-				if(this.mainDeck.size() == 0) {
-					this.mainDiscard.addToDeck(this.mainDeck);
-				}
-			}
+			
 			
 		} else { //Aquire an historical figure
 			
@@ -784,14 +775,21 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			p.addAttack(-1 * c.getCostAttack());
 			
 			p.addVP(c.getVp());
-			if(a.getCardIndex() != -1) {
-				this.mainPlayAreaCards.remove(a.getCardIndex());
-				this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
-				
-				//If this was the last card in the main deck, reshuffle the discard
-				//pile back in to the main play area deck.
-				if(this.mainDeck.size() == 0) {
-					this.mainDiscard.addToDeck(this.mainDeck);
+			
+			
+			
+		}
+		
+		//Discard a card from the center cards if it isn't one of the ever present cards
+		//chosen
+		if(!a.getCard().getName().equals("Bite") && 
+				!a.getCard().getName().equals("Not So Important Historical Figure") &&
+				!a.getCard().getName().equals("Lurk") ) {
+			for(int i = 0; i < this.mainPlayAreaCards.size(); i ++) {
+				if(a.getCard().getName().equals(this.mainPlayAreaCards.get(i).getName())) {
+					this.mainPlayAreaCards.remove(i);
+					this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
+					break;
 				}
 			}
 			
@@ -810,13 +808,15 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			if(this.currentPlayerIndex != i) {
 				
 				this.players.get(i).updateOtherPlayersStats(p.getVP(), playerList, p.getUser().getUsername());
-				try {
-					this.players.get(i).setNewTableCards(this.mainPlayAreaCards);
-					
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+			}
+			
+			try {
+				this.players.get(i).setNewTableCards(this.mainPlayAreaCards);
+				
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		
@@ -861,7 +861,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 				}
 			}
 			
-		
+			this.isFinished = true;
 		}
 		
 		
