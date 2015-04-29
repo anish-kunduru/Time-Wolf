@@ -740,6 +740,10 @@ public class GameTableScreenController implements ControlledScreen,
                   image.setImage(null);
                   image.setId(null);
 
+                  action = new Action(Action.TRASH, c);
+                  this.gameEngine.trashCard(action);
+                  System.out.println("Trash counter: " + counter);
+                  
                   counter--;
                   
                   int notNull = -1;
@@ -885,10 +889,15 @@ public class GameTableScreenController implements ControlledScreen,
       Card c = a.getCard();
       int trash = 0;
 
-      if (c.getTrashCardsMandatory() != 0)
-         trash = c.getTrashCardsMandatory();
-      else
-         trash = c.getTrashCardsOptional();
+      if(c.getTrashForAttack() > 0) {
+			trash = c.getTrashForAttack();
+		} else if(c.getTrashForStealth() > 0) {
+			trash = c.getTrashForStealth();
+		} else if(c.getTrashCardsMandatory() > 0) {
+			trash = c.getTrashCardsMandatory();
+		}
+
+
       isTrash = true;
       counter = trash;
    }

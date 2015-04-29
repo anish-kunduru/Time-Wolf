@@ -449,12 +449,13 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	
 private boolean isTrashForStealth = false;
 private boolean isTrashForAttack = false;
+private boolean isTrashing = false;
 private int trashMax = 0;
 private int trashCount = 0;
 
 public void trashCard(Action a) {
 	if(a == null || a.getCard() == null) throw new NullPointerException();
-	if(!this.isDiscardingPre && !this.isDiscardingPost) throw new IllegalStateException();
+	if(!this.isTrashing) throw new IllegalStateException();
 	
 	System.out.println("Trashing on server.");
 	
@@ -489,6 +490,7 @@ public void trashCard(Action a) {
 	
 	
 	if(this.trashCount == this.trashMax) {
+			this.isTrashing = false;
 			this.playCardPt3(this.inProgressAction);
 	}
 	
@@ -523,6 +525,7 @@ private void ruleTrash(Player current, Card c, Action a) {
 		
 		if(this.trashMax > 0) {
 			this.inProgressAction = a;
+			this.isTrashing = true;
 				
 			try {
 				System.out.println("Calling client for discard");
