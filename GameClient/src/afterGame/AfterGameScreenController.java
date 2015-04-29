@@ -191,9 +191,9 @@ public class AfterGameScreenController implements ControlledScreen, Destroyable
          int vp[] = MainModel.getModel().currentGameTableData().getVP();
          int numDeck[] = MainModel.getModel().currentGameTableData().getCardsInDeck();
          
-         players = new String[] {"jkhaynes", "ssimmons"};
-         vp = new int[] {200, 100};
-         numDeck = new int[] {50, 25};
+         //players = new String[] {"jkhaynes", "ssimmons"};
+         //vp = new int[] {200, 100};
+         //numDeck = new int[] {50, 25};
          
          setAfterGameInfo(players, vp, numDeck);
          likeFeedbackEvent(players, user);
