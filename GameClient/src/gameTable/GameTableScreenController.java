@@ -881,7 +881,7 @@ public class GameTableScreenController implements ControlledScreen,
     * 
     * @param a
     */
-   private void trashCard(Action a) {
+   public void trashCard(Action a) {
       Card c = a.getCard();
       int trash = 0;
 

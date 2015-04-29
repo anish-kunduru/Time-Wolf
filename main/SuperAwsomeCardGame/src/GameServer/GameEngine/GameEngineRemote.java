@@ -64,4 +64,6 @@ public interface GameEngineRemote extends Remote {
 	 * @throws RemoteException
 	 */
 	public void discardCard(Action a) throws RemoteException;
+	
+	public void trashCard(Action a) throws RemoteException;
 }

@@ -410,6 +410,12 @@ public class Player implements Client {
 	@Override
 	public void playCard(Action a) throws RemoteException {
 		this.client.playCard(a);			
+	}
+
+
+	@Override
+	public void trashCard(Action a) throws RemoteException {
+		this.client.trashCard(a);		
 	};
 	
 	

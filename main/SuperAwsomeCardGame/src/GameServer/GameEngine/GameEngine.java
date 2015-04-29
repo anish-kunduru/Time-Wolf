@@ -226,6 +226,15 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
+		this.ruleTrash(p, c, a);
+		return true;
+	
+	}
+	
+	private boolean playCardPt3(Action a) {
+		Card c = a.getCard();
+		Player p = this.players.get(this.currentPlayerIndex);
+		
 		this.ruleAttack(p, c);
 		this.ruleStealth(p, c);
 		
@@ -237,7 +246,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		return true;
 	}
 	
-	private boolean playCardPt3(Action a) {
+	private boolean playCardPt4(Action a) {
 		
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
@@ -349,6 +358,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	private int discardCount;
 	private int discardMax;
 	private Action inProgressAction;
+
 	
 	public void discardCard(Action a) {
 		if(a == null || a.getCard() == null) throw new NullPointerException();
@@ -382,7 +392,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			if(this.isDiscardingPre) {
 				this.playCardPt2(this.inProgressAction);
 			} else if(this.isDiscardingPost) {
-				this.playCardPt3(this.inProgressAction);
+				this.playCardPt4(this.inProgressAction);
 			}
 		}
 		
@@ -429,7 +439,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			if(isBefore) {
 				this.playCardPt2(this.inProgressAction);
 			} else {
-				this.playCardPt3(this.inProgressAction);
+				this.playCardPt4(this.inProgressAction);
 			}
 			
 		}
@@ -437,36 +447,86 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	}
 	
 	
+private boolean isTrashForStealth = false;
+private boolean isTrashForAttack = false;
+private int trashMax = 0;
+private int trashCount = 0;
+
+public void trashCard(Action a) {
+	if(a == null || a.getCard() == null) throw new NullPointerException();
+	if(!this.isDiscardingPre && !this.isDiscardingPost) throw new IllegalStateException();
+	
+	System.out.println("Trashing on server.");
+	
+	Player p = this.players.get(this.currentPlayerIndex);
+	boolean hasDiscarded = false;
+	
+	for(int i = 0; i < p.getHand().size(); i++) {
+		if(p.getHand().get(i).getName().equals(a.getCard().getName())) {
+			p.getHand().remove(i);
+			hasDiscarded = true;
+			System.out.println("Found card for trash in hand.");
+			break; //exit early so we don't discard a second copy of the same card
+		}
+	}
+	
+	//If they pass a card that isn't in the hand is invalid. 
+	//Otherwise we've discarded one more card.
+	if(hasDiscarded)  {
+		this.trashCount++;
+		
+		//If this is a trash for attack or trash for stealth then we add the purchase
+		//value of the card to their attack or stealth.
+		if(this.isTrashForAttack) {
+			p.addAttack(a.getCard().getCostStealth());
+		} else if(this.isTrashForStealth) {
+			p.addStealth(a.getCard().getCostStealth());
+		}
+		
+	} else {
+		throw new IllegalStateException();
+	}
 	
 	
-private void ruleTrash(Player current, Card c, boolean isBefore, Action a) {
-		//c.getTrashCardsMandatory() c.
-		int numOfCards;
+	if(this.trashCount == this.trashMax) {
+			this.playCardPt3(this.inProgressAction);
+	}
+	
+	
+}
+	
+private void ruleTrash(Player current, Card c, Action a) {
+		
 		
 		System.out.println("Entering discard.");
-		//We can either discard before or after
-		if(isBefore) {
-			numOfCards = c.getPreturnDiscard();
-		} else {
-			numOfCards = c.getPostturnDiscard();
-		}
 		
+		this.trashCount = 0;
+		
+		if(c.getTrashForAttack() > 0) {
+			this.isTrashForStealth = false;
+			this.isTrashForAttack = true;
+			this.trashMax = c.getTrashForAttack();
+		} else if(c.getTrashForStealth() > 0) {
+			this.isTrashForStealth = true;
+			this.isTrashForAttack = false;
+			this.trashMax = c.getTrashForStealth();
+		} else if(c.getTrashCardsMandatory() > 0) {
+			this.isTrashForStealth = false;
+			this.isTrashForAttack = false;
+			this.trashMax = c.getTrashCardsMandatory();
+		}
 		
 		//If there aren't enough cards left for a full discard.
-		if(numOfCards > current.getHand().size()) {
-			numOfCards = current.getHand().size();
+		if(this.trashMax > current.getHand().size()) {
+			this.trashMax = current.getHand().size();
 		}
 		
-		if(numOfCards > 0) {
-			this.discardMax = numOfCards;
-			this.discardCount = 0;
-			this.isDiscardingPre = true;
+		if(this.trashMax > 0) {
 			this.inProgressAction = a;
-			
 				
 			try {
 				System.out.println("Calling client for discard");
-				current.discardCard(new Action(Action.DISCARD, c));
+				current.trashCard(new Action(Action.TRASH, c));
 				System.out.println("Calling client for discard");
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -474,12 +534,7 @@ private void ruleTrash(Player current, Card c, boolean isBefore, Action a) {
 			}
 		
 		} else {
-			if(isBefore) {
-				this.playCardPt2(this.inProgressAction);
-			} else {
-				this.playCardPt3(this.inProgressAction);
-			}
-			
+			this.playCardPt3(a);
 		}
 		
 	}
