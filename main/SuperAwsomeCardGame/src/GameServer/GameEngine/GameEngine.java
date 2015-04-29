@@ -245,6 +245,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			}
 		}
 		
+		
 		//p.setPlayerHand();
 		
 		System.out.println("Player: " + p.getUser().getUsername() + 
