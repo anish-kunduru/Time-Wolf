@@ -711,7 +711,7 @@ public class GameTableScreenController implements ControlledScreen,
 						
 						int notNull = -1;
 						for(int i = 0; i < playerHandImages.length; i++){
-							if(playerHandImages[i] != null){
+							if(playerHandImages[i].getImage() != null){
 								notNull = i;
 							}
 						}
