@@ -244,7 +244,7 @@ public class GameLobbyScreenController implements ControlledScreen, Destroyable 
 					if (games.get(i).getChat() != MainModel.getModel().currentGameLobbyData().getChatEnabled()
 							|| games.get(i).getNumPlayers() != MainModel.getModel().currentGameLobbyData().getNumPlayers() 
 							|| games.get(i).getPrivacy() != MainModel.getModel().currentGameLobbyData().isPrivate()
-							|| ((games.get(i).getName() != MainModel.getModel().currentGameLobbyData().getGameName()) && !MainModel.getModel().currentGameLobbyData().getGameName().trim().equals("") ) ) {
+							|| ((!games.get(i).getName().equals(MainModel.getModel().currentGameLobbyData().getGameName())) && !MainModel.getModel().currentGameLobbyData().getGameName().trim().equals("") ) ) {
 						games.remove(games.get(i));
 						i--;
 					}
