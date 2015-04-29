@@ -35,6 +35,17 @@ public class Player implements Client {
 	private int stealth;
 	private int attack;
 	private int VP;
+	private boolean extraTurn = false;
+	public boolean isExtraTurn() {
+		return extraTurn;
+	}
+
+
+	public void setExtraTurn(boolean extraTurn) {
+		this.extraTurn = extraTurn;
+	}
+
+
 	private Client client;
 	
 	/**
@@ -141,7 +152,7 @@ public class Player implements Client {
 	public void resetPlayer(){
 		stealth = 0;
 		attack = 0;
-		
+		this.extraTurn = false;
 		discard.discard(this.hand);
 		
 		while(hand.size() < 5){
