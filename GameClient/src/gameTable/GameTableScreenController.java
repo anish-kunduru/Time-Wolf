@@ -25,6 +25,7 @@ import GameServer.GameEngine.Deck;
 import GameServer.GameEngine.FacadeClient;
 import GameServer.GameEngine.GameEngineRemote;
 import GameServer.GameEngine.Hand;
+import GameServer.Users.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -321,33 +322,43 @@ public class GameTableScreenController implements ControlledScreen,
 	 * TODO
 	 */
 
-	private void initRemoteObject() {
-		Random rnd = new Random();
-		boolean flag = true;
-		while (flag) {
-			int id = rnd.nextInt();
-			Client thing = null;
-			try {
-				thing = (Client) new FacadeClient();
-			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			((FacadeClient) thing).c = (Client) this;
-			String path = "//" + SERVER_ADDRESS + "/client" + id;
-			this.remoteString = path;
-			try {
-				Naming.rebind(path, thing);
-				flag = false;
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+   private void initRemoteObject()
+   {
+      Random rnd = new Random();
+      boolean flag = true;
+      while (flag) // Keep trying until we make a connection.
+      {
+         int id = rnd.nextInt();
+         Client thing = null;
+         try
+         {
+            thing = (Client) new FacadeClient();
+         }
+         catch (RemoteException e1)
+         {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+         }
+         ((FacadeClient) thing).c = (Client) this;
+         String path = "//" + SERVER_ADDRESS + "/client" + id;
+         this.remoteString = path;
+         try
+         {
+            Naming.rebind(path, thing);
+            flag = false;
+         }
+         catch (RemoteException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+         catch (MalformedURLException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+   }
 
 	/**
 	 * Helper method pulls a card to the front of the display. Intended to be
@@ -884,22 +895,26 @@ public class GameTableScreenController implements ControlledScreen,
 
 	}
 
-	public void setGameEngine(String ge) {
-
-		// connect to the game engine
-		while (true) {
-			try {
-				System.out.println("GameEngine Registry Name: " + ge);
-				this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
-				System.out.println(((Naming.lookup(ge))).getClass().toString());
-				break;
-			} catch (MalformedURLException | RemoteException
-					| NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+   public void setGameEngine(String ge)
+   {
+      // connect to the game engine
+      // Keep trying until we connect.
+      while (true)
+      {
+         try
+         {
+            System.out.println("GameEngine Registry Name: " + ge);
+            this.gameEngine = (GameEngineRemote) Naming.lookup(ge);
+            System.out.println(((Naming.lookup(ge))).getClass().toString());
+            break;
+         }
+         catch (MalformedURLException | RemoteException | NotBoundException e)
+         {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      }
+   }
 
 	/**
 	 * Update the player stats of the logged in player
@@ -1052,6 +1067,46 @@ public class GameTableScreenController implements ControlledScreen,
 		MainModel.getModel().currentGameTableData().setVP(vp);
 		MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
 		MainModel.getModel().currentGameTableData().setPlayerNames(playerNames);
+		
+String username = MainModel.getModel().currentLoginData().getUsername();
+		
+		try {
+			boolean wonGame = true;
+			int ind = -1;
+			for(int i = 0; i < playerNames.length; i++)
+			{
+				if(playerNames[i].equals(username))
+					ind = i;
+			}
+			
+			if(ind == -1)
+			{
+				throw new Exception("There was a problem contacting user data.");
+			}
+			
+			for(int i = 0; i < vp.length; i++)
+			{
+				if(i != ind)
+				{
+					if(vp[i] > vp[ind])
+					{
+						wonGame = false;
+					}
+				}
+			}
+			
+			
+			User u = MainModel.getModel().currentLoginData().getLogInConnection().getUser(username);
+			u.Statistics.incrementGamesPlayed(wonGame, vp[ind]);
+			MainModel.getModel().currentLoginData().getLogInConnection().UpdateStats(u);
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		parentController.goToAfterGameScreen();
 	}
