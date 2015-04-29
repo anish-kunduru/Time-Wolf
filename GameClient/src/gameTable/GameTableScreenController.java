@@ -834,7 +834,7 @@ public class GameTableScreenController implements ControlledScreen,
          playLog.appendText(a.getPlayerName() + " stole card "
                + c.getName() + ". " + c.getDescription() + "\n");
       } else {
-         playLog.appendText("Player defeated " + c.getName() + ". "
+         playLog.appendText(a.getPlayerName() + " defeated " + c.getName() + ". "
                + c.getDescription() + "\n");
       }
       
