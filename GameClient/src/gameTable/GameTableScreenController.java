@@ -662,6 +662,8 @@ public class GameTableScreenController implements ControlledScreen,
 				attack = 0;
 				stealth = 0;
 				counter = 0;
+				isDiscard = false;
+				isTrash = false;
 
 				try {
 					this.gameEngine.endTurn();
