@@ -10,6 +10,11 @@ import java.sql.SQLException;
 
 import GameServer.Users.LogIn;
 
+/**
+ * Main class for project which starts up the rest of the server side objects/threads.
+ * @author John Heinig
+ *
+ */
 public class GameServer
 {
 

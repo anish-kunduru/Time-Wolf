@@ -42,7 +42,15 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	
 	
 
-
+	/**
+	 * Create a new empty game engine
+	 * @param numOfPlayers
+	 * @param name
+	 * @param startingDeck
+	 * @param mainDeck
+	 * @param id
+	 * @throws RemoteException
+	 */
 	public GameEngine(int numOfPlayers, String name, Deck startingDeck, Deck mainDeck, int id) throws RemoteException {
 
 		
@@ -62,16 +70,28 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		
 	}
 	
+	/**
+	 * Is the chat enabled?
+	 * @return boolean True if enabled
+	 */
 	public boolean getChatEnabled()
 	{
 		return chatEnabled;
 	}
 	
+	/**
+	 * Set whether or not the chat is enabled for this game engine.
+	 * @param enabled
+	 */
 	public void setChatEnabled(boolean enabled)
 	{
 		chatEnabled = enabled;
 	}
 	
+	/**
+	 * Get the game id
+	 * @return
+	 */
 	public int getID(){
 		return id;
 	}
@@ -169,6 +189,10 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		return currentNumOfPlayers;
 	}
 	
+	/**
+	 * Return an array list of the player objects.
+	 * @return ArrayList<Player>
+	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -222,6 +246,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 
 	}
 	
+	//Continuation of playCard(Action a)
 	private boolean playCardPt2(Action a) {
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
@@ -231,7 +256,9 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	
 	}
 	
+	//Continuation of playCard(Action a)
 	private boolean playCardPt3(Action a) {
+		//Continuation 
 		Card c = a.getCard();
 		Player p = this.players.get(this.currentPlayerIndex);
 		
@@ -247,6 +274,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		return true;
 	}
 	
+	//Continuation of playCard(Action a)
 	private boolean playCardPt4(Action a) {
 		
 		Card c = a.getCard();
@@ -299,17 +327,23 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		return true;
 	}
 	
+	/**
+	 * This is the rule parser for cards that cause other players to lose victory points.
+	 * @param current
+	 * @param c
+	 */
 	private void ruleLoseVP(Player current, Card c) {
 		if(c.getOthersLoseVP() == 0) return;
 		
 		
 		
 		for(int i = 0; i < this.players.size(); i++) {
-			if(this.currentPlayerIndex != i) {
+			if(this.players.get(i) != current) {
 				this.players.get(i).addVP(c.getOthersLoseVP() * -1);
 			}
 		}
 		
+		/* Old not working properly.
 		//Update player stats for everyone.
 		String[] playerList = new String[this.players.size()];
 		for(int i = 0; i < this.players.size(); i++) {
@@ -324,6 +358,31 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 					playerList[i] = this.players.get(i).getUser().getUsername();
 				}
 		}
+		*/
+		
+		//Update player stats for everyone.
+		String[] playerList = new String[this.players.size()];
+		for(int i = 0; i < this.players.size(); i++) {
+				playerList[i] = this.players.get(i).getUser().getUsername();
+		}
+		
+		current.updatePlayerStats(playerList);
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			if(this.currentPlayerIndex != i) {
+				
+				this.players.get(i).updateOtherPlayersStats(current.getVP(), playerList, current.getUser().getUsername());
+				
+			}
+			
+			try {
+				this.players.get(i).setNewTableCards(this.mainPlayAreaCards);
+				
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		current.updatePlayerStats(playerList);
 		
@@ -333,7 +392,6 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 			}
 		}
 		
-		//c.getOthersLoseVP()
 	}
 	
 	/**
@@ -354,6 +412,11 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 		current.addAttack(c.getAttack());
 	}
 	
+	/**
+	 * Parse the rules for allowing a player to take an extra turn.
+	 * @param current
+	 * @param c
+	 */
 	private void ruleExtraTurn(Player current, Card c) {
 		if(c.isTakeAnotherTurn()) {
 			System.out.println("Taking extra turn.");
@@ -370,7 +433,7 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	private int discardMax;
 	private Action inProgressAction;
 
-	
+	@Override
 	public void discardCard(Action a) {
 		if(a == null || a.getCard() == null) throw new NullPointerException();
 		if(!this.isDiscardingPre && !this.isDiscardingPost) throw new IllegalStateException();
@@ -411,7 +474,13 @@ public class GameEngine extends UnicastRemoteObject implements Runnable, GameEng
 	}
 	
 	
-	
+	/**
+	 * The rule parser for discarding cards
+	 * @param current
+	 * @param c
+	 * @param isBefore
+	 * @param a
+	 */
 	private void ruleDiscard(Player current, Card c, boolean isBefore, Action a) {
 		
 		int numOfCards;
@@ -463,6 +532,7 @@ private boolean isTrashing = false;
 private int trashMax = 0;
 private int trashCount = 0;
 
+@Override
 public void trashCard(Action a) {
 	if(a == null || a.getCard() == null) throw new NullPointerException();
 	if(!this.isTrashing) throw new IllegalStateException();
@@ -506,7 +576,13 @@ public void trashCard(Action a) {
 	
 	
 }
-	
+
+/**
+ * The rule parser for trashing cards.
+ * @param current
+ * @param c
+ * @param a
+ */
 private void ruleTrash(Player current, Card c, Action a) {
 		
 		
@@ -929,10 +1005,10 @@ private void ruleTrash(Player current, Card c, Action a) {
 				!a.getCard().getName().equals("Lurk") ) {
 			for(int i = 0; i < this.mainPlayAreaCards.size(); i ++) {
 				if(a.getCard().getName().equals(this.mainPlayAreaCards.get(i).getName())) {
-					if(true) {
+					if(false) {
 						this.mainPlayAreaCards.remove(i);
 						this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
-					}/* else { //For debugging cards.
+					} else { //For debugging cards.
 						this.mainPlayAreaCards.remove(i);
 						Card drew = this.mainDeck.draw(this.mainDiscard);
 						while(!drew.getName().substring(0, 4).equals("Quan") && 
@@ -940,7 +1016,7 @@ private void ruleTrash(Player current, Card c, Action a) {
 							drew = this.mainDeck.draw(this.mainDiscard);
 						}
 						this.mainPlayAreaCards.addCard(drew);
-					}*/
+					}
 					break;
 				}
 			}

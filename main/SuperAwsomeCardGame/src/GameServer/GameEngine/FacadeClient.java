@@ -9,6 +9,13 @@ import java.rmi.server.UnicastRemoteObject;
 import javafx.application.Platform;
 
 
+/**
+ * This class implements the Facade pattern for the client, since JavaFX controllers
+ * cannot really be made into JavaRMI. All functions also have to do a Platform.runLater call
+ * in order to have the call injected properly into the JavaFX thread.
+ * @author John Heinig
+ *
+ */
 public class FacadeClient extends UnicastRemoteObject implements Client {
 	
 	public FacadeClient() throws RemoteException {
@@ -107,6 +114,7 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	};
 	
+	@Override
 	public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]){
 		Platform.runLater(() ->
 		{
@@ -118,6 +126,7 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	};
 	
+	@Override
 	public void updateOtherPlayersStats(int vp, String players[], String username){
 		Platform.runLater(() ->
 		{
@@ -129,6 +138,7 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	};
 	
+	@Override
 	public void setPlayerHand(Hand hand){
 		Platform.runLater(() ->
 		{
@@ -140,7 +150,7 @@ public class FacadeClient extends UnicastRemoteObject implements Client {
 		});
 	};
 	
-
+	@Override
 	public void drawCards(Action a) {
 		Platform.runLater(() ->
 		{

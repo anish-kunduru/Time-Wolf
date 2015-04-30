@@ -22,8 +22,7 @@ import GameServer.Users.User;
  *hold on to current games statistics.Making a separate object instead 
  *of tagging these properties onto User prevents a lot of unnecessary null
  *data floating around on user objects when a user is not in a game.
-**/
-
+*/
 public class Player implements Client {
 	
 	//private GameTableScreenController client;
@@ -36,23 +35,31 @@ public class Player implements Client {
 	private int attack;
 	private int VP;
 	private boolean extraTurn = false;
+	
+	/**
+	 * Checks to see if this player has earned an extra turn.
+	 * @return
+	 */
 	public boolean isExtraTurn() {
 		return extraTurn;
 	}
 
 
+	/**
+	 * Set whether or not the user will take an extra turn.
+	 * @param extraTurn
+	 */
 	public void setExtraTurn(boolean extraTurn) {
 		this.extraTurn = extraTurn;
 	}
 
 
-	private Client client;
+	private Client client; //The reference to the client, which is not on the server
 	
 	/**
 	 * @param user The user who is the player.
 	 * @throws SQLException 
 	 */
-	
 	public Player(User user) throws SQLException {
 		
 		//Initliaize given values
@@ -148,7 +155,6 @@ public class Player implements Client {
 	 * Called after a player ends their turn. It initializes stealth and attack back to 0, discards the cards in hand 
 	 * to the discard pile, and draws five new cards.
 	 */
-	
 	public void resetPlayer(){
 		stealth = 0;
 		attack = 0;
@@ -169,7 +175,6 @@ public class Player implements Client {
 	 * Returns the user's ID
 	 * @return The user's ID
 	 */
-	
 	public User getUser() {
 		return user;
 	}
@@ -179,7 +184,6 @@ public class Player implements Client {
 	 * Returns the Hand object of the player
 	 * @return Player's hand
 	 */
-	
 	public Hand getHand() {
 		return hand;
 	}
@@ -188,7 +192,6 @@ public class Player implements Client {
 	 * Returns the DiscardPile object of the player
 	 * @return Player's discard pile
 	 */
-	
 	public DiscardPile getDiscardPile() {
 		return discard;
 	}
@@ -197,7 +200,6 @@ public class Player implements Client {
 	 * Returns the Deck object of the Player
 	 * @return Player's deck
 	 */
-	
 	public Deck getDeck() {
 		return deck;
 	}
@@ -318,6 +320,7 @@ public class Player implements Client {
 		
 	}
 	
+	@Override	
 	public void setOtherPlayerTurn(String player){
 		if(this.client == null) throw new IllegalStateException();
 		try {
@@ -327,6 +330,7 @@ public class Player implements Client {
 		}
 	};
 	
+	@Override
 	public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]){
 		if(this.client == null) throw new IllegalStateException();
 		try {
@@ -336,6 +340,11 @@ public class Player implements Client {
 		}
 	};
 	
+	
+	/**
+	 * Update the player stats on the client.
+	 * @param players
+	 */
 	public void updatePlayerStats(String players[]){
 		if(this.client == null) throw new IllegalStateException();
 		System.out.println("Update Player VP: " + this.getVP());
@@ -343,6 +352,7 @@ public class Player implements Client {
 		this.updatePlayerStats(this.getStealth(), this.getAttack(), this.getVP(), numDeck, players);
 	};
 	
+	@Override
 	public void updateOtherPlayersStats(int vp, String players[], String username){
 		if(this.client == null) throw new IllegalStateException();
 		try {
@@ -351,7 +361,10 @@ public class Player implements Client {
 			e.printStackTrace();
 		}
 	};
-	
+
+	/**
+	 * Set the player's hand on the client.
+	 */
 	public void setPlayerHand(){
 		if(this.client == null) throw new IllegalStateException();
 		try {

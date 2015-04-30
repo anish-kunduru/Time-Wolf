@@ -623,7 +623,6 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * Updates the cards on the table so all player's see same cards after a card is stolen/attacked
     */
-
    @Override
    public void setNewTableCards(Hand hand){
       for (int i = 0; i < hand.size(); i++) {
@@ -682,7 +681,7 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * Starts this client's players turn
     */
-
+   @Override
    public void startTurn() {
       System.out.println("Starting turn...");
       isTurn = true;
@@ -835,6 +834,7 @@ public class GameTableScreenController implements ControlledScreen,
     * 
     * @param a
     */
+   @Override
    public void acquireCard(Action a) {
 
       Card c = a.getCard();
@@ -856,6 +856,7 @@ public class GameTableScreenController implements ControlledScreen,
     * 
     * @param a
     */
+   @Override
    public void playCard(Action a) {
       System.out.println("Starting Play action.");
       
@@ -890,6 +891,7 @@ public class GameTableScreenController implements ControlledScreen,
     * 
     * @param a
     */
+   @Override
    public void trashCard(Action a) {
       Card c = a.getCard();
       int trash = 0;
@@ -910,6 +912,7 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * Adds all cards to player's hands that were drawn
     */
+   @Override
    public void drawCards(Action a) {
       int j = 0;
 
@@ -959,7 +962,7 @@ public class GameTableScreenController implements ControlledScreen,
     * @param vp
     * @param players
     */
-
+   @Override
    public void updatePlayerStats(int st, int at, int vp, int numDeck, String players[]) {
       Stealth.setText("Stealth: " + st);
       stealth = st;
@@ -1002,7 +1005,7 @@ public class GameTableScreenController implements ControlledScreen,
     * @param username
     *            username of player that you want to change data for
     */
-
+   @Override
    public void updateOtherPlayersStats(int vp, String players[],
          String username) {
 
@@ -1081,6 +1084,7 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * Set's the turn to a player other than this client's player
     */
+   @Override
    public void setOtherPlayerTurn(String player) {
       // turns off ability to click on things
       isTurn = false;
@@ -1092,7 +1096,7 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * Set's the current player's hand after end turn
     */
-
+   @Override
    public void setPlayerHand(Hand hand) {
 
       for (int i = 0; i < playerHandImages.length; i++) {
@@ -1109,7 +1113,7 @@ public class GameTableScreenController implements ControlledScreen,
    /**
     * ends the game, sends the player's to after game screen
     */
-   
+   @Override
    public void endGame(int vp[], int cardsInDeck[], String playerNames[]){
       MainModel.getModel().currentGameTableData().setVP(vp);
       MainModel.getModel().currentGameTableData().setCardsInDeck(cardsInDeck);
