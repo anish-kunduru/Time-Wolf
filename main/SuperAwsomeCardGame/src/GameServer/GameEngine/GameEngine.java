@@ -1005,18 +1005,9 @@ private void ruleTrash(Player current, Card c, Action a) {
 				!a.getCard().getName().equals("Lurk") ) {
 			for(int i = 0; i < this.mainPlayAreaCards.size(); i ++) {
 				if(a.getCard().getName().equals(this.mainPlayAreaCards.get(i).getName())) {
-					if(false) {
 						this.mainPlayAreaCards.remove(i);
 						this.mainPlayAreaCards.addCard(this.mainDeck.draw(this.mainDiscard));
-					} else { //For debugging cards.
-						this.mainPlayAreaCards.remove(i);
-						Card drew = this.mainDeck.draw(this.mainDiscard);
-						while(!drew.getName().substring(0, 4).equals("Quan") && 
-								!drew.getName().substring(0, 4).equals("Para")) {
-							drew = this.mainDeck.draw(this.mainDiscard);
-						}
-						this.mainPlayAreaCards.addCard(drew);
-					}
+					
 					break;
 				}
 			}
